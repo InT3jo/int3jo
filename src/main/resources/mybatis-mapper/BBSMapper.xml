@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project3.yakdo.repository.mybatis.BBSMapper">
+
+	<!-- 게시글 작성 -->
+	<insert id="insert" parameterType="BBS">
+		insert into BBS
+		(
+		BBS_no,
+		user_no,
+		BBS_title,
+		BBS_content,
+		BBS_date,
+		BBS_show
+		)
+		values
+		(
+		BBSPK.nextVal,
+		#{user_no},
+		#{BBS_title},
+		#{BBS_content},
+		#{BBS_date},
+		#{BBS_show}
+		)
+	</insert>
+
+	<!-- 게시글 읽기 -->
+	<select id="selectByBBS_no" resultType="BBS">
+		<!-- 게시글 클릭시 선택한 게시글 보여주기 -->
+		<!-- 게시글 보여줄때 user_no에 맞는 닉네임 찾아서 같이 출력되어야함 -->
+		select
+		b.BBS_no,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		u.user_nick
+		from
+		BBS b , users u
+		WHERE b.BBS_no = #{BBS_no}
+	</select>
+
+	<!-- 게시글 전체 목록 보기 -->
+	<select id="selectAll" resultType="BBS">
+		<!-- BBS_show 값이 0(게시) 1(본인삭제) 2(관리자삭제) 이기 때문에 0인것만 목록에 출력 -->
+		select
+		b.BBS_no,
+		b.BBS_title,
+		u.user_nick,
+		b.BBS_date
+		from BBS b , users u
+		where b.BBS_show = 0
+	</select>
+
+	<!-- 게시글 수정 -->
+	<update id="update">
+		update BBS
+		set
+		BBS_title=#{BBS_title},
+		BBS_content=#{BBS_content}
+		where BBS_no=#{BBS_no}
+	</update>
+
+	<!-- 본인 삭제 / 게시글 전체 목록에서 숨기기 -->
+	<update id="updateBBS_show_1_ByBBS_no">
+		update BBS
+		set BBS_show=1
+		where BBS_no=#{BBS_no}
+	</update>
+
+	<!-- 관리자 삭제 / 게시글 전체 목록에서 숨기기 -->
+	<update id="updateBBS_show_2_ByBBS_no">
+		update BBS
+		set BBS_show=2
+		where BBS_no=#{BBS_no}
+	</update>
+
+
+
+
+</mapper>
