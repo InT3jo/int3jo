@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project3.yakdo.repository.mybatis.DrugsMapper">
+	<insert id="insertDrugInfo" parameterType="DrugInfo">
+		INSERT INTO drug_info (
+			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
+			CHART, ETC_OTC_NAME, ENTP_NAME, EFCY_QESITM, USE_METHOD_QESITM,
+			ATPN_WARN_QESITM, ATPN_QESITM, INTRC_QESITM, SE_QESITM,
+			DEPOSI_METHOD_QESITM, EDI_CODE
+			)
+		VALUES (
+			#{itemSeq}, #{itemName}, #{itemEngName}, #{itemImage}, #{classNo}, #{className},
+			#{chart}, #{etcOtcName}, #{entpName}, #{efcyQesitm}, #{useMethodQesitm},
+			#{atpnWarnQesitm}, #{atpnQesitm}, #{intrcQesitm}, #{seQesitm},
+			#{deposiMethodQesitm}, #{ediCode}
+			) 
+	</insert>
+	
+	<insert id="insertDrugInfoIngrList">
+		<foreach collection="ingrNameList" item="ingrName" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+			INTO drug_info_ingr VALUES (#{itemSeq}, #{ingrName})
+		</foreach>
+	</insert>
+	
+	<insert id="insertFindDrug" parameterType="FindDrug">
+		INSERT INTO find_drug (
+			ITEM_SEQ, PRINT_FRONT, PRINT_BACK, DRUG_SHAPE, COLOR_CLASS1, COLOR_CLASS2,
+			LINE_FRONT, LINE_BACK, LENG_LONG, LENG_SHORT, THICK,
+			MARK_CODE_FRONT_ANAL, MARK_CODE_BACK_ANAL, MARK_CODE_FRONT, MARK_CODE_BACK,
+			MARK_CODE_FRONT_IMG, MARK_CODE_BACK_IMG
+			)
+		VALUES (
+			#{itemSeq}, #{printFront}, #{printBack}, #{DrugShape}, #{colorClass1}, #{colorClass2},
+			#{lineFront}, #{lineBack}, #{lengLong}, #{lengShort}, #{thick},
+			#{markCodeFrontAnal}, #{markCodeBackAnal}, #{markCodeFront}, #{markCodeBack},
+			#{markCodeFrontImg}, #{markCodeBackImg}
+			) 
+	</insert>
+	
+	<delete id="deleteDrugInfo">
+		DELETE FROM drug_info
+	</delete>
+	<delete id="deleteDrugInfoIngr">
+		DELETE FROM drug_info_ingr
+	</delete>
+	<delete id="deleteFindDrug">
+		DELETE FROM find_drug
+	</delete>
+</mapper>
