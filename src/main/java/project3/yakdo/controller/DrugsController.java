@@ -27,8 +27,7 @@ public class DrugsController {
 	@PostMapping()
 	public String drugsHomePost() {
 		DrugAPI drugAPI = new DrugAPI(drugsRepository);
-		drugAPI.setDrugInfoByAPI();
-		drugAPI.setFindDrugByAPI();
+		drugAPI.getAPI();
 		return "drugs/drugshome";
 	}
 }

@@ -23,4 +23,6 @@ public class FindDrug {
 	private String markCodeBack; // 마크코드(뒤)
 	private String markCodeFrontImg; // 마크이미지(앞)
 	private String markCodeBackImg; // 마크이미지(뒤)
+	
+	public FindDrug() {} // 기본생성자
 }
