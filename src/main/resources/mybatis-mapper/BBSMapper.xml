@@ -41,7 +41,7 @@
 	</select>
 
 	<!-- 게시글 전체 목록 보기 -->
-	<select id="selectAll" resultType="BBS">
+	<select id="selectByBBS_show_0" resultType="BBS">
 		<!-- BBS_show 값이 0(게시) 1(본인삭제) 2(관리자삭제) 이기 때문에 0인것만 목록에 출력 -->
 		select
 		b.BBS_no,

@@ -17,41 +17,46 @@ public class BBSMybatisRepository implements BBSRepository {
 	private final BBSMapper BBSMapper;
 
 	@Override
-	public BBS insert(BBS BBS) {
+	public BBS insert(BBS bbs) {
 		// TODO Auto-generated method stub
-		Integer result = BBSMapper.insert(BBS);
+		Integer result = BBSMapper.insert(bbs);
 		log.info("BBS insert result {}", result);
 		
-		return BBS;
+		return bbs;
 	}
 
 	@Override
 	public BBS selectByBBS_no(int BBS_no) {
 		// TODO Auto-generated method stub
-		return null;
+		BBS result = BBSMapper.selectByBBS_no(BBS_no);
+		return result;
 	}
 
 	@Override
 	public List<BBS> selectByBBS_show_0() {
 		// TODO Auto-generated method stub
-		return null;
+		List<BBS> result = BBSMapper.selectByBBS_show_0();
+		return result;
 	}
 
 	@Override
-	public boolean update(int BBS_no, BBS BBS) {
+	public boolean update(int BBS_no, BBS bbs) {
 		// TODO Auto-generated method stub
+		BBSMapper.update(BBS_no,bbs);
 		return false;
 	}
 
 	@Override
 	public boolean updateBBS_show_1_ByBBS_no(int BBS_no) {
 		// TODO Auto-generated method stub
+		BBSMapper.updateBBS_show_1_ByBBS_no(BBS_no);
 		return false;
 	}
 
 	@Override
 	public boolean updateBBS_show_2_ByBBS_no(int BBS_no) {
 		// TODO Auto-generated method stub
+		BBSMapper.updateBBS_show_2_ByBBS_no(BBS_no);
 		return false;
 	}
 

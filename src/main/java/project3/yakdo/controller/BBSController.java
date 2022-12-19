@@ -19,17 +19,22 @@ import project3.yakdo.repository.BBSRepository;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/bbs")
+@RequestMapping("/BBS")
 public class BBSController {
 
 	private final BBSRepository BBSRepository;
 	
 	
 	@GetMapping
-	public String BBS(Model model, HttpServletRequest req) {
-		List<BBS> BBSList = BBSRepository.selectByBBS_show_0();
-		model.addAttribute("BBS", BBSList);
-		return "BBS/BBS";
-		
+	public String BBS(Model model) {
+		List<BBS> BBS = BBSRepository.selectByBBS_show_0();
+		model.addAttribute("BBS", BBS);
+		return "BBS/BBSlist";		
 	}
+	
+//	@GetMapping("/{}")
+//	public String BBS
+	
+	
+	
 }
