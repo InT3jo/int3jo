@@ -8,13 +8,13 @@
 			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
 			CHART, ETC_OTC_NAME, ENTP_NAME, EFCY_QESITM, USE_METHOD_QESITM,
 			ATPN_WARN_QESITM, ATPN_QESITM, INTRC_QESITM, SE_QESITM,
-			DEPOSI_METHOD_QESITM, EDI_CODE
+			DEPOSIT_METHOD_QESITM, EDI_CODE
 			)
 		VALUES (
 			#{itemSeq}, #{itemName}, #{itemEngName}, #{itemImage}, #{classNo}, #{className},
 			#{chart}, #{etcOtcName}, #{entpName}, #{efcyQesitm}, #{useMethodQesitm},
 			#{atpnWarnQesitm}, #{atpnQesitm}, #{intrcQesitm}, #{seQesitm},
-			#{deposiMethodQesitm}, #{ediCode}
+			#{depositMethodQesitm}, #{ediCode}
 			) 
 	</insert>
 	
