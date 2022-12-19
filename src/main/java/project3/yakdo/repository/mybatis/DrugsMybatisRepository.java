@@ -22,7 +22,7 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	/**
 	 * DB의 DRUG_INFO Table의 내용을 받아온 리스트로 변경
 	 * parameter : List<DrugInfo>
-	 * return : 0 성공, 1 실패
+	 * return : insert count
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -43,7 +43,7 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	/**
 	 * DB의 FIND_DRUG Table의 현재 내용을 모두 날리고
 	 * API에서 새로운 정보를 가져와 셋팅하기
-	 * return : 0 성공, 1 실패
+	 * return : insert count
 	 * 담당자 : 홍준표
 	 */
 	@Override

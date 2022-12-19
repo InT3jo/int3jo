@@ -5,6 +5,7 @@
 package project3.yakdo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class DrugsController {
 	private final DrugsRepository drugsRepository;
 	
 	@GetMapping()
-	public String drugsHomeGet() {
+	public String drugsHomeGet(Model model) {
 		return "drugs/drugshome";
 	}
 	@PostMapping()

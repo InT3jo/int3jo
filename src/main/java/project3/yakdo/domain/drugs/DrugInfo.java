@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class DrugInfo {
 	private String itemSeq; // 품목일련번호
 	private String itemName; // 제품명

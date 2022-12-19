@@ -11,10 +11,10 @@
 			DEPOSIT_METHOD_QESITM, EDI_CODE
 			)
 		VALUES (
-			#{itemSeq}, #{itemName}, #{itemEngName}, #{itemImage}, #{classNo}, #{className},
-			#{chart}, #{etcOtcName}, #{entpName}, #{efcyQesitm}, #{useMethodQesitm},
-			#{atpnWarnQesitm}, #{atpnQesitm}, #{intrcQesitm}, #{seQesitm},
-			#{depositMethodQesitm}, #{ediCode}
+			#{drugInfo.itemSeq}, #{drugInfo.itemName}, #{drugInfo.itemEngName}, #{drugInfo.itemImage}, #{drugInfo.classNo}, #{drugInfo.className},
+			#{drugInfo.chart}, #{drugInfo.etcOtcName}, #{drugInfo.entpName}, #{drugInfo.efcyQesitm}, #{drugInfo.useMethodQesitm},
+			#{drugInfo.atpnWarnQesitm}, #{drugInfo.atpnQesitm}, #{drugInfo.intrcQesitm}, #{drugInfo.seQesitm},
+			#{drugInfo.depositMethodQesitm}, #{drugInfo.ediCode}
 			) 
 	</insert>
 	

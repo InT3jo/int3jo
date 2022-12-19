@@ -23,6 +23,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,7 @@ import project3.yakdo.service.drugs.api.dto.DrugInfo3;
 import project3.yakdo.domain.drugs.DrugInfo;
 
 @Slf4j
+@Service
 @RequiredArgsConstructor
 public class DrugAPI {
 
@@ -46,7 +49,8 @@ public class DrugAPI {
 	 */
 	public void getAPI() {
 		// TODO Auto-generated method stub
-		trustUrl();
+		log.info("API 데이터 DB 최신화 작업 시작");
+		trustUrl(); // 신뢰하는 URL에 추가
 		
 		List<DrugInfo> drugInfoList = new ArrayList<>();
 		List<FindDrug> findDrugList = new ArrayList<>();
@@ -54,43 +58,99 @@ public class DrugAPI {
 		List<DrugInfo2> tempInfo2 = new ArrayList<>();
 		List<DrugInfo3> tempInfo3 = new ArrayList<>();
 
-		log.info("DrugInfo 시작");
-		setDomainByDrugInfoAPI(tempInfo1);
-		log.info("DrugInfo 완료");
-		
-		log.info("DrugMoreInfo 시작");
-		setDomainByDrugMoreInfoAPI(tempInfo2);
-		log.info("DrugMoreInfo 완료");
 		
 		//DUR 금기타입 테이블 필요
-		log.info("DUR 시작");
-		setDomainByDurAPI();
-		log.info("DUR 완료");
+//		log.info("DUR 시작");
+//		setDomainByDurAPI();
+//		log.info("DUR 완료");
 		
-		log.info("FindDrug 시작");
+		/*
 		setDomainByFindDrugAPI(tempInfo3,findDrugList);
-		log.info("FindDrug 완료");
+		int resultFD = setFindDrugByAPI(findDrugList);
+		log.info("FindDrug DB insert 완료("+resultFD+"건)");
+		findDrugList.clear(); //메모리 회수 필요
 		
-		log.info("domainConbine 시작");
+		setDomainByDrugInfoAPI(tempInfo1);
+		setDomainByDrugMoreInfoAPI(tempInfo2);
+		log.info("DrugMoreInfo 완료");
+
 		domainConbine(drugInfoList,tempInfo1,tempInfo2,tempInfo3);
 		log.info("domainConbine 완료");
 		
+		
 		log.info("DrugInfo DB 시작");
 		int resultDI = setDrugInfoByAPI(drugInfoList);
-		log.info("DrugInfo DB 완료");
+		log.info("DrugInfo DB insert 완료("+resultDI+"건)");
+		*/
 		
-		log.info("FindDrug DB 시작");
-		int resultFD = setFindDrugByAPI(findDrugList);
-		log.info("FindDrug DB 완료");
-		
-		
-		/////////////////////////////////////////////////////////////
-		
-		
-		
+		testGetAPI(drugInfoList,tempInfo1,tempInfo2,tempInfo3);
+		log.info(drugInfoList.toString());
+		int resultDI = setDrugInfoByAPI(drugInfoList);
+		//test에서 미리 작업한 druginfolist 넣어줘보기
 		
 	}
 	
+	private void testGetAPI(List<DrugInfo> drugInfoList, List<DrugInfo1> tempInfo1, List<DrugInfo2> tempInfo2,
+			List<DrugInfo3> tempInfo3) {
+		// TODO Auto-generated method stub
+		String findDrugJson = getJsonStringByApi(DrugPath.FINDDRUG_API_PAGE_,1);
+		JSONObject jObject = new JSONObject(findDrugJson);
+		JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
+		for(int j=0;j<1;j++) {
+			JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
+			DrugInfo drugInfo = new DrugInfo();
+//			drugInfo.setItemSeq(itemObj.getString("ITEM_SEQ").toString());
+//			drugInfo.setItemEngName(itemObj.get("ITEM_ENG_NAME").toString());
+//			drugInfo.setClassNo(itemObj.get("CLASS_NO").toString());
+//			drugInfo.setClassName(itemObj.get("CLASS_NAME").toString());
+//			drugInfo.setEdiCode(itemObj.get("EDI_CODE").toString());
+			//tempInfo3.add(drugInfo);
+			drugInfoList.add(drugInfo);
+		}
+		/*
+		String drugMoreInfoJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,1);
+		jObject = new JSONObject(drugMoreInfoJson);
+		itemList = jObject.getJSONObject("body").getJSONArray("items");
+		for(int j=0;j<1;j++) {
+			JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
+			DrugInfo2 drugInfo = new DrugInfo2();
+			drugInfo.setItemSeq(itemObj.get("ITEM_SEQ").toString());
+//			drugInfo.setItemName(itemObj.get("ITEM_NAME").toString());
+//			drugInfo.setChart(itemObj.get("CHART").toString());
+//			drugInfo.setEtcOtcName(itemObj.get("ETC_OTC_CODE").toString());
+//			drugInfo.setEntpName(itemObj.get("ENTP_NAME").toString());
+//			drugInfo.setEfcyQesitm(itemObj.get("EE_DOC_DATA").toString());
+//			drugInfo.setUseMethodQesitm(itemObj.get("UD_DOC_DATA").toString());
+//			drugInfo.setAtpnQesitm(itemObj.get("NB_DOC_DATA").toString());
+			String temp = itemObj.get("MAIN_ITEM_INGR").toString()+"|"+itemObj.get("INGR_NAME").toString();
+			List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("|")));
+			drugInfo.setIngrNameList(ingrList);
+			tempInfo2.add(drugInfo);
+		}			
+		
+		String drugInfoJson = getJsonStringByApi(DrugPath.DRUGINFO_API_PAGE_,1);
+		jObject = new JSONObject(drugInfoJson);
+		itemList = jObject.getJSONObject("body").getJSONArray("items");
+		for(int j=0;j<1;j++) {
+			DrugInfo1 drugInfo = new DrugInfo1();
+			JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
+			drugInfo.setItemSeq(itemObj.get("itemSeq").toString());
+//			drugInfo.setItemName(itemObj.get("itemName").toString());
+//			drugInfo.setItemImage(itemObj.get("itemImage").toString());
+//			drugInfo.setEntpName(itemObj.get("entpName").toString());
+//			drugInfo.setEfcyQesitm(itemObj.get("efcyQesitm").toString());
+//			drugInfo.setUseMethodQesitm(itemObj.get("useMethodQesitm").toString());
+//			drugInfo.setAtpnWarnQesitm(itemObj.get("atpnWarnQesitm").toString());
+//			drugInfo.setAtpnQesitm(itemObj.get("atpnQesitm").toString());
+//			drugInfo.setIntrcQesitm(itemObj.get("intrcQesitm").toString());
+//			drugInfo.setSeQesitm(itemObj.get("seQesitm").toString());
+//			drugInfo.setDepositMethodQesitm(itemObj.get("depositMethodQesitm").toString());
+			tempInfo1.add(drugInfo);
+		}	
+		*/
+		//domainConbine(drugInfoList, tempInfo1, tempInfo2, tempInfo3);
+	}
+
 	private void domainConbine(List<DrugInfo> drugInfoList, List<DrugInfo1> tempInfo1, List<DrugInfo2> tempInfo2,
 			List<DrugInfo3> tempInfo3) {
 		// TODO Auto-generated method stub
@@ -107,6 +167,7 @@ public class DrugAPI {
 			drugInfo.setIngrNameList(di.getIngrNameList());
 			drugInfoList.add(drugInfo);
 		}
+		tempInfo2.clear(); //메모리 회수 필요
 		for(DrugInfo1 di:tempInfo1) {
 			boolean isFind = false;
 			for(DrugInfo drugInfo:drugInfoList) {
@@ -145,6 +206,7 @@ public class DrugAPI {
 				drugInfoList.add(drugInfo);
 			}
 		}
+		tempInfo1.clear(); //메모리 회수 필요
 		for(DrugInfo3 di:tempInfo3) {
 			boolean isFind = false;
 			for(DrugInfo drugInfo:drugInfoList) {
@@ -166,6 +228,7 @@ public class DrugAPI {
 				drugInfoList.add(drugInfo);
 			}
 		}
+		tempInfo3.clear(); //메모리 회수 필요
 	}
 
 	private void setDomainByFindDrugAPI(List<DrugInfo3> tempInfo3, List<FindDrug> findDrugList) {
@@ -175,8 +238,8 @@ public class DrugAPI {
 		int totalPage = (totalCnt/100)+1;
 		
 		for(int i=1;i<=totalPage;i++) {
-			String drugMoreInfoJson = getJsonStringByApi(DrugPath.FINDDRUG_API_PAGE_,i);
-			JSONObject jObject = new JSONObject(drugMoreInfoJson);
+			String findDrugJson = getJsonStringByApi(DrugPath.FINDDRUG_API_PAGE_,i);
+			JSONObject jObject = new JSONObject(findDrugJson);
 			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
 			for(int j=0;j<itemList.length();j++) {
 				JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
@@ -347,8 +410,8 @@ public class DrugAPI {
 	}
 
 	private int setFindDrugByAPI(List<FindDrug> findDrugList) {
-
 		return drugRepository.insertFindDrug(findDrugList);
 	}
+	
 
 }
