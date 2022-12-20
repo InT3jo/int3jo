@@ -79,11 +79,11 @@ public class DrugAPI {
 		log.info("FindDrug API 가져오기 시작");
 		setDomainByFindDrugAPI(drugInfoList,findDrugList);
 		log.info("FindDrug API 가져오기 완료");
-		setDrugInfoByAPI(drugInfoList);
-		log.info("FindDrug DB(DrugInfo) insert 완료");
 		setFindDrugByAPI(findDrugList);
 		log.info("FindDrug DB(FindDrug) insert 완료");
 		findDrugList.clear(); //메모리 회수 필요
+		setDrugInfoByAPI(drugInfoList);
+		log.info("FindDrug DB(DrugInfo) insert 완료");
 		
 	}
 
@@ -127,6 +127,9 @@ public class DrugAPI {
 				findDrug.setMarkCodeBackImg(itemObj.get("MARK_CODE_BACK_IMG").toString());
 				
 				findDrugList.add(findDrug);
+			}
+			if(i%10==0) {
+				log.info("DrugAPI.setDomainByFindDrugAPI();({}page/{}page)",i,totalPage);
 			}
 		}
 		
@@ -205,10 +208,13 @@ public class DrugAPI {
 				drugInfo.setUseMethodQesitm(itemObj.get("UD_DOC_DATA").toString());
 				drugInfo.setAtpnQesitm(itemObj.get("NB_DOC_DATA").toString());
 				String temp = itemObj.get("MAIN_ITEM_INGR").toString()+"|"+itemObj.get("INGR_NAME").toString();
-				List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("|")));
+				List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("\\|")));
 				drugInfo.setIngrNameList(ingrList);
 				drugInfoList.add(drugInfo);
-			}			
+			}
+			if(i%10==0) {
+				log.info("DrugAPI.setDomainByDrugMoreInfoAPI();({}page/{}page)",i,endNum);
+			}
 		}
 	}
 
@@ -238,7 +244,10 @@ public class DrugAPI {
 				drugInfo.setSeQesitm(itemObj.get("seQesitm").toString());
 				drugInfo.setDepositMethodQesitm(itemObj.get("depositMethodQesitm").toString());
 				drugInfoList.add(drugInfo);
-			}			
+			}
+			if(i%10==0) {
+				log.info("DrugAPI.setDomainByDrugInfoAPI();({}page/{}page)",i,totalPage);
+			}
 		}
 	}
 
@@ -298,7 +307,6 @@ public class DrugAPI {
 
 	private int setFindDrugByAPI(List<FindDrug> findDrugList) {
 		int result = drugRepository.insertFindDrug(findDrugList);
-		findDrugList.clear(); // 메모리 회수 필요
 		return result;
 	}
 	

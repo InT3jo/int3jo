@@ -21,7 +21,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	private final DrugsMapper drugsMapper;
 	
 	/**
-	 * DB의 DRUG_INFO Table의 내용을 받아온 리스트로 변경
+	 * DB의 DRUG_INFO Table에 파라미터의 리스트를 추가
+	 * 이미 있는 일련번호는 빈 내용만 가져온 내용으로 채워넣는다.
 	 * parameter : List<DrugInfo>
 	 * return : insert count
 	 * 담당자 : 홍준표
@@ -63,10 +64,10 @@ public class DrugsMybatisRepository implements DrugsRepository{
 			}
 			result++;
 			if(result==1) {
-				log.info("마이바티스.insertDrugInfo();("+result+"/"+drugInfoList.size()+")");				
+				log.info("DrugsMybatisRepository.insertDrugInfo();("+result+"/"+drugInfoList.size()+")");				
 			}
 			if(result%100==0) {
-				log.info("마이바티스.insertDrugInfo();("+result+"/"+drugInfoList.size()+")");				
+				log.info("DrugsMybatisRepository.insertDrugInfo();("+result+"/"+drugInfoList.size()+")");				
 			}
 		}
 		return result;
@@ -74,52 +75,54 @@ public class DrugsMybatisRepository implements DrugsRepository{
 
 	private void updateCol(String itemSeq, String colName, String value) {
 		// TODO Auto-generated method stub
-		Map<String, String> col = new HashMap<>();
-		col.put("itemSeq", itemSeq);
-		col.put("colName", colName);
-		if(colName.equals("ATPN_QESITM")) {
-			String temp = "";
-			String[] tempList = value.split(""); 
-			for(int i=0;i<tempList.length;i++) {
-				if(i!=0) {
-					temp+="||";
+		if(itemSeq!=null&&colName!=null&&value!=null) { // 3가지 데이터중 하나라도 null이면 패스
+			Map<String, String> col = new HashMap<>();
+			col.put("itemSeq", itemSeq);
+			col.put("colName", colName);
+			if(colName.equals("ATPN_QESITM")) {
+				String temp = "";
+				String[] tempList = value.split(""); 
+				for(int i=0;i<tempList.length;i++) {
+					if(i!=0) {
+						temp+="||";
+					}
+					temp += "TO_CLOB('" + tempList[i] + "')";
 				}
-				temp += "TO_CLOB('" + tempList[i] + "')";
-			}
-			col.put("value", temp);
-		}else if(colName.equals("EFCY_QESITM")) {
-			String temp = "";
-			String[] tempList = value.split(""); 
-			for(int i=0;i<tempList.length;i++) {
-				if(i!=0) {
-					temp+="||";
+				col.put("value", temp);
+			}else if(colName.equals("EFCY_QESITM")) {
+				String temp = "";
+				String[] tempList = value.split(""); 
+				for(int i=0;i<tempList.length;i++) {
+					if(i!=0) {
+						temp+="||";
+					}
+					temp += "TO_CLOB('" + tempList[i] + "')";
 				}
-				temp += "TO_CLOB('" + tempList[i] + "')";
-			}
-			col.put("value", temp);
-		}else if(colName.equals("USE_METHOD_QESITM")) {
-			String temp = "";
-			String[] tempList = value.split(""); 
-			for(int i=0;i<tempList.length;i++) {
-				if(i!=0) {
-					temp+="||";
+				col.put("value", temp);
+			}else if(colName.equals("USE_METHOD_QESITM")) {
+				String temp = "";
+				String[] tempList = value.split(""); 
+				for(int i=0;i<tempList.length;i++) {
+					if(i!=0) {
+						temp+="||";
+					}
+					temp += "TO_CLOB('" + tempList[i] + "')";
 				}
-				temp += "TO_CLOB('" + tempList[i] + "')";
+				col.put("value", temp);
+			}else {
+				col.put("value", "'"+value+"'");			
+			}		
+			try {
+				drugsMapper.updateDrugInfo(col);			
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-			col.put("value", temp);
-		}else {
-			col.put("value", "'"+value+"'");			
-		}
-		try {
-			drugsMapper.updateDrugInfo(col);			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 
 	/**
-	 * DB의 FIND_DRUG Table의 현재 내용을 모두 날리고
-	 * API에서 새로운 정보를 가져와 셋팅하기
+	 * DB의 FIND_DRUG 테이블에 파라미터의 리스트를 추가하기
+	 * parameter : List<FindDrug>
 	 * return : insert count
 	 * 담당자 : 홍준표
 	 */
@@ -132,12 +135,13 @@ public class DrugsMybatisRepository implements DrugsRepository{
 			result++;
 			findDrug.allClear(); // 메모리 회수
 			if(result==1) {
-				log.info("마이바티스.insertFindDrug();("+result+"/"+findDrugList.size()+")");				
+				log.info("DrugsMybatisRepository.insertFindDrug();("+result+"/"+findDrugList.size()+")");				
 			}
 			if(result%100==0) {
-				log.info("마이바티스.insertFindDrug();("+result+"/"+findDrugList.size()+")");				
+				log.info("DrugsMybatisRepository.insertFindDrug();("+result+"/"+findDrugList.size()+")");				
 			}
 		}
+		findDrugList.clear(); // 메모리 회수 필요
 		return result;
 	}
 	
