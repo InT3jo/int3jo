@@ -61,35 +61,28 @@ public class DrugAPI {
 		drugRepository.deleteFindDrug();
 		log.info("DrugInfo, FindDrug 테이블 기존 데이터 삭제 완료");
 		
-		log.info("DrugMoreInfo API(1/3) 가져오기 시작");
-		setDomainByDrugMoreInfoAPI1(drugInfoList);
-		log.info("DrugMoreInfo API(1/3) 가져오기 완료");
-		int resultDMI1 = setDrugInfoByAPI(drugInfoList);
-		log.info("DrugMoreInfo DB insert 완료(1/3)");
-		log.info("DrugMoreInfo API(2/3) 가져오기 시작");
-		setDomainByDrugMoreInfoAPI2(drugInfoList);
-		log.info("DrugMoreInfo API(2/3) 가져오기 완료");
-		int resultDMI2 = setDrugInfoByAPI(drugInfoList);
-		log.info("DrugMoreInfo DB insert 완료(2/3)");
-		log.info("DrugMoreInfo API(3/3) 가져오기 시작");
-		setDomainByDrugMoreInfoAPI3(drugInfoList);
-		log.info("DrugMoreInfo API(3/3) 가져오기 완료");
-		int resultDMI3 = setDrugInfoByAPI(drugInfoList);
-		log.info("DrugMoreInfo DB insert 완료(3/3)");
+		int tCnt = 10; // 한번에 가져오면 메모리 부담이 커서 몇번에 나눠서 가져올건지 결정
+		for(int i=1;i<=tCnt;i++) {
+			log.info("DrugMoreInfo API("+i+"/"+tCnt+") 가져오기 시작");
+			setDomainByDrugMoreInfoAPI(drugInfoList,i,tCnt);
+			log.info("DrugMoreInfo API("+i+"/"+tCnt+") 가져오기 완료");
+			setDrugInfoByAPI(drugInfoList);
+			log.info("DrugMoreInfo DB insert 완료("+i+"/"+tCnt+")");			
+		}
 		
 		log.info("DrugInfo API 가져오기 시작");
 		setDomainByDrugInfoAPI(drugInfoList);
 		log.info("DrugInfo API 가져오기 완료");
-		int resultDI2 = setDrugInfoByAPI(drugInfoList);
+		setDrugInfoByAPI(drugInfoList);
 		log.info("DrugInfo DB insert 완료");
 		
 		log.info("FindDrug API 가져오기 시작");
 		setDomainByFindDrugAPI(drugInfoList,findDrugList);
 		log.info("FindDrug API 가져오기 완료");
-		int resultDI3 = setDrugInfoByAPI(drugInfoList);
-		log.info("FindDrug DB(DrugInfo) insert 완료("+resultDI3+"건)");
-		int resultFD = setFindDrugByAPI(findDrugList);
-		log.info("FindDrug DB(FindDrug) insert 완료("+resultFD+"건)");
+		setDrugInfoByAPI(drugInfoList);
+		log.info("FindDrug DB(DrugInfo) insert 완료");
+		setFindDrugByAPI(findDrugList);
+		log.info("FindDrug DB(FindDrug) insert 완료");
 		findDrugList.clear(); //메모리 회수 필요
 		
 	}
@@ -160,100 +153,43 @@ public class DrugAPI {
 //		}
 	}
 	
-	private void setDomainByDrugMoreInfoAPITest(List<DrugInfo> drugInfoList) {
-		String tempJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,1);
-		JSONObject tempObject = new JSONObject(tempJson);
-		int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
-		int totalPage = (totalCnt/100)+1;
-		
-		for(int i=1;i<=2;i++) {
-			String drugMoreInfoJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,i);
-			JSONObject jObject = new JSONObject(drugMoreInfoJson);
-			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
-			for(int j=0;j<itemList.length();j++) {
-				JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
-				DrugInfo drugInfo = new DrugInfo();
-				drugInfo.setItemSeq(itemObj.get("ITEM_SEQ").toString());
-				drugInfo.setItemName(itemObj.get("ITEM_NAME").toString());
-				drugInfo.setChart(itemObj.get("CHART").toString());
-				drugInfo.setEtcOtcName(itemObj.get("ETC_OTC_CODE").toString());
-				drugInfo.setEntpName(itemObj.get("ENTP_NAME").toString());
-				drugInfo.setEfcyQesitm(itemObj.get("EE_DOC_DATA").toString());
-				drugInfo.setUseMethodQesitm(itemObj.get("UD_DOC_DATA").toString());
-				drugInfo.setAtpnQesitm(itemObj.get("NB_DOC_DATA").toString());
-				String temp = itemObj.get("MAIN_ITEM_INGR").toString()+"|"+itemObj.get("INGR_NAME").toString();
-				List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("|")));
-				drugInfo.setIngrNameList(ingrList);
-				drugInfoList.add(drugInfo);
-			}			
-		}
-	}
+//	private void setDomainByDrugMoreInfoAPITest(List<DrugInfo> drugInfoList) {
+//		String tempJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,1);
+//		JSONObject tempObject = new JSONObject(tempJson);
+//		int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
+//		int totalPage = (totalCnt/100)+1;
+//		
+//		for(int i=1;i<=2;i++) {
+//			String drugMoreInfoJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,i);
+//			JSONObject jObject = new JSONObject(drugMoreInfoJson);
+//			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
+//			for(int j=0;j<itemList.length();j++) {
+//				JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
+//				DrugInfo drugInfo = new DrugInfo();
+//				drugInfo.setItemSeq(itemObj.get("ITEM_SEQ").toString());
+//				drugInfo.setItemName(itemObj.get("ITEM_NAME").toString());
+//				drugInfo.setChart(itemObj.get("CHART").toString());
+//				drugInfo.setEtcOtcName(itemObj.get("ETC_OTC_CODE").toString());
+//				drugInfo.setEntpName(itemObj.get("ENTP_NAME").toString());
+//				drugInfo.setEfcyQesitm(itemObj.get("EE_DOC_DATA").toString());
+//				drugInfo.setUseMethodQesitm(itemObj.get("UD_DOC_DATA").toString());
+//				drugInfo.setAtpnQesitm(itemObj.get("NB_DOC_DATA").toString());
+//				String temp = itemObj.get("MAIN_ITEM_INGR").toString()+"|"+itemObj.get("INGR_NAME").toString();
+//				List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("|")));
+//				drugInfo.setIngrNameList(ingrList);
+//				drugInfoList.add(drugInfo);
+//			}			
+//		}
+//	}
 	
-	private void setDomainByDrugMoreInfoAPI1(List<DrugInfo> drugInfoList) {
+	private void setDomainByDrugMoreInfoAPI(List<DrugInfo> drugInfoList, int cnt, int tCnt) {
 		String tempJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,1);
 		JSONObject tempObject = new JSONObject(tempJson);
 		int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
 		int totalPage = (totalCnt/100)+1;
-		
-		for(int i=1;i<=totalPage/3;i++) {
-			String drugMoreInfoJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,i);
-			JSONObject jObject = new JSONObject(drugMoreInfoJson);
-			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
-			for(int j=0;j<itemList.length();j++) {
-				JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
-				DrugInfo drugInfo = new DrugInfo();
-				drugInfo.setItemSeq(itemObj.get("ITEM_SEQ").toString());
-				drugInfo.setItemName(itemObj.get("ITEM_NAME").toString());
-				drugInfo.setChart(itemObj.get("CHART").toString());
-				drugInfo.setEtcOtcName(itemObj.get("ETC_OTC_CODE").toString());
-				drugInfo.setEntpName(itemObj.get("ENTP_NAME").toString());
-				drugInfo.setEfcyQesitm(itemObj.get("EE_DOC_DATA").toString());
-				drugInfo.setUseMethodQesitm(itemObj.get("UD_DOC_DATA").toString());
-				drugInfo.setAtpnQesitm(itemObj.get("NB_DOC_DATA").toString());
-				String temp = itemObj.get("MAIN_ITEM_INGR").toString()+"|"+itemObj.get("INGR_NAME").toString();
-				List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("|")));
-				drugInfo.setIngrNameList(ingrList);
-				drugInfoList.add(drugInfo);
-			}			
-		}
-	}
-	
-	private void setDomainByDrugMoreInfoAPI2(List<DrugInfo> drugInfoList) {
-		String tempJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,1);
-		JSONObject tempObject = new JSONObject(tempJson);
-		int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
-		int totalPage = (totalCnt/100)+1;
-		
-		for(int i=totalPage/3;i<=totalPage*2/3;i++) {
-			String drugMoreInfoJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,i);
-			JSONObject jObject = new JSONObject(drugMoreInfoJson);
-			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
-			for(int j=0;j<itemList.length();j++) {
-				JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
-				DrugInfo drugInfo = new DrugInfo();
-				drugInfo.setItemSeq(itemObj.get("ITEM_SEQ").toString());
-				drugInfo.setItemName(itemObj.get("ITEM_NAME").toString());
-				drugInfo.setChart(itemObj.get("CHART").toString());
-				drugInfo.setEtcOtcName(itemObj.get("ETC_OTC_CODE").toString());
-				drugInfo.setEntpName(itemObj.get("ENTP_NAME").toString());
-				drugInfo.setEfcyQesitm(itemObj.get("EE_DOC_DATA").toString());
-				drugInfo.setUseMethodQesitm(itemObj.get("UD_DOC_DATA").toString());
-				drugInfo.setAtpnQesitm(itemObj.get("NB_DOC_DATA").toString());
-				String temp = itemObj.get("MAIN_ITEM_INGR").toString()+"|"+itemObj.get("INGR_NAME").toString();
-				List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("|")));
-				drugInfo.setIngrNameList(ingrList);
-				drugInfoList.add(drugInfo);
-			}			
-		}
-	}
-	
-	private void setDomainByDrugMoreInfoAPI3(List<DrugInfo> drugInfoList) {
-		String tempJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,1);
-		JSONObject tempObject = new JSONObject(tempJson);
-		int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
-		int totalPage = (totalCnt/100)+1;
-		
-		for(int i=totalPage*2/3;i<=totalPage;i++) {
+		int startNum = ((totalPage*(cnt-1))/tCnt)+1 ;
+		int endNum = (totalPage*cnt)/tCnt;
+		for(int i=startNum;i<=endNum;i++) {
 			String drugMoreInfoJson = getJsonStringByApi(DrugPath.DRUGMOREINFO_API_PAGE_,i);
 			JSONObject jObject = new JSONObject(drugMoreInfoJson);
 			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
