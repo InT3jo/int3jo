@@ -11,17 +11,16 @@
 			DEPOSIT_METHOD_QESITM, EDI_CODE
 			)
 		VALUES (
-			#{drugInfo.itemSeq}, #{drugInfo.itemName}, #{drugInfo.itemEngName}, #{drugInfo.itemImage}, #{drugInfo.classNo}, #{drugInfo.className},
-			#{drugInfo.chart}, #{drugInfo.etcOtcName}, #{drugInfo.entpName}, #{drugInfo.efcyQesitm}, #{drugInfo.useMethodQesitm},
-			#{drugInfo.atpnWarnQesitm}, #{drugInfo.atpnQesitm}, #{drugInfo.intrcQesitm}, #{drugInfo.seQesitm},
-			#{drugInfo.depositMethodQesitm}, #{drugInfo.ediCode}
+			#{itemSeq, jdbcType=VARCHAR}, #{itemName, jdbcType=VARCHAR}, #{itemEngName, jdbcType=VARCHAR}, #{itemImage, jdbcType=VARCHAR}, #{classNo, jdbcType=VARCHAR}, #{className, jdbcType=VARCHAR},
+			#{chart, jdbcType=VARCHAR}, #{etcOtcName, jdbcType=VARCHAR}, #{entpName, jdbcType=VARCHAR}, #{efcyQesitm, jdbcType=VARCHAR}, #{useMethodQesitm, jdbcType=VARCHAR},
+			#{atpnWarnQesitm, jdbcType=VARCHAR}, #{atpnQesitm, jdbcType=VARCHAR}, #{intrcQesitm, jdbcType=VARCHAR}, #{seQesitm, jdbcType=VARCHAR},
+			#{depositMethodQesitm, jdbcType=VARCHAR}, #{ediCode, jdbcType=VARCHAR}
 			) 
 	</insert>
 	
-	<insert id="insertDrugInfoIngrList">
-		<foreach collection="ingrNameList" item="ingrName" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
-			INTO drug_info_ingr VALUES (#{itemSeq}, #{ingrName})
-		</foreach>
+	<insert id="insertDrugInfoIngr">
+		INSERT INTO drug_info_ingr ( ITEM_SEQ, INGR_NAME )
+		VALUES (#{itemSeq, jdbcType=VARCHAR}, #{ingrName, jdbcType=VARCHAR})
 	</insert>
 	
 	<insert id="insertFindDrug" parameterType="FindDrug">
@@ -32,12 +31,28 @@
 			MARK_CODE_FRONT_IMG, MARK_CODE_BACK_IMG
 			)
 		VALUES (
-			#{itemSeq}, #{printFront}, #{printBack}, #{DrugShape}, #{colorClass1}, #{colorClass2},
-			#{lineFront}, #{lineBack}, #{lengLong}, #{lengShort}, #{thick},
-			#{markCodeFrontAnal}, #{markCodeBackAnal}, #{markCodeFront}, #{markCodeBack},
-			#{markCodeFrontImg}, #{markCodeBackImg}
+			#{itemSeq, jdbcType=VARCHAR}, #{printFront, jdbcType=VARCHAR}, #{printBack, jdbcType=VARCHAR}, #{DrugShape, jdbcType=VARCHAR}, #{colorClass1, jdbcType=VARCHAR}, #{colorClass2, jdbcType=VARCHAR},
+			#{lineFront, jdbcType=VARCHAR}, #{lineBack, jdbcType=VARCHAR}, #{lengLong, jdbcType=VARCHAR}, #{lengShort, jdbcType=VARCHAR}, #{thick, jdbcType=VARCHAR},
+			#{markCodeFrontAnal, jdbcType=VARCHAR}, #{markCodeBackAnal, jdbcType=VARCHAR}, #{markCodeFront, jdbcType=VARCHAR}, #{markCodeBack, jdbcType=VARCHAR},
+			#{markCodeFrontImg, jdbcType=VARCHAR}, #{markCodeBackImg, jdbcType=VARCHAR}
 			) 
 	</insert>
+	
+	<update id="updateDrugInfo" parameterType="hashmap">
+		UPDATE drug_info
+		SET ${colName} = ${value}
+		WHERE ITEM_SEQ = ${itemSeq} AND (${colName} IS NULL)
+	</update>
+	
+	<select id="selectDrugInfoByItemSeq" parameterType="String" resultType="DrugInfo">
+		SELECT
+			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
+			CHART, ETC_OTC_NAME, ENTP_NAME, EFCY_QESITM, USE_METHOD_QESITM,
+			ATPN_WARN_QESITM, ATPN_QESITM, INTRC_QESITM, SE_QESITM,
+			DEPOSIT_METHOD_QESITM, EDI_CODE
+		FROM drug_info
+		WHERE ITEM_SEQ = ${itemSeq}
+	</select>
 	
 	<delete id="deleteDrugInfo">
 		DELETE FROM drug_info

@@ -1,10 +1,11 @@
 package project3.yakdo.repository.mybatis;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,18 +27,94 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	 * 담당자 : 홍준표
 	 */
 	@Override
-	@Transactional
 	public Integer insertDrugInfo(List<DrugInfo> drugInfoList) {
 		// TODO Auto-generated method stub
 		Integer result = 0;
-		drugsMapper.deleteDrugInfo();
-		drugsMapper.deleteDrugInfoIngr();
 		for(DrugInfo drugInfo:drugInfoList) {
-			int insertResult = drugsMapper.insertDrugInfo(drugInfo);
-			drugsMapper.insertDrugInfoIngrList(drugInfo.getItemSeq(), drugInfo.getIngrNameList());
+			DrugInfo dbDrugInfo = drugsMapper.selectDrugInfoByItemSeq(drugInfo.getItemSeq());
+			if( dbDrugInfo != null) {
+				//해당 일련번호가 있으면 업데이트
+				updateCol(drugInfo.getItemSeq(),"ITEM_NAME",drugInfo.getItemName());
+				updateCol(drugInfo.getItemSeq(), "ITEM_ENG_NAME", drugInfo.getItemEngName());
+				updateCol(drugInfo.getItemSeq(), "ITEM_IMAGE", drugInfo.getItemImage());
+				updateCol(drugInfo.getItemSeq(), "CLASS_NO", drugInfo.getClassNo());
+				updateCol(drugInfo.getItemSeq(), "CLASS_NAME", drugInfo.getClassName());
+				updateCol(drugInfo.getItemSeq(), "CHART", drugInfo.getChart());
+				updateCol(drugInfo.getItemSeq(), "ETC_OTC_NAME", drugInfo.getEtcOtcName());
+				updateCol(drugInfo.getItemSeq(), "ENTP_NAME", drugInfo.getEntpName());
+				updateCol(drugInfo.getItemSeq(), "EFCY_QESITM", drugInfo.getEfcyQesitm());
+				updateCol(drugInfo.getItemSeq(), "USE_METHOD_QESITM", drugInfo.getUseMethodQesitm());
+				updateCol(drugInfo.getItemSeq(), "ATPN_WARN_QESITM", drugInfo.getAtpnWarnQesitm());
+				updateCol(drugInfo.getItemSeq(), "ATPN_QESITM", drugInfo.getAtpnQesitm());
+				updateCol(drugInfo.getItemSeq(), "INTRC_QESITM", drugInfo.getIntrcQesitm());
+				updateCol(drugInfo.getItemSeq(), "SE_QESITM", drugInfo.getSeQesitm());
+				updateCol(drugInfo.getItemSeq(), "DEPOSIT_METHOD_QESITM", drugInfo.getDepositMethodQesitm());
+				updateCol(drugInfo.getItemSeq(), "EDI_CODE", drugInfo.getEdiCode());
+				drugInfo.allClear(); // 메모리 회수
+			}else {
+				// 해당 일련번호가 없으면 인서트
+				drugsMapper.insertDrugInfo(drugInfo);
+				if(drugInfo.getIngrNameList() != null) {
+					for(String ingr:drugInfo.getIngrNameList()) {
+						drugsMapper.insertDrugInfoIngr(drugInfo.getItemSeq(), ingr);				
+					}				
+				}
+				drugInfo.allClear(); // 메모리 회수
+			}
 			result++;
+			if(result==1) {
+				log.info("마이바티스.insertDrugInfo();("+result+"/"+drugInfoList.size()+")");				
+			}
+			if(result%100==0) {
+				log.info("마이바티스.insertDrugInfo();("+result+"/"+drugInfoList.size()+")");				
+			}
 		}
 		return result;
+	}
+
+	private void updateCol(String itemSeq, String colName, String value) {
+		// TODO Auto-generated method stub
+		Map<String, String> col = new HashMap<>();
+		col.put("itemSeq", itemSeq);
+		col.put("colName", colName);
+		if(colName.equals("ATPN_QESITM")) {
+			String temp = "";
+			String[] tempList = value.split(""); 
+			for(int i=0;i<tempList.length;i++) {
+				if(i!=0) {
+					temp+="||";
+				}
+				temp += "TO_CLOB('" + tempList[i] + "')";
+			}
+			col.put("value", temp);
+		}else if(colName.equals("EFCY_QESITM")) {
+			String temp = "";
+			String[] tempList = value.split(""); 
+			for(int i=0;i<tempList.length;i++) {
+				if(i!=0) {
+					temp+="||";
+				}
+				temp += "TO_CLOB('" + tempList[i] + "')";
+			}
+			col.put("value", temp);
+		}else if(colName.equals("USE_METHOD_QESITM")) {
+			String temp = "";
+			String[] tempList = value.split(""); 
+			for(int i=0;i<tempList.length;i++) {
+				if(i!=0) {
+					temp+="||";
+				}
+				temp += "TO_CLOB('" + tempList[i] + "')";
+			}
+			col.put("value", temp);
+		}else {
+			col.put("value", "'"+value+"'");			
+		}
+		try {
+			drugsMapper.updateDrugInfo(col);			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	/**
@@ -47,14 +124,19 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	 * 담당자 : 홍준표
 	 */
 	@Override
-	@Transactional
 	public Integer insertFindDrug(List<FindDrug> findDrugList) {
 		// TODO Auto-generated method stub
 		Integer result = 0;
-		drugsMapper.deleteFindDrug();
 		for(FindDrug findDrug:findDrugList) {
-			int insertResult = drugsMapper.insertFindDrug(findDrug);
+			drugsMapper.insertFindDrug(findDrug);
 			result++;
+			findDrug.allClear(); // 메모리 회수
+			if(result==1) {
+				log.info("마이바티스.insertFindDrug();("+result+"/"+findDrugList.size()+")");				
+			}
+			if(result%100==0) {
+				log.info("마이바티스.insertFindDrug();("+result+"/"+findDrugList.size()+")");				
+			}
 		}
 		return result;
 	}

@@ -25,4 +25,24 @@ public class FindDrug {
 	private String markCodeBackImg; // 마크이미지(뒤)
 	
 	public FindDrug() {} // 기본생성자
+	
+	public void allClear() {
+		this.itemSeq = null;
+		this.printFront = null;
+		this.printBack = null;
+		this.DrugShape = null;
+		this.colorClass1 = null;
+		this.colorClass2 = null;
+		this.lineFront = null;
+		this.lineBack = null;
+		this.lengLong = null;
+		this.lengShort = null;
+		this.thick = null;
+		this.markCodeFrontAnal = null;
+		this.markCodeBackAnal = null;
+		this.markCodeFront = null;
+		this.markCodeBack = null;
+		this.markCodeFrontImg = null;
+		this.markCodeBackImg = null;
+	}
 }

@@ -27,4 +27,24 @@ public class DrugInfo {
 	private List<String> ingrNameList; // 성분명
 	
 	public DrugInfo() {} // 기본생성자
+	
+	public void allClear() {
+		this.itemSeq = null;
+		this.itemName = null;
+		this.itemEngName = null;
+		this.itemImage = null;
+		this.classNo = null;
+		this.className = null;
+		this.chart = null;
+		this.etcOtcName = null;
+		this.entpName = null;
+		this.efcyQesitm = null;
+		this.useMethodQesitm = null;
+		this.atpnWarnQesitm = null;
+		this.atpnQesitm = null;
+		this.intrcQesitm = null;
+		this.seQesitm = null;
+		this.depositMethodQesitm = null;
+		this.ediCode = null;
+	}
 }
