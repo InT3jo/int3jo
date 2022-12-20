@@ -5,6 +5,10 @@
 
 	<!-- 게시글 작성 -->
 	<insert id="insert" parameterType="BBS">
+		<selectKey keyProperty="BBS_no" resultType="java.lang.Integer"
+		order="BEFORE">
+			select BBSPK.nextVal as BBS_no from dual
+		</selectKey>
 		insert into BBS
 		(
 		BBS_no,
@@ -17,11 +21,14 @@
 		values
 		(
 		BBSPK.nextVal,
-		#{user_no},
+<!-- 		#{user_no}, 일단 절대값으로 insert Test , 추후 수정 필요-->
+		2,
 		#{BBS_title},
 		#{BBS_content},
-		#{BBS_date},
-		#{BBS_show}
+<!-- 	#{BBS_date} 는 #{sysdate}-->
+		sysdate,
+<!-- 	#{BBS_show} 는 일단 글 등록하면 게시해야하니까 값을 0으로 넣어줌 -->
+		0
 		)
 	</insert>
 
@@ -43,13 +50,33 @@
 	<!-- 게시글 전체 목록 보기 -->
 	<select id="selectByBBS_show_0" resultType="BBS">
 		<!-- BBS_show 값이 0(게시) 1(본인삭제) 2(관리자삭제) 이기 때문에 0인것만 목록에 출력 -->
+		<!-- 데이터 안넘어와서 테스트용 쿼리로 변경함 / 추후 수정 예정 -->
+		<!-- 쿼리 수정 완료 -->
 		select
 		b.BBS_no,
-		b.BBS_title,
+		b.user_no,
 		u.user_nick,
-		b.BBS_date
-		from BBS b , users u
-		where b.BBS_show = 0
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		b.BBS_show
+		from BBS b, users u
+		where b.BBS_show = 0 
+		and u.user_no = b.user_no
+	</select>
+	
+	<select id="selectBBSInfoByBBS_show_0" resultType="BBSInfo">
+		select
+		b.BBS_no,
+		b.user_no,
+		u.user_nick,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		b.BBS_show
+		from BBS b, users u
+		where b.BBS_show = 0 
+		and u.user_no = b.user_no
 	</select>
 
 	<!-- 게시글 수정 -->

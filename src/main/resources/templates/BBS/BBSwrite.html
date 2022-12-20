@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>BBS write Page</h1>
+	글쓰는페이지
+	
+	<form action="" method="post" th:object="${BBS}">
+		<label>제목<input type="text" th:field="*{BBS_title}"></label>
+		<label>내용<input type="text" th:field="*{BBS_content}"></label>
+	</form>
+<!-- 	<form action="" method="post" th:object="${BBS}"> -->
+
+<!-- 		<div> -->
+<!-- 			<label for="BBS_title">title<input type="text" name="BBS_title" -->
+<!-- 				th:field="*{BBS_title}"></label> -->
+<!-- 			<label for="BBS_content">content<input type="text" name="BBS_content" -->
+<!-- 				th:field="*{BBS_content}"></label> -->
+<!-- 		</div> -->
+		
+		<div>
+			<button type="submit">등록하기</button>
+		</div>
+
+<!-- 	</form> -->
+</body>
+</html>

@@ -11,23 +11,41 @@
 			<tr>
 				<th>게시글번호</th>
 				<th>제목</th>
-				<th>닉네임</th>
 				<th>게시일</th>
+				<th>닉네임</th>
 			</tr>
 		</thead>
 		
+	
+	
 <!-- 		<tbody> -->
-<!-- 			<tr th:each="BBS : ${BBS}"> -->
+<!-- 			<tr th:each="BBS : ${BBSList}"> -->
 <!-- 				<td th:text=${BBS.BBS_no}></td> -->
 <!-- 				<td><a th:href="@{|/BBS/${BBS.BBS_no}|}" th:text=${BBS.BBS_title}></a></td> -->
-<!-- 				<td>닉네임</td> -->
+<!-- 				<td th:text=${BBS.BBS_date}></td> -->
+			
+<!-- 			</tr>			 -->
+<!-- 		</tbody> -->
+		<tbody>
+			<tr th:each="BBSInfo : ${BBSInfoList}">
+				<td th:text="${BBSInfo.BBS_no}"></td>
+				<td th:text="${BBSInfo.BBS_title}"></td>
+				<td th:text="${BBSInfo.user_nick}"></td>
+				<td th:text="${BBSInfo.BBS_date}"></td>
+			</tr>
+		</tbody>
+<!-- 		<tbody> -->
+<!-- 			<tr th:each="BBS : ${BBSList}"> -->
+<!-- 				<td th:text=${BBS.BBS_no}></td> -->
+<!-- 				<td><a th:href="@{|/BBS/${BBS.BBS_no}|}" th:text=${BBS.BBS_title}></a></td> -->
+			
 <!-- 				<td th:text=${BBS.BBS_date}></td> -->
 <!-- 			</tr> -->
 <!-- 		</tbody> -->
 	</table>
 	
 	<div>
-		<button th:onclick="">글쓰기</button>
+		<button th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>
 	</div>
 </body>
 </html>

@@ -18,9 +18,9 @@ public class BBSService {
 	 
 	public List<BBS> selectByBBS_show_0()
 	{
-		List<BBS> BBS = BBSRepository.selectByBBS_show_0();
+		List<BBS> BBSlist = BBSRepository.selectByBBS_show_0();
 		
-		return BBS;
+		return BBSlist;
 	}
 	
 	

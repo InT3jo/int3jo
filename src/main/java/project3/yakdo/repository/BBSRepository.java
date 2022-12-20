@@ -3,6 +3,7 @@ package project3.yakdo.repository;
 import java.util.List;
 
 import project3.yakdo.domain.BBS.BBS;
+import project3.yakdo.domain.BBS.BBSInfo;
 
 public interface BBSRepository {
 
@@ -11,6 +12,8 @@ public interface BBSRepository {
 	public BBS selectByBBS_no(int BBS_no); //게시글 읽기 Read
 	
 	public List<BBS> selectByBBS_show_0();	// 게시글 목록 출력 Read
+	
+	public List<BBSInfo> selectBBSInfoByBBS_show_0();
 	
 	public boolean update(int BBS_no, BBS BBS);	// 게시글 수정 Update
 	
