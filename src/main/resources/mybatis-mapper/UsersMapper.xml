@@ -6,9 +6,15 @@
 	<insert id="insert" parameterType="Users">
 		INSERT INTO users (user_no, user_email, user_pw, user_nick, join_date
 		                , user_grade, user_status, leave_date, block_reason)
-		VALUES (user_noPK.NEXTVAL, #{usesrEmail}, #{userPw}, #{userNick}, #{joinDate}
+		VALUES (user_noPK.NEXTVAL, #{userEmail}, #{userPw}, #{userNick}, #{joinDate}
 		                , #{userStatus}, #{userGrade}, #{leaveDate}, #{blockReason})
 	</insert>
+	
+<!-- 	<select id="selectByUserEmail" resultType="Users"> -->
+<!-- 		SELECT user_no, user_email, user_pw, user_nick, join_date -->
+<!-- 		                , user_grade, user_status, leave_date, block_reason -->
+<!-- 		FROM users -->
+<!-- 	</select> -->
 	
 	<select id="selectAll" resultType="Users">
 		SELECT user_no, user_email, user_pw, user_nick, join_date

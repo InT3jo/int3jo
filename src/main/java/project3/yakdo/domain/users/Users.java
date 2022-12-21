@@ -17,4 +17,13 @@ public class Users {
 	private int userStatus;
 	private LocalDateTime leaveDate;
 	private String blockReason;
+	
+	public Users() {
+		
+	}
+	
+	public Users(String userEmail, String userPw, String userNick, LocalDateTime joinDate
+			, int userGrade, int userStatus, LocalDateTime leaveDate, String blockReason) {
+		
+	}
 }

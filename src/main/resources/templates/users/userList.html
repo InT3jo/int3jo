@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- user_noPK.NEXTVAL, #{userEmail}, #{userPw}, #{userNick}, #{joinDate} -->
+<!-- , #{userStatus}, #{userGrade}, #{leaveDate}, #{blockReason} -->
+	<h1>UserList Page</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>userNo</th>
+				<th>userEmail</th>
+				<th>userPw</th>
+				<th>userNick</th>
+				<th>joinDate</th>
+				<th>userStatus</th>
+				<th>userGrade</th>
+				<th>leaveDate</th>
+				<th>blockReason</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="user : ${userList}">
+				<td th:text="${user.userNo}"></td>
+				<td th:text="${user.userEmail}"></td>
+				<td th:text="${user.userPw}"></td>
+				<td th:text="${user.userNick}"></td>
+				<td th:text="${user.joinDate}"></td>
+				<td th:text="${user.userStatus}"></td>
+				<td th:text="${user.userGrade}"></td>
+				<td th:text="${user.leaveDate}"></td>
+				<td th:text="${user.blockReason}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>

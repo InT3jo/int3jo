@@ -5,6 +5,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>500에라</h1>
+	<h1>Join Page</h1>
+	<div>
+		<form action="join" method="post" th:object="${Users}">
+			<label>email
+				<input type="text" name="userEmail" th:field="*{userEmail}"/>
+			</label>
+			<button th:onclick="">가입하기</button>
+		</form>
+	</div>
 </body>
 </html>

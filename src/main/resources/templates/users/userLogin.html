@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- user_noPK.NEXTVAL, #{userEmail}, #{userPw}, #{userNick}, #{joinDate} -->
+<!-- , #{userStatus}, #{userGrade}, #{leaveDate}, #{blockReason} -->
+	<div>
+		<h1>user Login Page</h1>
+		<form action="login" method="post" th:object="${user}">
+			<label for="loginEmail">이메일 <input type="email" id="loginEmail" th:field="*{loginEmail}"></label>
+			<label for="loginPw">비밀번호 <input type="password" id="loginPw" th:field="*{loginPw}"></label>
+			
+			<button type="submit">로그인</button>
+		</form>
+	</div>
+</body>
+</html>
