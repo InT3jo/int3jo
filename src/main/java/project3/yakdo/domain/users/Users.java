@@ -8,12 +8,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Users {
-	private int user_no;
-	private String user_email;
-	private String user_pw;
-	private String user_nick;
-	private LocalDateTime join_date;
-	private int user_status;
-	private LocalDateTime leave_date;
-	private String block_reason;
+	private int userNo;
+	private String userEmail;
+	private String userPw;
+	private String userNick;
+	private LocalDateTime joinDate;
+	private int userGrade;
+	private int userStatus;
+	private LocalDateTime leaveDate;
+	private String blockReason;
 }
