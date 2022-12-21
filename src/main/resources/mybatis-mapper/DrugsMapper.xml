@@ -8,13 +8,13 @@
 			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
 			CHART, ETC_OTC_NAME, ENTP_NAME, EFCY_QESITM, USE_METHOD_QESITM,
 			ATPN_WARN_QESITM, ATPN_QESITM, INTRC_QESITM, SE_QESITM,
-			DEPOSIT_METHOD_QESITM, EDI_CODE
+			DEPOSIT_METHOD_QESITM, EDI_CODE, NARCOTIC
 			)
 		VALUES (
 			#{itemSeq, jdbcType=VARCHAR}, #{itemName, jdbcType=VARCHAR}, #{itemEngName, jdbcType=VARCHAR}, #{itemImage, jdbcType=VARCHAR}, #{classNo, jdbcType=VARCHAR}, #{className, jdbcType=VARCHAR},
 			#{chart, jdbcType=VARCHAR}, #{etcOtcName, jdbcType=VARCHAR}, #{entpName, jdbcType=VARCHAR}, #{efcyQesitm, jdbcType=VARCHAR}, #{useMethodQesitm, jdbcType=VARCHAR},
 			#{atpnWarnQesitm, jdbcType=VARCHAR}, #{atpnQesitm, jdbcType=VARCHAR}, #{intrcQesitm, jdbcType=VARCHAR}, #{seQesitm, jdbcType=VARCHAR},
-			#{depositMethodQesitm, jdbcType=VARCHAR}, #{ediCode, jdbcType=VARCHAR}
+			#{depositMethodQesitm, jdbcType=VARCHAR}, #{ediCode, jdbcType=VARCHAR}, #{narcotic, jdbcType=VARCHAR}
 			) 
 	</insert>
 	
@@ -38,6 +38,16 @@
 			) 
 	</insert>
 	
+	<insert id="insertDur">
+		INSERT INTO dur ( ITEM_SEQ, INGR_CODE, INGR_NAME, TYPE_NAME )
+		VALUES (#{itemSeq, jdbcType=VARCHAR}, #{ingrCode, jdbcType=VARCHAR}, #{ingrName, jdbcType=VARCHAR}, #{typeName, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertDurCombi">
+		INSERT INTO dur_combi ( ITEM_SEQ, INGR_CODE, INGR_NAME, MIX_INGR_CODE, MIX_INGR_NAME )
+		VALUES (#{itemSeq, jdbcType=VARCHAR}, #{ingrCode, jdbcType=VARCHAR}, #{ingrName, jdbcType=VARCHAR}, #{mixIngrCode, jdbcType=VARCHAR}, #{mixIngrName, jdbcType=VARCHAR})
+	</insert>
+	
 	<update id="updateDrugInfo" parameterType="hashmap">
 		UPDATE drug_info
 		SET ${colName} = ${value}
@@ -49,7 +59,7 @@
 			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
 			CHART, ETC_OTC_NAME, ENTP_NAME, EFCY_QESITM, USE_METHOD_QESITM,
 			ATPN_WARN_QESITM, ATPN_QESITM, INTRC_QESITM, SE_QESITM,
-			DEPOSIT_METHOD_QESITM, EDI_CODE
+			DEPOSIT_METHOD_QESITM, EDI_CODE, NARCOTIC
 		FROM drug_info
 		WHERE ITEM_SEQ = ${itemSeq}
 	</select>
@@ -62,5 +72,11 @@
 	</delete>
 	<delete id="deleteFindDrug">
 		DELETE FROM find_drug
+	</delete>
+	<delete id="deleteDur">
+		DELETE FROM dur
+	</delete>
+	<delete id="deleteDurCombi">
+		DELETE FROM dur_combi
 	</delete>
 </mapper>

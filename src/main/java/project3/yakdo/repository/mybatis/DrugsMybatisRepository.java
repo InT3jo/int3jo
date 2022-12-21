@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.FindDrug;
 import project3.yakdo.domain.drugs.DrugInfo;
+import project3.yakdo.domain.drugs.Dur;
+import project3.yakdo.domain.drugs.DurCombi;
 import project3.yakdo.repository.DrugsRepository;
 
 @Slf4j
@@ -51,6 +53,7 @@ public class DrugsMybatisRepository implements DrugsRepository{
 				updateCol(drugInfo.getItemSeq(), "SE_QESITM", drugInfo.getSeQesitm());
 				updateCol(drugInfo.getItemSeq(), "DEPOSIT_METHOD_QESITM", drugInfo.getDepositMethodQesitm());
 				updateCol(drugInfo.getItemSeq(), "EDI_CODE", drugInfo.getEdiCode());
+				updateCol(drugInfo.getItemSeq(), "NARCOTIC", drugInfo.getNarcotic());
 				drugInfo.allClear(); // 메모리 회수
 			}else {
 				// 해당 일련번호가 없으면 인서트
@@ -146,6 +149,56 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	}
 	
 	/**
+	 * DB의 DUR 테이블에 파라미터의 리스트를 추가하기
+	 * parameter : List<Dur>
+	 * return : insert count
+	 * 담당자 : 홍준표
+	 */
+	@Override
+	public Integer insertDur(List<Dur> durList) {
+		// TODO Auto-generated method stub
+		Integer result = 0;
+		for(Dur dur:durList) {
+			drugsMapper.insertDur(dur);
+			result++;
+			dur.allClear(); // 메모리 회수
+			if(result==1) {
+				log.info("DrugsMybatisRepository.insertDur();("+result+"/"+durList.size()+")");				
+			}
+			if(result%100==0) {
+				log.info("DrugsMybatisRepository.insertDur();("+result+"/"+durList.size()+")");				
+			}
+		}
+		durList.clear(); // 메모리 회수 필요
+		return result;
+	}
+	
+	/**
+	 * DB의 DUR_COMBI 테이블에 파라미터의 리스트를 추가하기
+	 * parameter : List<DurCombi>
+	 * return : insert count
+	 * 담당자 : 홍준표
+	 */
+	@Override
+	public Integer insertDurCombi(List<DurCombi> durList) {
+		// TODO Auto-generated method stub
+		Integer result = 0;
+		for(DurCombi dur:durList) {
+			drugsMapper.insertDurCombi(dur);
+			result++;
+			dur.allClear(); // 메모리 회수
+			if(result==1) {
+				log.info("DrugsMybatisRepository.insertDurCombi();("+result+"/"+durList.size()+")");				
+			}
+			if(result%100==0) {
+				log.info("DrugsMybatisRepository.insertDurCombi();("+result+"/"+durList.size()+")");				
+			}
+		}
+		durList.clear(); // 메모리 회수 필요
+		return result;
+	}
+	
+	/**
 	 * DB에서 DrugInfo 내용을 가져와서
 	 * DrugInfo 객체로 이루어진 리스트로 반환
 	 * return : ArrayList<DrugInfo>
@@ -204,6 +257,28 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	public void deleteFindDrug() {
 		// TODO Auto-generated method stub
 		drugsMapper.deleteFindDrug();
+	}
+	
+	/**
+	 * DB의 dur 테이블을 모두 삭제
+	 * Dur 테이블을 최신화할때 사용함.
+	 * 담당자 : 홍준표
+	 */
+	@Override
+	public void deleteDur() {
+		// TODO Auto-generated method stub
+		drugsMapper.deleteDur();
+	}
+	
+	/**
+	 * DB의 dur_combi 테이블을 모두 삭제
+	 * Dur 테이블을 최신화할때 사용함.
+	 * 담당자 : 홍준표
+	 */
+	@Override
+	public void deleteDurCombi() {
+		// TODO Auto-generated method stub
+		drugsMapper.deleteDurCombi();
 	}
 	
 }

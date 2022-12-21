@@ -24,6 +24,7 @@ public class DrugInfo {
 	private String seQesitm; // 부작용
 	private String depositMethodQesitm; // 보관법 
 	private String ediCode; // 보험코드
+	private String narcotic; // 마약여부
 	private List<String> ingrNameList; // 성분명
 	
 	public DrugInfo() {} // 기본생성자
@@ -46,5 +47,6 @@ public class DrugInfo {
 		this.seQesitm = null;
 		this.depositMethodQesitm = null;
 		this.ediCode = null;
+		this.narcotic = null;
 	}
 }
