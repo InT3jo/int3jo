@@ -2,3 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
+<mapper namespace="project3.yakdo.repository.mybatis.UsersMapper">
+	<insert id="insert" parameterType="Users">
+		INSERT INTO users (user_no, user_email, user_pw, user_nick, join_date
+		                , user_grade, user_status, leave_date, block_reason)
+		VALUES (user_noPK.NEXTVAL, 'abc@naver.com', 1234, 'abc', '2022-12-20'
+		                , 1, 2, sysdate, 'asdf')
+	</insert>
+	
+	<select id="selectAll" resultType="Users">
+		SELECT user_no, user_email, user_pw, user_nick, join_date
+		                , user_grade, user_status, leave_date, block_reason
+		FROM users
+	</select>
+	
+	<delete id="deleteAll">
+		DELETE FROM users
+	</delete>
+</mapper>

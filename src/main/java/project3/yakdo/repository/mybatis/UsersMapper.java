@@ -11,9 +11,9 @@ public interface UsersMapper {
 	
 	public Users insert(Users users);
 	
-	public Users selecById(int user_no);
+//	public Users selecById(int user_no);
 	
-	public Users selectByLoginEmail(String users_email);
+//	public Users selectByLoginEmail(String users_email);
 	
 	public List<Users> selectAll();
 	
