@@ -11,17 +11,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
-import project3.yakdo.repository.UsersRepository;
-import project3.yakdo.session.SessionManager;
 import project3.yakdo.session.SessionVar;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 public class HomeController {
-	
-	private final UsersRepository usersRepository;
-	private final SessionManager sessionManager;
 	
 	@RequestMapping("/")
 	public String home(Model model
