@@ -14,9 +14,12 @@
 			<h3 th:text="${user.userNick}"></h3>
 			
 			<div>
-				<form action="/logout" method="post">
-					<button type="button" th:onclick="|location='@{/login}'|">로그아웃</button>
+				<form action="/logout" th:action="@{/logout}" method="post">
+					<button type="submit">로그아웃</button>
 				</form>
+				<div>
+					<button type="button" th:onClick="|location.href='@{/test/userList}'|">Test</button>
+				</div>
 			</div>
 		</div>
 	</div>

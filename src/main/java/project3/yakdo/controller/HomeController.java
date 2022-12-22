@@ -4,7 +4,7 @@ import java.util.Enumeration;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,11 +14,11 @@ import project3.yakdo.domain.users.Users;
 import project3.yakdo.session.SessionVar;
 
 @Slf4j
-@RequiredArgsConstructor
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 	
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String home(Model model
 					, HttpServletRequest req) {
 		
@@ -26,14 +26,9 @@ public class HomeController {
 		
 		//쿠키를 통해 넘어온 userEmail이 없는 경우
 		if(session == null) {
-			return "/home";
+			return "home";
 		}
 		
-		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
-		
-		model.addAttribute("user", user);
-		
-
 		/**
 		 * session 정보 출력해보기
 		 */
@@ -43,7 +38,15 @@ public class HomeController {
 			
 			log.info("session {}, {}", name, session.getAttribute(name));
 		}
+
+		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
-		return "/loginHome";
+		if (user == null) {
+			return "home";
+		}
+		
+		model.addAttribute("user", user);
+		
+		return "loginHome";
 	}
 }

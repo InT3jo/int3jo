@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -15,7 +16,7 @@ import project3.yakdo.domain.users.Users;
 import project3.yakdo.service.users.LoginService;
 import project3.yakdo.session.SessionVar;
 import project3.yakdo.validation.form.LoginForm;
-import project3.yakdo.validation.form.LoginValidator;
+import project3.yakdo.validation.LoginValidator;
 
 
 @Slf4j
@@ -34,14 +35,18 @@ public class LoginController {
 	}
 	
 	/**
-	 * login 여부 판단하는 메소드
+	 * login 기능
 	 * @param model
 	 * @return
 	 */
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute LoginForm loginForm
 					, BindingResult bindingResult
-					, HttpServletRequest req) {
+					, HttpServletRequest req
+					, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
+		log.info(req.getRequestURL().toString());
+		log.info(redirectURL);
+		log.info("loginForm {}", loginForm);
 		
 		//에러 검증
 		LoginValidator loginValidator = new LoginValidator();
@@ -49,16 +54,17 @@ public class LoginController {
 		
 		//에러가 있는 경우 다시 login 화면으로
 		if(bindingResult.hasErrors()) {
-			return "/login/login";
+			return "login/login";
 		}
 		
 		//위 에러 없을 시 (공백이 아닐 시) 로그인 실행
 		Users user = loginService.login(loginForm);
+		log.info("user {}", user);
 		
 		//일치하는 정보 없으면 login 화면으로
 		if(user == null) {
 			bindingResult.reject("loginForm", "이메일 또는 비밀번호를 다시 확인해 주세요.");
-			return "/login/login";
+			return "login/login";
 		}
 		
 		log.info("로그인 성공");
@@ -67,7 +73,7 @@ public class LoginController {
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_MEMBER, user);
 		
-		return "redirect:/";
+		return "redirect:"+redirectURL;
 	}
 	
 	/**
@@ -76,17 +82,17 @@ public class LoginController {
 	 * @param req
 	 * @return
 	 */
+	@PostMapping("/logout")
 	public String logout(HttpServletRequest req) {
 		//session없을 때 생성되지 않게 막아주기
-		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession(false); // 다시 세션만들어지지 않게 막기
 		
-		if(session != null) {
-			session.invalidate();
+		if (session != null)// 있으면 로그인 안되게 처리
+		{
+			session.invalidate(); // 서버에서 세션정보 없애기
 		}
-		
-		log.info("로그아웃 완료");
-		
-		//home으로
+
+		log.info("로그아웃 성공");
 		return "redirect:/";
 	}
 	

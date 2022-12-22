@@ -11,7 +11,7 @@
 	<div>
 		<h1>user Login Page</h1>
 		
-		<form action="login" method="post" th:object="${loginForm}">
+		<form action="" method="post" th:object="${loginForm}">
 			<div th:if="${#fields.hasGlobalErrors()}">
 				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
 			</div>
@@ -23,6 +23,9 @@
 			
 			<button type="submit">로그인</button>
 		</form>
+		<div>
+			<button type="button" th:onClick="|location.href='@{/test/userList}'|">Test</button>
+		</div>
 	</div>
 </body>
 </html>

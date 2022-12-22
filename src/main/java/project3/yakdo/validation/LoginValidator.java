@@ -1,7 +1,9 @@
-package project3.yakdo.validation.form;
+package project3.yakdo.validation;
 
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
+
+import project3.yakdo.validation.form.LoginForm;
 
 public class LoginValidator {
 

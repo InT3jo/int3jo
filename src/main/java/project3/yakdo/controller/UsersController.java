@@ -11,15 +11,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.mybatis.UsersMybatisRepository;
+import project3.yakdo.session.SessionVar;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/login")
+@RequestMapping("/test")
 public class UsersController {
 	private final UsersMybatisRepository usersMybatisRepository;
 	
@@ -34,7 +37,19 @@ public class UsersController {
 		List<Users> userList = usersMybatisRepository.selectAll();
 		log.info(userList.toString());
 		model.addAttribute("userList", userList);
-		return "/userList";
+		return "/login/userList";
+	}
+	
+	@GetMapping
+	public String Users(Model model, HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		if(session == null || session.getAttribute(SessionVar.LOGIN_MEMBER) == null) {
+			return "redirect:/";
+		}
+		
+		return "/login/userList";
 	}
 	
 }
