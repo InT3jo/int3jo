@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.service.users.LoginService;
+import project3.yakdo.session.SessionManager;
+import project3.yakdo.session.SessionVar;
 import project3.yakdo.validation.form.LoginForm;
 import project3.yakdo.validation.form.LoginValidator;
 
@@ -23,6 +27,7 @@ import project3.yakdo.validation.form.LoginValidator;
 public class LoginController {
 	
 	private final LoginService loginService;
+	private final SessionManager sessionManager;
 	
 	@GetMapping("/login")
 	public String login(Model model) {
@@ -40,7 +45,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute LoginForm loginForm
 					, BindingResult bindingResult
-					, HttpServletResponse resp) {
+					, HttpServletRequest req) {
 		
 		//에러 검증
 		LoginValidator loginValidator = new LoginValidator();
@@ -62,12 +67,30 @@ public class LoginController {
 		
 		log.info("로그인 성공");
 		
-		Cookie cookie1 = new Cookie("userEmail", user.getUserEmail());
-		Cookie cookie2 = new Cookie("userNo", Integer.toString(user.getUserNo()));
+		//로그인 했을 때 들어오는 회원 정보
+		HttpSession session = req.getSession();
+		session.setAttribute(SessionVar.LOGIN_MEMBER, user);
 		
-		resp.addCookie(cookie1);
-		resp.addCookie(cookie2);
+		return "redirect:/";
+	}
+	
+	/**
+	 * logout
+	 * 
+	 * @param req
+	 * @return
+	 */
+	public String logout(HttpServletRequest req) {
+		//session없을 때 생성되지 않게 막아주기
+		HttpSession session = req.getSession(false);
 		
+		if(session != null) {
+			session.invalidate();
+		}
+		
+		log.info("로그아웃 완료");
+		
+		//home으로
 		return "redirect:/";
 	}
 	

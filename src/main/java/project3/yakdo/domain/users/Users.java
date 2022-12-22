@@ -13,8 +13,8 @@ public class Users {
 	private String userPw;
 	private String userNick;
 	private LocalDateTime joinDate;
-	private int userGrade;
-	private int userStatus;
+	private Integer userGrade;
+	private Integer userStatus;
 	private LocalDateTime leaveDate;
 	private String blockReason;
 	
@@ -22,8 +22,8 @@ public class Users {
 		
 	}
 	
-	public Users(String userEmail, String userPw, String userNick, LocalDateTime joinDate
-			, int userGrade, int userStatus, LocalDateTime leaveDate, String blockReason) {
-		
-	}
+//	public Users(String userEmail, String userPw, String userNick, LocalDateTime joinDate
+//			, Integer userGrade, Integer userStatus, LocalDateTime leaveDate, String blockReason) {
+//		
+//	}
 }

@@ -6,8 +6,8 @@
 	<insert id="insert" parameterType="Users">
 		INSERT INTO users (user_no, user_email, user_pw, user_nick, join_date
 		                , user_grade, user_status, leave_date, block_reason)
-		VALUES (user_noPK.NEXTVAL, #{userEmail}, #{userPw}, #{userNick}, #{joinDate}
-		                , #{userStatus}, #{userGrade}, #{leaveDate}, #{blockReason})
+		VALUES (user_no_pk.NEXTVAL, #{userEmail}, #{userPw}, #{userNick}, #{joinDate}
+		                , #{userStatus}, #{userGrade}, #{leaveDate, jdbcType = VARCHAR}, #{blockReason, jdbcType = VARCHAR})
 	</insert>
 	
 	<select id="selectByUserEmail" resultType="Users">

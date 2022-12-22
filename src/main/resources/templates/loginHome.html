@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div>
+		<h1>Login Home</h1>
+	
+		<div>
+			<h3 th:text="${user.userEmail}"></h3>
+			<h3 th:text="${user.userNick}"></h3>
+			
+			<div>
+				<form action="/logout" method="post">
+					<button type="button" th:onclick="|location='@{/login}'|">로그아웃</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
