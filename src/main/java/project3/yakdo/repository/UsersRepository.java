@@ -9,6 +9,8 @@ public interface UsersRepository {
 
 	public Users insert(Users users);
 	
+	public Users selectByUserEmail(String userEmail);
+	
 	public List<Users> selectAll();
 	
 	public void deleteAll();

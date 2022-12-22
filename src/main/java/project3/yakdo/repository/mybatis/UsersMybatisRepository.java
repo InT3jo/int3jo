@@ -22,6 +22,13 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 	@Override
+	public Users selectByUserEmail(String userEmail) {
+		Users user = memberMapper.selectByUserEmail(userEmail);
+		
+		return user;
+	}
+
+	@Override
 	public List<Users> selectAll() {
 		List<Users> userList = memberMapper.selectAll();
 		

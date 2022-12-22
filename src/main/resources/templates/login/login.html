@@ -10,9 +10,16 @@
 <!-- , #{userStatus}, #{userGrade}, #{leaveDate}, #{blockReason} -->
 	<div>
 		<h1>user Login Page</h1>
-		<form action="login" method="post" th:object="${user}">
+		
+		<form action="login" method="post" th:object="${loginForm}">
+			<div th:if="${#fields.hasGlobalErrors()}">
+				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+			</div>
+			
 			<label for="loginEmail">이메일 <input type="email" id="loginEmail" th:field="*{loginEmail}"></label>
+			<div th:errors="*{loginEmail}"></div>
 			<label for="loginPw">비밀번호 <input type="password" id="loginPw" th:field="*{loginPw}"></label>
+			<div th:errors="*{loginPw}"></div>
 			
 			<button type="submit">로그인</button>
 		</form>
