@@ -7,5 +7,37 @@
 <body>
 	<h1>BBS view Page</h1>
 	게시글 클릭하면 보여주는 화면 
+	<div>
+	<br/>
+	<table border="1" width="800" height="100">
+	<thead>
+	<tr>
+		<th>작성일</th>
+		<th>제목</th>
+		<th>내용</th>
+		<th>작성자</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+		<tr>
+			<td th:text="${BBS.bbsDate}"></td>
+			<td th:text="${BBS.bbsTitle}"></td>
+<!-- 			<td th:text="${BBS.user_nick}"></td> -->
+			<td th:text="${BBS.bbsContent}"></td>
+			<td th:text="${BBS.userNick}"></td>
+		</tr>
+	</tbody>
+	</table>
+	
+	
+	</div>
+	
+	<div>
+		<button th:onclick="|location.href='@{/BBS/update/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">수정하기</button>
+		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
+	</div>
+	
+	
 </body>
 </html>

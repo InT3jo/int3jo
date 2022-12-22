@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>관리자 Page</h1>
+	
+	<p> 관리자 전용</p>
+	<button th:onclick="|location.href='@{/admin/adminBBSlist}'|">게시판 </button>
+	<p> 회원정보 조회 </p>
+	<button th:onclick="|location.href='@{/admin/userlist}'|">회원관리 </button>
+	
+
+</body>
+</html>

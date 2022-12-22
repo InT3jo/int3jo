@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project3.yakdo.repository.mybatis.AdminMapper">
+
+	<select id="selectByBBS_show_1" resultType="BBS">
+		  select
+		BBS_no,
+		user_no,
+		BBS_title,
+		BBS_content,
+		BBS_date,
+		BBS_show
+		from BBS b
+		where BBS_show=1
+		order by BBS_no desc
+	</select>
+	
+	
+	<select id="selectByBBS_show_2" resultType="BBS">
+		  select
+		BBS_no,
+		user_no,
+		BBS_title,
+		BBS_content,
+		BBS_date,
+		BBS_show
+		from BBS b
+		where BBS_show=2
+		order by BBS_no desc
+	</select>
+</mapper>

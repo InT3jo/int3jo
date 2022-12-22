@@ -7,19 +7,24 @@ import project3.yakdo.domain.BBS.BBSInfo;
 
 public interface BBSRepository {
 
-	public BBS insert(BBS BBS);	//게시글 생성 Create
+	public BBS insertBBS(BBS bbs); // 게시글 생성 Create
+
+	public BBS selectBybbsNo(int bbsNo); // 게시글 읽기 Read
+
+	public List<BBS> selectByShowZero(); // 게시글 목록 출력
 	
-	public BBS selectByBBS_no(int BBS_no); //게시글 읽기 Read
+	public boolean updateBBS(int bbsNo, BBS bbs); // 게시글 수정 Update
+
+	public boolean updateShowOneBybbsNo(int bbsNo); // 본인삭제 / 게시글 전체목록에서 숨기기
+						
+	public boolean updateShowTwoBybbsNo(int bbsNo); // 관리자삭제 / 게시글 전체목록에서 숨기기
+
 	
-	public List<BBS> selectByBBS_show_0();	// 게시글 목록 출력 Read
+	//======================================================
+	//관리자 관련
 	
-	public List<BBSInfo> selectBBSInfoByBBS_show_0();
+	public List<BBS> selectByShowOne();	//관리자용 본인삭제 게시글 목록 출력
 	
-	public boolean update(int BBS_no, BBS BBS);	// 게시글 수정 Update
-	
-	public boolean updateBBS_show_1_ByBBS_no(int BBS_no);	// 본인삭제 / 게시글 전체목록에서 숨기기
-	
-	public boolean updateBBS_show_2_ByBBS_no(int BBS_no);	// 관리자삭제 / 게시글 전체목록에서 숨기기
-	
+	public List<BBS> selectByShowTwo();	//관리자용 관리자삭제 게시글 목록 출력
 	
 }

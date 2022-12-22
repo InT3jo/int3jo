@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>BBS update Page</h1>
+	
+	<form action="" method="post" th:object="${BBS}">
+		<div>
+			<label>작성일<input type="date" name="bbsDate" readonly="readonly" th:field="*{bbsDate}"></label>
+			<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
+			<label>내용<input type="text" name="bbsContent" th:field="*{bbsContent}"></label>
+			<label>작성자<input type="text" name="userNick" readonly="readonly" th:field="*{userNick}"></label>
+		</div>
+		<div>
+		 <button type="submit">수정하기</button>
+		 <button type="button" th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
+		 </div>
+		
+	</form>
+</body>
+</html>

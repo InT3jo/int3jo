@@ -3,28 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.errormsg {
+	color: red;
+}
+</style>
 </head>
 <body>
 	<h1>BBS write Page</h1>
 	글쓰는페이지
-	
-	<form action="" method="post" th:object="${BBS}">
-		<label>제목<input type="text" th:field="*{BBS_title}"></label>
-		<label>내용<input type="text" th:field="*{BBS_content}"></label>
-	</form>
-<!-- 	<form action="" method="post" th:object="${BBS}"> -->
 
-<!-- 		<div> -->
-<!-- 			<label for="BBS_title">title<input type="text" name="BBS_title" -->
-<!-- 				th:field="*{BBS_title}"></label> -->
-<!-- 			<label for="BBS_content">content<input type="text" name="BBS_content" -->
-<!-- 				th:field="*{BBS_content}"></label> -->
-<!-- 		</div> -->
-		
+	
+
+	<form action="" method="post" th:object="${BBS}">
+	<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+		</div>
+		<label> 작성자 : 작성자 <!-- 	로그인한 사용자 정보에서 user_nick 불러오기  --> </label>
+		 </br>
+		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
+		<div class="errormsg" th:errors="*{bbsTitle}"></div> 
+		</br>
+<!-- 		<label>내용<input type="text" name="bbsContent" th:field="*{bbsContent}"></label> -->
+<!-- 			<div class="errormsg" th:errors="*{bbsContent}"></div>   -->
+<label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label>
+			<div class="errormsg" th:errors="*{bbsContent}"></div>  
+
+
+
 		<div>
 			<button type="submit">등록하기</button>
 		</div>
+	</form>
 
-<!-- 	</form> -->
 </body>
 </html>

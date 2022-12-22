@@ -4,7 +4,8 @@ import java.sql.Date;
 //게시판 목록 화면에 표시되어야하는 요소들 모음
 
 import lombok.AllArgsConstructor;
-
+import lombok.Data;
+@Data
 @AllArgsConstructor
 public class BBSInfo {
 	private int BBS_no;	//게시글 번호

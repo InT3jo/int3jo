@@ -3,25 +3,37 @@ package project3.yakdo.repository.mybatis;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.BBS.BBS;
-import project3.yakdo.domain.BBS.BBSInfo;
 
-@Mapper
+@Mapper // Mybatis 와 인터페이스 함수 연결
 public interface BBSMapper {
-	
-	public Integer insert(BBS BBS); // 게시글 생성 Create
+	// 게시판 관련
+	public Integer insertBBS(BBS bbs); // 게시글 생성 Create
 
-	public BBS selectByBBS_no(int BBS_no); // 게시글 읽기 Read
+	public BBS selectBybbsNo(int bbsNo); // 게시글 읽기 Read
 
-	public List<BBS> selectByBBS_show_0(); // 게시글 목록 출력
-	
-	public List<BBSInfo> selectBBSInfoByBBS_show_0();
+	public List<BBS> selectByShowZero(); // 게시글 목록 출력
 
-	public void update(int BBS_no, BBS BBS); // 게시글 수정 Update
+	public void updateBBS(@Param("bbsNo") int bbsNo, @Param("updateBBS") BBS bbs); // 게시글 수정 Update
 
-	public void updateBBS_show_1_ByBBS_no(int BBS_no); // 본인삭제 / 게시글 전체목록에서 숨기기
+	public void delteBBSTitleAndContent(int bbsNo); // 게시글 수정시 제목 내용 삭제
 
-	public void updateBBS_show_2_ByBBS_no(int BBS_no); // 관리자삭제 / 게시글 전체목록에서 숨기기
+	public Integer insertBBSTitleAndContent(
+			@Param("bbsNo") int bbsNo, 
+			@Param("bbsTitle") String bbsTitle,
+			@Param("bbsContent") String bbsContent); // 게시글 수정시 수정한 내용으로 다시 insert
+
+	public void updateShowOneBybbsNo(int bbsNo); // 본인삭제 / 게시글 전체목록에서 숨기기
+
+	public void updateShowTwoBybbsNo(int bbsNo); // 관리자삭제 / 게시글 전체목록에서 숨기기
+
+	// ======================================================
+	// 관리자 관련
+
+	public List<BBS> selectByShowOne(); // 관리자용 본인삭제 게시글 목록 출력
+
+	public List<BBS> selectByShowTwo(); // 관리자용 관리자삭제 게시글 목록 출력
 
 }

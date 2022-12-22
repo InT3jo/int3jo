@@ -3,6 +3,7 @@ package project3.yakdo.repository.mybatis;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,63 +18,83 @@ public class BBSMybatisRepository implements BBSRepository {
 
 	private final BBSMapper BBSMapper;
 
+	
+	//게시판
 	@Override
-	public BBS insert(BBS BBS) {
+	public BBS insertBBS(BBS bbs) {
 		// TODO Auto-generated method stub
-		Integer result = BBSMapper.insert(BBS);
-		log.info("BBS insert result {}", result);
-		
-		return BBS;
+		Integer result = BBSMapper.insertBBS(bbs);
+		return bbs;
 	}
 
 	@Override
-	public BBS selectByBBS_no(int BBS_no) {
+	public BBS selectBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
-		BBS result = BBSMapper.selectByBBS_no(BBS_no);
-		return result;
+		BBS bbs = BBSMapper.selectBybbsNo(bbsNo);
+		return bbs;
 	}
 
 	@Override
-	public List<BBS> selectByBBS_show_0() {
+	public List<BBS> selectByShowZero() {
 		// TODO Auto-generated method stub
-		List<BBS> BBSList = null;
+		List<BBS> bbsListZero = null;
+		bbsListZero = BBSMapper.selectByShowZero();
+		return bbsListZero;
+	}
+
+	@Override
+	@Transactional
+	public boolean updateBBS(int bbsNo, BBS bbs) {
+		// TODO Auto-generated method stub
+		boolean result = false;
 		try {
-			BBSList = BBSMapper.selectByBBS_show_0();
-			log.info(BBSList.toString());
-		} catch(Exception e) {
-			log.error(e.getMessage());
+			BBSMapper.updateBBS(bbsNo, bbs);
+			result = true;
+			
+			
+			
+	
+		} catch (Exception e) {
+			log.error("BBSMapper update error {} {}",bbsNo, bbs);
 		}
-		return BBSList;
-
+		return result;
+			
+		
+	
 	}
 
 	@Override
-	public boolean update(int BBS_no, BBS bbs) {
+	public boolean updateShowOneBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
-		BBSMapper.update(BBS_no,bbs);
 		return false;
 	}
 
 	@Override
-	public boolean updateBBS_show_1_ByBBS_no(int BBS_no) {
+	public boolean updateShowTwoBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
-		BBSMapper.updateBBS_show_1_ByBBS_no(BBS_no);
 		return false;
 	}
 
+	
+	
+	//관리자 
 	@Override
-	public boolean updateBBS_show_2_ByBBS_no(int BBS_no) {
+	public List<BBS> selectByShowOne() {
 		// TODO Auto-generated method stub
-		BBSMapper.updateBBS_show_2_ByBBS_no(BBS_no);
-		return false;
+		List<BBS> bbsListOne = null;
+		bbsListOne = BBSMapper.selectByShowOne();
+		return bbsListOne;
 	}
 
 	@Override
-	public List<BBSInfo> selectBBSInfoByBBS_show_0() {
+	public List<BBS> selectByShowTwo() {
 		// TODO Auto-generated method stub
-		List<BBSInfo> BBSInfoList = null;
-		BBSInfoList = BBSMapper.selectBBSInfoByBBS_show_0();
-		return BBSInfoList;
+		List<BBS> bbsListTwo = null;
+		bbsListTwo = BBSMapper.selectByShowTwo();
+		return bbsListTwo;
 	}
+
+	
+
 
 }

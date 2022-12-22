@@ -18,10 +18,17 @@ public class BBSService {
 	 
 	public List<BBS> selectByBBS_show_0()
 	{
-		List<BBS> BBSlist = BBSRepository.selectByBBS_show_0();
+		List<BBS> bbslist = BBSRepository.selectByShowZero();
 		
-		return BBSlist;
+		return bbslist;
 	}
+	
+//	public List<BBS> selectByBBS_show_0()
+//	{
+//		List<BBS> BBSlist = BBSMapper.selectByBBS_show_0();
+//		
+//		return BBSlist;
+//	}
 	
 	
 }

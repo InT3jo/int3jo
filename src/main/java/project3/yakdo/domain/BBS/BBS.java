@@ -6,24 +6,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+//@Getter
+//@Setter
+//@ToString
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
+@Data
 public class BBS {
-	private int BBS_no;
-	private int user_no;
-	private String BBS_title; 
-	private String BBS_content;
-	private Date BBS_date;
-	private int BBS_show;
+	//default 
+	private int bbsNo;
+	private int userNo;
+	private String bbsTitle; 
+	private String bbsContent;
+	private Date bbsDate;
+	private int bbsShow;
 	
-//	private BBS() {}
-//	public BBS NoArgBBS() {
-//		BBS bbs = new BBS() {};
-//		return bbs;
-//	}
+	//option
+	private String userNick;
 	
 	
+	
+//	public BBS() {}
 //	public BBS(int BBS_no, int user_no, String BBS_title, String BBS_content, Date BBS_date, int BBS_show) {
 //		super();
 //		this.BBS_no = BBS_no;
@@ -33,7 +36,19 @@ public class BBS {
 //		this.BBS_date = BBS_date;
 //		this.BBS_show = BBS_show;
 //	}
-//	public BBS() {}
+	
+//	private BBS() {}
+//	public BBS NoArgBBS() {
+//		BBS bbs = new BBS() {};
+//		return bbs;
+//	}
+	
+//	public BBS(String BBS_title, String BBS_content) {
+//		this.BBS_title = BBS_title;
+//		this.BBS_content = BBS_content;
+//	}
+	
+	
 	
 //	
 //	
@@ -43,7 +58,7 @@ public class BBS {
 //	public BBS(int user_no, String BBS_title, String BBS_content,
 //			Date BBS_date, int BBS_show) {
 //		super();
-//		this.BBS_no = user_no;
+//		this.user_no = user_no;
 //		this.BBS_title = BBS_title;
 //		this.BBS_content = BBS_content;
 //		this.BBS_date = BBS_date;
