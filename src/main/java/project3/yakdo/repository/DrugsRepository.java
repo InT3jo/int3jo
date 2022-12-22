@@ -13,6 +13,7 @@ public interface DrugsRepository {
 	public Integer insertFindDrug(List<FindDrug> findDrugList);
 	public Integer insertDur(List<Dur> durList);
 	public Integer insertDurCombi(List<DurCombi> durList);
+	public DrugInfo getDrugInfoByItemSeq(String itemSeq);
 	public List<DrugInfo> getDrugInfoList();
 	public List<FindDrug> getDrugFindInfoList();
 	public void deleteDrugInfo();

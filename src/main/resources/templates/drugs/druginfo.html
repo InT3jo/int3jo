@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:utext="${drugInfo.itemName}"></title>
+</head>
+<body>
+	<div>
+		<div><b>품목일련번호</b></div>
+		<p th:utext="${drugInfo.itemSeq}"></p>
+	
+		<div><b>제품명</b></div>
+		<p th:utext="${drugInfo.itemName}"></p>
+	
+		<div><b>제품명(영)</b></div>
+		<p th:utext="${drugInfo.itemEngName}"></p>
+	
+		<div><b>제품 이미지</b></div>
+		<img th:src="${drugInfo.itemImage}"></p>
+	
+		<div><b>분류번호</b></div>
+		<p th:utext="${drugInfo.classNo}"></p>
+	
+		<div><b>분류명</b></div>
+		<p th:utext="${drugInfo.className}"></p>
+	
+		<div><b>성상</b></div>
+		<p th:utext="${drugInfo.chart}"></p>
+	
+		<div><b>전문/일반</b></div>
+		<p th:utext="${drugInfo.etcOtcName}"></p>
+	
+		<div><b>제조사명</b></div>
+		<p th:utext="${drugInfo.entpName}"></p>
+	
+		<div><b>효능</b></div>
+		<div th:each="efcy : ${drugInfo.getEfcyQesitm(1)}">
+			<p th:utext="${efcy}"></p>
+		</div>
+		
+		<div><b>용법</b></div>
+		<div th:each="use : ${drugInfo.getUseMethodQesitm(1)}">
+			<p th:utext="${use}"></p>
+		</div>
+		
+		<div><b>경고</b></div>
+		<p th:utext="${drugInfo.atpnWarnQesitm}"></p>
+	
+		<div><b>주의사항</b></div>
+		<div th:each="atpn : ${drugInfo.getAtpnQesitm(1)}">
+			<p th:utext="${atpn}"></p>
+		</div>
+	
+		<div><b>상호작용</b></div>
+		<p th:utext="${drugInfo.intrcQesitm}"></p>
+	
+		<div><b>부작용</b></div>
+		<p th:utext="${drugInfo.seQesitm}"></p>
+	
+		<div><b>보관법</b></div>
+		<p th:utext="${drugInfo.depositMethodQesitm}"></p>
+	
+		<div><b>보험코드</b></div>
+		<p th:utext="${drugInfo.ediCode}"></p>
+	
+		<div><b>마약여부</b></div>
+		<p th:utext="${drugInfo.narcotic}"></p>
+	
+		<div><b>성분명</b></div>
+		<div th:each="ingr:${drugInfo.ingrNameList}">
+			<p th:utext="${ingr}"></p>
+		</div>
+	</div>
+</body>
+</html>

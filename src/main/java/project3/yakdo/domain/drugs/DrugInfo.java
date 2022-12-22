@@ -1,6 +1,17 @@
 package project3.yakdo.domain.drugs;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,5 +59,39 @@ public class DrugInfo {
 		this.depositMethodQesitm = null;
 		this.ediCode = null;
 		this.narcotic = null;
+	}
+	
+	public List<String> getEfcyQesitm(int List) {
+		List<String> cDataList = getCData(this.efcyQesitm);
+		return cDataList;
+	}
+	
+	public List<String> getUseMethodQesitm(int List) {
+		List<String> cDataList = getCData(this.useMethodQesitm);
+		return cDataList;
+	}
+
+	public List<String> getAtpnQesitm(int List) {
+		List<String> cDataList = getCData(this.atpnQesitm);
+		return cDataList;
+	}
+
+	private List<String> getCData(String cData) { // API가 XML형식으로 넘어와서 파싱
+		// TODO Auto-generated method stub
+		List<String> cDataList = new ArrayList<>();
+		try {
+			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+			Document doc = dBuilder.parse(new InputSource(new StringReader(cData)));
+			NodeList nodeList = doc.getElementsByTagName("PARAGRAPH");
+			int len = nodeList.getLength();
+			for(int i=0;i<len;i++) {
+				cDataList.add(nodeList.item(i).getTextContent());				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cDataList;
 	}
 }

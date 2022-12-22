@@ -199,6 +199,19 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	}
 	
 	/**
+	 * DB에서 itemSeq를 찾아 DrugInfo 객체 반환
+	 * parameter : String itemSeq
+	 * return : DrugInfo
+	 * 담당자 : 홍준표
+	 */
+	@Override
+	public DrugInfo getDrugInfoByItemSeq(String itemSeq) {
+		DrugInfo drugInfo = drugsMapper.selectDrugInfoByItemSeq(itemSeq);
+		return drugInfo;
+	}
+	
+	
+	/**
 	 * DB에서 DrugInfo 내용을 가져와서
 	 * DrugInfo 객체로 이루어진 리스트로 반환
 	 * return : ArrayList<DrugInfo>
