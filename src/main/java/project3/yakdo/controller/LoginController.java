@@ -31,7 +31,7 @@ public class LoginController {
 		LoginForm loginForm = new LoginForm();
 		model.addAttribute("loginForm", loginForm);
 		
-		return "/login/login";
+		return "/users/login/login";
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class LoginController {
 		//일치하는 정보 없으면 login 화면으로
 		if(user == null) {
 			bindingResult.reject("loginForm", "이메일 또는 비밀번호를 다시 확인해 주세요.");
-			return "login/login";
+			return "/users/login/login";
 		}
 		
 		log.info("로그인 성공");

@@ -37,7 +37,7 @@ public class UsersController {
 		List<Users> userList = usersMybatisRepository.selectAll();
 		log.info(userList.toString());
 		model.addAttribute("userList", userList);
-		return "/login/userList";
+		return "/users/login/userList";
 	}
 	
 	@GetMapping
@@ -49,7 +49,7 @@ public class UsersController {
 			return "redirect:/";
 		}
 		
-		return "/login/userList";
+		return "/users/login/userList";
 	}
 	
 }
