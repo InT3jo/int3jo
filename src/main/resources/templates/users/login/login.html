@@ -16,9 +16,11 @@
 				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
 			</div>
 			
-			<label for="loginEmail">이메일 <input type="email" id="loginEmail" th:field="*{loginEmail}"></label>
+			<label for="loginEmail">이메일 </label>
+			<input type="email" id="loginEmail" th:field="*{loginEmail}" />
 			<div th:errors="*{loginEmail}"></div>
-			<label for="loginPw">비밀번호 <input type="password" id="loginPw" th:field="*{loginPw}"></label>
+			<label for="loginPw">비밀번호 </label>
+			<input type="password" id="loginPw" th:field="*{loginPw}" />
 			<div th:errors="*{loginPw}"></div>
 			
 			<button type="submit">로그인</button>
