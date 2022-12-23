@@ -3,6 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="project3.yakdo.repository.mybatis.DrugsMapper">
+
+<!-- INSERT 관련 쿼리문 -->
+
 	<insert id="insertDrugInfo" parameterType="DrugInfo">
 		INSERT INTO drug_info (
 			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
@@ -54,6 +57,8 @@
 		WHERE ITEM_SEQ = ${itemSeq} AND (${colName} IS NULL)
 	</update>
 	
+<!-- SELECT 관련 쿼리문 -->
+	
 	<select id="selectDrugInfoByItemSeq" parameterType="String" resultType="DrugInfo">
 		SELECT
 			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
@@ -63,6 +68,29 @@
 		FROM drug_info
 		WHERE ITEM_SEQ = ${itemSeq}
 	</select>
+
+	<select id="selectIngrListByItemSeq" parameterType="String" resultType="String">
+		SELECT
+			INGR_NAME
+		FROM drug_info_ingr
+		WHERE ITEM_SEQ = ${itemSeq}
+	</select>
+
+	<select id="selectDrugInfoAll" parameterType="String" resultType="DrugInfo">
+		SELECT
+			ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME
+		FROM (SELECT ROWNUM AS NUM, ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME FROM drug_info ORDER BY ITEM_SEQ)
+		WHERE NUM BETWEEN ${startNum} AND ${endNum}
+		ORDER BY ROWNUM 
+	</select>
+
+	<select id="selectDrugInfoCountAll" resultType="Integer">
+		SELECT COUNT(ITEM_SEQ) FROM drug_info
+	</select>
+		
+
+	
+<!-- DELETE 관련 쿼리문 -->
 	
 	<delete id="deleteDrugInfo">
 		DELETE FROM drug_info

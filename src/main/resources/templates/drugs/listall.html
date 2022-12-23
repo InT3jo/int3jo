@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>약품 전체목록</title>
+</head>
+<body>
+	<h1>약품목록 페이지(개발용 임시)</h1>
+	<table>
+		<tr th:each="di:${drugInfoList}">
+				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><img th:src="${di.getItemImage}" width="300" height="200" alt="이미지 준비중입니다."/></a></td>
+				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getItemName}" th:onclick="|location.href=@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"></span></a></td>
+				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getEntpName}" th:onclick="|location.href=@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"></span></a></td>
+		</tr>
+	</table>
+		<span th:if="${drugListPage}>1">
+			<button th:onclick="|location.href='@{prevPage/{drugListPage}(drugListPage=${drugListPage})}'|">이전페이지</button>
+		</span>
+			<button th:onclick="|location.href='@{nextPage/{drugListPage}(drugListPage=${drugListPage})}'|">다음페이지</button>
+</body>
+</html>

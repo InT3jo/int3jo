@@ -8,14 +8,18 @@ import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
 
 public interface DrugsRepository {
-
+	/* INSERT 메서드 */
 	public Integer insertDrugInfo(List<DrugInfo> drugInfoList);
 	public Integer insertFindDrug(List<FindDrug> findDrugList);
 	public Integer insertDur(List<Dur> durList);
 	public Integer insertDurCombi(List<DurCombi> durList);
+	/* SELECT 메서드 */
+	public List<DrugInfo> getDrugInfoList(String drugListPage);
 	public DrugInfo getDrugInfoByItemSeq(String itemSeq);
-	public List<DrugInfo> getDrugInfoList();
+	public Integer getDrugInfoCountAll();
 	public List<FindDrug> getDrugFindInfoList();
+	
+	/* DELETE 메서드 */
 	public void deleteDrugInfo();
 	public void deleteDrugInfoIngr();
 	public void deleteFindDrug();

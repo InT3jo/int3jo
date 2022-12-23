@@ -1,5 +1,6 @@
 package project3.yakdo.repository.mybatis;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -23,8 +24,10 @@ public interface DrugsMapper {
 	public Integer updateDrugInfo(Map<String, String> col);
 	
 	//select
+	public List<String> selectIngrListByItemSeq(@Param("itemSeq") String itemSeq);
 	public DrugInfo selectDrugInfoByItemSeq(@Param("itemSeq") String itemSeq);
-//	public List<DrugInfo> getDrugInfoList();
+	public Integer selectDrugInfoCountAll();
+	public List<DrugInfo> selectDrugInfoAll(@Param("startNum")int startNum,@Param("endNum")int endNum);
 //	public List<String> getDrtgInfoIngrList();
 //	public List<FindDrug> getDrugFindInfoList();
 

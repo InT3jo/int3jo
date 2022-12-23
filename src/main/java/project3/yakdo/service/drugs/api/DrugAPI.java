@@ -35,13 +35,12 @@ public class DrugAPI {
 	private final DrugsRepository drugRepository;
 
 	/**
-	 * DB의 DRUG_INFO Table과 FIND_DRUG Table, DUR Table의 현재 내용을 모두 날리고
-	 * API에서 새로운 정보를 가져와 셋팅하기
+	 * DB의 DRUG_INFO Table과 FIND_DRUG Table, DUR Table의 현재 내용을 모두 날리고 API에서 새로운 정보를 가져와 셋팅하기
 	 * 담당자 : 홍준표
 	 */
 	public void getAPI() {
 		// TODO Auto-generated method stub
-		log.info("일단 DB는 업뎃 했다 치고..");
+		log.info("일단 개발중이니까 DB는 업뎃 했다 치고..");
 		/* 일단 한번 누르면 시간 넘나 오래 걸리니까 주석처리합니다.
 		   (컴 사양이나 인터넷 용량에 따라 다르지만, 전 7시간 걸립니다.)
 
@@ -82,21 +81,18 @@ public class DrugAPI {
 		setFindDrugByAPI(findDrugList);
 		setDrugInfoByAPI(drugInfoList);
 		
-
 		log.info("Dur 테이블 기존 데이터 삭제");
 		drugRepository.deleteDur();
 		drugRepository.deleteDurCombi();
 		
-		log.info("Dur API 가져오기 시작");
 		for(String path:durAPIList) {
 			setDomainByDurAPI(durList,path);
 			setDurByAPI(durList);
 		}
 		setDomainByDurCombiAPI(durCombiList);
 		setDurCombiByAPI(durCombiList);
-		log.info("Dur 전체 API 가져오기 및 DB insert 완료");
 		
-		 */
+		*/
 		
 	}
 
@@ -144,7 +140,7 @@ public class DrugAPI {
 					findDrugList.add(findDrug);
 				}
 				if(i%100==0) {
-					log.info("DrugAPI.setDomainByFindDrugAPI();({}page/{}page)",i,totalPage);
+					log.info("FIND_DRUG API 가져오는중({}page/{}page)",i,totalPage);
 				}
 			}
 		} catch (Exception e) {
@@ -155,55 +151,67 @@ public class DrugAPI {
 	}
 	
 	private void setDomainByDurAPI(List<Dur> durList, String path) {
-		String tempJson = getJsonStringByApi(path,1);
-		JSONObject tempObject = new JSONObject(tempJson);
-		int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
-		int totalPage = (totalCnt/100)+1;
-		
-		for(int i=1;i<=totalPage;i++) {
-			String drugMoreInfoJson = getJsonStringByApi(path,i);
-			JSONObject jObject = new JSONObject(drugMoreInfoJson);
-			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
-			for(int j=0;j<itemList.length();j++) {
-				JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
-				Dur dur = new Dur();
-				dur.setItemSeq(itemObj.get("ITEM_SEQ").toString());
-				if(path != DrugPath.DUR_ER_API_PAGE_) {
-					dur.setIngrCode(itemObj.get("INGR_CODE").toString());
-					dur.setIngrName(itemObj.get("INGR_NAME").toString());					
+		log.info("DUR API 가져오기");
+		try {
+			String tempJson = getJsonStringByApi(path,1);
+			JSONObject tempObject = new JSONObject(tempJson);
+			int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
+			int totalPage = (totalCnt/100)+1;
+			
+			for(int i=1;i<=totalPage;i++) {
+				String drugMoreInfoJson = getJsonStringByApi(path,i);
+				JSONObject jObject = new JSONObject(drugMoreInfoJson);
+				JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
+				for(int j=0;j<itemList.length();j++) {
+					JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
+					Dur dur = new Dur();
+					dur.setItemSeq(itemObj.get("ITEM_SEQ").toString());
+					if(path != DrugPath.DUR_ER_API_PAGE_) {
+						dur.setIngrCode(itemObj.get("INGR_CODE").toString());
+						dur.setIngrName(itemObj.get("INGR_NAME").toString());					
+					}
+					dur.setTypeName(itemObj.get("TYPE_NAME").toString());
+					durList.add(dur);
 				}
-				dur.setTypeName(itemObj.get("TYPE_NAME").toString());
-				durList.add(dur);
+				if(i%100==0) {
+					log.info("DUR API 가져오는중({}page/{}page)",i,totalPage);
+				}		
 			}
-			if(i%100==0) {
-				log.info("DrugAPI.setDomainByDurAPI();({}page/{}page)",i,totalPage);
-			}		
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.info("DUR API 가져오기 실패");
 		}
 	}
 	
 	private void setDomainByDurCombiAPI(List<DurCombi> durList) {
-		String tempJson = getJsonStringByApi(DrugPath.DUR_COMBI_API_PAGE_,1);
-		JSONObject tempObject = new JSONObject(tempJson);
-		int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
-		int totalPage = (totalCnt/100)+1;
-		
-		for(int i=1;i<=totalPage;i++) {
-			String drugMoreInfoJson = getJsonStringByApi(DrugPath.DUR_COMBI_API_PAGE_,i);
-			JSONObject jObject = new JSONObject(drugMoreInfoJson);
-			JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
-			for(int j=0;j<itemList.length();j++) {
-				JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
-				DurCombi dur = new DurCombi();
-				dur.setItemSeq(itemObj.get("ITEM_SEQ").toString());
-				dur.setIngrCode(itemObj.get("INGR_CODE").toString());
-				dur.setIngrName(itemObj.get("INGR_KOR_NAME").toString());
-				dur.setMixIngrCode(itemObj.get("MIXTURE_INGR_CODE").toString());
-				dur.setMixIngrName(itemObj.get("MIXTURE_INGR_KOR_NAME").toString());
-				durList.add(dur);
+		log.info("DUR_COMBI API 가져오기");
+		try {
+			String tempJson = getJsonStringByApi(DrugPath.DUR_COMBI_API_PAGE_,1);
+			JSONObject tempObject = new JSONObject(tempJson);
+			int totalCnt = tempObject.getJSONObject("body").getInt("totalCount");
+			int totalPage = (totalCnt/100)+1;
+			
+			for(int i=1;i<=totalPage;i++) {
+				String drugMoreInfoJson = getJsonStringByApi(DrugPath.DUR_COMBI_API_PAGE_,i);
+				JSONObject jObject = new JSONObject(drugMoreInfoJson);
+				JSONArray itemList = jObject.getJSONObject("body").getJSONArray("items");
+				for(int j=0;j<itemList.length();j++) {
+					JSONObject itemObj = (JSONObject)itemList.getJSONObject(j);
+					DurCombi dur = new DurCombi();
+					dur.setItemSeq(itemObj.get("ITEM_SEQ").toString());
+					dur.setIngrCode(itemObj.get("INGR_CODE").toString());
+					dur.setIngrName(itemObj.get("INGR_KOR_NAME").toString());
+					dur.setMixIngrCode(itemObj.get("MIXTURE_INGR_CODE").toString());
+					dur.setMixIngrName(itemObj.get("MIXTURE_INGR_KOR_NAME").toString());
+					durList.add(dur);
+				}
+				if(i%100==0) {
+					log.info("DUR_COMBI API 가져오는중({}page/{}page)",i,totalPage);
+				}		
 			}
-			if(i%100==0) {
-				log.info("DrugAPI.setDomainByDurCombiAPI();({}page/{}page)",i,totalPage);
-			}		
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.info("DUR_COMBI API 가져오기 실패");
 		}
 	}
 	

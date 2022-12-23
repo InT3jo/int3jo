@@ -1,6 +1,5 @@
 package project3.yakdo.domain.drugs;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
