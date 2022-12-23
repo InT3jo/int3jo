@@ -16,4 +16,8 @@ public class UsersInfo {
 	private String allergy;
 	private String weight;
 	private String blockReason;
+	
+	public UsersInfo() {
+		
+	}
 }
