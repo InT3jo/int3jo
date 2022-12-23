@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상세검색 페이지</title>
+</head>
+<body>
+	<div>
+		<h1>약품 정보 입력</h1>
+		<p>
+			각 항목에 검색어를 입력한 후 검색 버튼을 클릭하시면 해당 조건에 맞는 내용이 검색됩니다.
+			여러 항목을 동시에 입력하여 검색하실 수 있습니다.
+			검색어가 두 글자 이상인 경우에는 붙여쓰기를 해주세요
+		</p>
+		<div>
+			<label>제품명<input type="text" placeholder="제품명"/></label>
+			<label>성분명<input type="text" placeholder="성분명"/></label>
+			<label>회사명<input type="text" placeholder="회사명"/></label>
+			
+			<label>제형
+				<select name="drugShape">
+					<option value="">제형선택</option>
+					<option value="">원형</option>
+					<option value="">타원형</option>
+					<option value="">반원형</option>
+					<option value="">삼각형</option>
+					<option value="">장방형</option>
+					<option value="">마름모형</option>
+					<option value="">오각형</option>
+					<option value="">육각형</option>
+					<option value="">팔각형</option>
+					<option value="">기타</option>
+				</select>
+			</label>
+			
+			<label>
+				색상
+				<select name="drugColor">
+					<option value="">색상선택</option>
+					<option value=""></option>
+				</select>
+			</label>
+			
+			<label>
+				분할선
+				<select name="drugLine">
+					<option value="">분할선 선택</option>
+					<option value="">없음</option>
+					<option value="">-(일자)</option>
+					<option value="">+(십자)</option>
+					<option value="">기타</option>
+				</select>
+			</label>
+			
+			<label>
+				마크
+				<select name="drugMark">
+					<option value="">마크선택</option>
+					<option value=""></option>
+				</select>
+			</label>
+			
+			<button>검색하기</button>
+		</div>
+	</div>
+</body>
+</html>

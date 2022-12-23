@@ -280,7 +280,16 @@ public class DrugsMybatisRepository implements DrugsRepository{
 		return drugFindInfoList;
 	}
 
-	
+/* UPDATE 관련 메서드 */
+	/**
+	 * DurgInfo 객체를 받아와서 해당 DB의 ITEM_IMAGE열을 업데이트
+	 * parameter : DrugInfo drugInfo
+	 * 담당자 : 홍준표
+	 */
+	public Integer updateDrugInfoImage(DrugInfo drugInfo) {
+		Integer result = drugsMapper.updateDrugInfoImage(drugInfo);
+		return result;
+	}
 	
 	
 	

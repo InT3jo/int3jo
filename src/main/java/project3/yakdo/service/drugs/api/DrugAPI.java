@@ -1,6 +1,8 @@
 package project3.yakdo.service.drugs.api;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugInfo;
@@ -38,11 +41,11 @@ public class DrugAPI {
 	 * DB의 DRUG_INFO Table과 FIND_DRUG Table, DUR Table의 현재 내용을 모두 날리고 API에서 새로운 정보를 가져와 셋팅하기
 	 * 담당자 : 홍준표
 	 */
-	public void getAPI() {
+	public void getAPI(HttpServletRequest req) {
 		// TODO Auto-generated method stub
-		log.info("일단 개발중이니까 DB는 업뎃 했다 치고..");
+		log.info("일단 개발중이니까 DB는 중간에 꺼도 상관없는 이미지업데이트만 진행");
 		/* 일단 한번 누르면 시간 넘나 오래 걸리니까 주석처리합니다.
-		   (컴 사양이나 인터넷 용량에 따라 다르지만, 전 7시간 걸립니다.)
+		   (컴 사양이나 인터넷 용량에 따라 다르지만, 전 8시간 걸립니다.)
 
 		
 		log.info("API 데이터 DB 최신화 작업 시작");
@@ -94,6 +97,53 @@ public class DrugAPI {
 		
 		*/
 		
+		setDrugImage("drugOpenData.csv", req);
+		
+	}
+
+	private void setDrugImage(String csvFileName, HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		log.info("csv파일에서 약품 이미지경로 가져와서 DB에 입력하기");
+		List<List<String>> csv = parseCsv(csvFileName, req);
+		for(int i=1;i<csv.size();i++) {
+			String itemSeq = csv.get(i).get(0);
+			String itemImage = csv.get(i).get(5);
+			DrugInfo di = drugRepository.getDrugInfoByItemSeq(itemSeq);
+			if(di.getItemImage()==null) {
+				di.setItemImage(itemImage);
+				drugRepository.updateDrugInfoImage(di);
+			}
+			if(i%100==0) {
+				log.info("DRUG_INFO IMAGE 업데이트중({}/{})",i,csv.size());
+			}
+		}
+		log.info("이미지경로 업데이트 완료");
+	}
+
+	private List<List<String>> parseCsv(String csvFileName, HttpServletRequest req) {
+		String filePath = req.getServletContext().getRealPath("/drug");
+		List<List<String>> csvList = new ArrayList<>();
+		File csv = new File(filePath+"/"+csvFileName);
+		BufferedReader br = null;
+		String line = "";
+		try {
+			br = new BufferedReader(new FileReader(csv));
+			while((line=br.readLine())!= null) {
+				List<String> tempLine = new ArrayList<>();
+				String[] lineArr = line.split(",");
+				tempLine = Arrays.asList(lineArr);
+				csvList.add(tempLine);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			try {
+				br.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		return csvList;
 	}
 
 	private void setDomainByFindDrugAPI(List<DrugInfo> drugInfoList, List<FindDrug> findDrugList) {

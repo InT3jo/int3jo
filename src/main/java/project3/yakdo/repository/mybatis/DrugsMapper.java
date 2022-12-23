@@ -22,6 +22,7 @@ public interface DrugsMapper {
 
 	//update
 	public Integer updateDrugInfo(Map<String, String> col);
+	public Integer updateDrugInfoImage(DrugInfo drugInfo);
 	
 	//select
 	public List<String> selectIngrListByItemSeq(@Param("itemSeq") String itemSeq);

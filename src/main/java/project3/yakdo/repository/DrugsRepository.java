@@ -19,6 +19,9 @@ public interface DrugsRepository {
 	public Integer getDrugInfoCountAll();
 	public List<FindDrug> getDrugFindInfoList();
 	
+	/* UPDATE 메서드 */
+	 public Integer updateDrugInfoImage(DrugInfo drugInfo);
+	
 	/* DELETE 메서드 */
 	public void deleteDrugInfo();
 	public void deleteDrugInfoIngr();

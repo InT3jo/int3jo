@@ -51,12 +51,20 @@
 		VALUES (#{itemSeq, jdbcType=VARCHAR}, #{ingrCode, jdbcType=VARCHAR}, #{ingrName, jdbcType=VARCHAR}, #{mixIngrCode, jdbcType=VARCHAR}, #{mixIngrName, jdbcType=VARCHAR})
 	</insert>
 	
+<!-- UPDATE 관련 쿼리문 -->
+	
 	<update id="updateDrugInfo" parameterType="hashmap">
 		UPDATE drug_info
 		SET ${colName} = ${value}
 		WHERE ITEM_SEQ = ${itemSeq} AND (${colName} IS NULL)
 	</update>
 	
+	<update id="updateDrugInfoImage" parameterType="DrugInfo">
+		UPDATE drug_info
+		SET ITEM_IMAGE = '${itemImage}'
+		WHERE ITEM_SEQ = ${itemSeq}
+	</update>
+
 <!-- SELECT 관련 쿼리문 -->
 	
 	<select id="selectDrugInfoByItemSeq" parameterType="String" resultType="DrugInfo">

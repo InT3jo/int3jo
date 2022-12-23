@@ -35,6 +35,11 @@ public class DrugsController {
 		return "drugs/drugshome";
 	}
 	
+	@GetMapping("/search")
+	public String findDrug() { // 약품 상세검색
+		return "drugs/finddrug";
+	}
+	
 	@GetMapping("/info/{itemSeq}")
 	public String drugInfo(Model model, @PathVariable("itemSeq") String itemSeq) { // 약품 상세정보
 		DrugInfo drugInfo = drugsRepository.getDrugInfoByItemSeq(itemSeq);
@@ -61,12 +66,12 @@ public class DrugsController {
 	}
 	
 	@GetMapping("/list/nextPage/{nowPage}")
-	public String drugNextPage(Model model,@PathVariable("nowPage") String nowPage) { // 리스트 다음페이지
+	public String drugNextPage(@PathVariable("nowPage") String nowPage) { // 약품리스트 다음페이지
 		int nextPage = Integer.parseInt(nowPage) +1;
 		return "redirect:/drugs/list/"+nextPage;
 	}
 	@GetMapping("/list/prevPage/{nowPage}")
-	public String drugPrevPage(Model model,@PathVariable("nowPage") String nowPage) {// 리스트 이전페이지
+	public String drugPrevPage(@PathVariable("nowPage") String nowPage) {// 약품리스트 이전페이지
 		int prevPage = Integer.parseInt(nowPage) -1;
 		return "redirect:/drugs/list/"+prevPage;
 	}
@@ -78,9 +83,9 @@ public class DrugsController {
 	}
 	
 	@RequestMapping("/dbupdate")
-	public String drugsHomePost() { //db update 완료
+	public String drugsHomePost(HttpServletRequest req) { //db update 완료
 		DrugAPI drugAPI = new DrugAPI(drugsRepository);
-		drugAPI.getAPI();
+		drugAPI.getAPI(req);
 		return "drugs/dbupdate";
 	}
 }
