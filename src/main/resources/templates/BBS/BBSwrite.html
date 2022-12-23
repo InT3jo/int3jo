@@ -13,8 +13,6 @@
 	<h1>BBS write Page</h1>
 	글쓰는페이지
 
-	
-
 	<form action="" method="post" th:object="${BBS}">
 	<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
@@ -24,8 +22,6 @@
 		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
 		<div class="errormsg" th:errors="*{bbsTitle}"></div> 
 		</br>
-<!-- 		<label>내용<input type="text" name="bbsContent" th:field="*{bbsContent}"></label> -->
-<!-- 			<div class="errormsg" th:errors="*{bbsContent}"></div>   -->
 <label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label>
 			<div class="errormsg" th:errors="*{bbsContent}"></div>  
 

@@ -16,18 +16,11 @@ public interface BBSMapper {
 
 	public List<BBS> selectByShowZero(); // 게시글 목록 출력
 
-	public void updateBBS(@Param("bbsNo") int bbsNo, @Param("updateBBS") BBS bbs); // 게시글 수정 Update
+	public void updateBBS(@Param("bbsNo") int bbsNo, @Param("updateItem") BBS bbs); // 게시글 수정 Update
 
-	public void delteBBSTitleAndContent(int bbsNo); // 게시글 수정시 제목 내용 삭제
+	public void updateShowOneBybbsNo( int bbsNo); // 본인삭제 / 게시글 전체목록에서 숨기기
 
-	public Integer insertBBSTitleAndContent(
-			@Param("bbsNo") int bbsNo, 
-			@Param("bbsTitle") String bbsTitle,
-			@Param("bbsContent") String bbsContent); // 게시글 수정시 수정한 내용으로 다시 insert
-
-	public void updateShowOneBybbsNo(int bbsNo); // 본인삭제 / 게시글 전체목록에서 숨기기
-
-	public void updateShowTwoBybbsNo(int bbsNo); // 관리자삭제 / 게시글 전체목록에서 숨기기
+	public void updateShowTwoBybbsNo( int bbsNo); // 관리자삭제 / 게시글 전체목록에서 숨기기
 
 	// ======================================================
 	// 관리자 관련

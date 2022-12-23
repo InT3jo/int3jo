@@ -23,12 +23,7 @@ public class BBSService {
 		return bbslist;
 	}
 	
-//	public List<BBS> selectByBBS_show_0()
-//	{
-//		List<BBS> BBSlist = BBSMapper.selectByBBS_show_0();
-//		
-//		return BBSlist;
-//	}
+
 	
 	
 }

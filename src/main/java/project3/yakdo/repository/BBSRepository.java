@@ -17,11 +17,11 @@ public interface BBSRepository {
 
 	public boolean updateShowOneBybbsNo(int bbsNo); // 본인삭제 / 게시글 전체목록에서 숨기기
 						
-	public boolean updateShowTwoBybbsNo(int bbsNo); // 관리자삭제 / 게시글 전체목록에서 숨기기
 
 	
 	//======================================================
 	//관리자 관련
+	public boolean updateShowTwoBybbsNo(int bbsNo); // 관리자삭제 / 게시글 전체목록에서 숨기기
 	
 	public List<BBS> selectByShowOne();	//관리자용 본인삭제 게시글 목록 출력
 	

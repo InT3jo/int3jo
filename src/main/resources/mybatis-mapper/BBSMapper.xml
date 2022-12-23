@@ -21,7 +21,7 @@
 		values
 		(
 		#{bbsNo},
-		<!-- #{user_no}, 일단 Test로 3 넣어보기, 추후 수정 필요 -->
+		<!-- #{user_no}, 일단 Test로 3 넣어보기, 추후 수정 필요 - 로그인한 사람 아이디에 맞는 user_no찾아서 insert -->
 		3,
 		#{bbsTitle},
 		#{bbsContent},
@@ -121,11 +121,11 @@
 <!-- 	</select> -->
 
 	<!-- 게시글 수정 -->
-	<update id="updateBBS">
+	<update id="updateBBS" parameterType="BBS">
 		update BBS
 		set
-		BBS_title=#{bbsTitle},
-		BBS_content=#{bbsContent}
+		BBS_title=#{updateItem.bbsTitle},
+		BBS_content=#{updateItem.bbsContent}
 		where BBS_no=#{bbsNo}
 	</update>
 

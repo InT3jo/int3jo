@@ -42,37 +42,62 @@ public class BBSMybatisRepository implements BBSRepository {
 		return bbsListZero;
 	}
 
+//	@Override
+//	@Transactional
+//	public boolean updateBBS(int bbsNo, BBS bbs) {
+//		// TODO Auto-generated method stub
+//		boolean result = false;
+//		try {
+//		BBSMapper.updateBBS(bbsNo, bbs);
+//		result = true;
+//		}catch (Exception e){
+//			log.error("BBSMapper update error {} {} ", bbsNo, bbs);
+//		}
+//		
+//		
+//		return result;
+//
+//	}
+	
 	@Override
 	@Transactional
 	public boolean updateBBS(int bbsNo, BBS bbs) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			BBSMapper.updateBBS(bbsNo, bbs);
-			result = true;
-			
-			
-			
-	
-		} catch (Exception e) {
-			log.error("BBSMapper update error {} {}",bbsNo, bbs);
+		BBSMapper.updateBBS(bbsNo, bbs);
+		result = true;
+		}catch (Exception e){
+			log.error("BBSMapper update error {} {} ", bbsNo, bbs);
 		}
 		return result;
-			
-		
-	
 	}
-
+	
+	
 	@Override
 	public boolean updateShowOneBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+		try {
+		BBSMapper.updateShowOneBybbsNo(bbsNo);
+		result = true;
+		}catch(Exception e){
+			
+		}
+		return result;
 	}
 
 	@Override
 	public boolean updateShowTwoBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+		try {
+		BBSMapper.updateShowTwoBybbsNo(bbsNo);
+		result = true;
+		}catch(Exception e){
+			
+		}
+		return result;
 	}
 
 	
@@ -93,6 +118,10 @@ public class BBSMybatisRepository implements BBSRepository {
 		bbsListTwo = BBSMapper.selectByShowTwo();
 		return bbsListTwo;
 	}
+
+
+
+
 
 	
 

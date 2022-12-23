@@ -10,9 +10,12 @@
 	<form action="" method="post" th:object="${BBS}">
 		<div>
 			<label>작성일<input type="date" name="bbsDate" readonly="readonly" th:field="*{bbsDate}"></label>
-			<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
-			<label>내용<input type="text" name="bbsContent" th:field="*{bbsContent}"></label>
+			<br>
 			<label>작성자<input type="text" name="userNick" readonly="readonly" th:field="*{userNick}"></label>
+			<br>
+			<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
+			<br>
+			<label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label>
 		</div>
 		<div>
 		 <button type="submit">수정하기</button>
