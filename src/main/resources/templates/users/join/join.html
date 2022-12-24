@@ -7,11 +7,88 @@
 <body>
 	<h1>Join Page</h1>
 	<div>
-		<form action="join" method="post" th:object="${Users}">
-			<label>email
-				<input type="text" name="userEmail" th:field="*{userEmail}"/>
-			</label>
-			<button th:onclick="">가입하기</button>
+		<form action="">
+			<div>
+				<label for="joinEmail">이메일</label>
+				<input type="email" id="joinEmail"/>
+				<button type="button">인증코드 받기</button>
+			</div>
+			
+			<div>
+				<label for="emailCodeCheck">인증코드</label>
+				<input type="text" id="emailCodeCheck"/>
+				<button type="button">인증</button>
+			</div>
+			
+			<div>
+				<label for="JoinPw">비밀번호</label>
+				<input type="password" id="JoinPw"/>
+			</div>
+			<div>
+				<label for="ReJoinPw">비밀번호 확인</label>
+				<input type="password" id="ReJoinPw"/>
+			</div>
+			
+			<div>
+				<label for="joinNick">닉네임</label>
+				<input type="text" id="joinNick"/>
+			</div>
+			
+			<div>
+				<label for="joinName">이름</label>
+				<input type="text" id="joinName"/>
+			</div>
+			
+			<div>
+				<label for="familyRelations">가족 관계</label>
+				<select id="familyRelations">
+					<option value="none">가족관계</option>
+					<option value="0">본인</option>
+					<option value="1">엄마</option>
+					<option value="2">아빠</option>
+					<option value="3">배우자</option>
+					<option value="4">자녀</option>
+				</select>
+			</div>
+			
+			<div>
+				<label for="birth">생년월일</label>
+				<input type="date" id="birth" />
+			</div>
+			
+			<div>
+				<label for="weight">몸무게(kg)</label>
+				<input type="text" id="weight" />
+			</div>
+			
+			<div>
+				<label for="usingDrugs">복용 중인 약</label>
+				<input type="text" id="usingDrugs" />
+			</div>
+			
+			<div>
+				<label for="joinGender">성별</label>
+				<select id="joinGender">
+					<option value="none">성별</option>
+					<option value="1">남자</option>
+					<option value="2">여자</option>
+				</select>
+			</div>
+			
+			<div>
+				<label for="allergyName">알레르기</label>
+				<select id="allergyName">
+					<option value="none">알레르기 선택</option>
+					<option>알레르기1</option>
+					<option>알레르기2</option>
+				</select>
+			</div>
+			<div>
+				<button type="button">추가</button>
+			</div>
+			<div>
+				<button type="submit">가입하기</button>
+			</div>
 		</form>
 	</div>
 </body>

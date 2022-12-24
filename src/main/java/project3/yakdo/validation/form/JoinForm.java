@@ -1,13 +1,16 @@
-package project3.yakdo.domain.users;
+package project3.yakdo.validation.form;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * form 태그 위한 service 객체
+ * @author honey
+ *
+ */
 @Data
-@AllArgsConstructor
-public class Users {
+public class JoinForm {
 	private Integer userNo;
 	private String userEmail;
 	private String userPw;
@@ -18,7 +21,10 @@ public class Users {
 	private LocalDateTime leaveDate;
 	private String blockReason;
 	
-	public Users() {
-		
-	}
+	private Integer familyNo;
+	private LocalDateTime birth;
+	private String gender;
+	private String usingDrugs;
+	private String allergy;
+	private String weight;
 }

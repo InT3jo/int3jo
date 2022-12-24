@@ -44,9 +44,6 @@ public class LoginController {
 					, BindingResult bindingResult
 					, HttpServletRequest req
 					, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
-		log.info(req.getRequestURL().toString());
-		log.info(redirectURL);
-		log.info("loginForm {}", loginForm);
 		
 		//에러 검증
 		LoginValidator loginValidator = new LoginValidator();

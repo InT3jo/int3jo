@@ -8,14 +8,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UsersInfo {
-	private int userNo;
-	private int familyNo;
+	private Integer userNo;
+	private Integer familyNo;
 	private LocalDateTime birth;
 	private String gender;
 	private String usingDrugs;
 	private String allergy;
 	private String weight;
-	private String blockReason;
 	
 	public UsersInfo() {
 		
