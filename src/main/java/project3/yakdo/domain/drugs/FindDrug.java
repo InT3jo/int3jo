@@ -2,9 +2,11 @@ package project3.yakdo.domain.drugs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class FindDrug {
 	private String itemSeq; // 품목일련번호
 	private String printFront; // 표시(앞)
@@ -23,9 +25,7 @@ public class FindDrug {
 	private String markCodeBack; // 마크코드(뒤)
 	private String markCodeFrontImg; // 마크이미지(앞)
 	private String markCodeBackImg; // 마크이미지(뒤)
-	
-	public FindDrug() {} // 기본생성자
-	
+		
 	public void allClear() {
 		this.itemSeq = null;
 		this.printFront = null;

@@ -3,6 +3,7 @@ package project3.yakdo.repository;
 import java.util.List;
 
 import project3.yakdo.domain.drugs.FindDrug;
+import project3.yakdo.service.drugs.search.FindDrugForm;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
@@ -18,6 +19,7 @@ public interface DrugsRepository {
 	public DrugInfo getDrugInfoByItemSeq(String itemSeq);
 	public Integer getDrugInfoCountAll();
 	public List<FindDrug> getDrugFindInfoList();
+	public List<DrugInfo> getDrugInfoListByFindDrugForm(FindDrugForm findDrugForm);
 	
 	/* UPDATE 메서드 */
 	 public Integer updateDrugInfoImage(DrugInfo drugInfo);

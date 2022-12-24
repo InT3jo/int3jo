@@ -92,6 +92,55 @@
 		ORDER BY ROWNUM 
 	</select>
 
+	<select id="selectDrugInfoByFindDrugForm" parameterType="String" resultType="DrugInfo">
+		SELECT 
+		    ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME
+		FROM (SELECT ROWNUM AS NUM, ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME FROM drug_info ORDER BY ITEM_SEQ)
+		WHERE
+			ITEM_SEQ IN
+		        (SELECT MAX(ITEM_SEQ)
+		        FROM(
+		            SELECT 
+						d.ITEM_SEQ, d.ITEM_NAME, d.ITEM_IMAGE, d.ENTP_NAME, i.INGR_NAME,
+						f.PRINT_FRONT, f.PRINT_BACK, f.DRUG_SHAPE, f.COLOR_CLASS1, f.COLOR_CLASS2,
+						f.LINE_FRONT, f.LINE_BACK, f.MARK_CODE_FRONT_ANAL, f.MARK_CODE_BACK_ANAL,
+						f.MARK_CODE_FRONT, f.MARK_CODE_BACK, f.MARK_CODE_FRONT_IMG, f.MARK_CODE_BACK_IMG
+		            FROM drug_info d, drug_info_ingr i, find_drug f
+		            <where>
+		            	d.ITEM_SEQ = i.ITEM_SEQ AND d.ITEM_SEQ = f.ITEM_SEQ
+		            	<foreach item="item" collection="itemNames" separator=" ">
+ 		                	AND (ITEM_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="ingrNames" separator=" ">
+ 		                	AND (INGR_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="entpNames" separator=" ">
+ 		                	AND (ENTP_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugShapes" separator=" ">
+ 		                	AND (DRUG_SHAPE LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugColors" separator=" ">
+ 		                	AND (COLOR_CLASS1 LIKE '%'||#{item}||'%' OR COLOR_CLASS2 LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugPrints" separator=" ">
+ 		                	AND (PRINT_FRONT LIKE '%'||#{item}||'%' OR PRINT_BACK LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugLines" separator=" ">
+ 		                	AND (LINE_FRONT LIKE '%'||#{item}||'%' OR LINE_BACK LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugMarks" separator=" ">
+ 		                	AND (MARK_CODE_FRONT_ANAL LIKE '%'||#{item}||'%' OR MARK_CODE_BACK_ANAL LIKE '%'||#{item}||'%'
+ 		                		OR MARK_CODE_FRONT LIKE '%'||#{item}||'%' OR MARK_CODE_BACK LIKE '%'||#{item}||'%'
+								OR MARK_CODE_FRONT_IMG LIKE '%'||#{item}||'%' OR MARK_CODE_BACK_IMG LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	
+		            </where>
+	            	ORDER BY ITEM_SEQ)
+		        GROUP BY ITEM_SEQ)
+		ORDER BY ROWNUM
+	</select>
+
 	<select id="selectDrugInfoCountAll" resultType="Integer">
 		SELECT COUNT(ITEM_SEQ) FROM drug_info
 	</select>

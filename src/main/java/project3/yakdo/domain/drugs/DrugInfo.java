@@ -12,8 +12,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class DrugInfo {
 	private String itemSeq; // 품목일련번호
 	private String itemName; // 제품명
@@ -34,8 +36,6 @@ public class DrugInfo {
 	private String ediCode; // 보험코드
 	private String narcotic; // 마약여부
 	private List<String> ingrNameList; // 성분명
-	
-	public DrugInfo() {} // 기본생성자
 	
 	public void allClear() {
 		this.itemSeq = null;

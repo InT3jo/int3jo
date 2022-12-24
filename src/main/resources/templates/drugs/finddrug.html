@@ -10,26 +10,26 @@
 		<p>
 			각 항목에 검색어를 입력한 후 검색 버튼을 클릭하시면 해당 조건에 맞는 내용이 검색됩니다.
 			여러 항목을 동시에 입력하여 검색하실 수 있습니다.
-			검색어가 두 글자 이상인 경우에는 붙여쓰기를 해주세요
+			띄어쓰기를 이용하여 다중조건으로 검색합니다.
 		</p>
-		<div>
-			<label>제품명<input type="text" placeholder="제품명"/></label>
-			<label>성분명<input type="text" placeholder="성분명"/></label>
-			<label>회사명<input type="text" placeholder="회사명"/></label>
+		<form action="" method="post">
+			<label>제품명<input type="text" name="itemName" placeholder="제품명"/></label>
+			<label>성분명<input type="text" name="ingrName" placeholder="성분명"/></label>
+			<label>회사명<input type="text" name="entpName" placeholder="회사명"/></label>
 			
 			<label>제형
 				<select name="drugShape">
 					<option value="">제형선택</option>
-					<option value="">원형</option>
-					<option value="">타원형</option>
-					<option value="">반원형</option>
-					<option value="">삼각형</option>
-					<option value="">장방형</option>
-					<option value="">마름모형</option>
-					<option value="">오각형</option>
-					<option value="">육각형</option>
-					<option value="">팔각형</option>
-					<option value="">기타</option>
+					<option value="원형">원형</option>
+					<option value="타원형">타원형</option>
+					<option value="반원형">반원형</option>
+					<option value="삼각형">삼각형</option>
+					<option value="장방형">장방형</option>
+					<option value="마름모형">마름모형</option>
+					<option value="오각형">오각형</option>
+					<option value="육각형">육각형</option>
+					<option value="팔각형">팔각형</option>
+					<option value="기타">기타</option>
 				</select>
 			</label>
 			
@@ -37,18 +37,35 @@
 				색상
 				<select name="drugColor">
 					<option value="">색상선택</option>
-					<option value=""></option>
+					<option value="투명" style="background-color:none">(투명)</option>
+					<option value="하양" style="background-color:#ffffff">하양</option>
+					<option value="검정" style="background-color:#000000">검정</option>
+					<option value="회색" style="background-color:#808080">회색</option>
+					<option value="빨강" style="background-color:#ff0000">빨강</option>
+					<option value="분홍" style="background-color:#ffc0cb">분홍</option>
+					<option value="주황" style="background-color:#ff7f00">주황</option>
+					<option value="갈색" style="background-color:#964b00">갈색</option>
+					<option value="노랑" style="background-color:#ffd400">노랑</option>
+					<option value="연두" style="background-color:#81c147">연두</option>
+					<option value="초록" style="background-color:#008000">초록</option>
+					<option value="청록" style="background-color:#005666">청록</option>
+					<option value="파랑" style="background-color:#0067a3">파랑</option>
+					<option value="남색" style="background-color:#000080">남색</option>
+					<option value="보라" style="background-color:#8b00ff">보라</option>
+					<option value="자주" style="background-color:#660099">자주</option>
 				</select>
 			</label>
+			
+			<label>약품에 적힌 글자<input type="text" name="drugPrint" placeholder="약품에 적힌 글자"/></label>
 			
 			<label>
 				분할선
 				<select name="drugLine">
 					<option value="">분할선 선택</option>
-					<option value="">없음</option>
-					<option value="">-(일자)</option>
-					<option value="">+(십자)</option>
-					<option value="">기타</option>
+					<option value="null">없음</option>
+					<option value="-">일자(-)</option>
+					<option value="+">십자(+)</option>
+					<option value="기타">기타</option>
 				</select>
 			</label>
 			
@@ -61,7 +78,16 @@
 			</label>
 			
 			<button>검색하기</button>
-		</div>
+		</form>
+	</div>
+	<div th:unless="${findDrugInfoList} == null or ${findDrugInfoList.size} == 0">
+		<table>
+			<tr th:each="di:${findDrugInfoList}">
+				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><img th:src="${di.getItemImage}" width="300" height="200" alt="이미지 준비중입니다."/></a></td>
+				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getItemName}" th:onclick="|location.href=@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"></span></a></td>
+				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getEntpName}" th:onclick="|location.href=@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"></span></a></td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>
