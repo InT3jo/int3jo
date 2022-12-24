@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import project3.yakdo.domain.users.UsersInfo;
 @RequiredArgsConstructor
 public class JoinController {
 
+	@GetMapping("/join")
 	public String join (Model model) {
 		Users users = new Users();
 		UsersInfo usersInfo = new UsersInfo();
@@ -60,19 +63,16 @@ public class JoinController {
 //	}
 
 	@PostMapping("/join")
-	public String doJoin (Map<String, Object> userInfoMap, Model model) {
+	public String doJoin (@ModelAttribute  Map<String, Object> userInfoMap) {
 		Users user = (Users) userInfoMap.get("user");
 		Users userInfo = (Users) userInfoMap.get("userInfo");
 		
-		log.info("user {}");
-		log.info("userInfo {}");
+		log.info("user {}", user);
+		log.info("userInfo {}", userInfo);
 //		
 //		if(userInfoMap.isEmpty()) {
 //			Users user = joinService.join(userInfoMap.get("user"), userInfoMap.get("userInfo"));
 //		}
-		model.addAttribute("user", user);
-		model.addAttribute("user", userInfo);
-//		
 		return "redirect:/";
 	}
 }
