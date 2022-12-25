@@ -106,9 +106,9 @@
 	<div th:unless="${findDrugInfoList} == null or ${findDrugInfoList.size} == 0">
 		<table>
 			<tr th:each="di:${findDrugInfoList}">
-				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><img th:src="${di.getItemImage}" width="300" height="200" alt="이미지 준비중입니다."/></a></td>
-				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getItemName}" th:onclick="|location.href=@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"></span></a></td>
-				<td><a th:href="@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getEntpName}" th:onclick="|location.href=@{/drugs/info/{itemSeq}(itemSeq=${di.getItemSeq})}|"></span></a></td>
+				<td><a th:href="@{/drugs/{itemSeq}(itemSeq=${di.getItemSeq})}|"><img th:src="${di.getItemImage}" width="300" height="200" alt="이미지 준비중입니다."/></a></td>
+				<td><a th:href="@{/drugs/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getItemName}"></span></a></td>
+				<td><a th:href="@{/drugs/{itemSeq}(itemSeq=${di.getItemSeq})}|"><span th:utext="${di.getEntpName}"></span></a></td>
 			</tr>
 		</table>
 	</div>

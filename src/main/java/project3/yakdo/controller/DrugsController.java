@@ -33,19 +33,14 @@ public class DrugsController {
 	private final DrugsRepository drugsRepository;
 	private final FindDrugService findDrugService;
 	
-	@GetMapping()
-	public String drugsHomeGet(Model model) { // drugs 홈
-		return "drugs/drugshome";
-	}
-	
 	/**
 	 * 약품 상세검색창, 결과창과 같은 HTML파일
 	 * 홈검색은 일반검색, 상세검색은 이곳으로 오게 함.
 	 * 상세검색은, 검색창에서 아코디언방식으로 할까 생각중
 	 * 담당자 : 홍준표
 	 */
-	@GetMapping("/search")
-	public String findDrug(Model model) { // 약품 상세검색
+	@GetMapping("")
+	public String findDrug(Model model) {
 		FindDrugForm findDrugForm = new FindDrugForm();
 		model.addAttribute("findDrugForm",findDrugForm);
 		List<DrugMark> drugMarkList = drugsRepository.getDrugMarkAll();
@@ -57,10 +52,12 @@ public class DrugsController {
 	 * 약품 상세검색 결과창, 검색창과 같은 HTML 파일
 	 * 담당자 : 홍준표
 	 */
-	@PostMapping("/search")
-	public String findDrugResult(Model model,@ModelAttribute FindDrugForm findDrugForm) { // 약품 상세검색 결과
+	@PostMapping("")
+	public String findDrugResult(Model model,@ModelAttribute FindDrugForm findDrugForm) {
 		List<DrugInfo> findDrugInfoList = findDrugService.findDrugResult(findDrugForm);
 		model.addAttribute("findDrugInfoList",findDrugInfoList);
+		List<DrugMark> drugMarkList = drugsRepository.getDrugMarkAll();
+		model.addAttribute("drugMarkList",drugMarkList);
 		return "drugs/finddrug";
 	}
 	
@@ -69,8 +66,8 @@ public class DrugsController {
 	 * 회원정보와 대조하여 얼럿창 띄우기 기능 추가예정
 	 * 담당자 : 홍준표
 	 */
-	@GetMapping("/info/{itemSeq}")
-	public String drugInfo(Model model, @PathVariable("itemSeq") String itemSeq) { // 약품 상세정보
+	@GetMapping("/{itemSeq}")
+	public String drugInfo(Model model, @PathVariable("itemSeq") String itemSeq) {
 		DrugInfo drugInfo = drugsRepository.getDrugInfoByItemSeq(itemSeq);
 		model.addAttribute("drugInfo",drugInfo);
 		return "drugs/druginfo";
@@ -78,7 +75,7 @@ public class DrugsController {
 	
 	/**
 	 * API로 db update 시작(POST로 "/drugs/apiUpdate" 경로 이동만 하면 API 로 DB업데이트 시작)
-	 * 실제 동작은 "/drugs/dbupdate"에서 하게 되는데, 그동안 띄워 둘 화면
+	 * 실제 동작은 "/drugs/dbupdate"에서 하게 되는데, 업데이트중 노출되는 화면
 	 * 담당자 : 홍준표
 	 */
 	@PostMapping("/apiUpdate")
