@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.repository.DrugsRepository;
+import project3.yakdo.service.drugs.api.DrugAPIService;
 import project3.yakdo.service.drugs.search.FindDrugForm;
 import project3.yakdo.service.drugs.search.FindDrugService;
 
@@ -32,6 +33,7 @@ public class DrugsController {
 	
 	private final DrugsRepository drugsRepository;
 	private final FindDrugService findDrugService;
+	private final DrugAPIService drugAPIService;
 	
 	/**
 	 * 약품 상세검색창, 결과창과 같은 HTML파일
@@ -89,7 +91,7 @@ public class DrugsController {
 	 */
 	@RequestMapping("/dbupdate")
 	public String drugsHomePost(HttpServletRequest req) { //db update 완료
-		findDrugService.dbUpdate(req);
+		drugAPIService.getAPI(req);
 		return "drugs/dbupdate";
 	}
 

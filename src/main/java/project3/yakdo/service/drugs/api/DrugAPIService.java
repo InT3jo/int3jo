@@ -33,7 +33,7 @@ import project3.yakdo.repository.DrugsRepository;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DrugAPI {
+public class DrugAPIService {
 
 	private final DrugsRepository drugRepository;
 
@@ -43,11 +43,9 @@ public class DrugAPI {
 	 */
 	public void getAPI(HttpServletRequest req) {
 		// TODO Auto-generated method stub
-		log.info("일단 개발중이니까 DB는 중간에 종료해도 상관없는 이미지업데이트만 진행");
-		/* 일단 한번 누르면 시간 넘나 오래 걸리니까 주석처리합니다.
-		   (컴 사양이나 인터넷 용량에 따라 다르지만, 전 8시간 걸립니다.)
-
-		
+		log.info("이거 진짜 업데이트 하려면 10시간 넘게 걸릴듯..");
+		log.info("일단 개발중이니까 DB는 중간에 종료해도 상관없는 업데이트만 진행");
+		/* 
 		log.info("API 데이터 DB 최신화 작업 시작");
 		trustUrl("https://apis.data.go.kr"); // 신뢰하는 URL에 추가
 		
