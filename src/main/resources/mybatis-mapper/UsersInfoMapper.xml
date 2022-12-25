@@ -14,8 +14,8 @@
 <!-- 	private String blockReason; -->
 		INSERT INTO users_info (USER_NO, FAMILY_NO, BIRTH, GENDER, USING_DRUGS
                 , ALLERGY, WEIGHT)
-		VALUES (#{userNo}, #{familyNo}, #{birth}, #{gender}, #{usingDrugs}
-                , #{allergy}, #{weight});
+		VALUES ((SELECT USER_NO FROM USERS WHERE USER_NO=#{userNo}), #{familyNo}, #{birth}, #{gender}, #{usingDrugs}
+                , #{allergy}, #{weight})
 	</insert>
 	
 	<select id="selectByUserNo" resultType="UsersInfo">

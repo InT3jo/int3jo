@@ -21,4 +21,16 @@ public class Users {
 	public Users() {
 		
 	}
+	
+	public Users(String userEmail, String userPw, String userNick, LocalDateTime joinDate, Integer userGrade) {
+		super();
+		this.userEmail = userEmail;
+		this.userPw = userPw;
+		this.userNick = userNick;
+		this.joinDate = joinDate;
+		this.userGrade = userGrade;
+	}
+
+	
+	
 }

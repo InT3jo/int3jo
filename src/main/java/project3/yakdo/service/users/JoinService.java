@@ -1,8 +1,8 @@
 package project3.yakdo.service.users;
 
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,7 @@ import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersInfoRepository;
 import project3.yakdo.repository.UsersRepository;
+import project3.yakdo.validation.form.JoinForm;
 
 @Slf4j
 @Service
@@ -20,7 +21,30 @@ public class JoinService {
 	private final UsersRepository usersRepository;
 	private final UsersInfoRepository usersInfoRepository;
 	
-	public Map<String, Object> join(Users joinUser, UsersInfo joinUserInfo) {
+	public JoinForm join(JoinForm joinForm) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		//joinForm으로 받아온 거 User로 전달
+		Users joinUser = new Users(joinForm.getUserEmail()
+							, joinForm.getUserPw()
+							, joinForm.getUserNick()
+							, LocalDateTime.now()
+							, joinForm.getUserGrade()
+						);
+		
+		LocalDateTime birth = LocalDateTime.parse(joinForm.getBirth(), formatter);
+		//joinForm으로 받아온 거 UserInfo로 전달
+		UsersInfo joinUserInfo = new UsersInfo(joinUser.getUserNo()
+										, joinForm.getFamilyNo()
+										, birth
+										, joinForm.getGender()
+										, joinForm.getUsingDrugs()
+										, joinForm.getAllergy()
+										, joinForm.getWeight()
+									);
+		
+		
 		Users user = usersRepository.insert(joinUser);
 		UsersInfo userInfo = usersInfoRepository.insert(joinUserInfo);
 
@@ -29,11 +53,8 @@ public class JoinService {
 		
 		
 		if(user != null && userInfo != null) {
-			Map<String, Object> userInfoMap = new LinkedHashMap<>();
-			userInfoMap.put("user", user);
-			userInfoMap.put("userInfo", userInfo);
-			
-			return userInfoMap;
+			log.info("회원가입 완료");
+			return joinForm;
 		}
 		return null;
 	}

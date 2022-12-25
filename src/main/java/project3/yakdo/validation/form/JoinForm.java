@@ -11,18 +11,14 @@ import lombok.Data;
  */
 @Data
 public class JoinForm {
-	private Integer userNo;
 	private String userEmail;
 	private String userPw;
 	private String userNick;
-	private LocalDateTime joinDate;
+	private String joinDate;
 	private Integer userGrade;
-	private Integer userStatus;
-	private LocalDateTime leaveDate;
-	private String blockReason;
 	
 	private Integer familyNo;
-	private LocalDateTime birth;
+	private String birth;
 	private String gender;
 	private String usingDrugs;
 	private String allergy;
