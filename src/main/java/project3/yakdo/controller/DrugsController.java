@@ -4,6 +4,7 @@
  */
 package project3.yakdo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugInfo;
+import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.repository.DrugsRepository;
-import project3.yakdo.service.drugs.api.DrugAPI;
 import project3.yakdo.service.drugs.search.FindDrugForm;
 import project3.yakdo.service.drugs.search.FindDrugService;
 
@@ -30,6 +31,7 @@ import project3.yakdo.service.drugs.search.FindDrugService;
 public class DrugsController {
 	
 	private final DrugsRepository drugsRepository;
+	private final FindDrugService findDrugService;
 	
 	@GetMapping()
 	public String drugsHomeGet(Model model) { // drugs 홈
@@ -46,6 +48,8 @@ public class DrugsController {
 	public String findDrug(Model model) { // 약품 상세검색
 		FindDrugForm findDrugForm = new FindDrugForm();
 		model.addAttribute("findDrugForm",findDrugForm);
+		List<DrugMark> drugMarkList = drugsRepository.getDrugMarkAll();
+		model.addAttribute("drugMarkList",drugMarkList);
 		return "drugs/finddrug";
 	}
 	
@@ -55,7 +59,6 @@ public class DrugsController {
 	 */
 	@PostMapping("/search")
 	public String findDrugResult(Model model,@ModelAttribute FindDrugForm findDrugForm) { // 약품 상세검색 결과
-		FindDrugService findDrugService = new FindDrugService(drugsRepository);
 		List<DrugInfo> findDrugInfoList = findDrugService.findDrugResult(findDrugForm);
 		model.addAttribute("findDrugInfoList",findDrugInfoList);
 		return "drugs/finddrug";
@@ -89,8 +92,9 @@ public class DrugsController {
 	 */
 	@RequestMapping("/dbupdate")
 	public String drugsHomePost(HttpServletRequest req) { //db update 완료
-		DrugAPI drugAPI = new DrugAPI(drugsRepository);
-		drugAPI.getAPI(req);
+		findDrugService.dbUpdate(req);
 		return "drugs/dbupdate";
 	}
+
+	
 }

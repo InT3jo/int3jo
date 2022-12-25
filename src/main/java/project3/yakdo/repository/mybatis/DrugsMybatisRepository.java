@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.FindDrug;
 import project3.yakdo.domain.drugs.DrugInfo;
+import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
 import project3.yakdo.repository.DrugsRepository;
@@ -225,23 +226,6 @@ public class DrugsMybatisRepository implements DrugsRepository{
 /* SELECT 관련 메서드 */
 	
 	/**
-	 * DB에서 DrugInfo 내용을 가져와서 DrugInfo 객체로 이루어진 리스트로 반환
-	 * 목록용 객체로, 내용은 itemSeq, itemName, itemImage, entpName 만 가져온다.
-	 * parameter : int startNum, int endNum
-	 * return : ArrayList<DrugInfo>
-	 * 담당자 : 홍준표
-	 */
-	@Override
-	public List<DrugInfo> getDrugInfoList(String drugListPage) {
-		int pageInt = Integer.parseInt(drugListPage);
-		int startNum = (pageInt*10)-9;
-		int endNum = pageInt*10;
-		List<DrugInfo> drugInfoList = drugsMapper.selectDrugInfoAll(startNum,endNum);
-		//DB에서 가져와서 리스트 반환
-		return drugInfoList;
-	}
-	
-	/**
 	 * FindDrugForm을 기반으로 DrugInfo 객체로 이루어진 리스트로 반환
 	 * 목록용 객체로, 내용은 itemSeq, itemName, itemImage, entpName 만 가져온다.
 	 * parameter : FindDrugForm findDrugForm
@@ -288,20 +272,17 @@ public class DrugsMybatisRepository implements DrugsRepository{
 		return count;
 	}
 	
-	
-	
 	/**
-	 * DB에서 FindDrug 내용을 가져와서 FindDrug 객체로 이루어진 리스트로 반환
-	 * return : ArrayList<FindDrug>
+	 * DB에서 모든 drugMark와 itemSeq를 List형태로 반환
+	 * return List<FindDrugForm>
 	 * 담당자 : 홍준표
 	 */
 	@Override
-	public List<FindDrug> getDrugFindInfoList() {
-		List<FindDrug> drugFindInfoList = new ArrayList<>();
-		
-		//DB에서 가져와서 리스트 반환
-		return drugFindInfoList;
+	public List<DrugMark> getDrugMarkAll(){
+		List<DrugMark> drugMarkAll = drugsMapper.selectDrugMarkAll();
+		return drugMarkAll;
 	}
+
 
 /* UPDATE 관련 메서드 */
 	/**

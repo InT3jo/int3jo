@@ -91,6 +91,18 @@
 		WHERE NUM BETWEEN ${startNum} AND ${endNum}
 		ORDER BY ROWNUM 
 	</select>
+	
+	<select id="selectDrugMarkAll" resultType="DrugMark">
+		SELECT MAX(MARK_CODE_FRONT) as markCode, MAX(MARK_CODE_FRONT_ANAL) as markAnal, MAX(MARK_CODE_FRONT_IMG) as markImg
+		FROM find_drug
+		GROUP BY MARK_CODE_FRONT
+		UNION
+		SELECT MAX(MARK_CODE_BACK), MAX(MARK_CODE_BACK_ANAL), MAX(MARK_CODE_BACK_IMG)
+		FROM find_drug
+		GROUP BY MARK_CODE_BACK
+	</select>
+	
+	
 
 	<select id="selectDrugInfoByFindDrugForm" parameterType="String" resultType="DrugInfo">
 		SELECT 
@@ -130,9 +142,7 @@
  		                	AND (LINE_FRONT LIKE '%'||#{item}||'%' OR LINE_BACK LIKE '%'||#{item}||'%')
 		            	</foreach>
 		            	<foreach item="item" collection="drugMarks" separator=" ">
- 		                	AND (MARK_CODE_FRONT_ANAL LIKE '%'||#{item}||'%' OR MARK_CODE_BACK_ANAL LIKE '%'||#{item}||'%'
- 		                		OR MARK_CODE_FRONT LIKE '%'||#{item}||'%' OR MARK_CODE_BACK LIKE '%'||#{item}||'%'
-								OR MARK_CODE_FRONT_IMG LIKE '%'||#{item}||'%' OR MARK_CODE_BACK_IMG LIKE '%'||#{item}||'%')
+ 		                	AND (MARK_CODE_FRONT LIKE '%'||#{item}||'%' OR MARK_CODE_BACK LIKE '%'||#{item}||'%')
 		            	</foreach>
 		            	
 		            </where>

@@ -43,7 +43,7 @@ public class DrugAPI {
 	 */
 	public void getAPI(HttpServletRequest req) {
 		// TODO Auto-generated method stub
-		log.info("일단 개발중이니까 DB는 중간에 꺼도 상관없는 이미지업데이트만 진행");
+		log.info("일단 개발중이니까 DB는 중간에 종료해도 상관없는 이미지업데이트만 진행");
 		/* 일단 한번 누르면 시간 넘나 오래 걸리니까 주석처리합니다.
 		   (컴 사양이나 인터넷 용량에 따라 다르지만, 전 8시간 걸립니다.)
 

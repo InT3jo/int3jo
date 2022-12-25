@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.drugs.DrugInfo;
+import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
 import project3.yakdo.domain.drugs.FindDrug;
-import project3.yakdo.service.drugs.search.FindDrugForm;
 
 @Mapper
 public interface DrugsMapper {
@@ -29,7 +29,7 @@ public interface DrugsMapper {
 	public List<String> selectIngrListByItemSeq(@Param("itemSeq") String itemSeq);
 	public DrugInfo selectDrugInfoByItemSeq(@Param("itemSeq") String itemSeq);
 	public Integer selectDrugInfoCountAll();
-	public List<DrugInfo> selectDrugInfoAll(@Param("startNum") int startNum,@Param("endNum") int endNum);
+	public List<DrugMark> selectDrugMarkAll();
 	public List<DrugInfo> selectDrugInfoByFindDrugForm(@Param("itemNames") String[] itemNames, @Param("ingrNames") String[] ingrNames,
 			@Param("entpNames") String[] entpNames, @Param("drugShapes") String[] drugShapes, @Param("drugColors") String[] drugColors,
 			@Param("drugPrints") String[] drugPrints, @Param("drugLines") String[] drugLines, @Param("drugMarks") String[] drugMarks);

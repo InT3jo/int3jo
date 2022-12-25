@@ -3,8 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>상세검색 페이지</title>
+<style>
+	.drugMarkModal{
+		width:100%;
+		height:100%;
+		display:none;
+	}
+</style>
 </head>
 <body>
+	<script type="text/javascript">
+		function openDrugMarkModal(){
+			document.querySelector('.drugMarkModal').style.display='inline-block';			
+		}
+		function selectDrugMark(src,code){
+			document.querySelector('.drugMarkModal').style.display='none';
+			document.querySelector('.selectDrugMark').src=src;
+			document.querySelector('.selectDrugMarkInput').value=code;
+		}
+	</script>
 	<div>
 		<h1>약품 정보 입력</h1>
 		<p>
@@ -71,13 +88,19 @@
 			
 			<label>
 				마크
-				<select name="drugMark">
-					<option value="">마크선택</option>
-					<option value=""></option>
-				</select>
+				<image class="selectDrugMark" src="https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147938640332900133" width="50" height="50" onclick="openDrugMarkModal()"/>
+				<input class="selectDrugMarkInput" type="hidden" name="drugMark" value=""/>
 			</label>
-			
-			<button>검색하기</button>
+				<div class="drugMarkModal">
+					<div>제품에 그려진 마크를 선택해주세요</div>
+					<div style="display:inline-block"  th:each="drugMark : ${drugMarkList}">
+						<div style="display:inline-block" th:if="${drugMark.getMarkImg()}!=null" >
+							<image th:src="${drugMark.getMarkImg()}" th:name="${drugMark.getMarkCode()}" width="50" height="50" th:onclick="selectDrugMark(this.getAttribute('src'),this.getAttribute('name'))"/>
+							<div th:text="${drugMark.getMarkAnal()}"></div>
+						</div>
+					</div>
+				</div>
+			<br><button>검색하기</button>
 		</form>
 	</div>
 	<div th:unless="${findDrugInfoList} == null or ${findDrugInfoList.size} == 0">
