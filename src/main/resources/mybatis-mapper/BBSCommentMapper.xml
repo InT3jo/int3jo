@@ -10,7 +10,48 @@
 <!-- 댓글쓰기 -->
 
 <insert id="insertBBSCom" parameterType="BBSComment">
-	
+	 insert into bbs_comment
+	 (
+	 bbs_no,
+	 com_no,
+	 user_no,
+	 com_comment,
+	 com_date,
+	 com_show
+	 )
+	 values
+	 (
+	 #{bbsNo},
+	 com_no_seq,
+	 2,
+	 #{comComment},
+	 sysdate,
+	 0
+	 )
 </insert>
 
+<select id="selectComBybbsNo" resultType="BBSComment">
+	select * from bbs_comment
+	where bbs_no = #{bbsNo} 
+</select>
+
+
+<update id="updateCom" parameterType="BBSComment">
+	 update bbs_comment
+	 set 
+	 com_content=#{updateItem.comContent}
+	 where com_no=#{comNo}  
+</update>
+
+<update id="updateComShowOneBybbsNo">
+	update bbs_commentset 
+	com_show=1
+	where com_no=#{comNo}   
+</update>
+
+<update id="updateComShowTwoBybbsNo">
+	update bbs_commentset 
+	com_show=2
+	where com_no=#{comNo} 
+</update>
 </mapper>

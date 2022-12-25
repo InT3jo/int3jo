@@ -1,14 +1,19 @@
 package project3.yakdo.domain.BBS;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import lombok.Data;
 @Data
 public class BBSComment {
-	private int BBS_no;
-	private int com_no;
-	private int user_no;
-	private String com_content;
-	private Date com_date;
-	private int com_show;
+	
+	//default
+	private int bbsNo;
+	private int comNo;
+	private int userNo;
+	private String comContent;
+	private Timestamp comDate;
+	private int comShow;
+	
+	//option
+	private String userNick;
 }

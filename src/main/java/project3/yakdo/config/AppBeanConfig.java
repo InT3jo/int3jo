@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 import project3.yakdo.repository.BBSRepository;
+import project3.yakdo.repository.mybatis.BBSCommentMapper;
 import project3.yakdo.repository.mybatis.BBSMapper;
 import project3.yakdo.repository.mybatis.BBSMybatisRepository;
 
@@ -13,6 +14,7 @@ import project3.yakdo.repository.mybatis.BBSMybatisRepository;
 public class AppBeanConfig {
 
 	private final BBSMapper BBSMapper;
+	private final BBSCommentMapper BBSCommentMapper; 
 
 
 	@Bean
@@ -22,5 +24,5 @@ public class AppBeanConfig {
 //		return new ListMemberRepository();
 	}
 
-
+	
 }
