@@ -10,16 +10,22 @@ import project3.yakdo.repository.BBSCommentRepository;
 
 @Repository
 @RequiredArgsConstructor
-public class BBSCommentMybatisRepository implements BBSCommentRepository{@Override
-	public BBSComment insertBBSCom(BBSComment BBSComment) {
+public class BBSCommentMybatisRepository implements BBSCommentRepository{
+	private final BBSCommentMapper bbsCommentMapper;
+	
+	@Override
+	public BBSComment insertBBSCom(BBSComment bbsComment) {
 		// TODO Auto-generated method stub
-		return null;
+		Integer result = bbsCommentMapper.insertBBSCom(bbsComment);
+		return bbsComment;
 	}
 
 	@Override
-	public List<BBSComment> selectComBybbsNo(int bbsNo) {
+	public List<BBSComment> selectComBybbsNo(Integer bbsNo) {
 		// TODO Auto-generated method stub
-		return null;
+		List<BBSComment> commentListZero = bbsCommentMapper.selectComBybbsNo(bbsNo);
+		//리턴하기전에 BBSComment userNick까지 합쳐서 리턴 
+		return commentListZero;
 	}
 
 	@Override

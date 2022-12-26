@@ -1,66 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="project3.yakdo.repository.mybatis.BBSCommentMapper">
+<mapper
+	namespace="project3.yakdo.repository.mybatis.BBSCommentMapper">
 
 
-	
 
 
-<!-- 댓글쓰기 -->
 
-<insert id="insertBBSCom" parameterType="BBSComment">
-	 insert into bbs_comment
-	 (
-	 bbs_no,
-	 com_no,
-	 user_no,
-	 com_comment,
-	 com_date,
-	 com_show
-	 )
-	 values
-	 (
-	 #{bbsNo},
-	 com_no_seq,
-	 2,
-	 #{comComment},
-	 sysdate,
-	 0
-	 )
-</insert>
+	<!-- 댓글쓰기 -->
+
+	<insert id="insertBBSCom" parameterType="BBSComment">
+	insert into bbs_comment
+		(
+		bbs_no,
+		com_no,
+		user_no,
+		com_content,
+		com_date,
+		com_show
+		)
+		values
+		(
+		#{bbsNo},
+		NVL(((select MAX(com_no) from bbs_comment where bbs_no=#{bbsNo} )+1) , 1),
+		1,
+		#{comContent},
+		sysdate,
+		0
+		);
+	</insert>
 
 
-<!-- 해당 글의 댓글 불러오기 -->
-<select id="selectComBybbsNo" resultType="BBSComment">
-	select * from bbs_comment
-	where bbs_no = #{bbsNo} 
-	order by com_date desc;
-</select>
+	<!-- 해당 글의 댓글 불러오기 -->
+	<select id="selectComBybbsNo" resultType="BBSComment">
+		<!-- select * from bbs_comment -->
+		<!-- where bbs_no = #{bbsNo} -->
+		<!-- order by com_date desc -->
+		<!-- user_nick 까지 불러오는것으로 수정 12-26-20:02 -->
+		select
+		a.BBS_NO,
+		a.COM_NO,
+		a.USER_NO,
+		a.COM_CONTENT,
+		a.COM_DATE,
+		a.COM_SHOW,
+		b.user_nick
+		from bbs_comment a, users b
+		where bbs_no =#{bbsNo}
+		and a.user_no = b.user_no
+		order by com_date desc
 
-<!-- 댓글 내용 수정 -->
-<update id="updateCom" parameterType="BBSComment">
-	 update bbs_comment
-	 set 
-	 com_content=#{updateItem.comContent}
-	 where com_no=#{comNo}  
-	 and bbs_no=#{bbsNo}
-</update>
 
-<!-- 댓글 본인 삭제 -->
-<update id="updateComShowOneBybbsNo">
-	update bbs_commentset 
-	com_show=1
-	where com_no=#{comNo}   
-	and bbs_no=#{bbsNo}
-</update>
+	</select>
 
-<!-- 댓글 관리자 삭제 -->
-<update id="updateComShowTwoBybbsNo">
-	update bbs_commentset 
-	com_show=2
-	where com_no=#{comNo} 
-	and bbs_no=#{bbsNo}
-</update>
+	<!-- 댓글 내용 수정 -->
+	<update id="updateCom" parameterType="BBSComment">
+		update bbs_comment
+		set
+		com_content=#{updateItem.comContent}
+		where com_no=#{comNo}
+		and bbs_no=#{bbsNo}
+	</update>
+
+	<!-- 댓글 본인 삭제 -->
+	<update id="updateComShowOneBybbsNo">
+		update bbs_commentset
+		com_show=1
+		where com_no=#{comNo}
+		and bbs_no=#{bbsNo}
+	</update>
+
+	<!-- 댓글 관리자 삭제 -->
+	<update id="updateComShowTwoBybbsNo">
+		update bbs_commentset
+		com_show=2
+		where com_no=#{comNo}
+		and bbs_no=#{bbsNo}
+	</update>
 
 </mapper>

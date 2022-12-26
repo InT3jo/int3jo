@@ -23,12 +23,12 @@ import project3.yakdo.repository.BBSCommentRepository;
 @RequestMapping("/comment")
 public class BBSCommentController {
 
-	private final BBSCommentRepository BBSCommentRepositoy;
+	private final BBSCommentRepository bbsCommentRepositoy;
 
 	// 해당글의 댓글 리스트 불러오기
 	@GetMapping("/commentList/{bbsNo}")
 	public String CommentView(Model model, @PathVariable("bbsNo") int bbsNo) {
-		List<BBSComment> commentListZero = BBSCommentRepositoy.selectComBybbsNo(bbsNo);
+		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
 		
 		log.info("commentListZero {}", commentListZero);
 		model.addAttribute("commentListZero", commentListZero);
@@ -40,7 +40,7 @@ public class BBSCommentController {
 	// 댓글 쓰기
 	@PostMapping("/writecom")
 	public String insertBBSCom(@ModelAttribute BBSComment bbsCom, Model model) {
-		BBSCommentRepositoy.insertBBSCom(bbsCom);
+		bbsCommentRepositoy.insertBBSCom(bbsCom);
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
@@ -50,14 +50,14 @@ public class BBSCommentController {
 	// 댓글 수정
 	@PostMapping("/updatecom")
 	public String updateCom(Model model, @PathVariable("comNo") int comNo, @ModelAttribute BBSComment bbsComment) {
-		BBSCommentRepositoy.updateCom(comNo, bbsComment);
+		bbsCommentRepositoy.updateCom(comNo, bbsComment);
 		return "";
 	}
 
 	// 본인 삭제
 	@GetMapping("/deletecom/{comNo}")
 	public String updateComShowOneBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo) {
-		BBSCommentRepositoy.updateComShowOneBybbsNo(bbsNo);
+		bbsCommentRepositoy.updateComShowOneBybbsNo(bbsNo);
 		return "";
 	}
 	

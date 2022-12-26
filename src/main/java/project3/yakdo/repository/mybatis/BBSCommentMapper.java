@@ -12,7 +12,7 @@ public interface BBSCommentMapper {
 	public Integer insertBBSCom(BBSComment BBSComment);
 	
 	// 글번호에 해당하는 댓글 리스트 출력(게시상태만)
-	public List<BBSComment> selectComBybbsNo(int bbsNo);
+	public List<BBSComment> selectComBybbsNo(Integer bbsNo);
 	
 	//댓글 수정
 	public void updateCom(int bbsNo, BBSComment bbsComment);

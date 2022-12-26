@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.BBS.BBS;
+import project3.yakdo.domain.BBS.BBSComment;
+import project3.yakdo.repository.BBSCommentRepository;
 import project3.yakdo.repository.BBSRepository;
 
 @Slf4j
@@ -27,6 +29,7 @@ import project3.yakdo.repository.BBSRepository;
 public class BBSController {
 
 	private final BBSRepository BBSRepository;
+	private final BBSCommentRepository bbsCommentRepositoy;
 	
 
 	// 게시글 목록 출력
@@ -81,16 +84,29 @@ public class BBSController {
 
 	// 글 읽기 selectBybbsNo
 	@GetMapping("/BBSlist/{bbsNo}")
-	public String BBSview(Model model, @PathVariable("bbsNo") int bbsNo) {
+	public String BBSview(Model model, @PathVariable("bbsNo") Integer bbsNo) {
 		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
+		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
 		
+		model.addAttribute("commentListZero", commentListZero);	
 		model.addAttribute("BBS", bbsItem);
 		return "BBS/BBSview";
 	}
 	
 	
-	
-	
+	//댓글 쓰기 
+	@PostMapping("/BBSlist/{bbsNo}")
+	public String insertBBSCom(Model model, @PathVariable("bbsNo") Integer bbsNo) {
+		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
+		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
+		
+		model.addAttribute("commentListZero", commentListZero);	
+		model.addAttribute("BBS", bbsItem);
+		
+		bbsCommentRepositoy.insertBBSCom(null);
+		model.addAttribute("BBSCom", new BBSComment());
+		return "BBS/BBSview";
+	}
 	
 
 	// 글 수정
