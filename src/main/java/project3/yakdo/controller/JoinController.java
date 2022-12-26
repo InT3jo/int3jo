@@ -19,7 +19,7 @@ public class JoinController {
 
 	private final JoinService joinService;
 	
-	@GetMapping("/join?현재주소")
+	@GetMapping("/join")
 	public String join (Model model,HttpServletRequest req) {
 		JoinForm joinForm = new JoinForm();
 		model.addAttribute("joinForm", joinForm);
