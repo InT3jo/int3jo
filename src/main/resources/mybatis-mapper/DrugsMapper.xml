@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project3.yakdo.repository.mybatis.DrugsMapper">
+
+<!-- INSERT 관련 쿼리문 -->
+
+	<insert id="insertDrugInfo" parameterType="DrugInfo">
+		INSERT INTO drug_info (
+			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
+			CHART, ETC_OTC_NAME, ENTP_NAME, EFCY_QESITM, USE_METHOD_QESITM,
+			ATPN_WARN_QESITM, ATPN_QESITM, INTRC_QESITM, SE_QESITM,
+			DEPOSIT_METHOD_QESITM, EDI_CODE, NARCOTIC
+			)
+		VALUES (
+			#{itemSeq, jdbcType=VARCHAR}, #{itemName, jdbcType=VARCHAR}, #{itemEngName, jdbcType=VARCHAR}, #{itemImage, jdbcType=VARCHAR}, #{classNo, jdbcType=VARCHAR}, #{className, jdbcType=VARCHAR},
+			#{chart, jdbcType=VARCHAR}, #{etcOtcName, jdbcType=VARCHAR}, #{entpName, jdbcType=VARCHAR}, #{efcyQesitm, jdbcType=VARCHAR}, #{useMethodQesitm, jdbcType=VARCHAR},
+			#{atpnWarnQesitm, jdbcType=VARCHAR}, #{atpnQesitm, jdbcType=VARCHAR}, #{intrcQesitm, jdbcType=VARCHAR}, #{seQesitm, jdbcType=VARCHAR},
+			#{depositMethodQesitm, jdbcType=VARCHAR}, #{ediCode, jdbcType=VARCHAR}, #{narcotic, jdbcType=VARCHAR}
+			) 
+	</insert>
+	
+	<insert id="insertDrugInfoIngr">
+		INSERT INTO drug_info_ingr ( ITEM_SEQ, INGR_NAME )
+		VALUES (#{itemSeq, jdbcType=VARCHAR}, #{ingrName, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertFindDrug" parameterType="FindDrug">
+		INSERT INTO find_drug (
+			ITEM_SEQ, PRINT_FRONT, PRINT_BACK, DRUG_SHAPE, COLOR_CLASS1, COLOR_CLASS2,
+			LINE_FRONT, LINE_BACK, LENG_LONG, LENG_SHORT, THICK,
+			MARK_CODE_FRONT_ANAL, MARK_CODE_BACK_ANAL, MARK_CODE_FRONT, MARK_CODE_BACK,
+			MARK_CODE_FRONT_IMG, MARK_CODE_BACK_IMG
+			)
+		VALUES (
+			#{itemSeq, jdbcType=VARCHAR}, #{printFront, jdbcType=VARCHAR}, #{printBack, jdbcType=VARCHAR}, #{DrugShape, jdbcType=VARCHAR}, #{colorClass1, jdbcType=VARCHAR}, #{colorClass2, jdbcType=VARCHAR},
+			#{lineFront, jdbcType=VARCHAR}, #{lineBack, jdbcType=VARCHAR}, #{lengLong, jdbcType=VARCHAR}, #{lengShort, jdbcType=VARCHAR}, #{thick, jdbcType=VARCHAR},
+			#{markCodeFrontAnal, jdbcType=VARCHAR}, #{markCodeBackAnal, jdbcType=VARCHAR}, #{markCodeFront, jdbcType=VARCHAR}, #{markCodeBack, jdbcType=VARCHAR},
+			#{markCodeFrontImg, jdbcType=VARCHAR}, #{markCodeBackImg, jdbcType=VARCHAR}
+			) 
+	</insert>
+	
+	<insert id="insertDur">
+		INSERT INTO dur ( ITEM_SEQ, INGR_CODE, INGR_NAME, TYPE_NAME )
+		VALUES (#{itemSeq, jdbcType=VARCHAR}, #{ingrCode, jdbcType=VARCHAR}, #{ingrName, jdbcType=VARCHAR}, #{typeName, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertDurCombi">
+		INSERT INTO dur_combi ( ITEM_SEQ, INGR_CODE, INGR_NAME, MIX_INGR_CODE, MIX_INGR_NAME )
+		VALUES (#{itemSeq, jdbcType=VARCHAR}, #{ingrCode, jdbcType=VARCHAR}, #{ingrName, jdbcType=VARCHAR}, #{mixIngrCode, jdbcType=VARCHAR}, #{mixIngrName, jdbcType=VARCHAR})
+	</insert>
+	
+<!-- UPDATE 관련 쿼리문 -->
+	
+	<update id="updateDrugInfo" parameterType="hashmap">
+		UPDATE drug_info
+		SET ${colName} = ${value}
+		WHERE ITEM_SEQ = ${itemSeq} AND (${colName} IS NULL)
+	</update>
+	
+	<update id="updateDrugInfoImage" parameterType="DrugInfo">
+		UPDATE drug_info
+		SET ITEM_IMAGE = '${itemImage}'
+		WHERE ITEM_SEQ = ${itemSeq}
+	</update>
+
+<!-- SELECT 관련 쿼리문 -->
+	
+	<select id="selectDrugInfoByItemSeq" parameterType="String" resultType="DrugInfo">
+		SELECT
+			ITEM_SEQ, ITEM_NAME, ITEM_ENG_NAME, ITEM_IMAGE, CLASS_NO, CLASS_NAME,
+			CHART, ETC_OTC_NAME, ENTP_NAME, EFCY_QESITM, USE_METHOD_QESITM,
+			ATPN_WARN_QESITM, ATPN_QESITM, INTRC_QESITM, SE_QESITM,
+			DEPOSIT_METHOD_QESITM, EDI_CODE, NARCOTIC
+		FROM drug_info
+		WHERE ITEM_SEQ = ${itemSeq}
+	</select>
+
+	<select id="selectIngrListByItemSeq" parameterType="String" resultType="String">
+		SELECT
+			INGR_NAME
+		FROM drug_info_ingr
+		WHERE ITEM_SEQ = ${itemSeq}
+	</select>
+
+	<select id="selectDrugInfoAll" parameterType="String" resultType="DrugInfo">
+		SELECT
+			ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME
+		FROM (SELECT ROWNUM AS NUM, ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME FROM drug_info ORDER BY ITEM_SEQ)
+		WHERE NUM BETWEEN ${startNum} AND ${endNum}
+		ORDER BY ROWNUM 
+	</select>
+	
+	<select id="selectDrugMarkAll" resultType="DrugMark">
+		SELECT MAX(MARK_CODE_FRONT) as markCode, MAX(MARK_CODE_FRONT_ANAL) as markAnal, MAX(MARK_CODE_FRONT_IMG) as markImg
+		FROM find_drug
+		GROUP BY MARK_CODE_FRONT
+		UNION
+		SELECT MAX(MARK_CODE_BACK), MAX(MARK_CODE_BACK_ANAL), MAX(MARK_CODE_BACK_IMG)
+		FROM find_drug
+		GROUP BY MARK_CODE_BACK
+	</select>
+	
+	
+
+	<select id="selectDrugInfoByFindDrugForm" parameterType="String" resultType="DrugInfo">
+		SELECT 
+		    ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME
+		FROM (SELECT ROWNUM AS NUM, ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME FROM drug_info ORDER BY ITEM_SEQ)
+		WHERE
+			ITEM_SEQ IN
+		        (SELECT MAX(ITEM_SEQ)
+		        FROM(
+		            SELECT 
+						d.ITEM_SEQ, d.ITEM_NAME, d.ITEM_IMAGE, d.ENTP_NAME, i.INGR_NAME,
+						f.PRINT_FRONT, f.PRINT_BACK, f.DRUG_SHAPE, f.COLOR_CLASS1, f.COLOR_CLASS2,
+						f.LINE_FRONT, f.LINE_BACK, f.MARK_CODE_FRONT_ANAL, f.MARK_CODE_BACK_ANAL,
+						f.MARK_CODE_FRONT, f.MARK_CODE_BACK, f.MARK_CODE_FRONT_IMG, f.MARK_CODE_BACK_IMG
+		            FROM drug_info d, drug_info_ingr i, find_drug f
+		            <where>
+		            	d.ITEM_SEQ = i.ITEM_SEQ AND d.ITEM_SEQ = f.ITEM_SEQ
+		            	<foreach item="item" collection="itemNames" separator=" ">
+ 		                	AND (ITEM_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="ingrNames" separator=" ">
+ 		                	AND (INGR_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="entpNames" separator=" ">
+ 		                	AND (ENTP_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugShapes" separator=" ">
+ 		                	AND (DRUG_SHAPE LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugColors" separator=" ">
+ 		                	AND (COLOR_CLASS1 LIKE '%'||#{item}||'%' OR COLOR_CLASS2 LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugPrints" separator=" ">
+ 		                	AND (PRINT_FRONT LIKE '%'||#{item}||'%' OR PRINT_BACK LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugLines" separator=" ">
+ 		                	AND (LINE_FRONT LIKE '%'||#{item}||'%' OR LINE_BACK LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="drugMarks" separator=" ">
+ 		                	AND (MARK_CODE_FRONT LIKE '%'||#{item}||'%' OR MARK_CODE_BACK LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	
+		            </where>
+	            	ORDER BY ITEM_SEQ)
+		        GROUP BY ITEM_SEQ)
+		ORDER BY ROWNUM
+	</select>
+
+	<select id="selectDrugInfoCountAll" resultType="Integer">
+		SELECT COUNT(ITEM_SEQ) FROM drug_info
+	</select>
+		
+
+	
+<!-- DELETE 관련 쿼리문 -->
+	
+	<delete id="deleteDrugInfo">
+		DELETE FROM drug_info
+	</delete>
+	<delete id="deleteDrugInfoIngr">
+		DELETE FROM drug_info_ingr
+	</delete>
+	<delete id="deleteFindDrug">
+		DELETE FROM find_drug
+	</delete>
+	<delete id="deleteDur">
+		DELETE FROM dur
+	</delete>
+	<delete id="deleteDurCombi">
+		DELETE FROM dur_combi
+	</delete>
+</mapper>
