@@ -26,6 +26,15 @@ public class LoginController {
 	
 	private final LoginService loginService;
 	
+	/**
+	 * login
+	 * 로그인 창 처음 접근했을 때 뜨는 부분
+	 * 
+	 * @param model
+	 * @return "/users/login/login"
+	 * 
+	 * 담당자 : 빙예은 2022-12-23
+	 */
 	@GetMapping("/login")
 	public String login(Model model) {
 		LoginForm loginForm = new LoginForm();
@@ -35,9 +44,12 @@ public class LoginController {
 	}
 	
 	/**
-	 * login 기능
+	 * doLogin
+	 * 
 	 * @param model
-	 * @return
+	 * @return 마지막 경로
+	 * 
+	 * 담당자 : 빙예은 2022-12-23
 	 */
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute LoginForm loginForm
@@ -77,19 +89,21 @@ public class LoginController {
 	 * logout
 	 * 
 	 * @param req
-	 * @return
+	 * @return 마지막 접근했던 창으로
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/logout")
 	public String logout(HttpServletRequest req) {
 		//session없을 때 생성되지 않게 막아주기
 		HttpSession session = req.getSession(false); // 다시 세션만들어지지 않게 막기
 		
-		if (session != null)// 있으면 로그인 안되게 처리
-		{
+		if (session != null){// 있으면 로그인 안되게 처리
 			session.invalidate(); // 서버에서 세션정보 없애기
 		}
 
 		log.info("로그아웃 성공");
+		
 		return "redirect:/";
 	}
 	

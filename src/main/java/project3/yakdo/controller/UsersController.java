@@ -34,7 +34,7 @@ public class UsersController {
 	 */
 	@GetMapping("/userList")
 	public String showUser(Model model) {
-		List<Users> userList = usersMybatisRepository.selectAll();
+		List<Users> userList = usersMybatisRepository.selectAllUsers();
 		log.info(userList.toString());
 		model.addAttribute("userList", userList);
 		return "/users/login/userList";

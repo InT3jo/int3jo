@@ -1,6 +1,6 @@
 package project3.yakdo.domain.users;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,24 +12,35 @@ public class Users {
 	private String userEmail;
 	private String userPw;
 	private String userNick;
-	private LocalDateTime joinDate;
+	private Timestamp joinDate;
 	private Integer userGrade;
 	private Integer userStatus;
-	private LocalDateTime leaveDate;
+	private Timestamp leaveDate;
 	private String blockReason;
 	
-	public Users() {
-		
-	}
-	
-	public Users(String userEmail, String userPw, String userNick, LocalDateTime joinDate, Integer userGrade) {
+	public Users(String userEmail, String userPw, String userNick, Timestamp joinDate, Integer userGrade,
+			Integer userStatus, Timestamp leaveDate, String blockReason) {
 		super();
 		this.userEmail = userEmail;
 		this.userPw = userPw;
 		this.userNick = userNick;
 		this.joinDate = joinDate;
 		this.userGrade = userGrade;
+		this.userStatus = userStatus;
+		this.leaveDate = leaveDate;
+		this.blockReason = blockReason;
 	}
+	
+	
+//	
+//	public Users(String userEmail, String userPw, String userNick, Timestamp joinDate, Integer userGrade) {
+//		super();
+//		this.userEmail = userEmail;
+//		this.userPw = userPw;
+//		this.userNick = userNick;
+//		this.joinDate = joinDate;
+//		this.userGrade = userGrade;
+//	}
 
 	
 	

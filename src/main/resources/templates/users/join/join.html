@@ -35,14 +35,15 @@
 			</div>
 			
 			<div>
-				<label for="familyRelations">가족 관계</label>
-				<select id="familyRelations">
-					<option value="none">가족관계</option>
+				<label for="familyNo">가족 관계</label>
+				<select id="familyNo" name="familyNo">
+					<option value="99">가족관계</option>
 					<option value="0">본인</option>
 					<option value="1">엄마</option>
 					<option value="2">아빠</option>
 					<option value="3">배우자</option>
 					<option value="4">자녀</option>
+					<option value="5">기타</option>
 				</select>
 			</div>
 			
@@ -62,27 +63,27 @@
 			</div>
 			
 			<div>
-				<label for="joinGender">성별</label>
-				<select id="joinGender">
+				<label for="gender">성별</label>
+				<select id="gender" name="gender">
 					<option value="none">성별</option>
-					<option value="1">남자</option>
-					<option value="2">여자</option>
+					<option value="남자">남자</option>
+					<option value="여자">여자</option>
 				</select>
 			</div>
 			
 			<div>
-				<label for="allergyName">알레르기</label>
-				<select id="allergyName">
-					<option value="none">알레르기 선택</option>
-					<option>알레르기1</option>
-					<option>알레르기2</option>
+				<label for="allergy">알레르기</label>
+				<select id="allergy" name="allergy">
+					<option value="">알레르기 선택</option>
+					<option value="알러지1">알레르기1</option>
+					<option value="알러지2">알레르기2</option>
 				</select>
 			</div>
 			<div>
 				<button type="button">추가</button>
 			</div>
 			<div>
-				<button type="submit" th:onClick="|location.href='@{/home}'|">가입하기</button>
+				<button type="submit">가입하기</button>
 			</div>
 		</form>
 	</div>

@@ -1,6 +1,7 @@
 package project3.yakdo.domain.users;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,15 +11,11 @@ import lombok.Data;
 public class UsersInfo {
 	private Integer userNo;
 	private Integer familyNo;
-	private LocalDateTime birth;
+	private Date birth;
 	private String gender;
 	private String usingDrugs;
 	private String allergy;
-	private String weight;
-	
-	public UsersInfo() {
-		
-	}
+	private Integer weight;
 	
 	
 }

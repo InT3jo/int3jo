@@ -1,7 +1,5 @@
 package project3.yakdo.validation.form;
 
-import java.time.LocalDateTime;
-
 import lombok.Data;
 
 /**
@@ -22,5 +20,5 @@ public class JoinForm {
 	private String gender;
 	private String usingDrugs;
 	private String allergy;
-	private String weight;
+	private Integer weight;
 }
