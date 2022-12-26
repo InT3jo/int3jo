@@ -62,10 +62,6 @@ public class BBSController {
 //		if (!StringUtils.hasText(bbs.getBbsTitle())) {
 //			errors.put("bbsTitle", "제목 필수입력.");
 //		}
-//		
-//		
-
-
 		BBSRepository.insertBBS(bbs);
 
 //		rAttr.addAttribute("bbsNo",bbs.getBbsNo());
@@ -87,9 +83,15 @@ public class BBSController {
 	@GetMapping("/BBSlist/{bbsNo}")
 	public String BBSview(Model model, @PathVariable("bbsNo") int bbsNo) {
 		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
+		
 		model.addAttribute("BBS", bbsItem);
 		return "BBS/BBSview";
 	}
+	
+	
+	
+	
+	
 
 	// 글 수정
 	@GetMapping("/update/{bbsNo}") // 어떤 bbsNo에 대한 업데이트를 할거냐

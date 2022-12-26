@@ -49,7 +49,7 @@
 <!-- 	댓글 -->
 <form action="" method="post" th:object=${BBSComment}>
 		<p>
-				<label>댓글작성자</label>
+				<label>댓글작성자(로그인한 사람 닉네임 불러오기)</label>
 <!-- 				로그인한 사람의 닉네임 불러오기 -->
 			</p>
 			<p>
@@ -67,9 +67,11 @@
 			<tr>작성일</tr>
 		</thead>
 		<tbody>
-		<!--	<td th:text="${BBSComment.userNick}"></td>
+			<tr th:each="BBSComment : ${commentListZero}">
+			<td th:text="${BBSComment.userNick}"></td>
 			<td th:text="${BBSComment.comComment}"></td>
-			<td th:text="${BBSComment.comDate}"></td> -->
+			<td th:text="${BBSComment.comDate}"></td> 
+			</tr>
 		</tbody>
 	</table>
 

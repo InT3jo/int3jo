@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.BBSComment;
 import project3.yakdo.repository.BBSCommentRepository;
 
@@ -20,15 +24,47 @@ import project3.yakdo.repository.BBSCommentRepository;
 public class BBSCommentController {
 
 	private final BBSCommentRepository BBSCommentRepositoy;
-	
-	//해당글의 댓글 리스트 불러오기
-	@GetMapping("/commentList")
-	public String CommentView(Model model, @RequestParam("bbsNo") int bbsNo) {
+
+	// 해당글의 댓글 리스트 불러오기
+	@GetMapping("/commentList/{bbsNo}")
+	public String CommentView(Model model, @PathVariable("bbsNo") int bbsNo) {
 		List<BBSComment> commentListZero = BBSCommentRepositoy.selectComBybbsNo(bbsNo);
+		
+		log.info("commentListZero {}", commentListZero);
 		model.addAttribute("commentListZero", commentListZero);
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
+
 	
-//	@PostMapping("/write")
-//	BBSComment bbsComItem = BBSCommentRepositoy.selectComBybbsNo(bbsNo);
+
+	// 댓글 쓰기
+	@PostMapping("/writecom")
+	public String insertBBSCom(@ModelAttribute BBSComment bbsCom, Model model) {
+		BBSCommentRepositoy.insertBBSCom(bbsCom);
+		return "redirect:/BBS/BBSlist/{bbsNo}";
+	}
+
+	// 댓글 수정
+	@GetMapping()
+
+	// 댓글 수정
+	@PostMapping("/updatecom")
+	public String updateCom(Model model, @PathVariable("comNo") int comNo, @ModelAttribute BBSComment bbsComment) {
+		BBSCommentRepositoy.updateCom(comNo, bbsComment);
+		return "";
+	}
+
+	// 본인 삭제
+	@GetMapping("/deletecom/{comNo}")
+	public String updateComShowOneBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo) {
+		BBSCommentRepositoy.updateComShowOneBybbsNo(bbsNo);
+		return "";
+	}
+	
+	//본인삭제
+//	@PostMapping("/delete/{comNo}")
+	
+	
+	
+
 }

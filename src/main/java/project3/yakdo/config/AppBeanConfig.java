@@ -14,14 +14,13 @@ import project3.yakdo.repository.mybatis.BBSMybatisRepository;
 public class AppBeanConfig {
 
 	private final BBSMapper BBSMapper;
-	private final BBSCommentMapper BBSCommentMapper; 
+//	private final BBSCommentMapper BBSCommentMapper; 
 
 
 	@Bean
 	public BBSRepository BBSRepository() {
 		return new BBSMybatisRepository(BBSMapper);
-		// MemberMapper 같이 주입
-//		return new ListMemberRepository();
+
 	}
 
 	

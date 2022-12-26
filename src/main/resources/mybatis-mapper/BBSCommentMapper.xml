@@ -30,28 +30,37 @@
 	 )
 </insert>
 
+
+<!-- 해당 글의 댓글 불러오기 -->
 <select id="selectComBybbsNo" resultType="BBSComment">
 	select * from bbs_comment
 	where bbs_no = #{bbsNo} 
+	order by com_date desc;
 </select>
 
-
+<!-- 댓글 내용 수정 -->
 <update id="updateCom" parameterType="BBSComment">
 	 update bbs_comment
 	 set 
 	 com_content=#{updateItem.comContent}
 	 where com_no=#{comNo}  
+	 and bbs_no=#{bbsNo}
 </update>
 
+<!-- 댓글 본인 삭제 -->
 <update id="updateComShowOneBybbsNo">
 	update bbs_commentset 
 	com_show=1
 	where com_no=#{comNo}   
+	and bbs_no=#{bbsNo}
 </update>
 
+<!-- 댓글 관리자 삭제 -->
 <update id="updateComShowTwoBybbsNo">
 	update bbs_commentset 
 	com_show=2
 	where com_no=#{comNo} 
+	and bbs_no=#{bbsNo}
 </update>
+
 </mapper>

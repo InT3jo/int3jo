@@ -86,39 +86,8 @@
 		order by BBS_no desc
 		<!-- 위의 쿼리로 실행하면 SQL state [99999]; error code [17132]; 부적합한 변환이 요청됨 에러 -->
 		<!-- 실제로 필요한 결과 데이터를 불러오려면 위의 쿼리가 필요한것같은데...일단 주석 12-21-09:47 -->
-
-
-		<!-- 그전에 닉네임빼고 리스트 출력됐던걸로 되돌리기 중.. -->
-<!-- 		select -->
-<!-- 		BBS_no, -->
-<!-- 		user_no, -->
-		
-<!-- 		BBS_title, -->
-<!-- 		BBS_content, -->
-<!-- 		BBS_date, -->
-<!-- 		BBS_show -->
-<!-- 		from BBS b -->
-<!-- 		where BBS_show=0 -->
-<!-- 		order by BBS_no desc -->
-
-
 	</select>
 
-
-	<!-- BBSInfo 도메인 새로 만든걸로 리스트 페이지 출력해볼때 -->
-<!-- 	<select id="selectBBSInfoByBBS_show_0" resultType="BBSInfo"> -->
-<!-- 		select -->
-<!-- 		b.BBS_no, -->
-<!-- 		b.user_no, -->
-<!-- 		u.user_nick, -->
-<!-- 		b.BBS_title, -->
-<!-- 		b.BBS_content, -->
-<!-- 		b.BBS_date, -->
-<!-- 		b.BBS_show -->
-<!-- 		from BBS b, users u -->
-<!-- 		where b.BBS_show = 0 -->
-<!-- 		and u.user_no = b.user_no -->
-<!-- 	</select> -->
 
 	<!-- 게시글 수정 -->
 	<update id="updateBBS" parameterType="BBS">
@@ -143,7 +112,33 @@
 		where BBS_no=#{bbsNo}
 	</update>
 
-
+<!-- 회원이 삭제한 게시글 목록  -->
+	<select id="selectByShowOne" resultType="BBS">
+		  select
+		BBS_no,
+		user_no,
+		BBS_title,
+		BBS_content,
+		BBS_date,
+		BBS_show
+		from BBS b
+		where BBS_show=1
+		order by BBS_no desc
+	</select>
+	
+<!-- 	관리자가 삭제한 게시글 목록 불러오기 -->
+	<select id="selectByShowTwo" resultType="BBS">
+		  select
+		BBS_no,
+		user_no,
+		BBS_title,
+		BBS_content,
+		BBS_date,
+		BBS_show
+		from BBS b
+		where BBS_show=2
+		order by BBS_no desc
+	</select>
 
 
 </mapper>

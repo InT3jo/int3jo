@@ -2,8 +2,10 @@ package project3.yakdo.domain.BBS;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 @Data
+@AllArgsConstructor
 public class BBSComment {
 	
 	//default
