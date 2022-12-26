@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>BBS view Page</h1>
+	게시글 클릭하면 보여주는 화면 
+	<div>
+	<br/>
+	<table border="1" width="800" height="100">
+	<thead>
+	<tr>
+		<th>글보기</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	<tr>
+		<td>작성일</td>
+		<td th:text="${BBS.bbsDate}"></td>
+	</tr>
+	<tr>
+		<td>작성자</td>
+		<td th:text="${BBS.userNick}"></td>
+	</tr>
+	<tr>
+		<td>제목</td>
+		<td  th:text="${BBS.bbsTitle}"></td>
+	</tr>
+	<tr>
+		<td>내용</td>
+		<td th:text="${BBS.bbsContent}"></td>
+	</tr>
+		
+	</tbody>
+	</table>
+
+	</div>
+	
+	<div>
+		<button th:onclick="|location.href='@{/BBS/update/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">수정하기</button>
+		<button th:onclick="|location.href='@{/BBS/delete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">삭제</button>
+		<button th:onclick="|location.href='@{/BBS/adminDelete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">관리자삭제</button>
+		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
+	</div>
+	
+<!-- 	댓글 -->
+<form action="" method="post" th:object=${BBSComment}>
+		<p>
+				<label>댓글작성자(로그인한 사람 닉네임 불러오기)</label>
+<!-- 				로그인한 사람의 닉네임 불러오기 -->
+			</p>
+			<p>
+				<textarea rows="5" cols="50"></textarea>
+			</p>
+			<p>
+				<button type="submit">댓글 작성</button>
+			</p>
+</form>
+
+	<table>
+		<thead>
+			<tr>작성자</tr>
+			<tr>내용</tr>
+			<tr>작성일</tr>
+		</thead>
+		<tbody>
+			<tr th:each="BBSComment : ${commentListZero}">
+			<td th:text="${BBSComment.userNick}"></td>
+			<td th:text="${BBSComment.comComment}"></td>
+			<td th:text="${BBSComment.comDate}"></td> 
+			</tr>
+		</tbody>
+	</table>
+
+
+	<div>
+	<ul>
+	<li>
+		<div>
+			<p>첫번째 댓글 작성자</p>
+			<p>작성 시간</p>
+			<p>첫번째 댓글</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>두번째 댓글 작성자</p>
+			<p>작성 시간</p>
+			<p>두번째 댓글</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>세번째 댓글 작성자</p>
+			<p>작성 시간</p>
+			<p>세번째 댓글</p>
+		</div>
+	</li>
+</ul>
+		
+		<div>
+		
+		</div>
+		
+	</div>
+	
+	
+</body>
+</html>
