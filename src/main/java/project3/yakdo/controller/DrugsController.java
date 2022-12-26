@@ -4,7 +4,11 @@
  */
 package project3.yakdo.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -81,7 +85,10 @@ public class DrugsController {
 	 * 담당자 : 홍준표
 	 */
 	@PostMapping("/apiUpdate")
-	public String dbUpdate() {
+	public String dbUpdate(Model model) {
+		LocalDateTime date = LocalDateTime.now();
+		
+		model.addAttribute("date",date.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 hh시 mm분 ss초")));
 		return "drugs/startdbupdate";
 	}
 	
