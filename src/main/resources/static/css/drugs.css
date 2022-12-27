@@ -2,28 +2,61 @@
 
 /* DrugInfo page */
 .content{
+	margin:0px;
+	padding:0px;
+	display:inline-block;
 	box-sizing:border-box;
 	text-align:center;
 }
 
 .drugInfoImage{
-	border:1px solid black;
+	margin:0px;
+	padding:0px;
 	display:inline-block;
-	width:60%;
-	
+	box-sizing:border-box;
+	width:800px;
 }
 
 .drugInfo{
-	border:1px solid black;
+	margin:0px;
+	padding:0px;
 	display:inline-block;
-	width:60%;
+	box-sizing:border-box;
 }
 
 
-.infoCard{
-	border:1px dotted red;
+.infoCard1{
+	margin:0px;
+	padding:0px;
+	border:1px solid black;
+	box-sizing:border-box;
+	display:inline-block;
+	width:300px;
 }
 
+.infoCard2{
+	margin:0px;
+	padding:0px;
+	border:1px solid black;
+	box-sizing:border-box;
+	display:inline-block;
+	width:800px;
+}
+
+.infoTitle{
+	margin:0px;
+	padding:0px;
+	color: blue;
+	font-size: 20px;
+	font-weight: 1000;
+}
+
+.infoContent{
+	margin:0px;
+	padding:0px;
+	color: black;
+	font-size: 20px;
+}
 
 
 
