@@ -23,7 +23,7 @@ public class JoinController {
 	 * 회원가입 창
 	 * 
 	 * @param model
-	 * @return /users/join/join.html
+	 * @return /users/join/join
 	 * 
 	 * 담당자 : 빙예은
 	 */
