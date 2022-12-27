@@ -19,10 +19,6 @@ public class JoinController {
 
 	private final JoinService joinService;
 	
-<<<<<<< HEAD
-	@GetMapping("/join")
-	public String join (Model model,HttpServletRequest req) {
-=======
 	/**
 	 * 회원가입 창
 	 * 
@@ -33,7 +29,6 @@ public class JoinController {
 	 */
 	@GetMapping("/join")
 	public String join (Model model) {
->>>>>>> branch 'develop' of https://github.com/InT3jo/int3jo.git
 		JoinForm joinForm = new JoinForm();
 		model.addAttribute("joinForm", joinForm);
 

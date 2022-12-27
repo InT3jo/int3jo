@@ -123,9 +123,11 @@
 		            	<foreach item="item" collection="itemNames" separator=" ">
  		                	AND (ITEM_NAME LIKE '%'||#{item}||'%')
 		            	</foreach>
+		            	AND ( 1=2
 		            	<foreach item="item" collection="ingrNames" separator=" ">
- 		                	AND (INGR_NAME LIKE '%'||#{item}||'%')
+ 		                	OR (INGR_NAME LIKE '%'||#{item}||'%')
 		            	</foreach>
+		            	)
 		            	<foreach item="item" collection="entpNames" separator=" ">
  		                	AND (ENTP_NAME LIKE '%'||#{item}||'%')
 		            	</foreach>
@@ -138,13 +140,50 @@
 		            	<foreach item="item" collection="drugPrints" separator=" ">
  		                	AND (PRINT_FRONT LIKE '%'||#{item}||'%' OR PRINT_BACK LIKE '%'||#{item}||'%')
 		            	</foreach>
-		            	<foreach item="item" collection="drugLines" separator=" ">
- 		                	AND (LINE_FRONT LIKE '%'||#{item}||'%' OR LINE_BACK LIKE '%'||#{item}||'%')
+		            	
+		            	<foreach item="frontItem" collection="drugLineFronts" separator=" ">
+ 		                	<foreach item="backItem" collection="drugLineBacks" separator=" ">
+ 		                		AND ((LINE_FRONT LIKE '%'||#{frontItem}||'%' AND LINE_BACK LIKE '%'||#{backItem}||'%')OR(LINE_FRONT LIKE '%'||#{backItem}||'%' AND LINE_BACK LIKE '%'||#{frontItem}||'%'))
+ 		                	</foreach>
 		            	</foreach>
+		            	
 		            	<foreach item="item" collection="drugMarks" separator=" ">
  		                	AND (MARK_CODE_FRONT LIKE '%'||#{item}||'%' OR MARK_CODE_BACK LIKE '%'||#{item}||'%')
 		            	</foreach>
 		            	
+		            </where>
+	            	ORDER BY ITEM_SEQ)
+		        GROUP BY ITEM_SEQ)
+		ORDER BY ROWNUM
+	</select>
+	
+	<select id="selectDrugInfoAllByFindDrugForm" parameterType="String" resultType="DrugInfo">
+		SELECT 
+		    ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME
+		FROM (SELECT ROWNUM AS NUM, ITEM_SEQ, ITEM_NAME, ITEM_IMAGE, ENTP_NAME FROM drug_info ORDER BY ITEM_SEQ)
+		WHERE
+			ITEM_SEQ IN
+		        (SELECT MAX(ITEM_SEQ)
+		        FROM(
+		            SELECT 
+						d.ITEM_SEQ, d.ITEM_NAME, d.ITEM_IMAGE, d.ENTP_NAME, i.INGR_NAME,
+						f.PRINT_FRONT, f.PRINT_BACK, f.DRUG_SHAPE, f.COLOR_CLASS1, f.COLOR_CLASS2,
+						f.LINE_FRONT, f.LINE_BACK, f.MARK_CODE_FRONT_ANAL, f.MARK_CODE_BACK_ANAL,
+						f.MARK_CODE_FRONT, f.MARK_CODE_BACK, f.MARK_CODE_FRONT_IMG, f.MARK_CODE_BACK_IMG
+		            FROM drug_info d, drug_info_ingr i, find_drug f
+		            <where>
+		            	d.ITEM_SEQ = i.ITEM_SEQ AND d.ITEM_SEQ = f.ITEM_SEQ
+		            	AND ( 1 = 2
+		            	<foreach item="item" collection="itemNames" separator=" ">
+ 		                	OR (ITEM_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="ingrNames" separator=" ">
+ 		                	OR (INGR_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	<foreach item="item" collection="entpNames" separator=" ">
+ 		                	OR (ENTP_NAME LIKE '%'||#{item}||'%')
+		            	</foreach>
+		            	)
 		            </where>
 	            	ORDER BY ITEM_SEQ)
 		        GROUP BY ITEM_SEQ)

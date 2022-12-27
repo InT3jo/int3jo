@@ -59,8 +59,22 @@ public class DrugsController {
 	 * 담당자 : 홍준표
 	 */
 	@PostMapping("")
-	public String findDrugResult(Model model,@ModelAttribute FindDrugForm findDrugForm) {
-		List<DrugInfo> findDrugInfoList = findDrugService.findDrugResult(findDrugForm);
+	public String findDrugResult(Model model,@ModelAttribute FindDrugForm findDrugForm,HttpServletRequest req) {
+		List<DrugInfo> findDrugInfoList = new ArrayList<>();
+		if(req.getParameter("searchAll") != null) {
+			findDrugForm.setItemName(req.getParameter("searchAll"));
+			findDrugForm.setIngrName(req.getParameter("searchAll"));
+			findDrugForm.setEntpName(req.getParameter("searchAll"));
+			findDrugForm.setDrugShape("");
+			findDrugForm.setDrugColor("");
+			findDrugForm.setDrugPrint("");
+			findDrugForm.setDrugLineFront("");
+			findDrugForm.setDrugLineBack("");
+			findDrugForm.setDrugMark("");
+			findDrugInfoList = findDrugService.findDrugResultAll(findDrugForm);
+		}else {
+			findDrugInfoList = findDrugService.findDrugResult(findDrugForm);			
+		}
 		model.addAttribute("findDrugInfoList",findDrugInfoList);
 		List<DrugMark> drugMarkList = drugsRepository.getDrugMarkAll();
 		model.addAttribute("drugMarkList",drugMarkList);

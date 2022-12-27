@@ -10,17 +10,17 @@
 		<h1>Login Home</h1>
 	
 		<div>
-			<h3 th:text="${user.userEmail}"></h3>
-			<h3 th:text="${user.userNick}"></h3>
-			
-			<div>
-				<form action="/logout" th:action="@{/logout}" method="post">
+			<p><span th:text="${user.userNick}"></span>(<span th:text="${user.userEmail}"></span>)님 환영합니다.(대충 환영 이모티콘)</p>
+			<form action="/logout" th:action="@{/logout}" method="post">
 					<button type="submit">로그아웃</button>
-				</form>
-				<div>
-					<button type="button" th:onClick="|location.href='@{/test/userList}'|">Test</button>
-				</div>
-			</div>
+			</form>
+			<form action="drugs" method="post">
+				<input type="text" name="searchAll" placeholder="통합검색"/>
+				<button type="submit">검색</button>
+				<button type="button" th:onclick="|location='@{/drugs}'|">상세검색</button>
+			</form>
+			<button th:onclick="|location='@{/BBS/BBSlist}'|">이용문의</button>
+			<button th:onclick="|location='@{/admin}'|">관리자페이지</button>
 		</div>
 	</div>
 </body>

@@ -6,11 +6,15 @@
 </head>
 <body>
 	<h1>Home</h1>
-	
-	<button type="button">검색</button>
-	<button type="button">상세검색</button>
-	<button type="button" th:onclick="|location='@{/login}'|">로그인</button>
-	<button type="button" th:onclick="|location='@{/join}'|">회원가입</button>
-	<button type="button">고객센터?</button>
+	<p> 일단 개발중이니까 로그인필터검사는 넘어갑시다</p>
+	<button th:onclick="|location='@{/login}'|">로그인</button>
+	<button th:onclick="|location='@{/join}'|">회원가입</button><br>
+	<form action="drugs" method="post">
+		<input type="text" name="searchAll" placeholder="통합검색"/>
+		<button type="submit">검색</button>
+		<button type="button" th:onclick="|location='@{/drugs}'|">상세검색</button>
+	</form>
+	<button th:onclick="|location='@{/BBS/BBSlist}'|">이용문의</button>
+	<button th:onclick="|location='@{/admin}'|">관리자페이지</button>
 </body>
 </html>

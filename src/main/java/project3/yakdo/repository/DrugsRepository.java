@@ -19,6 +19,7 @@ public interface DrugsRepository {
 	public DrugInfo getDrugInfoByItemSeq(String itemSeq);
 	public Integer getDrugInfoCountAll();
 	public List<DrugInfo> getDrugInfoListByFindDrugForm(FindDrugForm findDrugForm);
+	public List<DrugInfo> getDrugInfoListAllByFindDrugForm(FindDrugForm findDrugForm);
 	public List<DrugMark> getDrugMarkAll();
 	
 	/* UPDATE 메서드 */
