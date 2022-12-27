@@ -14,6 +14,7 @@ public class FindDrugForm {
 	private String DrugShape; // 의약품모양
 	private String drugColor; // 색상 앞,뒤
 	private String drugPrint; // 표시 앞,뒤
-	private String drugLine; // 분할선 앞,뒤
+	private String drugLineFront; // 분할선 앞
+	private String drugLineBack; // 분할선 뒤
 	private String drugMark; // 마크 (코드,문자,이미지)(앞,뒤)
 }

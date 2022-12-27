@@ -21,7 +21,7 @@ import project3.yakdo.session.SessionVar;
 public class LoginFilter implements Filter{
 
 	//로그인 하지 않아도 접속 가능한 페이지 리스트
-	private static final String[] whiteList = {"/", "/login", "/logout", "/join"};
+	private static final String[] whiteList = {"/", "/login", "/logout", "/join", "/drugs", "drugs/*"};
 	
 
 	@Override
@@ -30,28 +30,21 @@ public class LoginFilter implements Filter{
 		
 		HttpServletRequest req = (HttpServletRequest) request;
 		String uri = req.getRequestURI();
-		
-		log.info("Request {}", uri);
 		HttpServletResponse resp = (HttpServletResponse) response;
-		
-		
 		/**
 		 * 로그인 안 된 경우 => 로그인 페이지로
 		 * 
 		 */
 		if(!PatternMatchUtils.simpleMatch(whiteList, uri)) {
 			HttpSession session = req.getSession(false);
-
-			if(session == null || session.getAttribute(SessionVar.LOGIN_MEMBER) == null) {
-				log.info("로그인 없이 접근 시도 {}", uri);
-				resp.sendRedirect("/login?redirectURL="+uri);
-				
-				return;
-			}
+// 개발중이니까 일단 필터는 주석처리
+//			if(session == null || session.getAttribute(SessionVar.LOGIN_MEMBER) == null) {
+//				log.info("로그인 없이 접근 시도 {}", uri);
+//				resp.sendRedirect("/login?redirectURL="+uri);
+//				return;
+//			}
 		}
-		
 		chain.doFilter(request, response);
-		log.info("Reqsponse {}", uri);
 	}
 	
 

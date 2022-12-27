@@ -239,10 +239,28 @@ public class DrugsMybatisRepository implements DrugsRepository{
 		String[] entpNames = findDrugForm.getEntpName().split(" ");	
 		String[] drugShapes = findDrugForm.getDrugShape().split(" ");
 		String[] drugColors = findDrugForm.getDrugColor().split(" ");
-		String[] drugPrints = findDrugForm.getDrugPrint().split(" ");
-		String[] drugLines = findDrugForm.getDrugLine().split(" ");
+		String[] drugPrints = findDrugForm.getDrugPrint().split("");
+		String[] drugLineFronts = findDrugForm.getDrugLineFront().split(" ");
+		String[] drugLineBacks = findDrugForm.getDrugLineBack().split(" ");
 		String[] drugMarks = findDrugForm.getDrugMark().split(" ");
-		List<DrugInfo> drugInfoList = drugsMapper.selectDrugInfoByFindDrugForm(itemNames,ingrNames,entpNames,drugShapes,drugColors,drugPrints,drugLines,drugMarks);
+		List<DrugInfo> drugInfoList = drugsMapper.selectDrugInfoByFindDrugForm(itemNames,ingrNames,entpNames,drugShapes,drugColors,drugPrints,drugLineFronts,drugLineBacks,drugMarks);
+		//DB에서 가져와서 리스트 반환
+		return drugInfoList;
+	}
+	
+	/**
+	 * FindDrugForm을 기반으로 DrugInfo 객체로 이루어진 리스트로 반환
+	 * 목록용 객체로, 내용은 itemSeq, itemName, itemImage, entpName 만 가져온다.
+	 * parameter : FindDrugForm findDrugForm
+	 * return : ArrayList<DrugInfo>
+	 * 담당자 : 홍준표
+	 */
+	@Override
+	public List<DrugInfo> getDrugInfoListAllByFindDrugForm(FindDrugForm findDrugForm) {
+		String[] itemNames = findDrugForm.getItemName().split(" ");			
+		String[] ingrNames = findDrugForm.getIngrName().split(" ");			
+		String[] entpNames = findDrugForm.getEntpName().split(" ");	
+		List<DrugInfo> drugInfoList = drugsMapper.selectDrugInfoAllByFindDrugForm(itemNames,ingrNames,entpNames);
 		//DB에서 가져와서 리스트 반환
 		return drugInfoList;
 	}

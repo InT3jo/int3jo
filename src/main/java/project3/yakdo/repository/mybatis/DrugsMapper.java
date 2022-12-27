@@ -32,7 +32,10 @@ public interface DrugsMapper {
 	public List<DrugMark> selectDrugMarkAll();
 	public List<DrugInfo> selectDrugInfoByFindDrugForm(@Param("itemNames") String[] itemNames, @Param("ingrNames") String[] ingrNames,
 			@Param("entpNames") String[] entpNames, @Param("drugShapes") String[] drugShapes, @Param("drugColors") String[] drugColors,
-			@Param("drugPrints") String[] drugPrints, @Param("drugLines") String[] drugLines, @Param("drugMarks") String[] drugMarks);
+			@Param("drugPrints") String[] drugPrints, @Param("drugLineFronts") String[] drugLineFronts,
+			@Param("drugLineBacks") String[] drugLineBacks, @Param("drugMarks") String[] drugMarks);
+	public List<DrugInfo> selectDrugInfoAllByFindDrugForm(@Param("itemNames") String[] itemNames, @Param("ingrNames") String[] ingrNames,
+			@Param("entpNames") String[] entpNames);
 
 	//delete
 	public void deleteDrugInfo();

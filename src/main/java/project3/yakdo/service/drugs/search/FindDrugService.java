@@ -24,5 +24,16 @@ public class FindDrugService {
 		List<DrugInfo> diList = drugsRepository.getDrugInfoListByFindDrugForm(findDrugForm);
 		return diList;
 	}
+	
+	/**
+	 * findDrugForm 기반으로 DrugInfo List를 반환
+	 * parameter : FindDrugForm findDrugForm
+	 * return : List<DrugInfo>
+	 * 담당자 : 홍준표
+	 */
+	public List<DrugInfo> findDrugResultAll(FindDrugForm findDrugForm){
+		List<DrugInfo> diList = drugsRepository.getDrugInfoListAllByFindDrugForm(findDrugForm);
+		return diList;
+	}
 
 }
