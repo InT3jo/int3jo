@@ -1,64 +1,78 @@
 @charset "UTF-8";
 
-/* DrugInfo page */
-.content{
-	margin:0px;
-	padding:0px;
-	display:inline-block;
-	box-sizing:border-box;
-	text-align:center;
+/* 공용 */
+body{
+	
 }
 
-.drugInfoImage{
+.d-CSS{
 	margin:0px;
-	padding:0px;
+	padding:5px;
 	display:inline-block;
+	position: relative;
 	box-sizing:border-box;
-	width:800px;
+	white-space: normal;
+	font-size: 15px;
 }
 
-.drugInfo{
-	margin:0px;
-	padding:0px;
-	display:inline-block;
-	box-sizing:border-box;
-}
-
-
-.infoCard1{
-	margin:0px;
-	padding:0px;
+.border{
 	border:1px solid black;
-	box-sizing:border-box;
-	display:inline-block;
-	width:300px;
 }
 
-.infoCard2{
-	margin:0px;
-	padding:0px;
-	border:1px solid black;
-	box-sizing:border-box;
-	display:inline-block;
-	width:800px;
-}
-
-.infoTitle{
-	margin:0px;
-	padding:0px;
+.fontBlue{
 	color: blue;
-	font-size: 20px;
-	font-weight: 1000;
-}
-
-.infoContent{
-	margin:0px;
-	padding:0px;
-	color: black;
-	font-size: 20px;
 }
 
 
+
+
+
+
+
+/* DrugInfo page */
+.infoContentBox{
+	margin:0px auto;
+	width:800px;
+	display:block;
+	
+}
+.infoHeadTitle{
+	color:blue;
+	font-size: 17px;
+	font-weight: 700;
+	width:118px;
+	margin: 40px 300px;
+}
+.infoImage{
+	width:350px;
+}
+.infoHeadOutter{
+	width:394px;
+	top: -40px;
+}
+.infoHead{
+	width:394px;
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+.infoTitle{
+	color: blue;
+	font-weight: 700;
+	width: 77px;
+}
+.infoContent1{
+	width: 301px;
+}
+.infoContent2{
+	width: 250px;
+	padding-bottom: 5px;
+}
+.infoContent3{
+	width: 800px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+}
 
 /* FindDrug page */
 .drugMarkModal{
