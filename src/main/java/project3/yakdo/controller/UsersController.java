@@ -31,6 +31,8 @@ public class UsersController {
 	 * userList를 화면에 띄울 메소드
 	 * @param model
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@GetMapping("/userList")
 	public String showUser(Model model) {
@@ -39,7 +41,18 @@ public class UsersController {
 		model.addAttribute("userList", userList);
 		return "/users/login/userList";
 	}
-	
+
+	/**
+	 * TEST
+	 * session을 이용해 유효성 검사 후
+	 * 로그인 하지 않았으면 return 이전 페이지
+	 * 로그인 한 상태라면 /users/login/userList
+	 * 
+	 * @param model
+	 * @return
+	 * 
+	 * 담당자 : 빙예은
+	 */
 	@GetMapping
 	public String Users(Model model, HttpServletRequest req) {
 		
