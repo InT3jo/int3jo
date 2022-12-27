@@ -46,11 +46,11 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 
-	@Override
-	public Integer insertUsersInfo(UsersInfo usersInfo) {
-		Integer result = usersMapper.insertUsersInfo(usersInfo);
-		return result;
-	}
+//	@Override
+//	public Integer insertUsersInfo(UsersInfo usersInfo) {
+//		Integer result = usersMapper.insertUsersInfo(usersInfo);
+//		return result;
+//	}
 
 	@Override
 	public UsersInfo selectByUserNo(Integer userNo) {

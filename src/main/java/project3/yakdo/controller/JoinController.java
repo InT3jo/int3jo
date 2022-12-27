@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.service.users.JoinService;
@@ -38,7 +37,7 @@ public class JoinController {
 	
 	/**
 	 * join.html에서 가입하기 눌렀을 때
-	 * 회원가입 기능 실행되는 메소드
+	 * insert 처리에 따라 이동할 경로 지정하는 메소드
 	 * 	--추가 될 기능
 	 * 	이메일 인증
 	 * 	비밀번호 검사
@@ -58,8 +57,9 @@ public class JoinController {
 		
 		//insert 실패, 성공 여부에 따라
 		//페이지 경로 잡아주기
-		if(result == 1) {
-			log.info("가입성공");
+		if(result == 4) {
+			log.info("JoinForm {}", joinForm);
+			log.info("가입 시도 email : {} 가입성공", joinForm.getUserEmail());
 			return "/home";
 		}
 		log.info("가입실패");

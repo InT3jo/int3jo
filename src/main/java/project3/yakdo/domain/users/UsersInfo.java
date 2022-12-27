@@ -1,6 +1,7 @@
 package project3.yakdo.domain.users;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

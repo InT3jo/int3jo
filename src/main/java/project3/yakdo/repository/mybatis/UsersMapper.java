@@ -19,7 +19,7 @@ public interface UsersMapper {
 	
 	public void deleteAllUsers();
 
-	public Integer insertUsersInfo(UsersInfo usersInfo);
+//	public Integer insertUsersInfo(UsersInfo usersInfo);
 	
 	public UsersInfo selectByUserNo(Integer userNo);
 	

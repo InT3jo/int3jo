@@ -17,8 +17,6 @@ public interface UsersRepository {
 	
 	public void deleteAllUsers();
 	
-	public Integer insertUsersInfo(UsersInfo usersInfo);
-	
 	public UsersInfo selectByUserNo(Integer userNo);
 	
 	public List<UsersInfo> selectAllUsersInfo();
