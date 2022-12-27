@@ -17,6 +17,7 @@ public class BBSComment {
 	private String comContent;
 	private Timestamp comDate;
 	private int comShow;
+	private int comSeq;
 	
 	//option
 	private String userNick;

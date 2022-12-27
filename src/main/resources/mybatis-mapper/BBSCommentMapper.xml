@@ -10,7 +10,11 @@
 
 	<!-- 댓글쓰기 -->
 
-	<insert id="insertBBSCom" parameterType="BBSComment">
+	<insert id="insertBBSCom" parameterType="bbsComment">
+	<selectKey keyProperty="comSeq" resultType="java.lang.Integer"
+		order="BEFORE">
+		select COMPK.nextVal as com_seq from dual
+		</selectKey>
 	insert into bbs_comment
 		(
 		bbs_no,
@@ -18,17 +22,20 @@
 		user_no,
 		com_content,
 		com_date,
-		com_show
+		com_show,
+		com_seq
 		)
 		values
 		(
 		#{bbsNo},
 		NVL(((select MAX(com_no) from bbs_comment where bbs_no=#{bbsNo} )+1) , 1),
 		1,
+<!-- 		userNo 일단 테스트로 1넣고 나중에 로그인 정보에서 가져와야함  -->
 		#{comContent},
 		sysdate,
-		0
-		);
+		0,
+		#{comSeq}
+		)
 	</insert>
 
 
@@ -38,7 +45,8 @@
 		<!-- where bbs_no = #{bbsNo} -->
 		<!-- order by com_date desc -->
 		<!-- user_nick 까지 불러오는것으로 수정 12-26-20:02 -->
-		select
+<!-- 		게시상태 0(게시)인것만 불러오는것으로 수정 12-27-14:56 -->
+	  select
 		a.BBS_NO,
 		a.COM_NO,
 		a.USER_NO,
@@ -49,8 +57,8 @@
 		from bbs_comment a, users b
 		where bbs_no =#{bbsNo}
 		and a.user_no = b.user_no
-		order by com_date desc
-
+		and a.com_show =0
+		order by com_date asc
 
 	</select>
 
@@ -64,8 +72,9 @@
 	</update>
 
 	<!-- 댓글 본인 삭제 -->
-	<update id="updateComShowOneBybbsNo">
-		update bbs_commentset
+	<update id="updateComShowOneBbn" parameterType="Integer">
+		update bbs_comment
+		set
 		com_show=1
 		where com_no=#{comNo}
 		and bbs_no=#{bbsNo}
@@ -73,7 +82,8 @@
 
 	<!-- 댓글 관리자 삭제 -->
 	<update id="updateComShowTwoBybbsNo">
-		update bbs_commentset
+		update bbs_comment
+		set
 		com_show=2
 		where com_no=#{comNo}
 		and bbs_no=#{bbsNo}

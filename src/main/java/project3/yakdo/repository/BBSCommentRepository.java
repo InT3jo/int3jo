@@ -16,10 +16,10 @@ public interface BBSCommentRepository {
 	public boolean updateCom(int bbsNo, BBSComment bbsComment);
 	
 	//댓글 본인 삭제
-	public boolean updateComShowOneBybbsNo(int bbsNo);
+	public boolean updateComShowOneByBbsNo(Integer bbsNo, Integer comNo);
 	
 	//댓글 관리자 삭제 
-	public boolean updateComShowTwoBybbsNo(int bbsNo);
+	public boolean updateComShowTwoBybbsNo(Integer bbsNo, int comNo);
 	
 	
 	

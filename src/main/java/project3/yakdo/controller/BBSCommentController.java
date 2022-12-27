@@ -57,7 +57,7 @@ public class BBSCommentController {
 	// 본인 삭제
 	@GetMapping("/deletecom/{comNo}")
 	public String updateComShowOneBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo) {
-		bbsCommentRepositoy.updateComShowOneBybbsNo(bbsNo);
+		
 		return "";
 	}
 	
