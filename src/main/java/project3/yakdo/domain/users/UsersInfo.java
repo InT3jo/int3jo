@@ -1,7 +1,6 @@
 package project3.yakdo.domain.users;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,13 +8,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UsersInfo {
-	private Integer userNo;
-	private Integer familyNo;
-	private Date birth;
-	private String gender;
-	private String usingDrugs;
-	private String allergy;
-	private Integer weight;
+	private Integer userNo;		//회원번호
+	private Integer familyNo;	//가족번호
+	private Date birth;			//생년월일
+	private String gender;		//성별
+	private String usingDrugs;	//복용중인 약물
+	private String allergy;		//알러지
+	private Integer weight;		//체중
 	
 	
 }

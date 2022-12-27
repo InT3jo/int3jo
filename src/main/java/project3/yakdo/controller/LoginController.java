@@ -44,7 +44,7 @@ public class LoginController {
 	}
 	
 	/**
-	 * doLogin
+	 * 로그인 기능 실행
 	 * 
 	 * @param model
 	 * @return 마지막 경로
@@ -86,7 +86,7 @@ public class LoginController {
 	}
 	
 	/**
-	 * logout
+	 * 로그아웃 실행되는 메소드
 	 * 
 	 * @param req
 	 * @return 마지막 접근했던 창으로

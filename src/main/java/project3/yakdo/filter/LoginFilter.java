@@ -16,7 +16,13 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.session.SessionVar;
 
-
+/**
+ * 로그인 관련 필터
+ * 
+ * @author honey
+ * 
+ * 담당자 : 빙예은
+ */
 @Slf4j
 public class LoginFilter implements Filter{
 
@@ -35,10 +41,7 @@ public class LoginFilter implements Filter{
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
 		
-		/**
-		 * 로그인 안 된 경우 => 로그인 페이지로
-		 * 
-		 */
+		// 로그인 안 된 경우 => 로그인 페이지로
 		if(!PatternMatchUtils.simpleMatch(whiteList, uri)) {
 			HttpSession session = req.getSession(false);
 

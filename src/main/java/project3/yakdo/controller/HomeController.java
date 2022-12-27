@@ -18,6 +18,17 @@ import project3.yakdo.session.SessionVar;
 @RequiredArgsConstructor
 public class HomeController {
 	
+	/**
+	 * session과 cookie로 유효성 검사 후
+	 * 로그인한 상태가 아니면 return home
+	 * 로그인 상태라면 return loginHome
+	 * 
+	 * @param model
+	 * @param req
+	 * @return
+	 * 
+	 * 담당자 : 빙예은
+	 */
 	@GetMapping("/")
 	public String home(Model model
 					, HttpServletRequest req) {
@@ -26,12 +37,10 @@ public class HomeController {
 		
 		//쿠키를 통해 넘어온 userEmail이 없는 경우
 		if(session == null) {
-			return "home";
+			return "/home";
 		}
 		
-		/**
-		 * session 정보 출력해보기
-		 */
+		//session 정보 출력해보기
 		Enumeration<String> sessionNames = session.getAttributeNames();
 		while(sessionNames.hasMoreElements()) {
 			String name = sessionNames.nextElement();
@@ -42,11 +51,11 @@ public class HomeController {
 		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
 		if (user == null) {
-			return "home";
+			return "/home";
 		}
 		
 		model.addAttribute("user", user);
 		
-		return "loginHome";
+		return "/loginHome";
 	}
 }
