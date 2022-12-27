@@ -2,113 +2,146 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/drugs.css">
 <title th:utext="${drugInfo.itemName}"></title>
 </head>
 <body>
-	<div>
-		<div>
+	<div class="content">
+		<div class="drugInfoImage">
 			<span th:if="${drugInfo.itemImage} != null">
-				<img th:src="${drugInfo.itemImage}" width="300" height="150" alt="(이미지 준비중)"/>
+				<img th:src="${drugInfo.itemImage}" width="100%" height="100%" alt="(이미지 준비중)"/>
 			</span>
 			<span th:if="${drugInfo.itemImage} == null">
-				<p>이미지 준비중입니다.</p>
+				<span>이미지 준비중입니다.</span>
 			</span>
 		</div>
-		<div>
-			<div><b>제품명</b></div>
-			<p><span th:utext="${drugInfo.itemName}"></span> <span th:unless="${drugInfo.itemEngName} == null or ${drugInfo.itemEngName} == 'null'">(영문명:<span th:utext="${drugInfo.itemEngName}"></span>)</span></p>
-			
-			<div><b>제조사명</b></div>
-			<p th:utext="${drugInfo.entpName}"></p>
-			
-			<div><b>성상</b></div>
-			<p th:utext="${drugInfo.chart}"></p>
-		</div>
-		<div>
-			<div><b>분류번호</b></div>
-			<p><span th:utext="${drugInfo.classNo}"></span>(<span th:utext="${drugInfo.className}"></span>)</p>
-		
-			<div><b>마약분류</b></div>
-			<span th:if="${drugInfo.narcotic}==null or ${drugInfo.narcotic}=='null'"><p>마약류 아님</p></span>
-			<span th:unless="${drugInfo.narcotic}==null or ${drugInfo.narcotic}=='null'"><p th:utext="${drugInfo.narcotic}"></p></span>
-		</div>
-		<div>
-			<div><b>전문/일반</b></div>
-			<p th:utext="${drugInfo.etcOtcName}"></p>
-		
-			<div><b>보험코드</b></div>
-			<p th:utext="${drugInfo.ediCode}"></p>
-		
-			<div><b>성분명</b></div>
-			<p>
-				<span th:each="ingr:${drugInfo.ingrNameList}">
-					<span th:utext="${ingr}"></span><span th:unless="${ingrStat.last}">,</span>
-				</span>
-			</p>
-		</div>
-		<div>
-			<div><b>효능</b></div>
-			<span th:unless="${drugInfo.getEfcyQesitm(1).size()} == 0">
-				<div th:each="efcy : ${drugInfo.getEfcyQesitm(1)}">
-					<p th:utext="${efcy}"></p>
+		<div class="drugInfo drugInfo1">
+			<div class="drugInfoItemName infoCard">
+				<div class="drugInfoItemNameTitle infoTitle">제품명</div>
+				<div class="drugInfoItemNameContent infoContent"><span th:utext="${drugInfo.itemName}"></span> <span th:unless="${drugInfo.itemEngName} == null or ${drugInfo.itemEngName} == 'null'">(영문명:<span th:utext="${drugInfo.itemEngName}"></span>)</span></div>
+			</div>
+			<div class="drugInfoEntpName infoCard">
+				<div class="drugInfoEntpNameTitle infoTitle">제조사명</div>
+				<div class="drugInfoEntpNameContent infoContent" th:utext="${drugInfo.entpName}"></div>
+			</div>
+			<div class="drugInfoChart infoCard">
+				<div class="drugInfoChartTitle infoTitle">성상</div>
+				<div class="drugInfoChartContent infoContent" th:utext="${drugInfo.chart}"></div>
+			</div>
+			<div class="drugInfoIngrName infoCard">
+				<div class="drugInfoIngrNameTitle infoTitle">성분명</div>
+				<div class="drugInfoIngrNameContent infoContent">
+					<span th:each="ingr:${drugInfo.ingrNameList}">
+						<span th:utext="${ingr}"></span><span th:unless="${ingrStat.last}">,</span>
+					</span>
 				</div>
-			</span>
-			<span th:if="${drugInfo.getEfcyQesitm(1).size()} == 0">
-				<p>자료 준비중입니다.</p>
-			</span>
-			
-			<div><b>용법</b></div>
-			<span th:unless="${drugInfo.getUseMethodQesitm(1).size()} == 0">
-				<div th:each="use : ${drugInfo.getUseMethodQesitm(1)}">
-					<p th:utext="${use}"></p>
+			</div>
+		</div>
+		<div class="drugInfo drugInfo2">
+			<div class="drugInfoClassNo infoCard">
+				<div class="drugInfoClassNoTitle infoTitle">분류번호</div>
+				<div class="drugInfoClassNoContent infoContent"><span th:utext="${drugInfo.classNo}"></span>(<span th:utext="${drugInfo.className}"></span>)</div>
+			</div>
+			<div class="drugInfoNarcotic infoCard">
+				<div class="drugInfoNarcoticTitle infoTitle">마약분류</div>
+				<div class="drugInfoNarcoticCdontent infoContent">
+					<span th:if="${drugInfo.narcotic}==null or ${drugInfo.narcotic}=='null'"><span>마약류 아님</span></span>
+					<span th:unless="${drugInfo.narcotic}==null or ${drugInfo.narcotic}=='null'"><span th:utext="${drugInfo.narcotic}"></span></span>
 				</div>
-			</span>
-			<span th:if="${drugInfo.getUseMethodQesitm(1).size()} == 0">
-				<p>자료 준비중입니다.</p>
-			</span>
-			
-			<div><b>경고</b></div>
-			<span th:unless="${drugInfo.atpnWarnQesitm} == null or ${drugInfo.atpnWarnQesitm} =='null'">
-				<p th:utext="${drugInfo.atpnWarnQesitm}"></p>
-			</span>
-			<span th:if="${drugInfo.atpnWarnQesitm} == null or ${drugInfo.atpnWarnQesitm} =='null'">
-				<p>자료 준비중입니다.</p>
-			</span>
-
-			<div><b>주의사항</b></div>
-			<span th:unless="${drugInfo.getAtpnQesitm(1).size()} == 0">
-				<div th:each="atpn : ${drugInfo.getAtpnQesitm(1)}">
-					<p th:utext="${atpn}"></p>
+			</div>
+			<div class="drugInfoEtcOtcName infoCard">
+				<div class="drugInfoEtcOtcNameTitle infoTitle">전문/일반</div>
+				<div class="drugInfoEtcOtcNameContent infoContent" th:utext="${drugInfo.etcOtcName}"></div>
+			</div>
+			<div class="drugInfoEdiCode infoCard">
+				<div class="drugInfoEdiCodeTitle infoTitle">보험코드</div>
+				<div class="drugInfoEdiCodeContent infoContent" th:utext="${drugInfo.ediCode}"></div>
+			</div>
+		</div>
+		<div class="drugInfo drugInfo3">
+			<div class="drugInfoEfcyQesitm infoCard">
+				<div class="drugInfoEfcyQesitmTitle infoTitle">효능</div>
+				<div class="drugInfoEfcyQesitmContent infoContent">
+					<span th:unless="${drugInfo.getEfcyQesitm(1).size()} == 0">
+						<span th:each="efcy : ${drugInfo.getEfcyQesitm(1)}">
+							<span th:utext="${efcy}"></span>
+						</span>
+					</span>
+					<span th:if="${drugInfo.getEfcyQesitm(1).size()} == 0">
+						<span>자료 준비중입니다.</span>
+					</span>
 				</div>
-			</span>
-			<span th:if="${drugInfo.getAtpnQesitm(1).size()} == 0">
-				<p>자료 준비중입니다.</p>
-			</span>
-
-			<div><b>상호작용</b></div>
-			<span th:unless="${drugInfo.intrcQesitm} == null or ${drugInfo.intrcQesitm} =='null'">
-				<p th:utext="${drugInfo.intrcQesitm}"></p>
-			</span>
-			<span th:if="${drugInfo.intrcQesitm} == null or ${drugInfo.intrcQesitm} =='null'">
-				<p>자료 준비중입니다.</p>
-			</span>
-		
-			<div><b>부작용</b></div>
-			<span th:unless="${drugInfo.seQesitm} == null or ${drugInfo.seQesitm} =='null'">
-				<p th:utext="${drugInfo.seQesitm}"></p>
-			</span>
-			<span th:if="${drugInfo.seQesitm} == null or ${drugInfo.seQesitm} =='null'">
-				<p>자료 준비중입니다.</p>
-			</span>
-			
-			<div><b>보관법</b></div>
-			<span th:unless="${drugInfo.depositMethodQesitm} == null or ${drugInfo.depositMethodQesitm} =='null'">
-				<p th:utext="${drugInfo.depositMethodQesitm}"></p>
-			</span>
-			<span th:if="${drugInfo.depositMethodQesitm} == null or ${drugInfo.depositMethodQesitm} =='null'">
-				<p>자료 준비중입니다.</p>
-			</span>
-			
+			</div>
+			<div class="drugInfoUseMethodQesitm infoCard">
+				<div class="drugInfoUseMethodQesitmTitle infoTitle">용법</div>
+				<div class="drugInfoUseMethodQesitmContent infoContent">
+					<span th:unless="${drugInfo.getUseMethodQesitm(1).size()} == 0">
+						<span th:each="use : ${drugInfo.getUseMethodQesitm(1)}">
+							<span th:utext="${use}"></span>
+						</span>
+					</span>
+					<span th:if="${drugInfo.getUseMethodQesitm(1).size()} == 0">
+						<span>자료 준비중입니다.</span>
+					</span>
+				</div>
+			</div>
+			<div class="drugInfoAtpnWarnQesitm infoCard">
+				<div class="drugInfoAtpnWarnQesitmTitle infoTitle">경고</div>
+				<div class="drugInfoAtpnWarnQesitmContent infoContent">
+					<span th:unless="${drugInfo.atpnWarnQesitm} == null or ${drugInfo.atpnWarnQesitm} =='null'">
+						<span th:utext="${drugInfo.atpnWarnQesitm}"></span>
+					</span>
+					<span th:if="${drugInfo.atpnWarnQesitm} == null or ${drugInfo.atpnWarnQesitm} =='null'">
+						<span>자료 준비중입니다.</span>
+					</span>
+				</div>
+			</div>
+			<div class="drugInfoAtpnQesitm infoCard">
+				<div class="drugInfoAtpnQesitmTitle infoTitle">주의사항</div>
+				<div class="drugInfoAtpnQesitmContent infoContent">
+					<span th:unless="${drugInfo.getAtpnQesitm(1).size()} == 0">
+						<span th:each="atpn : ${drugInfo.getAtpnQesitm(1)}">
+							<span th:utext="${atpn}"></span>
+						</span>
+					</span>
+					<span th:if="${drugInfo.getAtpnQesitm(1).size()} == 0">
+						<span>자료 준비중입니다.</span>
+					</span>
+				</div>
+			</div>
+			<div class="drugInfoIntrcQesitm infoCard">
+				<div class="drugInfoIntrcQesitmTitle infoTitle">상호작용</div>
+				<div class="drugInfoIntrcQesitmContent infoContent">
+					<span th:unless="${drugInfo.intrcQesitm} == null or ${drugInfo.intrcQesitm} =='null'">
+						<span th:utext="${drugInfo.intrcQesitm}"></span>
+					</span>
+					<span th:if="${drugInfo.intrcQesitm} == null or ${drugInfo.intrcQesitm} =='null'">
+						<span>자료 준비중입니다.</span>
+					</span>
+				</div>
+			</div>
+			<div class="drugInfoSeQesitm infoCard">
+				<div class="drugInfoSeQesitmTitle infoTitle">부작용</div>
+				<div class="drugInfoSeQesitmContent infoContent">
+					<span th:unless="${drugInfo.seQesitm} == null or ${drugInfo.seQesitm} =='null'">
+						<span th:utext="${drugInfo.seQesitm}"></span>
+					</span>
+					<span th:if="${drugInfo.seQesitm} == null or ${drugInfo.seQesitm} =='null'">
+						<span>자료 준비중입니다.</span>
+					</span>
+				</div>
+			</div>
+			<div class="drugInfoDepositMethodQesitm infoCard">
+				<div class="drugInfoDepositMethodQesitmTitle infoTitle">보관법</div>
+				<div class="drugInfoDepositMethodQesitmContent infoContent">
+					<span th:unless="${drugInfo.depositMethodQesitm} == null or ${drugInfo.depositMethodQesitm} =='null'">
+						<span th:utext="${drugInfo.depositMethodQesitm}"></span>
+					</span>
+					<span th:if="${drugInfo.depositMethodQesitm} == null or ${drugInfo.depositMethodQesitm} =='null'">
+						<span>자료 준비중입니다.</span>
+					</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
