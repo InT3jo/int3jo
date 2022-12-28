@@ -8,115 +8,172 @@
 <body>
 	<script type="text/javascript">
 		function openDrugMarkModal(){
-			document.querySelector('.drugMarkModal').style.display='inline-block';			
+			document.querySelector('.findMarkModal').style.display='inline-block';			
 		}
 		function selectDrugMark(src,code){
-			document.querySelector('.drugMarkModal').style.display='none';
+			document.querySelector('.findMarkModal').style.display='none';
 			document.querySelector('.selectDrugMark').src=src;
 			document.querySelector('.selectDrugMarkInput').value=code;
 		}
 	</script>
-	<div>
-		<h1>약품 정보 입력</h1>
-		<p>
-			각 항목에 검색어를 입력한 후 검색 버튼을 클릭하시면 해당 조건에 맞는 내용이 검색됩니다.
-			여러 항목을 동시에 입력하여 검색하실 수 있습니다.
-			띄어쓰기를 이용하여 다중조건으로 검색합니다.
-		</p>
-<!-- 		th:value -->
+	<div class="d-CSS ContentBox">
 		<form action="" method="post">
 			<input type="text" name="searchAll" placeholder="통합검색"/>
 			<button>검색</button>
 		</form>
+		<div class="d-CSS headTitle">약품 정보 입력</div>
+		<div class="d-CSS findWarn">
+			◈ 각 항목에 검색어를 입력한 후 검색 버튼을 클릭하시면 해당 조건에 맞는 내용이 검색됩니다.<br>
+			여러 항목을 동시에 입력하여 검색하실 수 있습니다.
+			띄어쓰기를 이용하여 다중조건으로 검색합니다.
+		</div>
+		
 		<form action="" method="post">
-			<label>제품명<input class="itemNameInput" type="text" name="itemName" th:value="${findDrugForm.getItemName()}==null?'':${findDrugForm.getItemName()}" placeholder="제품명"/></label>
-			<label>성분명<input class="ingrNameInput" type="text" name="ingrName" th:value="${findDrugForm.getIngrName()}==null?'':${findDrugForm.getIngrName()}" placeholder="성분명"/></label>
-			<label>회사명<input class="entpNameInput" type="text" name="entpName" th:value="${findDrugForm.getEntpName()}==null?'':${findDrugForm.getEntpName()}" placeholder="회사명"/></label>
-			
-			<label>제형
-				<select class="drugShapeSelect" name="drugShape">
-					<option value="">제형선택</option>
-					<option value="원형" th:selected="${findDrugForm.getDrugShape()}=='원형'">원형</option>
-					<option value="타원형" th:selected="${findDrugForm.getDrugShape()}=='타원형'">타원형</option>
-					<option value="반원형" th:selected="${findDrugForm.getDrugShape()}=='반원형'">반원형</option>
-					<option value="삼각형" th:selected="${findDrugForm.getDrugShape()}=='삼각형'">삼각형</option>
-					<option value="장방형" th:selected="${findDrugForm.getDrugShape()}=='장방형'">장방형</option>
-					<option value="마름모형" th:selected="${findDrugForm.getDrugShape()}=='마름모형'">마름모형</option>
-					<option value="오각형" th:selected="${findDrugForm.getDrugShape()}=='오각형'">오각형</option>
-					<option value="육각형" th:selected="${findDrugForm.getDrugShape()}=='육각형'">육각형</option>
-					<option value="팔각형" th:selected="${findDrugForm.getDrugShape()}=='팔각형'">팔각형</option>
-					<option value="기타" th:selected="${findDrugForm.getDrugShape()}=='기타'">기타</option>
-				</select>
-			</label>
-			
-			<label>
-				색상
-				<select class="drugColorSelect" name="drugColor">
-					<option value="">색상선택</option>
-					<option value="투명" style="background-color:none" th:selected="${findDrugForm.getDrugColor()}=='투명'">(투명)</option>
-					<option value="하양" style="background-color:#ffffff" th:selected="${findDrugForm.getDrugColor()}=='하양'">하양</option>
-					<option value="검정" style="background-color:#000000" th:selected="${findDrugForm.getDrugColor()}=='검정'">검정</option>
-					<option value="회색" style="background-color:#808080" th:selected="${findDrugForm.getDrugColor()}=='회색'">회색</option>
-					<option value="빨강" style="background-color:#ff0000" th:selected="${findDrugForm.getDrugColor()}=='빨강'">빨강</option>
-					<option value="분홍" style="background-color:#ffc0cb" th:selected="${findDrugForm.getDrugColor()}=='분홍'">분홍</option>
-					<option value="주황" style="background-color:#ff7f00" th:selected="${findDrugForm.getDrugColor()}=='주황'">주황</option>
-					<option value="갈색" style="background-color:#964b00" th:selected="${findDrugForm.getDrugColor()}=='갈색'">갈색</option>
-					<option value="노랑" style="background-color:#ffd400" th:selected="${findDrugForm.getDrugColor()}=='노랑'">노랑</option>
-					<option value="연두" style="background-color:#81c147" th:selected="${findDrugForm.getDrugColor()}=='연두'">연두</option>
-					<option value="초록" style="background-color:#008000" th:selected="${findDrugForm.getDrugColor()}=='초록'">초록</option>
-					<option value="청록" style="background-color:#005666" th:selected="${findDrugForm.getDrugColor()}=='청록'">청록</option>
-					<option value="파랑" style="background-color:#0067a3" th:selected="${findDrugForm.getDrugColor()}=='파랑'">파랑</option>
-					<option value="남색" style="background-color:#000080" th:selected="${findDrugForm.getDrugColor()}=='남색'">남색</option>
-					<option value="보라" style="background-color:#8b00ff" th:selected="${findDrugForm.getDrugColor()}=='보라'">보라</option>
-					<option value="자주" style="background-color:#660099" th:selected="${findDrugForm.getDrugColor()}=='자주'">자주</option>
-				</select>
-			</label>
-			
-			<label>약품에 적힌 글자<input class="drugPringInput" type="text" name="drugPrint" th:value="${findDrugForm.getDrugPrint()}==null?'':${findDrugForm.getDrugPrint()}" placeholder="약품에 적힌 글자"/></label>
-			
-			<label>
-				분할선(앞뒤관계없음)
-				<select class="drugLineSelect" name="drugLineFront">
-					<option value="">분할선(앞)</option>
-					<option value="null" th:selected="${findDrugForm.getDrugLineFront()}=='null'">없음</option>
-					<option value="-" th:selected="${findDrugForm.getDrugLineFront()}=='-'">일자(-)</option>
-					<option value="+" th:selected="${findDrugForm.getDrugLineFront()}=='+'">십자(+)</option>
-					<option value="기타" th:selected="${findDrugForm.getDrugLineFront()}=='기타'">기타</option>
-				</select>
-				<select class="drugLineSelect" name="drugLineBack">
-					<option value="">분할선(뒤)</option>
-					<option value="null" th:selected="${findDrugForm.getDrugLineBack()}=='null'">없음</option>
-					<option value="-" th:selected="${findDrugForm.getDrugLineBack()}=='-'">일자(-)</option>
-					<option value="+" th:selected="${findDrugForm.getDrugLineBack()}=='+'">십자(+)</option>
-					<option value="기타" th:selected="${findDrugForm.getDrugLineBack()}=='기타'">기타</option>
-				</select>
-			</label>
-			
-			<label>
-				마크
-				<sapn th:unless="${findDrugForm.getDrugMark()}==null">
-					<span th:each="drugMark : ${drugMarkList}">
-						<image class="selectDrugMark" th:if="${drugMark.getMarkCode()}==${findDrugForm.getDrugMark()}" th:src="${drugMark.getMarkImg()}" width="50" height="50" alt="마크를 선택해주세요"/>
-					</span>
-				</sapn>
-				<sapn th:if="${findDrugForm.getDrugMark()}==null">
-					<image class="selectDrugMark" src="" width="50" height="50" alt="마크를 선택해주세요"/>
-				</sapn>					
-				<button type="button" onclick="openDrugMarkModal()">마크 선택</button>
-				<input class="selectDrugMarkInput" type="hidden" name="drugMark" th:value="${findDrugForm.getDrugMark()}==null?'':${findDrugForm.getDrugMark()}"/>
-			</label>
-				<div class="drugMarkModal">
-					<div>제품에 그려진 마크를 선택해주세요</div>
-<!-- 					내부 페이징 기능 추가 -->
-					<div style="display:inline-block"  th:each="drugMark : ${drugMarkList}">
-						<div style="display:inline-block" th:if="${drugMark.getMarkImg()}!=null" >
-							<image th:src="${drugMark.getMarkImg()}" th:name="${drugMark.getMarkCode()}" width="50" height="50" th:onclick="selectDrugMark(this.getAttribute('src'),this.getAttribute('name'))"/>
-							<div th:text="${drugMark.getMarkAnal()}"></div>
-						</div>
+			<div class="d-CSS findGrid">
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="itemNameInput">제품명</label>
 					</div>
 				</div>
+				<div class="findGridContent">
+					<input class="innerGrid" id="itemNameInput" type="text" name="itemName" th:value="${findDrugForm.getItemName()}==null?'':${findDrugForm.getItemName()}" placeholder="제품명"/>
+				</div>
+				
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="ingrNameInput">성분명</label>
+					</div>
+				</div>
+				<div class="findGridContent">
+					<input class="innerGrid" id="ingrNameInput" type="text" name="ingrName" th:value="${findDrugForm.getIngrName()}==null?'':${findDrugForm.getIngrName()}" placeholder="성분명"/>
+				</div>
+				
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="entpNameInput">회사명</label>
+					</div>
+				</div>
+				<div class="findGridContent">
+					<input class="innerGrid" id="entpNameInput" type="text" name="entpName" th:value="${findDrugForm.getEntpName()}==null?'':${findDrugForm.getEntpName()}" placeholder="회사명"/>
+				</div>
+				
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="drugPringInput">글자</label>
+					</div>
+				</div>
+				<div class="findGridContent">
+					<input class="innerGrid" id="drugPringInput" type="text" name="drugPrint" th:value="${findDrugForm.getDrugPrint()}==null?'':${findDrugForm.getDrugPrint()}" placeholder="약품에 적힌 글자"/>
+				</div>
+				
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="drugShapeSelect">제형</label>
+					</div>
+				</div>
+				<div class="findGridContent">
+					<select class="innerGrid" id="drugShapeSelect" name="drugShape">
+						<option value="">제형선택</option>
+						<option value="원형" th:selected="${findDrugForm.getDrugShape()}=='원형'">원형</option>
+						<option value="타원형" th:selected="${findDrugForm.getDrugShape()}=='타원형'">타원형</option>
+						<option value="반원형" th:selected="${findDrugForm.getDrugShape()}=='반원형'">반원형</option>
+						<option value="삼각형" th:selected="${findDrugForm.getDrugShape()}=='삼각형'">삼각형</option>
+						<option value="장방형" th:selected="${findDrugForm.getDrugShape()}=='장방형'">장방형</option>
+						<option value="마름모형" th:selected="${findDrugForm.getDrugShape()}=='마름모형'">마름모형</option>
+						<option value="오각형" th:selected="${findDrugForm.getDrugShape()}=='오각형'">오각형</option>
+						<option value="육각형" th:selected="${findDrugForm.getDrugShape()}=='육각형'">육각형</option>
+						<option value="팔각형" th:selected="${findDrugForm.getDrugShape()}=='팔각형'">팔각형</option>
+						<option value="기타" th:selected="${findDrugForm.getDrugShape()}=='기타'">기타</option>
+					</select>
+				</div>
+				
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="drugColorSelect">색상</label>
+					</div>
+				</div>
+				<div class="findGridContent">
+					<select class="innerGrid" id="drugColorSelect" name="drugColor">
+						<option value="">색상선택</option>
+						<option value="투명" style="background-color:none" th:selected="${findDrugForm.getDrugColor()}=='투명'">(투명)</option>
+						<option value="하양" style="background-color:#ffffff" th:selected="${findDrugForm.getDrugColor()}=='하양'">하양</option>
+						<option value="검정" style="background-color:#000000" th:selected="${findDrugForm.getDrugColor()}=='검정'">검정</option>
+						<option value="회색" style="background-color:#808080" th:selected="${findDrugForm.getDrugColor()}=='회색'">회색</option>
+						<option value="빨강" style="background-color:#ff0000" th:selected="${findDrugForm.getDrugColor()}=='빨강'">빨강</option>
+						<option value="분홍" style="background-color:#ffc0cb" th:selected="${findDrugForm.getDrugColor()}=='분홍'">분홍</option>
+						<option value="주황" style="background-color:#ff7f00" th:selected="${findDrugForm.getDrugColor()}=='주황'">주황</option>
+						<option value="갈색" style="background-color:#964b00" th:selected="${findDrugForm.getDrugColor()}=='갈색'">갈색</option>
+						<option value="노랑" style="background-color:#ffd400" th:selected="${findDrugForm.getDrugColor()}=='노랑'">노랑</option>
+						<option value="연두" style="background-color:#81c147" th:selected="${findDrugForm.getDrugColor()}=='연두'">연두</option>
+						<option value="초록" style="background-color:#008000" th:selected="${findDrugForm.getDrugColor()}=='초록'">초록</option>
+						<option value="청록" style="background-color:#005666" th:selected="${findDrugForm.getDrugColor()}=='청록'">청록</option>
+						<option value="파랑" style="background-color:#0067a3" th:selected="${findDrugForm.getDrugColor()}=='파랑'">파랑</option>
+						<option value="남색" style="background-color:#000080" th:selected="${findDrugForm.getDrugColor()}=='남색'">남색</option>
+						<option value="보라" style="background-color:#8b00ff" th:selected="${findDrugForm.getDrugColor()}=='보라'">보라</option>
+						<option value="자주" style="background-color:#660099" th:selected="${findDrugForm.getDrugColor()}=='자주'">자주</option>
+					</select>
+				</div>
+				
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="drugLineSelect">분할선</label>
+					</div>
+				</div>
+				<div class="findGridContent">
+					<select class="innerGrid" id="drugLineSelect" name="drugLineFront">
+						<option value="">분할선(1)</option>
+						<option value="null" th:selected="${findDrugForm.getDrugLineFront()}=='null'">없음</option>
+						<option value="-" th:selected="${findDrugForm.getDrugLineFront()}=='-'">일자(-)</option>
+						<option value="+" th:selected="${findDrugForm.getDrugLineFront()}=='+'">십자(+)</option>
+						<option value="기타" th:selected="${findDrugForm.getDrugLineFront()}=='기타'">기타</option>
+					</select>
+					<select class="innerGrid" id="drugLineSelect" name="drugLineBack">
+						<option value="">분할선(2)</option>
+						<option value="null" th:selected="${findDrugForm.getDrugLineBack()}=='null'">없음</option>
+						<option value="-" th:selected="${findDrugForm.getDrugLineBack()}=='-'">일자(-)</option>
+						<option value="+" th:selected="${findDrugForm.getDrugLineBack()}=='+'">십자(+)</option>
+						<option value="기타" th:selected="${findDrugForm.getDrugLineBack()}=='기타'">기타</option>
+					</select>
+				</div>
+				
+				<div class="findGridLabel">
+					<div class="innerGrid">
+						<label for="">마크</label>
+					</div>
+				</div>
+				<div class="findGridContent">
+					<sapn class="innerGrid" th:unless="${findDrugForm.getDrugMark()}==null">
+						<span th:each="innerDrugMarkList : ${drugMarkList}">
+							<span th:each="drugMark : ${innerDrugMarkList}">
+								<image class="selectDrugMark" th:if="${drugMark.getMarkCode()}==${findDrugForm.getDrugMark()}" th:src="${drugMark.getMarkImg()}" width="50" height="50" onclick="openDrugMarkModal()" alt="클릭하여 마크 선택"/>
+							</span>
+						</span>
+					</sapn>
+					<sapn class="innerGrid" th:if="${findDrugForm.getDrugMark()}==null">
+						<image class="selectDrugMark" src="" width="50" height="50" onclick="openDrugMarkModal()" alt="클릭하여 마크 선택"/>
+					</sapn>
+					<input class="selectDrugMarkInput" type="hidden" name="drugMark" th:value="${findDrugForm.getDrugMark()}==null?'':${findDrugForm.getDrugMark()}"/>
+				</div>
+				
+				
+				<div th:id="${'modalPage'+innerDrugMarkListStat.count}" class="findMarkModal" th:each="innerDrugMarkList,innerDrugMarkListStat : ${drugMarkList}">
+					<div style="display:inline-block" th:each="drugMark : ${innerDrugMarkList}">
+						<div th:if="${drugMark.getMarkImg()}!=null" >
+							<div class="findMarkModalInnerCard">
+								<image th:src="${drugMark.getMarkImg()}" th:name="${drugMark.getMarkCode()}" width="50" height="50" th:onclick="selectDrugMark(this.getAttribute('src'),this.getAttribute('name'))"/>
+							</div>
+							<div class="findMarkModalInnerCard" th:text="${drugMark.getMarkAnal()}"></div>
+						</div>
+					</div>
+					<div style="text-align: center;">
+						<span th:if="${#strings.equals(innerDrugMarkListStat.count,drugMarkPage)}" style="margin:10px 5px; font-weight: 700" th:each="page:${drugMarkPage}" type="button" th:text="${page}" onclick:""></span>
+						<span th:unless="${innerDrugMarkListStat.count}==${drugMarkPage}" style="margin:10px 5px" th:each="page:${drugMarkPage}" type="button" th:text="${page}" onclick:""></span>
+					</div>
+				</div>
+				
+			</div>
+			<button>상세검색</button>
 			<button type="button" th:onclick="|location.href='@{/drugs}'|">검색조건 초기화</button>
-			<br><button>상세검색</button>
 		</form>
 	</div>
 	<div th:unless="${findDrugInfoList} == null or ${findDrugInfoList.size} == 0">
