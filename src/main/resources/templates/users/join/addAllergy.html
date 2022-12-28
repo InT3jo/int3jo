@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Join Page</h1>
+	<div>
+		<form action="/join/addAllergy" method="post">
+			<div>
+				<label for="allergy">알레르기</label>
+				<select id="allergy" name="allergy" th:field="${allergy}">
+					<option value="">알레르기 선택</option>
+					<option value="알러지1">알레르기1</option>
+					<option value="알러지2">알레르기2</option>
+				</select>
+				<button type="button" onclick="">추가</button>
+			</div>
+			
+			<div>
+				<button type="submit"th:onclick="|location.href='@{/login}'|">추가완료</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

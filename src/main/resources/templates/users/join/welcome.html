@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Join Page</h1>
+	<div>
+		<p>
+		가입 완료!<br>
+		신체 정보를 추가하면 자세한 검색 결과를 볼 수 있어요 :)
+		</p>
+		<div>
+			<button type="button" th:onclick="|location.href='@{/login}'|">로그인</button>
+			<button type="button" th:onclick="|location.href='@{/join/addInfo}'|">정보추가</button>
+		</div>
+	</div>
+</body>
+</html>

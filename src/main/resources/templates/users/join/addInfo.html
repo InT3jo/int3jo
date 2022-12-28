@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Join Page</h1>
+	<div>
+		<form action="/join/addInfo" method="post" th:object="${joinForm}">
+			<div>
+				<label for="familyNo">가족 관계</label>
+				<select th:field="*{familyNo}" id="familyNo" name="familyNo">
+					<option value="">===가족관계===</option>
+					<option value="0">본인</option>
+					<option value="1">엄마</option>
+					<option value="2">아빠</option>
+					<option value="3">배우자</option>
+					<option value="4">자녀</option>
+					<option value="5">기타</option>
+				</select>
+				<button type="button">추가</button>
+			</div>
+			
+			<div>
+				<label for="gender">성별</label>
+				<select  th:field="*{gender}" id="gender" name="gender">
+					<option value="">성별</option>
+					<option value="남자">남자</option>
+					<option value="여자">여자</option>
+				</select>
+			</div>
+			
+			<div>
+				<label for="birth">생년월일</label>
+				<input type="date" name="birth" id="birth" th:field="*{birth}"/>
+			</div>
+			
+			<div>
+				<label for="weight">몸무게(kg)</label>
+				<input type="text" name="weight" id="weight" th:field="*{weight}"/>
+			</div>
+			<div>
+				<button type="submit">추가</button>
+				<button type="button" th:onclick="|location.href='@{/join/addUsingDrugs}'|">다음</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

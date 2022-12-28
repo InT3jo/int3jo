@@ -1,7 +1,6 @@
 package project3.yakdo.domain.users;
 
 import java.sql.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +15,4 @@ public class UsersInfo {
 	private String usingDrugs;	//복용중인 약물
 	private String allergy;		//알러지
 	private Integer weight;		//체중
-	
-	
 }

@@ -7,84 +7,31 @@
 <body>
 	<h1>Join Page</h1>
 	<div>
-		<form action="" method="post" th:object="${joinForm}">
+		<form action="/join" method="post" th:object="${joinForm}">
 			<div>
 				<label for="userEmail">이메일</label>
-				<input type="email" id="userEmail" th:field="*{userEmail}"/>
+				<input type="email" name="userEmail" id="userEmail" th:field="*{userEmail}"/>
 				<button type="button">인증코드 받기</button>
 			</div>
 			
 			<div>
 				<label for="emailCodeCheck">인증코드</label>
-				<input type="text" id="emailCodeCheck" th:field="*{emailCodeCheck}"/>
+				<input type="text" name="emailCodeCheck" id="emailCodeCheck" th:field="*{emailCodeCheck}"/>
 				<button type="button">인증</button>
 			</div>
 			
 			<div>
 				<label for="userPw">비밀번호</label>
-				<input type="password" id="userPw" th:field="*{userPw}"/>
+				<input type="password" name="userPw" id="userPw" th:field="*{userPw}"/>
 			</div>
 			<div>
 				<label for="reJoinPw">비밀번호 확인</label>
-				<input type="password" id="reJoinPw" th:field="*{reJoinPw}"/>
+				<input type="password" name="reJoinPw" id="reJoinPw" th:field="*{reJoinPw}"/>
 			</div>
 			
 			<div>
 				<label for="userNick">닉네임</label>
-				<input type="text" id="userNick" th:field="*{userNick}"/>
-			</div>
-			
-			<div>
-				<label for="familyNo">가족 관계</label>
-				<select id="familyNo" name="familyNo">
-					<option value="99">가족관계</option>
-					<option value="0">본인</option>
-					<option value="1">엄마</option>
-					<option value="2">아빠</option>
-					<option value="3">배우자</option>
-					<option value="4">자녀</option>
-					<option value="5">기타</option>
-				</select>
-			</div>
-			
-			<div>
-				<label for="birth">생년월일</label>
-				<input type="date" id="birth" th:field="*{birth}"/>
-			</div>
-			
-			<div>
-				<label for="weight">몸무게(kg)</label>
-				<input type="text" id="weight"  th:field="*{weight}"/>
-			</div>
-			
-			<div>
-				<label for="usingDrugs">복용 중인 약</label>
-				<select id="usingDrugs" name="usingDrugs">
-					<option value="1111111">1111111</option>
-					<option value="2222222">2222222</option>
-					<option value="3333333">3333333</option>
-				</select>
-			</div>
-			
-			<div>
-				<label for="gender">성별</label>
-				<select id="gender" name="gender">
-					<option value="none">성별</option>
-					<option value="남자">남자</option>
-					<option value="여자">여자</option>
-				</select>
-			</div>
-			
-			<div>
-				<label for="allergy">알레르기</label>
-				<select id="allergy" name="allergy">
-					<option value="">알레르기 선택</option>
-					<option value="알러지1">알레르기1</option>
-					<option value="알러지2">알레르기2</option>
-				</select>
-			</div>
-			<div>
-				<button type="button">추가</button>
+				<input type="text" name="userNick" id="userNick" th:field="*{userNick}"/>
 			</div>
 			<div>
 				<button type="submit">가입하기</button>
