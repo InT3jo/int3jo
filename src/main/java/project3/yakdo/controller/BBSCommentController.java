@@ -49,8 +49,8 @@ public class BBSCommentController {
 
 	// 댓글 수정
 	@PostMapping("/updatecom")
-	public String updateCom(Model model, @PathVariable("comNo") int comNo, @ModelAttribute BBSComment bbsComment) {
-		bbsCommentRepositoy.updateCom(comNo, bbsComment);
+	public String updateCom(Model model, @PathVariable("bbsNo") int bbsNo,@PathVariable("comNo") int comNo, @ModelAttribute BBSComment bbsComment) {
+		bbsCommentRepositoy.updateCom(bbsNo,comNo, bbsComment);
 		return "";
 	}
 

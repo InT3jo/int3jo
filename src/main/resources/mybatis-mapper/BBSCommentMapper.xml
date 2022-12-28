@@ -29,7 +29,7 @@
 		(
 		#{bbsNo},
 		NVL(((select MAX(com_no) from bbs_comment where bbs_no=#{bbsNo} )+1) , 1),
-		1,
+		3,
 <!-- 		userNo 일단 테스트로 1넣고 나중에 로그인 정보에서 가져와야함  -->
 		#{comContent},
 		sysdate,
@@ -39,7 +39,7 @@
 	</insert>
 
 
-	<!-- 해당 글의 댓글 불러오기 -->
+	<!-- 해당 글의 댓글 모두 불러오기 -->
 	<select id="selectComBybbsNo" resultType="BBSComment">
 		<!-- select * from bbs_comment -->
 		<!-- where bbs_no = #{bbsNo} -->
@@ -61,12 +61,18 @@
 		order by com_date asc
 
 	</select>
-
+	
+<!-- 	댓글 특정하기 -->
+<select id="selectOneCom" resultType="BBSComment">
+	select * from bbs_comment
+	where bbs_no=#{bbsNo}
+	and com_no=#{comNo}
+</select>
 	<!-- 댓글 내용 수정 -->
 	<update id="updateCom" parameterType="BBSComment">
 		update bbs_comment
 		set
-		com_content=#{updateItem.comContent}
+		com_content=#{updateCom.comContent}
 		where com_no=#{comNo}
 		and bbs_no=#{bbsNo}
 	</update>

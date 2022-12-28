@@ -34,9 +34,11 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 
 	//댓글 수정
 	@Override
-	public boolean updateCom(int bbsNo, BBSComment bbsComment) {
+	public boolean updateCom(int bbsNo, int comNo,BBSComment bbsComment) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+		bbsCommentMapper.updateCom(bbsNo,comNo, bbsComment);
+		return result;
 	}
 
 	//댓글 본인삭제 
@@ -65,6 +67,12 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 			
 		}
 		return result;
+	}
+
+	@Override
+	public BBSComment selectOneCom(int bbsNo, int comNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

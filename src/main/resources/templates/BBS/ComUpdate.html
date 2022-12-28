@@ -9,10 +9,6 @@
 		function deleteCom(bbsNo, comNo) {
 			location.href = "/BBS/deleteCom/" + bbsNo + "/" + comNo;
 		}
-		
-		function updateCom(bbsNo,comNo){
-			location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo;	
-		}
 	</script>
 
 	<h1>BBS view Page</h1>
@@ -71,7 +67,7 @@
 			<input type="text" name="comContent" th:field="*{comContent}">
 		</p>
 		<p>
-			<button type="submit">댓글 작성</button>  
+			<button type="submit">댓글 작성</button>
 		</p>
 	</form>
 
@@ -90,7 +86,13 @@
 		<tbody>
 			<tr th:each="BBSComment : ${commentListZero}">
 				<td th:text="${BBSComment.userNick}"></td>
-				<td th:text="${BBSComment.comContent}"></td>
+
+				<td>
+					<form action="" method="post" th:object="${BBSComment}">
+						<input type="text" name="comContent" th:field="*{comContent}" >
+					</form>
+				</td>
+				
 				<td th:text="${BBSComment.comDate}"></td>
 				<td>
 					<button th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
@@ -98,10 +100,7 @@
 					<!--  <button
 						th:onclick="|location.href='@{/BBS/deleteCom/{comSeq}(comSeq=${BBSComment.comSeq})}'|">삭제</button>-->
 				</td>
-				<td>
-					<button th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-					th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">수정</button>
-				</td>
+				<td><button>수정</button></td>
 			</tr>
 		</tbody>
 	</table>

@@ -22,7 +22,7 @@
 	
 	
 	
-	<table >
+	<table border="1" width="800" height="100">
 		<thead>
 			<tr>
 				<th>게시글번호</th>
@@ -31,19 +31,14 @@
 				<th>작성자</th>
 			</tr>
 		</thead>
-		
-	
-	
 		<tbody>
-			<tr th:each="BBS : ${BBSList}">
-				<td th:text=${BBS.BBS_no}></td>
-				<td><a th:href="@{|/BBS/${BBS.BBS_no}|}" th:text=${BBS.BBS_title}></a></td>
-				<td th:text=${BBS.BBS_date}></td>
-				<td>작성자</td>
+			<tr th:each="BBS : ${bbsListZero}">
+				<td th:text=${BBS.bbsNo}></td>
+				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
+				<td th:text=${BBS.bbsDate}></td>
+				<td th:text="${BBS.userNick}"></td>
 			</tr>			
 		</tbody>
-	</table>
-	
-	
+		</table>
 </body>
 </html>

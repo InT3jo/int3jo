@@ -132,7 +132,7 @@ public class BBSController {
 
 		BBSRepository.updateBBS(bbsNo, bbs);
 
-		return "redirect:/BBS/BBSlist/{bbsNo}";
+		return "redirect:/BBS/BBSlist/{bbsNo}";             
 	}
 
 	// 게시글 본인삭제
@@ -211,7 +211,59 @@ public class BBSController {
 					return "redirect:/BBS/BBSlist/{bbsNo}";
 				}
 	*/
-
 	
+
+	/* 댓글 수정 나중에 보완 22-12-28-11:41
+	//댓글수정 
+	@GetMapping("/updateCom/{bbsNo}/{comNo}")
+	public String updateCom(Model model, @PathVariable("bbsNo") Integer bbsNo) {
+		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
+		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
+
+		model.addAttribute("commentListZero", commentListZero);	
+		model.addAttribute("BBS", bbsItem);
+		
+		model.addAttribute("BBSComment", new BBSComment());
+	
+		return"BBS/ComUpdate";
+		
+	}
+
+	//댓글 수정
+	@PostMapping("/updateCom/{bbsNo}/{comNo}")
+	public String updateComProcess(Model model,@PathVariable("bbsNo") int bbsNo
+											  ,@PathVariable("comNo") int comNo 
+											  ,@ModelAttribute BBSComment bbsComment) {
+		bbsCommentRepositoy.updateCom(bbsNo, bbsComment);
+		return "BBS/ComUpdate";
+	}
+	*/
+	
+	//댓글 수정
+	@GetMapping("/updateCom/{bbsNo}/{comNo}")
+	public String updateCom(Model model, @PathVariable("bbsNo") Integer bbsNo
+										,@PathVariable("comNo") int comNo ) {
+		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
+		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
+
+		model.addAttribute("commentListZero", commentListZero);	
+		model.addAttribute("BBS", bbsItem);
+		
+		model.addAttribute("BBSComment", new BBSComment());
+		
+		BBSComment comItem = bbsCommentRepositoy.selectOneCom(bbsNo,comNo);
+		model.addAttribute("bbsComment",comItem);
+	
+		return"BBS/updateCom";
+		
+	}
+	//댓글 수정
+	@PostMapping("/updateCom/{bbsNo}/{comNo}")
+	public String updateComProcess(Model model,@PathVariable("bbsNo") int bbsNo
+											  ,@PathVariable("comNo") int comNo 
+											  ,@ModelAttribute BBSComment bbsComment) {
+		bbsCommentRepositoy.updateCom(bbsNo,comNo, bbsComment);
+		return "redirect:/BBS/BBSlist/{bbsNo}";
+	}
 
 }
