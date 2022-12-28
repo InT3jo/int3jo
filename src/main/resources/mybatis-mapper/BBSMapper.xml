@@ -21,8 +21,8 @@
 		values
 		(
 		#{bbsNo},
-		<!-- #{user_no}, 일단 Test로 3 넣어보기, 추후 수정 필요 - 로그인한 사람 아이디에 맞는 user_no찾아서 insert -->
-		3,
+		<!-- #{user_no}, 일단 Test로 3 넣어보기, 추후 수정 필요 - 로그인한 사람 아이디에 맞는 user_no 를 insert -->
+		#{userNo},
 		#{bbsTitle},
 		#{bbsContent},
 		<!-- #{BBS_date} 는 #{sysdate} -->
@@ -37,32 +37,17 @@
 	<select id="selectBybbsNo" resultType="BBS">
 		<!-- 게시글 클릭시 선택한 게시글 보여주기 -->
 		<!-- 게시글 보여줄때 user_no에 맞는 닉네임 찾아서 같이 출력되어야함 -->
-		<!-- select -->
-		<!-- b.BBS_no, -->
-		<!-- b.BBS_title, -->
-		<!-- b.BBS_content, -->
-		<!-- b.BBS_date, -->
-		<!-- u.user_nick -->
-		<!-- from -->
-		<!-- BBS b , users u -->
-		<!-- WHERE b.BBS_no = #{BBS_no} -->
-		<!-- 테스트용 쿼리 -->
-		<!-- select -->
-		<!-- BBS_title, -->
-		<!-- BBS_content, -->
-		<!-- BBS_date -->
-		<!-- from BBS -->
-		<!-- where BBS_no = #{BBS_no} -->
-		select 
-		BBS_no,
-		user_no,
-		BBS_title,
-		BBS_content,
-		BBS_date,
-		BBS_show
-		from BBS
-		where
-		BBS_no = #{bbsNo}
+		select
+		b.BBS_no,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		u.user_nick
+		from
+		BBS b , users u
+		WHERE b.BBS_no = #{bbsNo}
+		and b.user_no = u.user_no
+
 
 
 	</select>

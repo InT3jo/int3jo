@@ -14,10 +14,12 @@
 	글쓰는페이지
 
 	<form action="" method="post" th:object="${BBS}">
-	<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
-		</div>
-		<label> 작성자 : 작성자 <!-- 	로그인한 사용자 정보에서 user_nick 불러오기  --> </label>
+	
+		<label> 
+		<input type="hidden" name="userNo" th:value="${user.userNo}">
+		작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly>
+		 <!-- 	로그인한 사용자 정보에서 user_nick 불러오기  --> 
+		 </label>
 		 </br>
 		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
 		<div class="errormsg" th:errors="*{bbsTitle}"></div> 

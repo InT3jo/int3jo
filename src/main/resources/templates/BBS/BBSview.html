@@ -50,25 +50,28 @@
 	</div>
 
 	<div>
+		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
+
+
 		<button
 			th:onclick="|location.href='@{/BBS/update/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">수정하기</button>
 		<button
 			th:onclick="|location.href='@{/BBS/delete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">삭제</button>
 		<button
 			th:onclick="|location.href='@{/BBS/adminDelete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">관리자삭제</button>
-		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
 	</div>
 
 	<!-- 	댓글 -->
 	<form th:action="@{/BBS/BBSlist/{bbsNo}(bbsNo=${BBS.bbsNo})}"
 		method="post" th:object=${BBSComment}>
 		<p>
-			<label>댓글작성자(로그인한 사람 닉네임 불러오기)</label>
+			<label>댓글작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly></label>
 			<!-- 				로그인한 사람의 닉네임 불러오기 -->
 		</p>
 		<p>
 			<!-- 				<textarea name="comContent" th:field="*{comContent}" rows="5" cols="50"></textarea> -->
-			<input type="text" name="comContent" th:field="*{comContent}">
+			<label>댓글입력: <input type="text" name="comContent" th:field="*{comContent}"></label>
+			<input type="hidden" name="userNo" th:value="${user.userNo}">
 		</p>
 		<p>
 			<button type="submit">댓글 작성</button>  
