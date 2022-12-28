@@ -4,11 +4,9 @@
  */
 package project3.yakdo.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -49,6 +47,7 @@ public class DrugsController {
 	public String findDrug(Model model) {
 		FindDrugForm findDrugForm = new FindDrugForm();
 		model.addAttribute("findDrugForm",findDrugForm);
+		
 		List<DrugMark> tempMarkList = drugsRepository.getDrugMarkAll();
 		List<List<DrugMark>> drugMarkList = new ArrayList<>();
 		List<Integer> drugMarkPage = new ArrayList<>(); 
@@ -69,6 +68,8 @@ public class DrugsController {
 		}
 		model.addAttribute("drugMarkList",drugMarkList);
 		model.addAttribute("drugMarkPage",drugMarkPage);
+		
+		model.addAttribute("findMoreStyle","display:inline-block;");
 		return "drugs/finddrug";
 	}
 	
@@ -94,8 +95,28 @@ public class DrugsController {
 			findDrugInfoList = findDrugService.findDrugResult(findDrugForm);			
 		}
 		model.addAttribute("findDrugInfoList",findDrugInfoList);
-		List<DrugMark> drugMarkList = drugsRepository.getDrugMarkAll();
+		
+		List<DrugMark> tempMarkList = drugsRepository.getDrugMarkAll();
+		List<List<DrugMark>> drugMarkList = new ArrayList<>();
+		List<Integer> drugMarkPage = new ArrayList<>(); 
+		int divide = 40;
+		int index = 0;
+		int page = 1;
+		for(int i=0;i<(tempMarkList.size()/divide)+1;i++) {
+			List<DrugMark> tempList=new ArrayList<>();
+			for(int j=0;j<divide;j++) {
+				if(index >= tempMarkList.size()) {
+					break;
+				}
+				tempList.add(tempMarkList.get(index));
+				index++;
+			}
+			drugMarkList.add(tempList);
+			drugMarkPage.add(page++);
+		}
 		model.addAttribute("drugMarkList",drugMarkList);
+		
+		model.addAttribute("findMoreStyle","display:none;");
 		return "drugs/finddrug";
 	}
 	
