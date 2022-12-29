@@ -2,8 +2,8 @@
 /* 변수 */
 :root{
 	--Signature-blue: #0000aa;
-	--Lowtone-blue: #77bfea;
-	--Bg-blue: #f2f9fd;
+	--Lowtone-blue: #77b6ea;
+	--Bg-blue: #f2f7fd;
 
 	--Signature-silver: gray;	
 	--Lowtone-silver: #eeeeee;
@@ -15,6 +15,7 @@
 .headerMain{
 	background-color: var(--Bg-blue);
 	padding: 20px;
+	padding-bottom: 0px;
 	color: var(--Signature-silver);
 }
 .headerTitle{
@@ -30,15 +31,6 @@
 	color: var(--Signature-silver);
 	font-size: 17px;
 	font-weight: 700;
-}
-#headerSearchInput{
-	
-}
-#headerSearchBtn{
-	
-}
-#headerSearchMoreBtn{
-	
 }
 .headerNavBox{
 	text-align: center;
@@ -102,7 +94,6 @@
 }
 #headerNavAdmin{
 	cursor: pointer;
-	margin: 30px; 
 	color: var(--Signature-silver);
 }
 

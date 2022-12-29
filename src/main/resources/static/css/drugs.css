@@ -3,8 +3,8 @@
 /* 변수 */
 :root{
 	--Signature-blue: #0000aa;
-	--Lowtone-blue: #77bfea;
-	--Bg-blue: #f2f9fd;
+	--Lowtone-blue: #77b6ea;
+	--Bg-blue: #f2f7fd;
 
 	--Signature-silver: gray;	
 	--Lowtone-silver: #eeeeee;
@@ -37,8 +37,7 @@
 	font-size: 17px;
 	font-weight: 700;
 	width:124px;
-	margin: 20px 300px;
-	margin-bottom: 10px;
+	margin: 10px 300px;
 }
 .center{
 	text-align: center;
@@ -94,7 +93,7 @@
 .findGrid{
 	padding:0px;
 	display: grid;
-	grid-template-columns: 120px 270px 120px 270px;
+	grid-template-columns: 100px 250px 100px 250px;
 }
 .findGridLabel{ 
 	background-color: var(--Bg-gray);
