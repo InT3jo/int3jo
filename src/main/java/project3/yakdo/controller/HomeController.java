@@ -21,7 +21,7 @@ public class HomeController {
 	/**
 	 * session과 cookie로 유효성 검사 후
 	 * 로그인한 상태가 아니면 return home
-	 * 로그인 상태라면 return loginHome
+	 * 로그인 상태라면 return loginHome <- home.html 수정하여 로그인 상태와 상관없이 home으로 리턴
 	 * 
 	 * @param model
 	 * @param req
@@ -32,9 +32,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model
 					, HttpServletRequest req) {
-		
 		HttpSession session = req.getSession(false);
-		
 		//쿠키를 통해 넘어온 userEmail이 없는 경우
 		if(session == null) {
 			return "/home";
@@ -44,18 +42,11 @@ public class HomeController {
 		Enumeration<String> sessionNames = session.getAttributeNames();
 		while(sessionNames.hasMoreElements()) {
 			String name = sessionNames.nextElement();
-			
 			log.info("session {}, {}", name, session.getAttribute(name));
 		}
-
 		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
-		
-		if (user == null) {
-			return "/home";
-		}
-		
 		model.addAttribute("user", user);
 		
-		return "/loginHome";
+		return "/home";
 	}
 }

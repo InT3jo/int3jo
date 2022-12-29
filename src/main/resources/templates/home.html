@@ -3,12 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/home.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap" rel="stylesheet">
 <title>약도</title>
 </head>
 <body>
+	<script type="text/javascript">
+		function logout(){
+			document.querySelector('#logoutBtn').submit();
+		}
+	</script>
+	
 	<div class="ContentBox">
 		<div class="mainTitleBox">
 			<div class="d_CSS">
@@ -24,14 +31,25 @@
 			</form>
 		</div>
 		<div class="mainNavBox">
-			<span id="mainNavLogin" th:onclick="|location='@{/login}'|">로그인</span>
+			<span th:if="${user}==null" id="mainNavLogin" th:onclick="|location='@{/login}'|">로그인</span>
+			<span th:if="${user}!=null" id="mainNavLogin" onclick="logout()">로그아웃</span>
 			<span id="mainNavJoin" th:onclick="|location='@{/join}'|">회원가입</span>
 			<span id="mainNavBBS" th:onclick="|location='@{/BBS/BBSlist}'|">이용문의</span><br>
 		</div>
 		<div style="text-align: right; margin: 20px;">
-			<span id="mainNavAdmin" th:onclick="|location='@{/admin}'|">관리자페이지</span>
+			<span th:if="${user}!=null and ${user.userGrade}<2" id="mainNavAdmin" th:onclick="|location='@{/admin}'|">관리자페이지</span>
+		</div>
+		<div>
+			<span class="mainWelcome" th:if="${user}!=null">
+				<span class="mainWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}"></span>
+				<span class="mainWelcome2">님 환영합니다.</span>
+			</span>
 		</div>
 		<p> 일단 개발중이니까 로그인필터검사는 넘어갑시다</p>
+		<div class="mainFooter">
+			<div th:replace="home_component.html :: footer"></div>
+		</div>
+		<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 	</div>
 </body>
 </html>

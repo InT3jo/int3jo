@@ -28,7 +28,6 @@ body{
 .ContentBox{
 	margin:0px auto;
 	width: 800px;
-	height: 700px;
 	display:block;
 }
 .mainTitleBox{
@@ -100,6 +99,8 @@ body{
 }
 #mainNavLogin{
 	margin: 30px;	
+	font-size: 18px;
+	font-weight: 700;
 }
 #mainNavJoin{
 	margin: 30px;	
@@ -115,4 +116,22 @@ body{
 	right: 10px;
 	top: 20px;
 	color: var(--Signature-blue);
+}
+.mainWelcome{
+	display: block;
+	text-align: center;
+	font-size: 18px;
+	font-weight: 700;
+}
+.mainWelcome1{
+	color: var(--Signature-blue);
+}
+.mainWelcome2{
+	color: var(--Signature-silver);
+	
+}
+.mainFooter{
+	position: fixed;
+	bottom: 0px;
+	height: 200px;
 }

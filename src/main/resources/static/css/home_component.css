@@ -111,6 +111,20 @@
 	top: 20px;
 	color: var(--Signature-blue);
 }
+.headerWelcome{
+	display: block;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 600;
+	height: 30px;
+}
+.headerWelcome1{
+	color: var(--Signature-blue);
+}
+.headerWelcome2{
+	color: var(--Signature-silver);
+	
+}
 
 /* 푸터 */
 .footerMain{
@@ -130,4 +144,7 @@
 	font-size: 13px;
 	font-weight: 700;
 	font-family: var(--Font-title1);
+}
+.fotterBottomLine{
+	border-bottom: 3px solid var(--Bg-gray);
 }

@@ -22,10 +22,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
+import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.DrugsRepository;
 import project3.yakdo.service.drugs.api.DrugAPIService;
 import project3.yakdo.service.drugs.search.FindDrugForm;
 import project3.yakdo.service.drugs.search.FindDrugService;
+import project3.yakdo.service.drugs.temp.UserService;
 
 @Slf4j
 @Controller
@@ -36,6 +38,7 @@ public class DrugsController {
 	private final DrugsRepository drugsRepository;
 	private final FindDrugService findDrugService;
 	private final DrugAPIService drugAPIService;
+	private final UserService userService;
 	
 	/**
 	 * 약품 상세검색창, 결과창과 같은 HTML파일
@@ -44,28 +47,18 @@ public class DrugsController {
 	 * 담당자 : 홍준표
 	 */
 	@GetMapping("")
-	public String findDrug(Model model) {
+	public String findDrug(Model model, HttpServletRequest req) {
 		FindDrugForm findDrugForm = new FindDrugForm();
 		model.addAttribute("findDrugForm",findDrugForm);
+		
+		Users user = userService.getLoginUser(req);
+		model.addAttribute("user",user);
 		
 		List<DrugMark> tempMarkList = drugsRepository.getDrugMarkAll();
 		List<List<DrugMark>> drugMarkList = new ArrayList<>();
 		List<Integer> drugMarkPage = new ArrayList<>(); 
-		int divide = 40;
-		int index = 0;
-		int page = 1;
-		for(int i=0;i<(tempMarkList.size()/divide)+1;i++) {
-			List<DrugMark> tempList=new ArrayList<>();
-			for(int j=0;j<divide;j++) {
-				if(index >= tempMarkList.size()) {
-					break;
-				}
-				tempList.add(tempMarkList.get(index));
-				index++;
-			}
-			drugMarkList.add(tempList);
-			drugMarkPage.add(page++);
-		}
+		findDrugService.setMarkListAndMarkPage(tempMarkList,drugMarkList,drugMarkPage);
+		
 		model.addAttribute("drugMarkList",drugMarkList);
 		model.addAttribute("drugMarkPage",drugMarkPage);
 		
@@ -96,24 +89,13 @@ public class DrugsController {
 		}
 		model.addAttribute("findDrugInfoList",findDrugInfoList);
 		
+		Users user = userService.getLoginUser(req);
+		model.addAttribute("user",user);
+		
 		List<DrugMark> tempMarkList = drugsRepository.getDrugMarkAll();
 		List<List<DrugMark>> drugMarkList = new ArrayList<>();
 		List<Integer> drugMarkPage = new ArrayList<>(); 
-		int divide = 40;
-		int index = 0;
-		int page = 1;
-		for(int i=0;i<(tempMarkList.size()/divide)+1;i++) {
-			List<DrugMark> tempList=new ArrayList<>();
-			for(int j=0;j<divide;j++) {
-				if(index >= tempMarkList.size()) {
-					break;
-				}
-				tempList.add(tempMarkList.get(index));
-				index++;
-			}
-			drugMarkList.add(tempList);
-			drugMarkPage.add(page++);
-		}
+		findDrugService.setMarkListAndMarkPage(tempMarkList,drugMarkList,drugMarkPage);
 		model.addAttribute("drugMarkList",drugMarkList);
 		
 		model.addAttribute("findMoreStyle","display:none;");

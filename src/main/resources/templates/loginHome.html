@@ -10,7 +10,7 @@
 		<h1>Login Home</h1>
 	
 		<div>
-			<p><span th:text="${user.userNick}"></span>(<span th:text="${user.userEmail}"></span>)님 환영합니다.(대충 환영 이모티콘)</p>
+			<span><span th:text="${user.userNick}"></span>(<span th:text="${user.userEmail}"></span>)님 환영합니다.(대충 환영 이모티콘)</span>
 			<form action="/logout" th:action="@{/logout}" method="post">
 					<button type="submit">로그아웃</button>
 			</form>

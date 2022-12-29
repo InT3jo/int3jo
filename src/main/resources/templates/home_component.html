@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="d-CSS ContentBox center headerMain" th:fragment="header">
+	<script type="text/javascript">
+		function logout(){
+			document.querySelector('#logoutBtn').submit();
+		}
+	</script>
 	<div>
 		<div class="headerTitle" onclick="location.href='/'"><span class="headerTitle1">약도</span><span class="headerTitle2">藥道</span></div>
 	</div>
@@ -12,16 +17,27 @@
 		</form>
 	</div>
 	<div class="headerSearchBox">
-		<span id="headerNavLogin" th:onclick="|location='@{/login}'|">로그인</span>
+		<span th:if="${user}==null" id="headerNavLogin" th:onclick="|location='@{/login}'|">로그인</span>
+		<span th:if="${user}!=null" id="headerNavLogin" onclick="logout()">로그아웃</span>
 		<span id="headerNavJoin" th:onclick="|location='@{/join}'|">회원가입</span>
 		<span id="headerNavBBS" th:onclick="|location='@{/BBS/BBSlist}'|">이용문의</span>
-		<span id="headerNavAdmin" th:onclick="|location='@{/admin}'|">관리자페이지</span>
-	<div style="text-align: right; margin: 20px;">
+		<span th:if="${user}!=null and ${user.userGrade}<2" id="headerNavAdmin" th:onclick="|location='@{/admin}'|">관리자페이지</span>
 	</div>
+	<div>
+		<span class="headerWelcome" th:if="${user}!=null">
+			<span class="headerWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}"></span>
+			<span class="headerWelcome2">님 환영합니다.</span>
+		</span>
 	</div>
+	<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 </div>
 
 <div class="d-CSS ContentBox center headerMain" th:fragment="infoHeader">
+	<script type="text/javascript">
+		function logout(){
+			document.querySelector('#logoutBtn').submit();
+		}
+	</script>
 	<div>
 		<div class="headerTitle" onclick="location.href='/'"><span class="headerTitle1">약도</span><span class="headerTitle2">藥道</span></div>
 	</div>
@@ -33,18 +49,24 @@
 		</form>
 	</div>
 	<div class="headerSearchBox">
-		<span id="headerNavLogin" th:onclick="|location='@{/login}'|">로그인</span>
+		<span th:if="${user}==null" id="headerNavLogin" th:onclick="|location='@{/login}'|">로그인</span>
+		<span th:if="${user}!=null" id="headerNavLogin" onclick="logout()">로그아웃</span>
 		<span id="headerNavJoin" th:onclick="|location='@{/join}'|">회원가입</span>
 		<span id="headerNavBBS" th:onclick="|location='@{/BBS/BBSlist}'|">이용문의</span>
-		<span id="headerNavAdmin" th:onclick="|location='@{/admin}'|">관리자페이지</span>
-	<div style="text-align: right; margin: 20px;">
+		<span th:if="${user}!=null and ${user.userGrade}<2" id="headerNavAdmin" th:onclick="|location='@{/admin}'|">관리자페이지</span>
 	</div>
+	<div>
+		<span class="headerWelcome" th:if="${user}!=null">
+			<span class="headerWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}"></span>
+			<span class="headerWelcome2">님 환영합니다.</span>
+		</span>
 	</div>
+	<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 </div>
 
 <div class="d-CSS ContentBox footerMain" th:fragment="footer">
 	<div>
-		<div><span class="footerTitle1">약도</span><span class="footerTitle2">藥道</span></div>
+		<div class="fotterBottomLine"><span class="footerTitle1">약도</span><span class="footerTitle2">藥道</span></div>
 	</div>
 	<div>
 		<div>휴먼교육센터 6교육실 3차 프로젝트 "약도"</div>
