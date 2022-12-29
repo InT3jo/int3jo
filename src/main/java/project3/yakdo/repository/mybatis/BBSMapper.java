@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.BBS.BBS;
 
+
 @Mapper // Mybatis 와 인터페이스 함수 연결
 public interface BBSMapper {
 	// 게시판 관련
@@ -31,4 +32,5 @@ public interface BBSMapper {
 	
 	public void updateShowZeroBybbsNo(int bbsNo); // 관리자 삭제 게시글 복구
 
+	
 }

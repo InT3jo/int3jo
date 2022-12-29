@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.BBS.BBS;
-import project3.yakdo.domain.BBS.BBSInfo;
+
 import project3.yakdo.repository.BBSRepository;
 
 @Slf4j
@@ -133,6 +133,8 @@ public class BBSMybatisRepository implements BBSRepository {
 		return result;
 	
 	}
+
+	
 
 
 

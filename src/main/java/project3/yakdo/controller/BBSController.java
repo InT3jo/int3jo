@@ -4,7 +4,6 @@
  */
 package project3.yakdo.controller;
 
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -359,6 +358,9 @@ public class BBSController {
 		BBSRepository.updateShowZeroBybbsNo(bbsNo);
 		return "redirect:/admin/adminBBSlist";
 	}
+	
+	
+
 	
 	
 	

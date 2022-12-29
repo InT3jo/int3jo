@@ -3,7 +3,7 @@ package project3.yakdo.repository;
 import java.util.List;
 
 import project3.yakdo.domain.BBS.BBS;
-import project3.yakdo.domain.BBS.BBSInfo;
+
 
 public interface BBSRepository {
 
@@ -29,4 +29,6 @@ public interface BBSRepository {
 	public List<BBS> selectByShowTwo();	//관리자용 관리자삭제 게시글 목록 출력
 	
 	public boolean updateShowZeroBybbsNo(int bbsNo); // 관리자 삭제 게시글 복구
+	
+
 }

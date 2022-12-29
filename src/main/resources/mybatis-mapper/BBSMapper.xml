@@ -5,9 +5,9 @@
 
 	<!-- 게시글 작성 -->
 	<insert id="insertBBS" parameterType="BBS">
-		<selectKey keyProperty="bbsNo" resultType="java.lang.Integer"
-		order="BEFORE">
-		select BBSPK.nextVal as BBS_no from dual
+		<selectKey keyProperty="bbsNo"
+			resultType="java.lang.Integer" order="BEFORE">
+			select BBSPK.nextVal as BBS_no from dual
 		</selectKey>
 		insert into BBS
 		(
@@ -21,13 +21,14 @@
 		values
 		(
 		#{bbsNo},
-		<!-- #{user_no}, 일단 Test로 3 넣어보기, 추후 수정 필요 - 로그인한 사람 아이디에 맞는 user_no 를 insert -->
+		<!-- #{user_no}, 일단 Test로 3 넣어보기, 추후 수정 필요 - 로그인한 사람 아이디에 맞는 user_no 를 
+			insert -->
 		#{userNo},
 		#{bbsTitle},
 		#{bbsContent},
 		<!-- #{BBS_date} 는 #{sysdate} -->
 		sysdate,
-<!-- 		to_char(sysdate.'YYYY-MM-DD HH24:MI:SS'), -->
+		<!-- to_char(sysdate.'YYYY-MM-DD HH24:MI:SS'), -->
 		<!-- #{BBS_show} 는 일단 글 등록하면 게시해야하니까 값을 0으로 넣어줌 -->
 		0
 		)
@@ -67,7 +68,8 @@
 		b.BBS_show
 		from BBS b, users u
 		where b.BBS_show = 0
-		and u.user_no = b.user_no
+		and
+		u.user_no = b.user_no
 		order by BBS_no desc
 		<!-- 위의 쿼리로 실행하면 SQL state [99999]; error code [17132]; 부적합한 변환이 요청됨 에러 -->
 		<!-- 실제로 필요한 결과 데이터를 불러오려면 위의 쿼리가 필요한것같은데...일단 주석 12-21-09:47 -->
@@ -97,7 +99,7 @@
 		where BBS_no=#{bbsNo}
 	</update>
 
-<!-- 회원이 삭제한 게시글 목록  -->
+	<!-- 회원이 삭제한 게시글 목록 -->
 	<select id="selectByShowOne" resultType="BBS">
 		select
 		b.BBS_no,
@@ -106,14 +108,15 @@
 		b.BBS_content,
 		b.BBS_date,
 		b.BBS_show,
-        u.user_nick
+		u.user_nick
 		from BBS b , users u
 		where BBS_show=1 and b.user_no = u.user_no
-		order by BBS_no desc
-		
+		order by
+		BBS_no desc
+
 	</select>
-	
-<!-- 	관리자가 삭제한 게시글 목록 불러오기 -->
+
+	<!-- 관리자가 삭제한 게시글 목록 불러오기 -->
 	<select id="selectByShowTwo" resultType="BBS">
 		select
 		b.BBS_no,
@@ -122,17 +125,38 @@
 		b.BBS_content,
 		b.BBS_date,
 		b.BBS_show,
-        u.user_nick
+		u.user_nick
 		from BBS b , users u
 		where BBS_show=2 and b.user_no = u.user_no
-		order by BBS_no desc
+		order by
+		BBS_no desc
 	</select>
 
-<!-- 관리자 삭제 게시글 복구  -->
+	<!-- 관리자 삭제 게시글 복구 -->
 	<update id="updateShowZeroBybbsNo">
 		update BBS
 		set BBS_show=0
 		where BBS_no=#{bbsNo}
 	</update>
+
+	<!-- rNum의 제한값을 임의로 바꾸는 것으로 페이징 구현-->
+	<select id="listPage" resultType="BBS">
+		select BBS_no, user_no,
+		BBS_title, BBS_content, BBS_date, BBS_show
+		from (
+		select BBS_no, user_no, BBS_title, BBS_content, BBS_date, BBS_show,
+		row_number() over(order by BBS_no desc) as rNum
+		from bbs
+		) b
+		where rNum between #{rowStart} and #{rowEnd}
+		order by BBS_no desc
+	</select>
+	
+<!-- 	게시물의 총 갯수를 구하는 쿼리 -->
+	<select id="listCount" resultType="int">
+		select count(bbs_no)
+		from bbs
+		where bbs_no > 0
+	</select>
 
 </mapper>
