@@ -39,12 +39,12 @@ public class BBSController {
 
 	// 게시글 목록 출력
 	@GetMapping("/BBSlist")
-	public String BBSList(Model model,HttpServletRequest req) {
+	public String BBSList(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		if (session == null) {
 			return "/home";
 		}
-		//session 정보 출력해보기
+		// session 정보 출력해보기
 		Enumeration<String> sessionNames = session.getAttributeNames();
 		while (sessionNames.hasMoreElements()) {
 			String name = sessionNames.nextElement();
@@ -53,7 +53,7 @@ public class BBSController {
 		}
 
 		Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		log.info("user객쳇 {}",user);
+		log.info("user객쳇 {}", user);
 		if (user == null) {
 			return "/home";
 		}
@@ -74,7 +74,7 @@ public class BBSController {
 		if (session == null) {
 			return "/home";
 		}
-		//session 정보 출력해보기
+		// session 정보 출력해보기
 		Enumeration<String> sessionNames = session.getAttributeNames();
 		while (sessionNames.hasMoreElements()) {
 			String name = sessionNames.nextElement();
@@ -83,7 +83,7 @@ public class BBSController {
 		}
 
 		Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		log.info("user객쳇 {}",user);
+		log.info("user객쳇 {}", user);
 		if (user == null) {
 			return "/home";
 		}
@@ -95,16 +95,14 @@ public class BBSController {
 
 	// 게시글쓰기 insert
 	@PostMapping("/BBSwrite")
-	public String newBBSInsertModel(@ModelAttribute BBS bbs
-			, Model model,HttpServletRequest req
-		) {
+	public String newBBSInsertModel(@ModelAttribute BBS bbs, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 
 		// 쿠키를 통해 넘어온 userEmail이 없는 경우
 		if (session == null) {
 			return "/home";
 		}
-		//session 정보 출력해보기
+		// session 정보 출력해보기
 		Enumeration<String> sessionNames = session.getAttributeNames();
 		while (sessionNames.hasMoreElements()) {
 			String name = sessionNames.nextElement();
@@ -113,14 +111,14 @@ public class BBSController {
 		}
 
 		Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		log.info("user객쳇 {}",user);
+		log.info("user객쳇 {}", user);
 		if (user == null) {
 			return "/home";
 		}
 
 		model.addAttribute("user", user);
 		BBSRepository.insertBBS(bbs);
-		
+
 		return "redirect:/BBS/BBSlist";
 
 	}
@@ -136,15 +134,14 @@ public class BBSController {
 	// 게시글 읽기 selectBybbsNo
 	// 글번호(bbsNo)에 해당하는 댓글 불러오기
 	@GetMapping("/BBSlist/{bbsNo}")
-	public String BBSview(Model model, @PathVariable("bbsNo") Integer bbsNo
-			,HttpServletRequest req) {
+	public String BBSview(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 
 		// 쿠키를 통해 넘어온 userEmail이 없는 경우
 		if (session == null) {
 			return "/home";
 		}
-		//session 정보 출력해보기
+		// session 정보 출력해보기
 		Enumeration<String> sessionNames = session.getAttributeNames();
 		while (sessionNames.hasMoreElements()) {
 			String name = sessionNames.nextElement();
@@ -153,7 +150,7 @@ public class BBSController {
 		}
 
 		Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		log.info("user객쳇 {}",user);
+		log.info("user객쳇 {}", user);
 		if (user == null) {
 			return "/home";
 		}
@@ -298,7 +295,28 @@ public class BBSController {
 
 	// 댓글 수정
 	@GetMapping("/updateCom/{bbsNo}/{comNo}")
-	public String updateCom(Model model, @PathVariable("bbsNo") Integer bbsNo, @PathVariable("comNo") int comNo) {
+	public String updateCom(Model model, @PathVariable("bbsNo") Integer bbsNo, @PathVariable("comNo") int comNo,
+			HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		if (session == null) {
+			return "/home";
+		}
+		// session 정보 출력해보기
+		Enumeration<String> sessionNames = session.getAttributeNames();
+		while (sessionNames.hasMoreElements()) {
+			String name = sessionNames.nextElement();
+
+			log.info("session {}, {}", name, session.getAttribute(name));
+		}
+
+		Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		log.info("user객쳇 {}", user);
+		if (user == null) {
+			return "/home";
+		}
+
+		model.addAttribute("user", user);
+
 		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
 		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
 
