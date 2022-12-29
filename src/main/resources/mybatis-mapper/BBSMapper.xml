@@ -99,31 +99,40 @@
 
 <!-- 회원이 삭제한 게시글 목록  -->
 	<select id="selectByShowOne" resultType="BBS">
-		  select
-		BBS_no,
-		user_no,
-		BBS_title,
-		BBS_content,
-		BBS_date,
-		BBS_show
-		from BBS b
-		where BBS_show=1
+		select
+		b.BBS_no,
+		b.user_no,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		b.BBS_show,
+        u.user_nick
+		from BBS b , users u
+		where BBS_show=1 and b.user_no = u.user_no
 		order by BBS_no desc
+		
 	</select>
 	
 <!-- 	관리자가 삭제한 게시글 목록 불러오기 -->
 	<select id="selectByShowTwo" resultType="BBS">
-		  select
-		BBS_no,
-		user_no,
-		BBS_title,
-		BBS_content,
-		BBS_date,
-		BBS_show
-		from BBS b
-		where BBS_show=2
+		select
+		b.BBS_no,
+		b.user_no,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		b.BBS_show,
+        u.user_nick
+		from BBS b , users u
+		where BBS_show=2 and b.user_no = u.user_no
 		order by BBS_no desc
 	</select>
 
+<!-- 관리자 삭제 게시글 복구  -->
+	<update id="updateShowZeroBybbsNo">
+		update BBS
+		set BBS_show=0
+		where BBS_no=#{bbsNo}
+	</update>
 
 </mapper>

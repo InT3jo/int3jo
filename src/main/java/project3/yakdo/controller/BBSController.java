@@ -59,6 +59,7 @@ public class BBSController {
 		}
 
 		model.addAttribute("user", user);
+		
 		List<BBS> bbsListZero = BBSRepository.selectByShowZero();
 		log.info("bbsListZero {}", bbsListZero);
 		model.addAttribute("bbsListZero", bbsListZero);
@@ -339,5 +340,27 @@ public class BBSController {
 		bbsCommentRepositoy.updateCom(bbsNo, comNo, bbsComment);
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
-
+	
+	
+	//댓글 관리자 삭제
+	@RequestMapping("/deleteComAdmin/{bbsNo}/{comNo}")
+	public String deleteComAdmin(Model model, @PathVariable("bbsNo") Integer bbsNo,
+			@PathVariable("comNo") Integer comNo) {
+		bbsCommentRepositoy.updateComShowTwoBybbsNo(bbsNo, comNo);
+		
+		return"redirect:/BBS/BBSlist/{bbsNo}";
+		
+	}
+	
+	
+	//게시글 복구
+	@RequestMapping("/recover/{bbsNo}")
+	public String updateShowZeroBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo) {
+		BBSRepository.updateShowZeroBybbsNo(bbsNo);
+		return "redirect:/admin/adminBBSlist";
+	}
+	
+	
+	
+	
 }

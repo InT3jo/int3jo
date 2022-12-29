@@ -7,9 +7,39 @@
 <body>
 	<h1>회원 관리</h1>
 	<p>회원목록 출력</p>
-	<p>관리자 권한 부여</p>
- 	<p>블락/복구</p> 
+	<p>관리자 권한 부여 USER_GRADE 운영진:0 , 관리자:1 , 일반회원:2 </p>
+ 	<p>USER_STATUS 정상상태:0 블락상태:1</p> 
 	
+	<table border="1" width="800" height="100">
+		<thead>
+			<tr>
+				<th>회원번호</th>
+				<th>이메일</th>
+				<th>닉네임</th>
+				<th>가입일</th>
+				<th>회원등급</th>
+				<th>상태</th>
+				<th>탈퇴일</th>
+				<th>블락사유</th>
+				<th>블락</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="Users : ${userList}">
+				<td th:text=${Users.userNo}></td>
+				<td th:text=${Users.userEmail}></td>
+				<td th:text=${Users.userNick}></td>
+				<td th:text=${Users.joinDate}></td>
+				<td th:text=${Users.userGrade}></td>
+				<td th:text=${Users.userStatus}></td>
+				<td th:text=${Users.leaveDate}></td>
+				<td th:text=${Users.blockReason}></td>
+				<td><button>블락</button></td>
+				
+			</tr>			
+		</tbody>
+		</table>
 	
 </body>
 </html>

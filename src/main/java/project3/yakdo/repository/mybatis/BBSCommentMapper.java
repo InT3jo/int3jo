@@ -23,7 +23,7 @@ public interface BBSCommentMapper {
 	
 	//댓글 관리자 삭제 
 	public void updateComShowTwoBybbsNo(@Param("bbsNo") Integer bbsNo
-											,@Param("comNo")int comNo);
+											,@Param("comNo")Integer comNo);
 	//댓글 특정
 	public BBSComment selectOneCom(@Param("bbsNo") int bbsNo, @Param("comNo") int comNo);
 }

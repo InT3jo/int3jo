@@ -22,8 +22,9 @@ public interface BBSCommentRepository {
 	public boolean updateComShowOneByBbsNo(Integer bbsNo, Integer comNo);
 	
 	//댓글 관리자 삭제 
-	public boolean updateComShowTwoBybbsNo(Integer bbsNo, int comNo);
+	public boolean updateComShowTwoBybbsNo(Integer bbsNo, Integer comNo);
 
+	
 }
 
 

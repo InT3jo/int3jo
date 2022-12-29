@@ -73,7 +73,7 @@ public class BBSMybatisRepository implements BBSRepository {
 		return result;
 	}
 	
-	
+	//게시글 본인 삭제 
 	@Override
 	public boolean updateShowOneBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
@@ -87,6 +87,7 @@ public class BBSMybatisRepository implements BBSRepository {
 		return result;
 	}
 
+	//게시글 관리자 삭제
 	@Override
 	public boolean updateShowTwoBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
@@ -103,6 +104,7 @@ public class BBSMybatisRepository implements BBSRepository {
 	
 	
 	//관리자 
+	//본인 삭제 게시글 리스트 출력 
 	@Override
 	public List<BBS> selectByShowOne() {
 		// TODO Auto-generated method stub
@@ -111,12 +113,25 @@ public class BBSMybatisRepository implements BBSRepository {
 		return bbsListOne;
 	}
 
+	//관리자 삭제 게시글 리스트 출력 
 	@Override
 	public List<BBS> selectByShowTwo() {
 		// TODO Auto-generated method stub
 		List<BBS> bbsListTwo = null;
 		bbsListTwo = BBSMapper.selectByShowTwo();
 		return bbsListTwo;
+	}
+
+	//관리자 삭제 게시글 복구
+	@Override
+	public boolean updateShowZeroBybbsNo(int bbsNo) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+//		log.info("bbsNo {}", bbsNo);
+		BBSMapper.updateShowZeroBybbsNo(bbsNo);
+	
+		return result;
+	
 	}
 
 

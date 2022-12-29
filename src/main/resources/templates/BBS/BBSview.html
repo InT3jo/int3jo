@@ -13,6 +13,10 @@
 		function updateCom(bbsNo,comNo){
 			location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo;	
 		}
+		
+		function deleteComAdmin(bbsNo,comNo){
+			location.href = "/BBS/deleteComAdmin/" + bbsNo + "/" + comNo;
+		}
 	</script>
 
 	<h1>BBS view Page</h1>
@@ -54,17 +58,18 @@
 		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
 
 <!-- 		로그인한 사용자 닉네임과 일치 할 때만 수정/삭제버튼 보이기 , 관리자(grade:1) 이거나 운영자(grade:0)에 보이기-->
-		<div th:if="${user.userNick}==${BBS.userNick} or ${user.userGrade}==1 or  ${user.userGrade}==0">
+		<div th:if="${user.userNick}==${BBS.userNick} ">
 			<button
 				th:onclick="|location.href='@{/BBS/update/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">수정하기</button>
 			<button
 				th:onclick="|location.href='@{/BBS/delete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">삭제</button>
 		</div>
 
-<!-- 			관리자(user_grade = 1) 일때만 관리자 삭제 버튼 보이기  -->
-		<div th:if="${user.userGrade==1}">	
+<!-- 		회원등급이 관리자(user_grade = 1)이상 일때만 관리자 삭제,답변 버튼 보이기  -->
+		<div th:if="${user.userGrade==1 } or ${user.userGrade}==0">	
 		<button
 			th:onclick="|location.href='@{/BBS/adminDelete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">관리자삭제</button>
+		<button th:onclick="|location.href='@{/admin/writeAnswer/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">답변등록</button>
 		</div>
 	</div>
 
@@ -92,9 +97,13 @@
 				<th>작성자</th>
 				<th>내용</th>
 				<th>작성일</th>
+				<div th:if="${user.userNick}==${BBS.userNick} ">
 				<th>삭제</th>
 				<th>수정</th>
-
+				</div>
+				<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
+				<th>관리자삭제</th>
+				</div>
 			</tr>
 
 		</thead>
@@ -104,7 +113,7 @@
 				<td th:text="${BBSComment.comContent}"></td>
 				<td th:text="${BBSComment.comDate}"></td>
 				
-				<div th:if="${user.userNick}==${BBSComment.userNick} or ${user.userGrade}==1 or  ${user.userGrade}==0">
+				<div th:if="${user.userNick}==${BBSComment.userNick}">
 				<td>
 					<button th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
 						th:onclick="deleteCom(this.getAttribute('name'),this.getAttribute('src'))">삭제</button>
@@ -116,6 +125,14 @@
 					th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">
 					수정</button>
 				</td>
+				</div>
+				
+				<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
+					<td>
+						<button th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}" 
+						th:onclick="deleteComAdmin(this.getAttribute('name'),this.getAttribute('src'))" >
+						관리자삭제</button>
+					</td>
 				</div>
 				
 				

@@ -57,15 +57,14 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 
 	//댓글 관리자 삭제 
 	@Override
-	public boolean updateComShowTwoBybbsNo(Integer bbsNo,int comNo) {
+	public boolean updateComShowTwoBybbsNo(Integer bbsNo,Integer comNo) {
 		// TODO Auto-generated method stub
 		boolean result = false;
-		try {
+		
 			bbsCommentMapper.updateComShowTwoBybbsNo(bbsNo, comNo);
-			result = true;
-		} catch(Exception e) {
 			
-		}
+			
+		
 		return result;
 	}
 
@@ -75,4 +74,5 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 		return null;
 	}
 
+	
 }
