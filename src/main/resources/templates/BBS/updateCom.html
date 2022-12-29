@@ -12,7 +12,7 @@
 		<div>
 <!-- 			<label>작성일<input type="date" name="comDate" readonly="readonly" th:field="*{comDate}"></label> -->
 			<br>
-			<label>작성자<input type="text" name="userNick" readonly="readonly" th:field="*{userNick}"></label>
+			<label>작성자<input type="text" name="userNick" readonly="readonly" th:value="${user.userNick}"></label>
 			
 			<br>
 			<label>내용<textarea name="comContent" th:field="*{comContent}"></textarea></label>

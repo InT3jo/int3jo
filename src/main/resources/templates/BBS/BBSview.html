@@ -50,21 +50,29 @@
 	</div>
 
 	<div>
+		
 		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
 
+<!-- 		로그인한 사용자 닉네임과 일치 할 때만 수정/삭제버튼 보이기 -->
+		<div th:if="${user.userNick}==${BBS.userNick}">
+			<button
+				th:onclick="|location.href='@{/BBS/update/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">수정하기</button>
+			<button
+				th:onclick="|location.href='@{/BBS/delete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">삭제</button>
+		</div>
 
-		<button
-			th:onclick="|location.href='@{/BBS/update/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">수정하기</button>
-		<button
-			th:onclick="|location.href='@{/BBS/delete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">삭제</button>
+<!-- 			관리자(user_grade = 1) 일때만 관리자 삭제 버튼 보이기  -->
+		<div th:if="${user.userGrade==1}">	
 		<button
 			th:onclick="|location.href='@{/BBS/adminDelete/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">관리자삭제</button>
+		</div>
 	</div>
 
 	<!-- 	댓글 -->
 	<form th:action="@{/BBS/BBSlist/{bbsNo}(bbsNo=${BBS.bbsNo})}"
 		method="post" th:object=${BBSComment}>
 		<p>
+			
 			<label>댓글작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly></label>
 			<!-- 				로그인한 사람의 닉네임 불러오기 -->
 		</p>
@@ -95,6 +103,8 @@
 				<td th:text="${BBSComment.userNick}"></td>
 				<td th:text="${BBSComment.comContent}"></td>
 				<td th:text="${BBSComment.comDate}"></td>
+				
+				<div th:if="${user.userNick}==${BBSComment.userNick}">
 				<td>
 					<button th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
 						th:onclick="deleteCom(this.getAttribute('name'),this.getAttribute('src'))">삭제</button>
@@ -103,8 +113,13 @@
 				</td>
 				<td>
 					<button th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-					th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">수정</button>
+					th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">
+					
+					수정</button>
 				</td>
+				</div>
+				
+				
 			</tr>
 		</tbody>
 	</table>

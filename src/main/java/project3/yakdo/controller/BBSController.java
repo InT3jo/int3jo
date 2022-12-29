@@ -39,7 +39,26 @@ public class BBSController {
 
 	// 게시글 목록 출력
 	@GetMapping("/BBSlist")
-	public String BBSList(Model model) {
+	public String BBSList(Model model,HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		if (session == null) {
+			return "/home";
+		}
+		//session 정보 출력해보기
+		Enumeration<String> sessionNames = session.getAttributeNames();
+		while (sessionNames.hasMoreElements()) {
+			String name = sessionNames.nextElement();
+
+			log.info("session {}, {}", name, session.getAttribute(name));
+		}
+
+		Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		log.info("user객쳇 {}",user);
+		if (user == null) {
+			return "/home";
+		}
+
+		model.addAttribute("user", user);
 		List<BBS> bbsListZero = BBSRepository.selectByShowZero();
 		log.info("bbsListZero {}", bbsListZero);
 		model.addAttribute("bbsListZero", bbsListZero);
