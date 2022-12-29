@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/drugs.css">
-<title>상세검색 페이지</title>
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<title>약도-의약품 검색</title>
 </head>
 <body>
 	<script type="text/javascript">
@@ -37,12 +38,8 @@
 			document.querySelector('.selectDrugMarkInput').value=code;
 		}
 	</script>
-	<div class="d-CSS ContentBox">
-		<form action="" method="post">
-			<input type="text" name="searchAll" placeholder="통합검색"/>
-			<button>검색</button>
-			<button type="button" onclick="openFindMore()">상세검색</button>
-		</form>
+	<div th:replace="home_component.html :: header"></div>
+	<div class="d-CSS ContentBox" style="border:1px solid var(--Signature=blue)">
 		<div id="findMore" th:style="${findMoreStyle}">
 			<div class="d-CSS headTitle">약품 정보 입력</div>
 			<div class="d-CSS findWarn center">
@@ -196,9 +193,10 @@
 					</div>
 					
 				</div>
-				<button type="submit" onclick="closeFindMore()">검색하기</button>
-				<button type="button" th:onclick="|location.href='@{/drugs}'|">다시 검색하기</button>
-				<button type="button" onclick="closeFindMore()">상세검색 닫기</button>
+				<div style="margin:10px;text-align: center">
+					<button id="findSearchMoreBtn" type="submit" onclick="closeFindMore()">검색하기</button>
+					<button id="findSearchMoreCloseBtn" type="button" onclick="closeFindMore()">닫기</button>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -210,5 +208,6 @@
 			<div class="d-CSS findCardEntp"><span th:utext="${di.getEntpName}"></span></div>
 		</div>
 	</div>
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

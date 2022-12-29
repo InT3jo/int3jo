@@ -1,0 +1,125 @@
+@charset "UTF-8";
+/* 변수 */
+:root{
+	--Signature-blue: #0000aa;
+	--Lowtone-blue: #77bfea;
+	--Bg-blue: #f2f9fd;
+
+	--Signature-silver: gray;	
+	--Lowtone-silver: #eeeeee;
+	--Bg-gray: #dddddd;
+}
+
+
+/* 헤더 */
+.headerMain{
+	background-color: var(--Bg-blue);
+	padding: 20px;
+	color: var(--Signature-silver);
+}
+.headerTitle{
+	margin: 10px;
+	cursor: pointer;
+}
+.headerTitle1{
+	color: var(--Signature-blue);
+	font-size: 30px;
+	font-weight: 700;
+}
+.headerTitle2{
+	color: var(--Signature-silver);
+	font-size: 17px;
+	font-weight: 700;
+}
+#headerSearchInput{
+	
+}
+#headerSearchBtn{
+	
+}
+#headerSearchMoreBtn{
+	
+}
+.headerNavBox{
+	text-align: center;
+	margin-top: 40px;
+}
+#headerSearchInput{
+	width: 250px;
+	height: 13px;
+	font-size: 16px;
+	color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	padding: 10px;
+	padding-left: 30px;
+}
+#headerSearchInput::placeholder{
+	color: var(--Signature-silver);
+}
+#headerSearchBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+#headerSearchMoreBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-silver);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.headerSearchBox{
+	margin: 10px;
+	text-align: center;
+}
+#headerNavLogin{
+	cursor: pointer;
+	margin: 30px;
+	color: var(--Signature-silver);
+}
+#headerNavJoin{
+	cursor: pointer;
+	margin: 30px;
+	color: var(--Signature-silver);
+}
+#headerNavBBS{
+	cursor: pointer;
+	margin: 30px;
+	color: var(--Signature-silver);
+}
+#headerNavAdmin{
+	cursor: pointer;
+	margin: 30px; 
+	color: var(--Signature-silver);
+}
+
+/* 푸터 */
+.footerMain{
+	background-color: var(--Bg-blue);
+	padding: 20px;
+	font-size: 13px;
+	color: var(--Signature-silver);
+}
+.footerTitle1{
+	color: var(--Signature-blue);
+	font-size: 20px;
+	font-weight: 700;
+}
+.footerTitle2{
+	color: var(--Signature-silver);
+	font-size: 13px;
+	font-weight: 700;
+}

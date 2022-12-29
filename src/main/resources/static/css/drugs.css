@@ -1,9 +1,17 @@
 @charset "UTF-8";
 
-/* 공용 */
-body{
-	
+/* 변수 */
+:root{
+	--Signature-blue: #0000aa;
+	--Lowtone-blue: #77bfea;
+	--Bg-blue: #f2f9fd;
+
+	--Signature-silver: gray;	
+	--Lowtone-silver: #eeeeee;
+	--Bg-gray: #dddddd;
 }
+
+/* 공용 */
 .d-CSS{
 	margin:0px;
 	padding:5px;
@@ -17,7 +25,7 @@ body{
 	border:1px solid black;
 }
 .fontBlue{
-	color: blue;
+	color: var(--Signature-blue);
 }
 .ContentBox{
 	margin:0px auto;
@@ -25,11 +33,12 @@ body{
 	display:block;
 }
 .headTitle{
-	color:blue;
+	color:var(--Signature-blue);
 	font-size: 17px;
 	font-weight: 700;
 	width:124px;
 	margin: 20px 300px;
+	margin-bottom: 10px;
 }
 .center{
 	text-align: center;
@@ -55,7 +64,7 @@ body{
 	margin-bottom: 5px;
 }
 .infoTitle{
-	color: blue;
+	color: var(--Signature-blue);
 	font-weight: 700;
 	width: 77px;
 }
@@ -76,9 +85,9 @@ body{
 /* FindDrug page */
 .findWarn{
 	display: block;
-	margin: 10px auto;
+	margin: 5px auto;
 	width: 80%;
-	background-color: lightgray;
+	background-color: var(--Bg-gray);
 	color: green;
 	font-size: 13px;
 }
@@ -86,17 +95,16 @@ body{
 	padding:0px;
 	display: grid;
 	grid-template-columns: 120px 270px 120px 270px;
-	border:1px solid blue;
 }
 .findGridLabel{ 
-	background-color: lightgray;
+	background-color: var(--Bg-gray);
  	height:54px;
- 	border:1px solid #eeeeee;
+ 	border:1px solid var(--Lowtone-silver);
 }
 .findGridContent{
 	width:273px;
  	height:54px;
- 	border:1px solid #eeeeee;
+ 	border:1px solid var(--Lowtone-silver);
 }
 .innerGrid{
 	margin: 15px 18px;
@@ -107,8 +115,8 @@ body{
 	position: fixed;
 	top: 100px;
 	left: 100px;
-	background-color: lightgray;
-	border:1px solid blue;
+	background-color: var(--Bg-gray);
+	border:1px solid var(--Signature-blue);
 	z-index: 999;
 }
 .findMarkModalImage{
@@ -120,7 +128,7 @@ body{
 	width: 240px;
 	height: 193px;
 	margin: 25px 8px;
-	border:1px solid #eeeeee;
+	border:1px solid var(--Lowtone-silver);
 	border-radius: 50px;
 	overflow: hidden;
 }
@@ -136,4 +144,31 @@ body{
 }
 .findCardEntp{
 	height: 35px;
+}
+#findMore{
+	
+}
+#findSearchMoreBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+#findSearchMoreCloseBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-silver);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
 }
