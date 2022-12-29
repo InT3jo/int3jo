@@ -31,11 +31,8 @@ public class JoinForm {
 	private String gender;		//성별
 	
 	//usingDrugs, allergy를 여기서 List로 받아야함
-	private String usingDrugs;	//복용 중인 약
-	private String allergy;		//알러지
-	
-//	private List<String> usingDrugs;	//복용 중인 약
-//	private List<String> allergy;		//알러지
+	private List<String> usingDrugs;	//복용 중인 약
+	private List<String> allergy;		//알러지
 	
 	private Integer weight;		//체중
 	

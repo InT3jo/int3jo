@@ -1,6 +1,9 @@
 package project3.yakdo.service.users;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +37,8 @@ public class JoinService {
 	}
 	
 	/**
-	 * 본인 및 가족 건강 정보 추가 서비스가 이뤄지는 메소드
+	 * 본인 및 가족 건강 정보 저장해두기
+	 * List에 담기
 	 * joinForm으로 받은 데이터 DB insert 실행
 	 * 
 	 * @param joinForm
@@ -43,7 +47,10 @@ public class JoinService {
 	 * 담당자 : 빙예은
 	 */
 //	@Transactional
-	public Integer addInfo(JoinForm joinForm) {
+	public Integer saveInfo(JoinForm joinForm) {
+		List<String> familyInfoList = new ArrayList<String>();
+		
+		
 		Integer result = usersRepository.insertUsersInfo(joinForm);
 		if(result == 1) {
 			log.info("가족 정보 등록 완료");
