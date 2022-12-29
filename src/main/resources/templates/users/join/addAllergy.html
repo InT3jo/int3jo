@@ -7,10 +7,10 @@
 <body>
 	<h1>Join Page</h1>
 	<div>
-		<form action="/join/addAllergy" method="post">
+		<form action="/join/addAllergy" method="post" th:object="${joinForm}">
 			<div>
 				<label for="allergy">알레르기</label>
-				<select id="allergy" name="allergy" th:field="${allergy}">
+				<select th:field="*{allergy}" id="allergy" name="allergy">
 					<option value="">알레르기 선택</option>
 					<option value="알러지1">알레르기1</option>
 					<option value="알러지2">알레르기2</option>
@@ -19,7 +19,7 @@
 			</div>
 			
 			<div>
-				<button type="submit"th:onclick="|location.href='@{/login}'|">추가완료</button>
+				<button type="submit">추가완료</button>
 			</div>
 		</form>
 	</div>
