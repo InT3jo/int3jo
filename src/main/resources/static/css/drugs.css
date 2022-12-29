@@ -1,14 +1,16 @@
 @charset "UTF-8";
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap');
 /* 변수 */
 :root{
-	--Signature-blue: #0000aa;
+	--Signature-blue: #0145c5;
 	--Lowtone-blue: #77b6ea;
 	--Bg-blue: #f2f7fd;
 
 	--Signature-silver: gray;	
 	--Lowtone-silver: #eeeeee;
 	--Bg-gray: #dddddd;
+	
+	--Font-title1: 'Noto Serif KR', serif;
 }
 
 /* 공용 */
@@ -24,6 +26,9 @@
 .border{
 	border:1px solid black;
 }
+.bottomLine{
+	border-bottom: 1px solid var(--Lowtone-silver);
+}
 .fontBlue{
 	color: var(--Signature-blue);
 }
@@ -36,8 +41,8 @@
 	color:var(--Signature-blue);
 	font-size: 17px;
 	font-weight: 700;
-	width:124px;
-	margin: 10px 300px;
+	width:800px;
+	text-align: center;
 }
 .center{
 	text-align: center;
@@ -94,14 +99,16 @@
 	padding:0px;
 	display: grid;
 	grid-template-columns: 100px 250px 100px 250px;
+	border: 1px solid var(--Signatrue-blue);
 }
 .findGridLabel{ 
 	background-color: var(--Bg-gray);
+	color : var(--Signature-blue);
  	height:54px;
  	border:1px solid var(--Lowtone-silver);
 }
 .findGridContent{
-	width:273px;
+	width:249px;
  	height:54px;
  	border:1px solid var(--Lowtone-silver);
 }
@@ -145,7 +152,7 @@
 	height: 35px;
 }
 #findMore{
-	
+	width: 800px;
 }
 #findSearchMoreBtn{
 	margin-left: 10px;
