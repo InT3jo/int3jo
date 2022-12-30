@@ -7,99 +7,49 @@
 <body>
 	<h1>Join Page</h1>
 	<div>
-		<label for="familyNo">가족 관계</label>
-		<select id="familyNo" name="familyNo">
-			<option value="">===가족관계===</option>
-			<option value="0">본인</option>
-			<option value="1">엄마</option>
-			<option value="2">아빠</option>
-			<option value="3">배우자</option>
-			<option value="4">자녀</option>
-			<option value="5">기타</option>
-		</select>
-	</div>
-
-	<div>
-		<label for="gender">성별</label>
-		<select id="gender" name="gender">
-			<option value="">성별</option>
-			<option value="남자">남자</option>
-			<option value="여자">여자</option>
-		</select>
-	</div>
-
-	<div>
-		<label for="birth">생년월일</label>
-		<input type="date" name="birth" id="birth" />
-	</div>
-
-	<div>
-		<label for="weight">몸무게(kg)</label>
-		<input type="text" name="weight" id="weight" />
-	</div>
-	<div>
-		<button type="button" onclick="addFamilyInfo()">추가</button>
-	</div>
-	
-	<div>
 		<form action="/join/addInfo" method="post" th:object="${joinForm}">
-			<table id="infoTable" style="display:none" border="1">
-				<thead>
-					<tr>
-						<th>가족관계</th>
-						<th>성별</th>
-						<th>생년월일</th>
-						<th>몸무게(kg)</th>
-					</tr>
-				</thead>
-				<tbody id="infoBody"></tbody>
-			</table>
-			<button type="submit" th:onclick="|location.href='@{/join/addUsingDrugs}'|">다음</button>
+			<div>
+				<label for="familyNo">가족 관계</label>
+				<select th:field="*{familyNo}" id="familyNo" name="familyNo">
+					<option value="">===가족관계===</option>
+					<option value="0">본인</option>
+					<option value="1">엄마</option>
+					<option value="2">아빠</option>
+					<option value="3">배우자</option>
+					<option value="4">자녀</option>
+					<option value="5">기타</option>
+				</select>
+			</div>
+			
+			<div>
+				<label for="gender">성별</label>
+				<select  th:field="*{gender}" id="gender" name="gender">
+					<option value="">성별</option>
+					<option value="남자">남자</option>
+					<option value="여자">여자</option>
+				</select>
+			</div>
+			
+			<div>
+				<label for="birth">생년월일</label>
+				<input type="date" name="birth" id="birth" th:field="*{birth}"/>
+			</div>
+			
+			<div>
+				<label for="weight">몸무게(kg)</label>
+				<input type="text" name="weight" id="weight" th:field="*{weight}"/>
+			</div>
+			<div>
+				<button type="submit" onclick="addSuccess()">추가</button>
+				<button type="button" th:onclick="|location.href='@{/join/addUsingDrugs}'|">다음</button>
+			</div>
 		</form>
 	</div>
+	
+	
 	<script>
-		function addFamilyInfo() {
-			//정보 추가할 테이블 element 찾기
-			const infoBody = document.getElementById('infoBody');
-			
-			//Cell에 추가할 value 찾기
-			const familyValue = document.getElementById('familyNo').value;
-			const genderValue = document.getElementById('gender').value;
-			const birthValue = document.getElementById('birth').value;
-			const weightValue = document.getElementById('weight').value;
-			
-			//if(familyValue != "" && genderValue != "" && birthValue != "" && weightValue != "") {
-				//행 추가
-				const newRow = infoBody.insertRow();
-				
-				//새 행에 Cell 추가
-				const familyNew = newRow.insertCell(0);
-				const genderNew = newRow.insertCell(1);
-				const birthNew = newRow.insertCell(2);
-				const weightNew = newRow.insertCell(3);
-				
-				//Cell에 값 추가
-				//usingDrugs, allergy 합치기
-				//table에 input 추가해서,, 값 넣어보기
-				//id는 for문 돌리면서 하면 될 거 같은데,,
-				//그렇게 버튼 누르면 post방식으로 넘어갈 거 같음..!
-				
-				//테이블 지우고 innerHTML로 다시 만들기
-				//div > table > value > input
-				familyNew.innerHTML = familyValue+'<input id="familyNo'+temp+'" type="hidden" value="'+familyValue+'"/>'
-				genderNew.innerHTML = genderValue+'<input id="gender'+temp+'" type="hidden" value="'+genderValue+'"/>'
-				birthNew.innerHTML = birthValue+'<input id="birth'+temp+'" type="hidden" value="'+birthValue+'"/>'
-				weightNew.innerHTML = weightValue+'<input id="weight'+temp+'" type="hidden" value="'+weightValue+'"/>'
-// 				familyNew.innerText = familyValue;
-// 				genderNew.innerText = genderValue;
-// 				birthNew.innerText = birthValue;
-// 				weightNew.innerText = weightValue;
-				
-				document.getElementById('infoTable').style.display='block';
-			//} else {
-			//	alert("빈칸을 채워주세요");
-			//}
-			
+		function addSuccess() {
+			alert("추가 되었습니다.")
 		}
 	</script>
 </body>
