@@ -24,7 +24,7 @@
 	color: var(--Signature-silver);
 	font-size: 17px;
 	font-weight: 700;
-	font-family: var(--Font-title1);
+	font-family: var(--Font-title2);
 }
 .headerNavBox{
 	text-align: center;
@@ -135,7 +135,7 @@
 	color: var(--Signature-silver);
 	font-size: 13px;
 	font-weight: 700;
-	font-family: var(--Font-title1);
+	font-family: var(--Font-title2);
 }
 .fotterBottomLine{
 	border-bottom: 1px solid var(--Bg-gray);

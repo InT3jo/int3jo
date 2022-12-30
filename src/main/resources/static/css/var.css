@@ -1,5 +1,19 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap');
+@font-face{
+	font-family: 'maruburi';
+	src:url('/font/maruburi/MaruBuri-Regular.ttf') format('truetype');
+	font-weight: narmal;
+}
+@font-face{
+	font-family: 'maruburi';
+	src:url('/font/maruburi/MaruBuri-Bold.ttf') format('truetype');
+	font-weight: bold;
+}
+@font-face{
+	font-family: 'hmfmold';
+	src:url('/font/HMFMOLD.TTF') format('truetype')
+}
+
 /* 변수 */
 :root{
 	--Signature-blue: #315290;
@@ -11,5 +25,6 @@
 	--Bg-silver: #f4f7f9;
 	--Bg-gray: #dddddd;
 	
-	--Font-title1: 'Noto Serif KR', serif;
+	--Font-title1: 'maruburi';
+	--Font-title2: 'hmfmold';
 }

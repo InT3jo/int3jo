@@ -34,7 +34,7 @@ body{
 	color: var(--Signature-silver);
 	font-size: 40px;
 	font-weight: 700;
-	font-family: var(--Font-title1);
+	font-family: var(--Font-title2);
 }
 .mainSubTitle{
 	text-align: center;
