@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div class="d-CSS ContentBox center headerMain" th:fragment="header">
+<div class="d-CSS center headerMain" th:fragment="header">
 	<script type="text/javascript">
 		function logout(){
 			document.querySelector('#logoutBtn').submit();
@@ -10,7 +10,7 @@
 		<div class="headerTitle" onclick="location.href='/'"><span class="headerTitle1">약도</span><span class="headerTitle2">藥道</span></div>
 	</div>
 	<div class="headerNavBox">
-		<form action="" method="post">
+		<form action="/drugs" method="post">
 			<input id="headerSearchInput" type="text" name="searchAll" placeholder="통합검색"/>
 			<button id="headerSearchBtn">검색</button>
 			<button id="headerSearchMoreBtn" type="button" onclick="openFindMore()">상세검색</button>
@@ -32,7 +32,7 @@
 	<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 </div>
 
-<div class="d-CSS ContentBox center headerMain" th:fragment="infoHeader">
+<div class="d-CSS center headerMain" th:fragment="infoHeader">
 	<script type="text/javascript">
 		function logout(){
 			document.querySelector('#logoutBtn').submit();
@@ -42,7 +42,7 @@
 		<div class="headerTitle" onclick="location.href='/'"><span class="headerTitle1">약도</span><span class="headerTitle2">藥道</span></div>
 	</div>
 	<div class="headerNavBox">
-		<form action="" method="post">
+		<form action="/drugs" method="post">
 			<input id="headerSearchInput" type="text" name="searchAll" placeholder="통합검색"/>
 			<button id="headerSearchBtn">검색</button>
 			<button id="headerSearchMoreBtn" type="button" onclick="location.href='/drugs'">상세검색</button>
@@ -64,18 +64,18 @@
 	<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 </div>
 
-<div class="d-CSS ContentBox footerMain" th:fragment="footer">
+<div class="d-CSS footerMain" th:fragment="footer">
 	<div>
 		<div class="fotterBottomLine"><span class="footerTitle1">약도</span><span class="footerTitle2">藥道</span></div>
 	</div>
 	<div>
-		<div>휴먼교육센터 6교육실 3차 프로젝트 "약도"</div>
-		<div>제작목적1 : 회원 맞춤형 안내를 포함한 약품의 검색 및 식별, 효능과 용법용량 부작용등의 확인.</div>
-		<div>제작목적2 : Java Spring ThymeLeaf 기반의 페이지 제작</div>
-		<div>제작자 : 배고운, 빙예은, 홍준표 (3조-InT)</div>
-		<div>제작기간 : 2022년 12월 14일 ~ 2023년 1월 11일 (3차 프로젝트 기간)</div>
-		<div>깃허브 : <a href="https://github.com/InT3jo/int3jo" target="_blank">https://github.com/InT3jo/int3jo</a></div><br>
-		<div>.Copyright 2023. InT3Jo All rights reserved.</div>
+		<div style="margin-top:13px">휴먼교육센터 6교육실 3차 프로젝트 "약도"</div>
+		<div style="margin-top:10px">제작목적1 : 회원 맞춤형 안내를 포함한 약품의 검색 및 식별, 효능과 용법용량 부작용등의 확인.</div>
+		<div style="margin-top:10px">제작목적2 : Java Spring ThymeLeaf 기반의 페이지 제작</div>
+		<div style="margin-top:10px">제작자 : 배고운, 빙예은, 홍준표 (3조-InT)</div>
+		<div style="margin-top:10px">제작기간 : 2022년 12월 14일 ~ 2023년 1월 11일 (3차 프로젝트 기간)</div>
+		<div style="margin-top:10px">깃허브 : <a href="https://github.com/InT3jo/int3jo" target="_blank">https://github.com/InT3jo/int3jo</a></div><br>
+		<div style="margin-top:10px">.Copyright 2023. InT3Jo All rights reserved.</div>
 	</div>
 </div>
 </html>

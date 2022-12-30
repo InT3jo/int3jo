@@ -9,6 +9,9 @@ import project3.yakdo.session.SessionVar;
 
 @Service
 public class UserService {
+	/**
+	 * 유저서비스로 합칠거
+	 */
 	public Users getLoginUser(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		if(session == null) {

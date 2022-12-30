@@ -2,12 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap');
 /* 변수 */
 :root{
-	--Signature-blue: #0145c5;
+	--Signature-blue: #315290;
 	--Lowtone-blue: #77b6ea;
-	--Bg-blue: #f2f7fd;
 
 	--Signature-silver: gray;	
 	--Lowtone-silver: #eeeeee;
+	
+	--Bg-silver: #f4f7f9;
 	--Bg-gray: #dddddd;
 	
 	--Font-title1: 'Noto Serif KR', serif;

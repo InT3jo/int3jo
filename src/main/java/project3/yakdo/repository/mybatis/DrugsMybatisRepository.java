@@ -1,6 +1,5 @@
 package project3.yakdo.repository.mybatis;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project3.yakdo.domain.drugs.FindDrug;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
+import project3.yakdo.domain.drugs.FindDrug;
 import project3.yakdo.repository.DrugsRepository;
 import project3.yakdo.service.drugs.search.FindDrugForm;
 
@@ -279,9 +278,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	}
 	
 	/**
-	 * DB에서 itemSeq를 찾아 DrugInfo 객체 반환
-	 * parameter : String itemSeq
-	 * return : DrugInfo
+	 * DB에서 모든 DrugInfo 객체 반환
+	 * return : List<DrugInfo>
 	 * 담당자 : 홍준표
 	 */
 	@Override

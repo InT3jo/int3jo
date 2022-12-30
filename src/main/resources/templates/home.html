@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home.css">
-<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <title>약도 - 개인맞춤형 약품 검색</title>
 </head>
 <body>
@@ -47,9 +46,6 @@
 			</span>
 		</div>
 		<p> 일단 개발중이니까 로그인필터검사는 넘어갑시다</p>
-		<div class="mainFooter">
-			<div th:replace="home_component.html :: footer"></div>
-		</div>
 		<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 	</div>
 </body>
