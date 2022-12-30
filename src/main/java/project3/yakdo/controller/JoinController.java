@@ -1,5 +1,6 @@
 package project3.yakdo.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.service.users.JoinService;
 import project3.yakdo.validation.form.JoinForm;
+import project3.yakdo.validation.form.UsersInfoForm;
 /**
  * 
  * 현재 회원가입 작업 중,
@@ -32,10 +33,8 @@ public class JoinController {
 
 	private final JoinService joinService;
 	
-	JoinForm joinForm = new JoinForm();
-	List<UsersInfo> familyInfoList = new ArrayList<UsersInfo>();
-//	List<String> usingDrugList = new ArrayList<String>();
-//	List<String> allergyList = new ArrayList<String>();
+	private final UsersInfo usersInfo = new UsersInfo();
+	
 	
 	
 	/**
@@ -46,6 +45,7 @@ public class JoinController {
 	 */
 	@GetMapping
 	public String signUpForm (Model model) {
+		JoinForm joinForm = new JoinForm();
 		model.addAttribute("joinForm", joinForm);
 
 		return "/users/join/join";
@@ -79,7 +79,8 @@ public class JoinController {
 	 */
 	@GetMapping("/addInfo")
 	public String addInfoForm(Model model) {
-		model.addAttribute("joinForm", joinForm);
+		UsersInfoForm usersInfoForm = new UsersInfoForm();
+		model.addAttribute("usersInfoForm", usersInfoForm);
 		
 		return "/users/join/addInfo";
 	}
@@ -92,21 +93,19 @@ public class JoinController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/addUsingDrugs")
-	public String addInfo(@RequestParam("familyNo") String familyNo
-						, @RequestParam("birth") String birth
-						, @RequestParam("gender") String gender
-						, HttpServletRequest req
-						, Model model) {
+	public String addInfo(@ModelAttribute UsersInfoForm usersInfoForm) {
+		//String으로 받아온 생일 date 타입으로 변환
+		Date birth = Date.valueOf(usersInfoForm.getBirth());
 		
-		joinForm.setFamilyNo(Integer.parseInt(familyNo));
-		joinForm.setBirth(birth);
-		joinForm.setGender(gender);
+		//usersInfo에 세팅
+		usersInfo.setFamilyNo(usersInfoForm.getFamilyNo());
+		usersInfo.setBirth(birth);
+		usersInfo.setGender(usersInfoForm.getGender());
+		usersInfo.setWeight(usersInfoForm.getWeight());
 		
-		model.addAttribute("joinForm", joinForm);
+		log.info("usersInfoForm = {}", usersInfoForm);
+		log.info("usersInfo = {}", usersInfo);
 		
-		log.info("addInfoForm joinForm = {}", joinForm);
-		
-//		joinService.saveInfo(joinForm);
 		return "/users/join/addUsingDrugs";
 	}
 
@@ -119,7 +118,8 @@ public class JoinController {
 	 */
 	@GetMapping("/addUsingDrugs")
 	public String aaddUsingDrugsForm(Model model) {
-		model.addAttribute("joinForm", joinForm);
+		UsersInfoForm usersInfoForm = new UsersInfoForm();
+		model.addAttribute("usersInfoForm", usersInfoForm);
 		return "/users/join/addUsingDrugs";
 	}
 	
@@ -131,13 +131,21 @@ public class JoinController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/addAllergy")
-	public String addUsingDrugs(@RequestParam("usingDrugs") String usingDrug
-							, Model model) {
+	public String addUsingDrugs(
+			@RequestParam("usingDrugs") String usingDrugs
+			, Model model) {
+		//usingDrugs를 받기 위한 리스트 생성
+		List<String> usingList = new ArrayList<>();
+		usingList.add(usingDrugs);
 		
-		log.info("addUsingDrugs joinForm = {}", joinForm);
+		//usersInfo에 세팅
+		usersInfo.setUsingDrugs(usingList);
 		
-		model.addAttribute("joinForm", joinForm);
-//		joinService.addUsingDrugs(joinForm);
+		log.info("usingList = {}", usingList);
+		log.info("usersInfo = {}", usersInfo);
+		UsersInfoForm usersInfoForm = new UsersInfoForm();
+		model.addAttribute("usersInfoForm", usersInfoForm);
+		
 		return "/users/join/addAllergy";
 	}
 
@@ -150,7 +158,8 @@ public class JoinController {
 	 */
 	@GetMapping("/addAllergy")
 	public String addAllergyForm(Model model) {
-		model.addAttribute("joinForm", joinForm);
+		UsersInfoForm usersInfoForm = new UsersInfoForm();
+		model.addAttribute("usersInfoForm", usersInfoForm);
 		return "/users/join/addAllergy";
 	}
 	
@@ -162,13 +171,24 @@ public class JoinController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/joinSuccess")
-	public String addAllergy(@RequestParam("allergy") String allergy
-						, Model model) {
+	public String addAllergy(@RequestParam("allergy") String allergy) {
 		
-		log.info("addAllergy joinForm = {}", joinForm);
+		//usingDrugs를 받기 위한 리스트 생성
+		List<String> allergyList = new ArrayList<>();
+		allergyList.add(allergy);
 		
-		model.addAttribute("joinForm", joinForm);
-//		joinService.addAllergy(joinForm);
+		//usersInfo에 세팅
+		usersInfo.setAllergy(allergyList);
+		
+		//usersInfo저장하기 위한 List 생성
+		List<UsersInfo> familyInfoList = new ArrayList<UsersInfo>();
+		//familyInfoList에 usersInfo저장하기 위한 List 생성
+		familyInfoList.add(usersInfo);
+		
+		log.info("allergyList = {}", allergyList);
+		log.info("usersInfo = {}", usersInfo);
+		log.info("familyInfoList = {}", familyInfoList);
+
 		return "redirect:/login";
 	}
 }

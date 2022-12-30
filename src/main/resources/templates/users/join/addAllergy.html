@@ -7,7 +7,7 @@
 <body>
 	<h1>알러지 추가</h1>
 	<div>
-		<form action="/join/joinSuccess" method="post" th:object="${joinForm}">
+		<form action="/join/joinSuccess" method="post" th:object="${usersInfoForm}">
 			<div>
 				<label for="allergy">알레르기</label>
 				<input th:field="*{allergy}" id="allergy" name="allergy" />
