@@ -21,7 +21,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class JoinForm {
 	private String userEmail;	//이메일
+	private String emailCodeCheck;	//이메일 인증 코드
 	private String userPw;		//비밀번호
+	private String reJoinPw;		//비밀번호 재확인
 	private String userNick;	//닉네임
 	private String joinDate;	//가입일
 	private Integer userGrade;	//회원등급
@@ -35,21 +37,4 @@ public class JoinForm {
 	private List<String> allergy;		//알러지
 	
 	private Integer weight;		//체중
-	
-	private String emailCodeCheck;	//이메일 인증 코드
-	private String reJoinPw;		//비밀번호 재확인
-	
-	
-	/**
-	 * 회원가입 시 필요한 이메일 인증 코드와 비밀번호 재확인을 담는 생성자
-	 * @param emailCodeCheck
-	 * @param reJoinPw
-	 * 
-	 * 담당자 : 빙예은
-	 
-	JoinForm(String emailCodeCheck, String reJoinPw) {
-		this.emailCodeCheck = emailCodeCheck;
-		this.reJoinPw = reJoinPw;
-	}
-	*/
 }

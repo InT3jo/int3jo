@@ -20,6 +20,7 @@ public class JoinService {
 	/**
 	 * 기본 정보 가입 서비스가 이뤄지는 메소드
 	 * joinForm으로 받은 데이터 Users DB에 insert 실행
+	 * 유효성 검사 해야함
 	 * 
 	 * @param joinForm
 	 * @return Integer (성공 1, 실패 0)

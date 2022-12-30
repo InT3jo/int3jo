@@ -7,7 +7,7 @@
 <body>
 	<h1>Join Page</h1>
 	<div>
-		<form action="/join" method="post" th:object="${joinForm}">
+		<form action="/join/welcome" method="post" th:object="${joinForm}">
 			<div>
 				<label for="userEmail">이메일</label>
 				<input type="email" name="userEmail" id="userEmail" th:field="*{userEmail}"/>

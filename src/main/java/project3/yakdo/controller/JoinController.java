@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.service.users.JoinService;
 import project3.yakdo.validation.form.JoinForm;
 /**
@@ -27,12 +28,14 @@ import project3.yakdo.validation.form.JoinForm;
 @Controller
 @RequestMapping("/join")
 @RequiredArgsConstructor
-public class SignUpController {
+public class JoinController {
 
 	private final JoinService joinService;
+	
 	JoinForm joinForm = new JoinForm();
-	List<String> usingDrugList = new ArrayList<String>();
-	List<String> allergyList = new ArrayList<String>();
+	List<UsersInfo> familyInfoList = new ArrayList<UsersInfo>();
+//	List<String> usingDrugList = new ArrayList<String>();
+//	List<String> allergyList = new ArrayList<String>();
 	
 	
 	/**
@@ -55,36 +58,19 @@ public class SignUpController {
 	 * 
 	 * 담당자 : 빙예은
 	 */
-	@PostMapping
-	public String signUp(@RequestParam("userEmail") String userEmail
-					, @RequestParam("userPw") String userPw
-					, @RequestParam("userNick") String userNick
-					, Model model) {
-		joinForm.setUserEmail(userEmail);
-		joinForm.setUserPw(userPw);
-		joinForm.setUserNick(userNick);
-		
+	@PostMapping("/welcome")
+	public String signUp(@ModelAttribute JoinForm joinForm) {
 		log.info("signUp joinForm = {}", joinForm);
-		model.addAttribute("joinForm", joinForm);
 		
-//		joinService.signUp(joinForm);
-		return "/users/join/welcome";
+		Integer result = joinService.signUp(joinForm);
+		if(result == 1) {
+			return "/welcome";
+		}
+		return "redirect:/join";
 	}
 	
 	/**
-	 * 기본 정보로 회원가입 성공하면 띄워줄 환영 페이지화면
-	 * @param joinForm
-	 * @return
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@GetMapping("/welcome")
-	public String welcome () {
-		return "/users/join/welcome";
-	}
-	
-	
-	/**
+	 * 회원 가입 후 
 	 * 본인 및 가족 건강 정보 추가 창
 	 * @param model
 	 * @return
@@ -105,7 +91,7 @@ public class SignUpController {
 	 * 
 	 * 담당자 : 빙예은
 	 */
-	@PostMapping("/addInfo")
+	@PostMapping("/addUsingDrugs")
 	public String addInfo(@RequestParam("familyNo") String familyNo
 						, @RequestParam("birth") String birth
 						, @RequestParam("gender") String gender
@@ -121,7 +107,7 @@ public class SignUpController {
 		log.info("addInfoForm joinForm = {}", joinForm);
 		
 //		joinService.saveInfo(joinForm);
-		return "/users/join/addInfo";
+		return "/users/join/addUsingDrugs";
 	}
 
 	/**
@@ -144,17 +130,15 @@ public class SignUpController {
 	 * 
 	 * 담당자 : 빙예은
 	 */
-	@PostMapping("/addUsingDrugs")
+	@PostMapping("/addAllergy")
 	public String addUsingDrugs(@RequestParam("usingDrugs") String usingDrug
 							, Model model) {
-		usingDrugList.add(usingDrug);
-		joinForm.setUsingDrugs(usingDrugList);
 		
 		log.info("addUsingDrugs joinForm = {}", joinForm);
 		
 		model.addAttribute("joinForm", joinForm);
 //		joinService.addUsingDrugs(joinForm);
-		return "/users/join/addUsingDrugs";
+		return "/users/join/addAllergy";
 	}
 
 	/**
@@ -177,16 +161,14 @@ public class SignUpController {
 	 * 
 	 * 담당자 : 빙예은
 	 */
-	@PostMapping("/addAllergy")
+	@PostMapping("/joinSuccess")
 	public String addAllergy(@RequestParam("allergy") String allergy
 						, Model model) {
-		allergyList.add(allergy);
-		joinForm.setUsingDrugs(allergyList);
 		
 		log.info("addAllergy joinForm = {}", joinForm);
 		
 		model.addAttribute("joinForm", joinForm);
 //		joinService.addAllergy(joinForm);
-		return "/users/join/addAllergy";
+		return "redirect:/login";
 	}
 }
