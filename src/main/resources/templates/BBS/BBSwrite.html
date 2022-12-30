@@ -10,10 +10,22 @@
 </style>
 </head>
 <body>
+<script type="text/javascript">
+function writeOk(){
+	if(confirm('등록하시겠습니까?')){
+		document.getElementById("writeBBS").submit();
+	}else{
+		alert("등록이 취소되었습니다.");
+	}
+	return false;
+	
+}
+</script>
+
 	<h1>BBS write Page</h1>
 	글쓰는페이지
 
-	<form action="" method="post" th:object="${BBS}">
+	<form id="writeBBS" action="" method="post" th:object="${BBS}">
 	
 		<label> 
 		<input type="hidden" name="userNo" th:value="${user.userNo}">
@@ -30,7 +42,7 @@
 
 
 		<div>
-			<button type="submit">등록하기</button>
+			<button type="button" onclick="writeOk()">등록하기</button>
 		</div>
 	</form>
 

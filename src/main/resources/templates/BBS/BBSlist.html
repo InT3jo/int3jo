@@ -28,41 +28,14 @@
 		</tbody>
 	</table>
 
-
-	<nav style="text-align: center;">
-		<!--표에 사용될 변수값 초기화 -->
-		<!--             th:with 안에 /n(줄띄우기) 들어가면 안됨 -->
-		<ul class="pagination"
-			th:with="start=${T(Math).floor(bbsListZero.number/10)*10+1},last=(${start+9<bbsListZero.totalPages?start+9:bbsListZero.totalPages})">
-			<th:block
-				th:with="firstAddr=@{/chart(page=1)},prevAddr=@{/chart(page=${bbsListZero.number})},nextAddr=@{/chart(page=${bbsListZero.number+2})},lastAddr=@{/chart(page=${bbsListZero.totalPages})}">
-				<li><a th:href="${firstAddr}" aria-label="First"> <span
-						aria-hidden="true">First</span>
-				</a></li>
-				<!-- 이전 페이지로 가기 버튼 -->
-				<li th:class="${bbsListZero.first} ? 'disabled'"><a
-					th:href="${bbsListZero.first} ? '#' :${prevAddr}"
-					aria-label="Previous"> <span aria-hidden="true">&lt;</span>
-				</a></li>
-				<!--1,2,3,4,.. 등 페이지-->
-				<li th:each="page: ${#numbers.sequence(start, last)}"
-					th:class="${page == bbsListZero.number + 1} ? 'active'"><a
-					th:text="${page}" th:href="@{/chart(page=${page})}"></a></li>
-				<!--다음 페이지로 -->
-				<li th:class="${bbsListZero.last} ? 'disabled'"><a
-					th:href="${bbsListZero.last} ? '#' : ${nextAddr}" aria-label="Next">
-						<span aria-hidden="true">&gt;</span>
-				</a></li>
-				<!--맨 마지막 페이지로 이동 -->
-				<li><a th:href="${lastAddr}" aria-label="Last"> <span
-						aria-hidden="true">Last</span>
-				</a></li>
-			</th:block>
-		</ul>
-	</nav>
-
-
-
+<!-- 검색 -->
+<div>
+	<select>
+		<option>제목</option>
+		<option>내용</option>
+	</select>
+	<input type="text"><button>검색</button>
+</div>	
 
 	<div th:if="${user}!=null">
 		<button th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>

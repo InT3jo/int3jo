@@ -5,6 +5,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<script type="text/javascript">
+function showBBSAdmin(bbsNo) {
+	if (confirm('복구하시겠습니까?')) {
+	location.href = "/admin/recover/" + bbsNo;
+	}else{
+		alert("복구가 취소되었습니다.")
+	}
+}
+</script>
+
 	<h1>게시판 관리 페이지</h1>
 	
 	
@@ -56,12 +67,17 @@
 				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
 				<td th:text=${BBS.bbsDate}></td>
 				<td th:text="${BBS.userNick}"></td>
-				<td><button th:onclick="|location.href='@{/admin/recover/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">복구</button></td>
+				<td>
+				<button th:name="${BBS.bbsNo}"
+				th:onclick="showBBSAdmin(this.getAttribute('name'))">
+				복구</button>
+				</td>
 			</tr>			
 		</tbody>
 		</table>
 		
-		
+		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">사용자 게시판</button>
+		<button th:onclick="|location.href='@{/admin}'|">관리자 홈</button>
 		
 </body>
 </html>
