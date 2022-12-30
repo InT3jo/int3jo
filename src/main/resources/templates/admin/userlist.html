@@ -10,7 +10,7 @@
 	<p>관리자 권한 부여 USER_GRADE 운영진:0 , 관리자:1 , 일반회원:2 </p>
  	<p>USER_STATUS 정상상태:0 블락상태:1</p> 
 	
-	<table border="1" width="800" height="100">
+	<table border="1" width="1000" height="100">
 		<thead>
 			<tr>
 				<th>회원번호</th>
@@ -19,9 +19,11 @@
 				<th>가입일</th>
 				<th>회원등급</th>
 				<th>상태</th>
+				<th>등급/상태 관리</th>
 				<th>탈퇴일</th>
 				<th>블락사유</th>
-				<th>블락</th>
+<!-- 				<th>블락</th> -->
+<!-- 				<th>블락복구</th> -->
 				
 			</tr>
 		</thead>
@@ -33,9 +35,11 @@
 				<td th:text=${Users.joinDate}></td>
 				<td th:text=${Users.userGrade}></td>
 				<td th:text=${Users.userStatus}></td>
+				<td><button th:onclick="|location.href='@{/admin/updateGrade/{userNo}(userNo=${Users.userNo})}'|">관리</button></td>
 				<td th:text=${Users.leaveDate}></td>
 				<td th:text=${Users.blockReason}></td>
-				<td><button>블락</button></td>
+<!-- 				<td><button th:onclick="|location.href='@{/admin/updateUserStatus/{userNo}(userNo=${Users.userNo})}'|">블락</button></td> -->
+<!-- 				<td><button>복구</button></td> -->
 				
 			</tr>			
 		</tbody>

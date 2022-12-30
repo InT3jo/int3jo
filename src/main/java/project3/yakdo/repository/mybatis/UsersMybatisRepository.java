@@ -72,4 +72,38 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 	
+	//관리자 페이지 회원관리 관련 - 작성자: 배고운 
+	
+	//Users테이블에서 userNo로 회원찾기 / 작성자: 배고운 
+	@Override
+	public Users selectByUserNoInUsersT(Integer userNo) {
+		// TODO Auto-generated method stub
+		Users user = usersMapper.selectByUserNoInUsersT(userNo);
+		return user;
+	}
+	
+	
+	//회원등급수정 / 작성자: 배고운 
+	@Override
+	public boolean updateUserGrade(Integer userNo, Users users) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		usersMapper.updateUserGrade(userNo, users);
+		return result;
+	}
+
+	
+	//회원블락처리 / 작성자 : 배고운
+	@Override
+	public boolean updateUserStatus(Integer userNo, Users users) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		usersMapper.updateUserStatus(userNo, users);
+		return result;
+	}
+	
+	
+
+
+	
 }

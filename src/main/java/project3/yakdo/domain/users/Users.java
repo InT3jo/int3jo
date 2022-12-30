@@ -4,9 +4,11 @@ import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Users {
 	private Integer userNo;			//회원번호
 	private String userEmail;		//이메일

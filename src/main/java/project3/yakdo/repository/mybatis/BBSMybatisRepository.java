@@ -61,6 +61,7 @@ public class BBSMybatisRepository implements BBSRepository {
 	
 	@Override
 	@Transactional
+	//게시글 수정
 	public boolean updateBBS(int bbsNo, BBS bbs) {
 		// TODO Auto-generated method stub
 		boolean result = false;
