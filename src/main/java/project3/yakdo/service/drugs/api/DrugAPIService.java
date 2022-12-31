@@ -395,12 +395,14 @@ public class DrugAPIService {
 	private int setDurByAPI(List<Dur> durList) {
 		int result = drugRepository.insertDur(durList);
 		durList.clear(); // 메모리 회수 필요
+		log.info("DUR DB insert 완료");
 		return result;
 	}
 	
 	private int setDurCombiByAPI(List<DurCombi> durList) {
 		int result = drugRepository.insertDurCombi(durList);
 		durList.clear(); // 메모리 회수 필요
+		log.info("DUR_Combi DB insert 완료");
 		return result;
 	}
 	
@@ -413,7 +415,7 @@ public class DrugAPIService {
 
 	private int setFindDrugByAPI(List<FindDrug> findDrugList) {
 		int result = drugRepository.insertFindDrug(findDrugList);
-		log.info("FindDrug DB(FindDrug) insert 완료");
+		log.info("FindDrug DB insert 완료");
 		return result;
 	}
 }

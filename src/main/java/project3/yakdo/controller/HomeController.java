@@ -49,4 +49,13 @@ public class HomeController {
 		
 		return "/home";
 	}
+	
+	/**
+	 * 점검중(DB 업데이트) 페이지
+	 * 담당자: 홍준표
+	 */
+	@GetMapping("/inspection")
+	public String inspection() {
+		return "/inspection";
+	}
 }

@@ -94,7 +94,7 @@ public class LoginController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/logout")
-	public String logout(HttpServletRequest req) {
+	public String logout(HttpServletRequest req, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
 		//session없을 때 생성되지 않게 막아주기
 		HttpSession session = req.getSession(false); // 다시 세션만들어지지 않게 막기
 		
@@ -104,7 +104,7 @@ public class LoginController {
 
 		log.info("로그아웃 성공");
 		
-		return "redirect:/";
+		return "redirect:"+redirectURL;
 	}
 	
 }

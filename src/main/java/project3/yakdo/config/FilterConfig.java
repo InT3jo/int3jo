@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import jakarta.servlet.Filter;
+import project3.yakdo.filter.InspectionFilter;
 import project3.yakdo.filter.LoginFilter;
 
 /**
@@ -26,9 +27,22 @@ public class FilterConfig {
 		FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<Filter>();
 		
 		filterRegistrationBean.setFilter(new LoginFilter());
-		filterRegistrationBean.setOrder(1);
+		filterRegistrationBean.setOrder(2);
 		filterRegistrationBean.addUrlPatterns("/*");
 		
+		return filterRegistrationBean;
+	}
+	
+	/**
+	 * 점검 관련 필터
+	 * 담당자: 홍준표
+	 */
+	@Bean
+	public FilterRegistrationBean<Filter> inspectionFilter(){
+		FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<Filter>();
+		filterRegistrationBean.setFilter(new InspectionFilter());
+		filterRegistrationBean.setOrder(1);
+		filterRegistrationBean.addUrlPatterns("/*");
 		return filterRegistrationBean;
 	}
 }
