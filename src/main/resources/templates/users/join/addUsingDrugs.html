@@ -7,54 +7,49 @@
 <body>
 	<h1>복용 중인 약물 추가</h1>
 	<div>
-		<form action="/join/addAllergy" method="post" th:object="${usersInfoForm}">
-			<div>
-				<label for="usingDrugs">복용 중인 약</label>
-				<input th:field="*{usingDrugs}" id="usingDrugs" name="usingDrugs" />
-				<button type="button">검색</button>
-				<button type="button" onclick="addDrug()">추가</button>
-			</div>
-			<div>
-				<button type="button" th:onclick="|location.href='@{/join/addInfo}'|">이전</button>
-				<button type="submit">다음</button>
-			</div>
-		</form>
+		<div>
+			<label for="usingDrugs">복용 중인 약</label>
+			<input id="usingDrugs" name="usingDrugs" />
+			<button type="button">검색</button>
+			<button type="button" onclick="addDrug()">추가</button>
+		</div>
+		<div>
+			<form action="/join/addAllergy" method="post" th:object="${usersInfoForm}">
+				<div id="addDrugs">
+				</div>
+				<div>
+					<button type="button" th:onclick="|location.href='@{/join/addInfo}'|">이전</button>
+					<button type="submit">다음</button>
+				</div>
+			</form>
+		</div>
 	</div>
 	
 	
 	<script>
 		function addDrug() {
-			//정보 추가할 테이블 element 찾기
-			const infoBody = document.getElementById('infoBody');
+			//input 태그 감쌀 
+			const addDrugs = document.getElementById('addDrugs');
+			//테이블 지우고 innerHTML로 다시 만들기
+			const inputValue = document.getElementById('usingDrugs').value;
+				addDrugs.innerHTML += '<label for="'+inputValue+'">'+inputValue+'</lable><input id="usingList'+inputValue+'" type="hidden" value="'+inputValue+'"/><button>삭제</button><br>'
+		}	
+// 			Cell에 추가할 value 찾기
+// 			const familyValue = document.getElementById('familyNo').value;
+// 			const genderValue = document.getElementById('gender').value;
+// 			const birthValue = document.getElementById('birth').value;
+// 			const weightValue = document.getElementById('weight').value;
 			
-			//Cell에 추가할 value 찾기
-			const familyValue = document.getElementById('familyNo').value;
-			const genderValue = document.getElementById('gender').value;
-			const birthValue = document.getElementById('birth').value;
-			const weightValue = document.getElementById('weight').value;
-			
-			//if(familyValue != "" && genderValue != "" && birthValue != "" && weightValue != "") {
-				//행 추가
-				const newRow = infoBody.insertRow();
+// 			//if(familyValue != "" && genderValue != "" && birthValue != "" && weightValue != "") {
+// 				//행 추가
+// 				const newRow = infoBody.insertRow();
 				
-				//새 행에 Cell 추가
-				const familyNew = newRow.insertCell(0);
-				const genderNew = newRow.insertCell(1);
-				const birthNew = newRow.insertCell(2);
-				const weightNew = newRow.insertCell(3);
+// 				//새 행에 Cell 추가
+// 				const familyNew = newRow.insertCell(0);
+// 				const genderNew = newRow.insertCell(1);
+// 				const birthNew = newRow.insertCell(2);
+// 				const weightNew = newRow.insertCell(3);
 				
-				//Cell에 값 추가
-				//usingDrugs, allergy 합치기
-				//table에 input 추가해서,, 값 넣어보기
-				//id는 for문 돌리면서 하면 될 거 같은데,,
-				//그렇게 버튼 누르면 post방식으로 넘어갈 거 같음..!
-				
-				//테이블 지우고 innerHTML로 다시 만들기
-				//div > table > value > input
-				familyNew.innerHTML = familyValue+'<input id="familyNo'+temp+'" type="hidden" value="'+familyValue+'"/>'
-				
-				document.getElementById('infoTable').style.display='block';
-		}
 	</script>
 	
 </body>

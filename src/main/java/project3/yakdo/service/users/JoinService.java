@@ -1,9 +1,6 @@
 package project3.yakdo.service.users;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -49,9 +46,6 @@ public class JoinService {
 	 */
 //	@Transactional
 	public Integer saveInfo(JoinForm joinForm) {
-		List<String> familyInfoList = new ArrayList<String>();
-		
-		
 		Integer result = usersRepository.insertUsersInfo(joinForm);
 		if(result == 1) {
 			log.info("가족 정보 등록 완료");
@@ -98,25 +92,4 @@ public class JoinService {
 		log.info("알러지 추가 실패");
 		return 0;
 	}
-	
-	/**
-	 * userInfo에
-	 * userNo
-	 * familyNo
-	 * birth
-	 * gender
-	 * usingDrugs
-	 * allergy
-	 * weight
-	 * 추가하는 메소드
-	 *
-	 * @return
-	 
-	public Integer addFamilyInfo (UsersInfo usersInfo) {
-//		insert,,,userinfo에 별도로 해야하는가,,
-		Integer result = usersRepository.insertFamilyInfo(usersInfo);
-		
-		return result;
-	}
-	*/
 }

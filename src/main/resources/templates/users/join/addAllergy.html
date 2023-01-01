@@ -15,14 +15,13 @@
 			</div>
 			<div>
 				<button type="button" th:onclick="|location.href='@{/join/addUsingDrugs}'|">이전</button>
-				<button type="button" th:onclick="|location.href='@{/join/addInfo}'|">다른 가족 추가</button>
-				<button type="submit">추가완료</button>
+				<button type="button">추가완료</button>
 			</div>
 		</form>
 	</div>
 	
 	<script>
-		function addYesOrNo() {
+		function joinOrHome() {
 			if(confirm('다른 가족을 추가하시겠습니까?')) {
 				location.href='주소';
 			} else {

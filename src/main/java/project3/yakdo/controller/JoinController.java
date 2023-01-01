@@ -32,9 +32,8 @@ import project3.yakdo.validation.form.UsersInfoForm;
 public class JoinController {
 
 	private final JoinService joinService;
-	
+	//UsersInfoForm으로 받아온 데이터 저장
 	private final UsersInfo usersInfo = new UsersInfo();
-	
 	
 	
 	/**
@@ -81,7 +80,6 @@ public class JoinController {
 	public String addInfoForm(Model model) {
 		UsersInfoForm usersInfoForm = new UsersInfoForm();
 		model.addAttribute("usersInfoForm", usersInfoForm);
-		
 		return "/users/join/addInfo";
 	}
 	
@@ -180,14 +178,8 @@ public class JoinController {
 		//usersInfo에 세팅
 		usersInfo.setAllergy(allergyList);
 		
-		//usersInfo저장하기 위한 List 생성
-		List<UsersInfo> familyInfoList = new ArrayList<UsersInfo>();
-		//familyInfoList에 usersInfo저장하기 위한 List 생성
-		familyInfoList.add(usersInfo);
-		
 		log.info("allergyList = {}", allergyList);
 		log.info("usersInfo = {}", usersInfo);
-		log.info("familyInfoList = {}", familyInfoList);
 
 		return "redirect:/login";
 	}
