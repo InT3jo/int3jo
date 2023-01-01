@@ -27,17 +27,17 @@
 			<form action="drugs" method="post">
 				<input id="mainSearchInput" type="text" name="searchAll" placeholder="통합검색"/>
 				<button id="mainSearchBtn" type="submit">검색</button>
-				<button id="mainSearchMoreBtn" type="button" th:onclick="|location='@{/drugs}'|">상세검색</button>
+				<button id="mainSearchMoreBtn" type="button" th:onclick="location.href='/drugs'">상세검색</button>
 			</form>
 		</div>
 		<div class="mainNavBox">
-			<span th:if="${user}==null" id="mainNavLogin" th:onclick="|location='@{/login}'|">로그인</span>
+			<span th:if="${user}==null" id="mainNavLogin" onclick="location.href='/login'">로그인</span>
 			<span th:if="${user}!=null" id="mainNavLogin" onclick="logout()">로그아웃</span>
-			<span id="mainNavJoin" th:onclick="|location='@{/join}'|">회원가입</span>
-			<span id="mainNavBBS" th:onclick="|location='@{/BBS/BBSlist}'|">이용문의</span><br>
+			<span id="mainNavJoin" onclick="location.href='/join'">회원가입</span>
+			<span id="mainNavBBS" onclick="location.href='/BBS/BBSlist'">이용문의</span><br>
 		</div>
 		<div style="text-align: right; margin: 20px;">
-			<span th:if="${user}!=null and ${user.userGrade}<2" id="mainNavAdmin" th:onclick="|location='@{/admin}'|">관리자페이지</span>
+			<span th:if="${user}!=null and ${user.userGrade}<2" id="mainNavAdmin" onclick="location.href='/admin'">관리자페이지</span>
 		</div>
 		<div>
 			<span class="mainWelcome" th:if="${user}!=null">

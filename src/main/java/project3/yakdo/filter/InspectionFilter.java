@@ -30,7 +30,7 @@ public class InspectionFilter implements Filter {
 		String uri = req.getRequestURI();
 		if(!PatternMatchUtils.simpleMatch(InspectionWhiteList, uri)) {
 			HttpSession session = req.getSession(false);
-			if (session != null && ((String)session.getAttribute(SessionVar.INSPECTION)).equals("점검중")) {
+			if (session != null && session.getAttribute(SessionVar.INSPECTION) != null && ((String)session.getAttribute(SessionVar.INSPECTION)).equals("점검중")) {
 				resp.sendRedirect("/inspection");
 				return;
 			}
