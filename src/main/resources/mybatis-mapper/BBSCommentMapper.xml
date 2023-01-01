@@ -11,10 +11,11 @@
 	<!-- 댓글쓰기 -->
 
 	<insert id="insertBBSCom" parameterType="bbsComment">
-	<selectKey keyProperty="comSeq" resultType="java.lang.Integer"
+	<!--글번호 댓글번호 조합으로 특정가능 시퀀스 컬럼 삭제, insert 수정 12/30 21:40--> 
+	<!--<selectKey keyProperty="comSeq" resultType="java.lang.Integer"
 		order="BEFORE">
 		select COMPK.nextVal as com_seq from dual
-		</selectKey>
+		</selectKey>-->
 	insert into bbs_comment
 		(
 		bbs_no,
@@ -22,8 +23,8 @@
 		user_no,
 		com_content,
 		com_date,
-		com_show,
-		com_seq
+		com_show
+<!--		com_seq-->
 		)
 		values
 		(
@@ -33,8 +34,8 @@
 <!-- 		userNo 일단 테스트로 1넣고 나중에 로그인 정보에서 가져와야함  -->
 		#{comContent},
 		sysdate,
-		0,
-		#{comSeq}
+		0
+	<!--	#{comSeq}-->
 		)
 	</insert>
 

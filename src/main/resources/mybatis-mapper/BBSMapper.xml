@@ -149,6 +149,7 @@
 		from bbs
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
+		and BBS_show=0
 		order by BBS_no desc
 	</select>
 	

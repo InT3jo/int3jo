@@ -1,31 +1,66 @@
 package project3.yakdo.domain.BBS;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import lombok.Data;
-@Component
-@Data
 public class Criteria {
-	private int pageNum;
-	private int amount;
-	private String type;
-	private String keyword;
-	
-	//Criteria 생성자
-	public Criteria(int pageNum, int amount) {
-		this.pageNum = pageNum;
-		this.amount = amount;
-	}
-	
-	
-	//Criteria 기본 생성자
-	public Criteria() {
-		this(1,10);
-	}
-	
-	
-	
-	
+	   private int page;
+	   private int perPageNum;
+	   private int rowStart;
+	   private int rowEnd;
+	   
+	   public Criteria()
+	   {
+	    this.page = 1;
+	    this.perPageNum = 10;
+	   }
+
+	   public void setPage(int page)
+	   {
+	    if (page <= 0)
+	    {
+	     this.page = 1;
+	     return;
+	    }
+	    this.page = page;
+	   }
+
+	   public void setPerPageNum(int perPageNum)
+	   {
+	    if (perPageNum <= 0 || perPageNum > 100)
+	    {
+	     this.perPageNum = 10;
+	     return;
+	    }
+	    this.perPageNum = perPageNum;
+	   }
+
+	   public int getPage()
+	   {
+	    return page;
+	   }
+
+	   public int getPageStart()
+	   {
+	    return (this.page - 1) * perPageNum;
+	   }
+
+	   public int getPerPageNum()
+	   {
+	    return this.perPageNum;
+	   }
+
+	   @Override
+	   public String toString() {
+	    return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ""
+	      + ", rowStart=" +  getRowStart() + ", rowEnd=" + getRowEnd()
+	      + "]";
+	   }
+
+	   public int getRowStart() {
+	    rowStart = ((page - 1) * perPageNum) + 1;
+	    return rowStart;
+	   }
+
+	   public int getRowEnd() {
+	    rowEnd = rowStart + perPageNum - 1;
+	    return rowEnd;
+	   }
 }
