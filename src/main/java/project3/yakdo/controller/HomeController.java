@@ -56,6 +56,6 @@ public class HomeController {
 	 */
 	@GetMapping("/inspection")
 	public String inspection() {
-		return "/inspection";
+		return "error/inspection";
 	}
 }

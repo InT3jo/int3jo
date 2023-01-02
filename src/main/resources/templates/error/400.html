@@ -2,9 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="refresh" content="5; url=/">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/error.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<title>약도 - Error:400</title>
 </head>
 <body>
-	<h1>400에라</h1>
+	<div class="d-CSS center">
+		<div th:replace="home_component.html :: infoHeader"></div>
+	</div>
+	<div class="errorBox">
+		<div class="errorTitle">사이트에 연결할 수 없습니다.</div>
+		<div class="errorCode">Error Code : 400</div>
+		<div class="errorInfo">유효하지 않은 요청입니다.</div>
+		<div class="errorMove">(5초 뒤 메인페이지로 이동합니다.)</div>
+	</div>
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

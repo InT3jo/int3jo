@@ -2,10 +2,13 @@ package project3.yakdo.service.users;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.UsersRepository;
+import project3.yakdo.session.SessionVar;
 import project3.yakdo.validation.form.LoginForm;
 
 @Slf4j
@@ -26,5 +29,19 @@ public class LoginService {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 로그인 된 유저 정보를 찾아서 반환
+	 * @param: HttpServletRequest
+	 * @return: User
+	 */
+	public Users getLoginUser(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			return null;
+		}
+		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		return user;
 	}
 }

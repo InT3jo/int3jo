@@ -1,0 +1,79 @@
+@charset "UTF-8";
+.d-CSS{
+	margin:0px;
+	padding:5px;
+	display:inline-block;
+	position: relative;
+	box-sizing:border-box;
+	white-space: normal;
+	font-size: 15px;
+}
+.center{
+	text-align: center;
+}
+.errorBox{
+	padding: 10px 400px;
+}
+.errorTitle{
+	font-size:30px;
+	font-family: var(--Font-title1);
+	margin:10px;
+	margin-top:60px;
+}
+.errorCode{
+	font-size:20px;
+	font-family: var(--Font-title1);
+	color: var(--Signature-silver);
+	margin:10px;
+}
+.errorInfo{
+	font-size:20px;
+	font-family: var(--Font-title1);
+	color: var(--Signature-silver);
+	margin:10px;
+}
+.errorMove{
+	font-size:20px;
+	font-family: var(--Font-title1);
+	color: var(--Signature-silver);
+	margin:10px;
+	margin-bottom:60px;
+}
+.inspTitleBox{
+	margin-top: 100px;
+	width: 800px;
+	padding-left: 680px;
+}
+.inspTitle1{
+	color: var(--Signature-blue);
+	font-size: 30px;
+	font-weight: 1000;
+	font-family: var(--Font-title1);
+}
+.inspTitle2{
+	color: var(--Signature-silver);
+	font-size: 18px;
+	font-weight: 700;
+	font-family: var(--Font-title2);
+}
+.inspInfoBox{
+	padding-left: 200px;
+	padding-top: 150px;
+}
+.inspInfo1{
+	font-size: 40px;
+	font-weight: 700;
+	font-family: var(--Font-title1);
+	color: var(--Signature-blue);
+	margin: 10px;
+	margin-bottom: 40px;
+	padding-left: 230px;
+	width: 350px;
+	border-bottom: 1px solid var(--Signature-blue);
+}
+.inspInfo2{
+	font-size: 20px;
+	font-family: var(--Font-title1);
+	color: var(--Signature-silver);
+	margin: 10px;
+}

@@ -24,7 +24,7 @@ import project3.yakdo.repository.DrugsRepository;
 import project3.yakdo.service.drugs.api.DrugAPIService;
 import project3.yakdo.service.drugs.search.FindDrugForm;
 import project3.yakdo.service.drugs.search.FindDrugService;
-import project3.yakdo.service.drugs.temp.UserService;
+import project3.yakdo.service.users.LoginService;
 import project3.yakdo.session.SessionVar;
 
 @Slf4j // 마무리작업단계에서 제거예정
@@ -36,7 +36,7 @@ public class DrugsController {
 	private final DrugsRepository drugsRepository;
 	private final FindDrugService findDrugService;
 	private final DrugAPIService drugAPIService;
-	private final UserService userService;
+	private final LoginService loginService;
 
 	/**
 	 * 약품 상세검색창 담당자 : 홍준표
@@ -48,7 +48,7 @@ public class DrugsController {
 		model.addAttribute("uriHere", uriHere);
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = userService.getLoginUser(req);
+		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 
 		// 검색할 내용(폼)
@@ -78,7 +78,7 @@ public class DrugsController {
 		model.addAttribute("uriHere", uriHere);
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = userService.getLoginUser(req);
+		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 
 		// 폼에 따른 검사결과를 리스트방식으로 받아옴
@@ -106,7 +106,7 @@ public class DrugsController {
 		model.addAttribute("uriHere", uriHere);
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = userService.getLoginUser(req);
+		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 
 		// 선택된 약물정보
