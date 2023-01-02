@@ -2,6 +2,7 @@ package project3.yakdo.repository;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +18,6 @@ public interface UsersRepository {
 	public Integer insertUsersInfo(SignUpForm signUpForm);
 
 	//회원 가입 시 Users_Info_UsingDrugs에 insert 실행될 인터페이스
-//	public Integer insertUsingDrugs(Map<String, Object> usingDrugsMap);
 	public Integer insertUsingDrugs(SignUpForm signUpForm);
 	
 	//회원 가입 시 Users_Info_Allergy에 insert 실행될 인터페이스
@@ -37,8 +37,5 @@ public interface UsersRepository {
 	
 	//회원블락처리 / 작성자 : 배고운
 	public boolean updateUserStatus(@Param("userNo")Integer userNo, @Param("users")Users users);
-	
-	
-	
 
 }

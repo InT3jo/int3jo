@@ -19,11 +19,10 @@ public interface UsersMapper {
 	public Integer insertUsersInfo(SignUpForm signUpForm);
 
 	//회원 가입 시 Users_Info_UsingDrugs에 insert 실행될 인터페이스
-	public Integer insertUsingDrugs(Map<String, Object> usingDrugsMap);
-	public Integer insertUsingDrugs(SignUpForm signUpForm);
+	public Integer insertUsingDrugs(Map<String, Object> usingDrugMap);
 	
 	//회원 가입 시 Users_Info_Allergy에 insert 실행될 인터페이스
-	public Integer insertAllergy(SignUpForm signUpForm);
+	public Integer insertAllergy(Map<String, Object> usingDrugMap);
 	
 	public Users selectByUserEmail(String userEmail);
 

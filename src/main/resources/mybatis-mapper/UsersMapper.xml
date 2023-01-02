@@ -13,8 +13,7 @@
 	</insert>
 	
 	<insert id="insertUsingDrugs">
-		INSERT INTO users_info_using_drugs VALUES
-			 ( user_no_pk.currval, #{familyNo},#{usingDrugList} )
+		INSERT INTO users_info_using_drugs VALUES (user_no_pk.currval, #{familyNo},#{usingDrug})
 	</insert>
 	
 	<insert id="insertAllergy">
