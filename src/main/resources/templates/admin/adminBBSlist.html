@@ -5,45 +5,79 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<script type="text/javascript">
+function showBBSAdmin(bbsNo) {
+	if (confirm('복구하시겠습니까?')) {
+	location.href = "/admin/recover/" + bbsNo;
+	}else{
+		alert("복구가 취소되었습니다.")
+	}
+}
+</script>
+
 	<h1>게시판 관리 페이지</h1>
 	
-	게시글 답변,삭제,복구
 	
-	<p>BBS_show 0 (게시) 현재 게시되는 게시글 목록 - 답변, 댓글 관리 </p>
+	게시글 관리페이지에서는 복구 기능만?
 	
+	게시글 답변, 삭제는 게시판에서 게시글 들어가면 할 수 있음.  
 	
-	<p>본인이 삭제한 게시글 </p>
-	
-	
-	<p>관리자가 삭제한 게시글 - 복구</p>
-	 
 	<br/>
-	댓글  삭제, 복구는 게시글 들어가서 밑에 댓글 뜨면 그 페이지에서 지울 수 있게 ?
+	댓글  삭제는 게시글 들어가서 밑에 댓글 뜨면 그 페이지에서 지울 수 있음
 	
 	
-	
-	<table >
+	<h2>본인삭제 게시글</h2>
+	<table border="1" width="800" height="100">
 		<thead>
 			<tr>
 				<th>게시글번호</th>
 				<th>제목</th>
 				<th>게시일</th>
 				<th>작성자</th>
+				
 			</tr>
 		</thead>
-		
-	
-	
 		<tbody>
-			<tr th:each="BBS : ${BBSList}">
-				<td th:text=${BBS.BBS_no}></td>
-				<td><a th:href="@{|/BBS/${BBS.BBS_no}|}" th:text=${BBS.BBS_title}></a></td>
-				<td th:text=${BBS.BBS_date}></td>
-				<td>작성자</td>
+			<tr th:each="BBS : ${bbsListOne}">
+				<td th:text=${BBS.bbsNo}></td>
+				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
+				<td th:text=${BBS.bbsDate}></td>
+				<td th:text="${BBS.userNick}"></td>
+				
 			</tr>			
 		</tbody>
-	</table>
-	
-	
+		</table>
+		
+		
+		<h2>관리자 삭제 게시글</h2>
+	<table border="1" width="800" height="100">
+		<thead>
+			<tr>
+				<th>게시글번호</th>
+				<th>제목</th>
+				<th>게시일</th>
+				<th>작성자</th>
+				<th>복구</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="BBS : ${bbsListTwo}">
+				<td th:text=${BBS.bbsNo}></td>
+				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
+				<td th:text=${BBS.bbsDate}></td>
+				<td th:text="${BBS.userNick}"></td>
+				<td>
+				<button th:name="${BBS.bbsNo}"
+				th:onclick="showBBSAdmin(this.getAttribute('name'))">
+				복구</button>
+				</td>
+			</tr>			
+		</tbody>
+		</table>
+		
+		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">사용자 게시판</button>
+		<button th:onclick="|location.href='@{/admin}'|">관리자 홈</button>
+		
 </body>
 </html>

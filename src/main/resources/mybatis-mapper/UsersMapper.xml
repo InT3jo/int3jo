@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="project3.yakdo.repository.mybatis.UsersMapper">
 	<!-- 회원가입 시 users, users_info_allergy, users_info_using_drugs 정보insert -->
 	<insert id="insertUsers">
 		INSERT INTO users VALUES (user_no_pk.NEXTVAL, #{userEmail}, #{userPw}, #{userNick}, sysdate, 2, 0, null, null)
 	</insert>
-	
+
 	<insert id="insertUsersInfo">
 		INSERT INTO users_info VALUES (user_no_pk.currval, #{familyNo}, #{birth}, #{gender}, #{weight})
 	</insert>
 	
-<!-- 		INSERT users_info_using_drugs VALUES (user_no_pk.currval, #{familyNo}, #{usingDrugs}) -->
 	<insert id="insertUsingDrugs">
-		<foreach collection="usingDrugList" item="usingDrugList">
 		INSERT INTO users_info_using_drugs VALUES
 			 ( user_no_pk.currval, #{familyNo},#{usingDrugList} )
-		</foreach>
 	</insert>
 	
 	<insert id="insertAllergy">
@@ -29,35 +26,57 @@
 	<!-- select -->
 	<select id="selectByUserEmail" parameterType="String" resultType="Users">
 		SELECT user_no, user_email, user_pw, user_nick, join_date
-		                , user_grade, user_status, leave_date, block_reason
+		,
+		user_grade, user_status, leave_date, block_reason
 		FROM users
-		WHERE user_email = #{userEmail} AND USER_STATUS = 0
+		WHERE
+		user_email = #{userEmail} AND USER_STATUS = 0
 	</select>
-	
-<!-- 	<select id="selectAllUsers" resultType="Users"> -->
-<!-- 		SELECT user_no, user_email, user_pw, user_nick, join_date -->
-<!-- 		                , user_grade, user_status, leave_date, block_reason -->
-<!-- 		FROM users -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectByUserNo" parameterType="Integer" resultType="UsersInfo"> -->
-<!-- 		SELECT user_no, family_no, birth, gender, using_drugs -->
-<!-- 				, allergy, weight -->
-<!-- 		FROM users_info -->
-<!-- 		WHERE user_no = #{userNo} -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectAllUsersInfo" resultType="UsersInfo"> -->
-<!-- 		SELECT user_no, family_no, birth, gender, weight -->
-<!-- 		FROM users_info -->
-<!-- 	</select> -->
-	
-<!-- 	<delete id="deleteAllUsersInfo"> -->
-<!-- 		DELETE FROM users_info -->
-<!-- 	</delete> -->
 
-<!-- 	<delete id="deleteAllUsers"> -->
-<!-- 		DELETE FROM users -->
-<!-- 	</delete> -->
-	
+	<select id="selectAllUsers" resultType="Users">
+		SELECT user_no,
+		user_email, user_pw, user_nick, join_date
+		, user_grade, user_status,
+		leave_date, block_reason
+		FROM users
+	</select>
+
+	<delete id="deleteAllUsers">
+		DELETE FROM users
+	</delete>
+
+
+	<!-- 관리자 페이지 회원관리 관련 / 작성자: 배고운 -->
+
+
+
+	<!-- Users테이블에서 user_no로 회원 찾기 / 작성자 : 배고운 -->
+
+	<select id="selectByUserNoInUsersT" resultType="Users">
+		select * from
+		users where user_no = #{userNo}
+	</select>
+
+
+
+	<!-- 회원등급수정 / 작성자 : 배고운 -->
+
+	<update id="updateUserGrade" parameterType="Users">
+		update users
+		set
+		user_grade = #{updateUser.userGrade},
+		user_status = #{updateUser.userStatus},
+		block_reason = #{updateUser.blockReason}
+		where user_no = #{userNo}
+	</update>
+
+
+	<!-- 회원블락처리 / 작성자 : 배고운 -->
+	<update id="updateUserStatus" parameterType="Users">
+		update users
+		set
+		user_status = {updateUser.userStatus}
+		block_reason = {updateUser.blockReason}
+		where user_no = #{userNo}
+	</update>
 </mapper>

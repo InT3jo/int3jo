@@ -24,5 +24,6 @@ public class BBS {
 	//option
 	private String userNick;
 	
+	
 
 }

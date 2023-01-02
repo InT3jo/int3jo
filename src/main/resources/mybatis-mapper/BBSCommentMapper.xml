@@ -10,7 +10,12 @@
 
 	<!-- 댓글쓰기 -->
 
-	<insert id="insertBBSCom" parameterType="BBSComment">
+	<insert id="insertBBSCom" parameterType="bbsComment">
+	<!--글번호 댓글번호 조합으로 특정가능 시퀀스 컬럼 삭제, insert 수정 12/30 21:40--> 
+	<!--<selectKey keyProperty="comSeq" resultType="java.lang.Integer"
+		order="BEFORE">
+		select COMPK.nextVal as com_seq from dual
+		</selectKey>-->
 	insert into bbs_comment
 		(
 		bbs_no,
@@ -19,26 +24,30 @@
 		com_content,
 		com_date,
 		com_show
+<!--		com_seq-->
 		)
 		values
 		(
 		#{bbsNo},
 		NVL(((select MAX(com_no) from bbs_comment where bbs_no=#{bbsNo} )+1) , 1),
-		1,
+		#{userNo},
+<!-- 		userNo 일단 테스트로 1넣고 나중에 로그인 정보에서 가져와야함  -->
 		#{comContent},
 		sysdate,
 		0
-		);
+	<!--	#{comSeq}-->
+		)
 	</insert>
 
 
-	<!-- 해당 글의 댓글 불러오기 -->
+	<!-- 해당 글의 댓글 모두 불러오기 -->
 	<select id="selectComBybbsNo" resultType="BBSComment">
 		<!-- select * from bbs_comment -->
 		<!-- where bbs_no = #{bbsNo} -->
 		<!-- order by com_date desc -->
 		<!-- user_nick 까지 불러오는것으로 수정 12-26-20:02 -->
-		select
+<!-- 		게시상태 0(게시)인것만 불러오는것으로 수정 12-27-14:56 -->
+	  select
 		a.BBS_NO,
 		a.COM_NO,
 		a.USER_NO,
@@ -49,23 +58,30 @@
 		from bbs_comment a, users b
 		where bbs_no =#{bbsNo}
 		and a.user_no = b.user_no
-		order by com_date desc
-
+		and a.com_show =0
+		order by com_date asc
 
 	</select>
-
+	
+<!-- 	댓글 특정하기 -->
+<select id="selectOneCom" resultType="BBSComment">
+	select * from bbs_comment
+	where bbs_no=#{bbsNo}
+	and com_no=#{comNo}
+</select>
 	<!-- 댓글 내용 수정 -->
 	<update id="updateCom" parameterType="BBSComment">
 		update bbs_comment
 		set
-		com_content=#{updateItem.comContent}
+		com_content=#{updateCom.comContent}
 		where com_no=#{comNo}
 		and bbs_no=#{bbsNo}
 	</update>
 
 	<!-- 댓글 본인 삭제 -->
-	<update id="updateComShowOneBybbsNo">
-		update bbs_commentset
+	<update id="updateComShowOneBbn" parameterType="Integer">
+		update bbs_comment
+		set
 		com_show=1
 		where com_no=#{comNo}
 		and bbs_no=#{bbsNo}
@@ -73,7 +89,8 @@
 
 	<!-- 댓글 관리자 삭제 -->
 	<update id="updateComShowTwoBybbsNo">
-		update bbs_commentset
+		update bbs_comment
+		set
 		com_show=2
 		where com_no=#{comNo}
 		and bbs_no=#{bbsNo}

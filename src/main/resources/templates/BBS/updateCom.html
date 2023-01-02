@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>BBS Comment update Page</h1>
+	댓글 수정하는 곳 
+	
+	<form action="" method="post" th:object="${BBSComment}">
+		<div>
+<!-- 			<label>작성일<input type="date" name="comDate" readonly="readonly" th:field="*{comDate}"></label> -->
+			<br>
+			<label>작성자<input type="text" name="userNick" readonly="readonly" th:value="${user.userNick}"></label>
+			
+			<br>
+			<label>내용<textarea name="comContent" th:field="*{comContent}"></textarea></label>
+		</div>
+		<div>
+		 <button type="submit">수정완료</button>
+		 <button type="button" th:onclick="|location.href='@{/BBS/BBSlist/{bbsNo}}'|">뒤로가기</button>
+		 </div>
+		
+	</form>
+</body>
+</html>

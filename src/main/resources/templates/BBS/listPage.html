@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/bootstrap.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<style>
+		a{
+			text-decoration-line:none;
+			color:black;
+		}
+		
+		thead{
+			background-color:rgb(233, 233, 233);
+		}
+		
+	
+ul{
+   list-style:none;
+   }
+
+li {
+    float: left;
+      margin-left:10px;
+}
+	</style>
+</head>
+
+<body>
+
+	<h4>게시판</h4>
+	<div class="col-md-9">
+	<table class="table table-hover" border="1" >
+		<colgroup>
+					<col width="50">
+					<col width="300">
+					<col width="200">
+					<col width="100">
+				</colgroup>
+		<thead>
+			<tr>
+							<th>No</th>
+							<th>Title</th>
+							<th>Date</th>
+							<th>Name</th>
+						</tr>
+		</thead>
+		<tbody>
+			<tr th:each="BBS : ${list}">
+				<td th:text=${BBS.bbsNo}></td>
+				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}"
+					th:text=${BBS.bbsTitle}></a></td>
+				<td th:text=${BBS.bbsDate}></td>
+				<td th:text="${BBS.userNick}"></td>
+			</tr>
+		</tbody>
+
+	</table>
+</div>
+	<div th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
+		<ul>
+			<div>
+				<li><a
+					th:href="@{|/BBS/listPage?page=${pageMaker.startPage - 1}&perPageNum=10|}">이전</a></li>
+			</div>
+
+
+			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
+			<div th:each="num : ${#numbers.sequence(start,end)}">
+				<li><code th:if="${pageMaker.cri.getPage() == num}"
+						th:text="${num}"></code> <a
+					th:unless="${pageMaker.cri.getPage()==num}"
+					th:href="@{|/BBS/listPage?page=${num}&perPageNum=10|}"> <code
+							th:text="${num}"></code></a></li>
+			</div>
+
+			<div>
+				<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
+				<li>
+					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
+					<a
+					th:href="@{|/BBS/listPage?page=${pageMaker.endPage+1}&perPageNum=10|}">다음</a>
+				</li>
+			</div>
+		</ul>
+	</div>
+<br/>
+<br/>
+
+	<!-- 검색 -->
+	<div>
+		<form>
+			<select>
+				<option>제목</option>
+				<option>내용</option>
+			</select> <input type="text">
+			<button>검색</button>
+		</form>
+	</div>
+
+	<div th:if="${user}!=null">
+		<button th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>
+	</div>
+</body>
+
+</html>

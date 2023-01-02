@@ -3,6 +3,7 @@ package project3.yakdo.repository.mybatis;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.BBS.BBSComment;
 
@@ -15,12 +16,17 @@ public interface BBSCommentMapper {
 	public List<BBSComment> selectComBybbsNo(Integer bbsNo);
 	
 	//댓글 수정
-	public void updateCom(int bbsNo, BBSComment bbsComment);
+	public void updateCom(@Param("bbsNo") int bbsNo,@Param("comNo") int comNo, @Param("updateCom") BBSComment bbsComment);
 	
 	//댓글 본인 삭제
-	public void updateComShowOneBybbsNo(int bbsNo);
+	public void updateComShowOneBbn(@Param("bbsNo") Integer bbsNo, @Param("comNo") Integer comNo);
 	
 	//댓글 관리자 삭제 
-	public void updateComShowTwoBybbsNo(int bbsNo);
-	
+	public void updateComShowTwoBybbsNo(@Param("bbsNo") Integer bbsNo
+											,@Param("comNo")Integer comNo);
+	//댓글 특정
+	public BBSComment selectOneCom(@Param("bbsNo") int bbsNo, @Param("comNo") int comNo);
 }
+
+
+

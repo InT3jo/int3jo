@@ -1,12 +1,13 @@
 package project3.yakdo.repository.mybatis;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
 import project3.yakdo.validation.form.SignUpForm;
 
@@ -29,11 +30,6 @@ public class UsersMybatisRepository implements UsersRepository{
 		return result;
 	}
 
-//	@Override
-//	public Integer insertUsingDrugs(Map<String, Object> usingDrugsMap) {
-//		Integer result = usersMapper.insertUsingDrugs(usingDrugsMap);
-//		return result;
-//	}
 	@Override
 	public Integer insertUsingDrugs(SignUpForm signUpForm) {
 		Integer result = usersMapper.insertUsingDrugs(signUpForm);
@@ -55,36 +51,47 @@ public class UsersMybatisRepository implements UsersRepository{
 		log.info("user {}", user);
 		return user;
 	}
-//
-//	@Override
-//	public List<Users> selectAllUsers() {
-//		List<Users> userList = usersMapper.selectAllUsers();
-//		
-//		return userList;
-//	}
-//
-//	@Override
-//	public UsersInfo selectByUserNo(Integer userNo) {
-//		UsersInfo usersInfo = usersMapper.selectByUserNo(userNo);
-//		
-//		return usersInfo;
-//	}
-//
-//	@Override
-//	public List<UsersInfo> selectAllUsersInfo() {
-//		List<UsersInfo> userList = usersMapper.selectAllUsersInfo();
-//	
-//		return userList;
-//	}
 
-//	@Override
-//	public void deleteAllUsers() {
-//		usersMapper.deleteAllUsers();
-//	}
-//
-//	@Override
-//	public void deleteAllUsersInfo() {
-//		usersMapper.deleteAllUsersInfo();
-//	}
+	@Override
+	public List<Users> selectAllUsers() {
+		List<Users> userList = usersMapper.selectAllUsers();
+		
+		return userList;
+	}
+
+
+	
+	//관리자 페이지 회원관리 관련 - 작성자: 배고운 
+	
+	//Users테이블에서 userNo로 회원찾기 / 작성자: 배고운 
+	@Override
+	public Users selectByUserNoInUsersT(Integer userNo) {
+		// TODO Auto-generated method stub
+		Users user = usersMapper.selectByUserNoInUsersT(userNo);
+		return user;
+	}
+	
+	
+	//회원등급수정 / 작성자: 배고운 
+	@Override
+	public boolean updateUserGrade(Integer userNo, Users users) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		usersMapper.updateUserGrade(userNo, users);
+		return result;
+	}
+
+	
+	//회원블락처리 / 작성자 : 배고운
+	@Override
+	public boolean updateUserStatus(Integer userNo, Users users) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		usersMapper.updateUserStatus(userNo, users);
+		return result;
+	}
+	
+	
+
 
 }

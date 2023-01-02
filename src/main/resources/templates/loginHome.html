@@ -20,7 +20,9 @@
 				<button type="button" th:onclick="|location='@{/drugs}'|">상세검색</button>
 			</form>
 			<button th:onclick="|location='@{/BBS/BBSlist}'|">이용문의</button>
+			<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
 			<button th:onclick="|location='@{/admin}'|">관리자페이지</button>
+			</div>
 		</div>
 	</div>
 </body>
