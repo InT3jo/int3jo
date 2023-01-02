@@ -5,41 +5,50 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>알러지 추가</h1>
+	<h1>알레르기</h1>
 	<div>
-		<form action="/join/joinSuccess" method="post" th:object="${usersInfoForm}">
-			<div>
-				<label for="allergy">알레르기</label>
-				<input th:field="*{allergy}" id="allergy" name="allergy" />
-				<button type="button">검색</button>
-			</div>
-			<div>
-				<button type="button" th:onclick="|location.href='@{/join/addUsingDrugs}'|">이전</button>
-				<button type="button">추가완료</button>
-			</div>
-		</form>
+		<div>
+			<label for="allergy">알레르기</label>
+			<input id="allergy" name="allergy" />
+			<button type="button">검색</button>
+			<button type="button" onclick="addAllergy()">추가</button>
+		</div>
+		<div>
+			<form action="/join/joinSuccess" method="post" th:object="${usersInfoForm}">
+			
+				<div id="addAllergy">
+				</div>
+				
+				<div>
+					<button type="button" th:onclick="|location.href='@{/join/addUsingDrugs}'|">이전</button>
+					<button type="submit" onclick="joinOrHome()">추가완료</button>
+				</div>
+			</form>
+		</div>
 	</div>
 	
 	<script>
 		function joinOrHome() {
 			if(confirm('다른 가족을 추가하시겠습니까?')) {
-				location.href='주소';
+				//yes
+				location.href='/join/addInfo';
 			} else {
-				
+				//no
+				location.href='/join/joinSuccess';
 			}
 		}
 		
 
-		function addDrug() {
+		function addAllergy() {
 			//input 추가할 div 찾기
-			const addDrugs = document.getElementById('addDrugs');
+			const addAllergy = document.getElementById('addAllergy');
 			//입력된 알러지 가져오기
-			let inputValue = document.getElementById('usingDrugs').value;
+			let inputValue = document.getElementById('allergy').value;
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
 			if (inputValue != null && inputValue.trim() != "") {
-				addDrugs.innerHTML += '<div id="'+inputValue+'box"><label for="'+inputValue+'">'
+				addAllergy.innerHTML += '<div id="'+inputValue+'box"><label for="'+inputValue+'">'
 						+ inputValue
-						+ '</lable><input id="'+inputValue+'" type="hidden" value="'+inputValue+'"/><button type="button" onclick="deleteDrug(\''
+						+ '</lable><input name="allergy" id="'+inputValue+'" type="hidden" value="'+inputValue+'"/><button type="button" onclick="deleteDrug(\''
 						+ inputValue + 'box\')">삭제</button></div>'
 			}
 		}
@@ -47,53 +56,6 @@
 		function deleteDrug(inputValuebox) {
 			console.log(inputValuebox);
 			document.getElementById(inputValuebox).remove();
-		}
-	</script>
-	
-	
-	<script>
-		function addFamilyInfo() {
-			//정보 추가할 테이블 element 찾기
-			const infoBody = document.getElementById('infoBody');
-			
-			//Cell에 추가할 value 찾기
-			const familyValue = document.getElementById('familyNo').value;
-			const genderValue = document.getElementById('gender').value;
-			const birthValue = document.getElementById('birth').value;
-			const weightValue = document.getElementById('weight').value;
-			
-			//if(familyValue != "" && genderValue != "" && birthValue != "" && weightValue != "") {
-				//행 추가
-				const newRow = infoBody.insertRow();
-				
-				//새 행에 Cell 추가
-				const familyNew = newRow.insertCell(0);
-				const genderNew = newRow.insertCell(1);
-				const birthNew = newRow.insertCell(2);
-				const weightNew = newRow.insertCell(3);
-				
-				//Cell에 값 추가
-				//usingDrugs, allergy 합치기
-				//table에 input 추가해서,, 값 넣어보기
-				//id는 for문 돌리면서 하면 될 거 같은데,,
-				//그렇게 버튼 누르면 post방식으로 넘어갈 거 같음..!
-				
-				//테이블 지우고 innerHTML로 다시 만들기
-				//div > table > value > input
-				familyNew.innerHTML = familyValue+'<input id="familyNo'+temp+'" type="hidden" value="'+familyValue+'"/>'
-				genderNew.innerHTML = genderValue+'<input id="gender'+temp+'" type="hidden" value="'+genderValue+'"/>'
-				birthNew.innerHTML = birthValue+'<input id="birth'+temp+'" type="hidden" value="'+birthValue+'"/>'
-				weightNew.innerHTML = weightValue+'<input id="weight'+temp+'" type="hidden" value="'+weightValue+'"/>'
-// 				familyNew.innerText = familyValue;
-// 				genderNew.innerText = genderValue;
-// 				birthNew.innerText = birthValue;
-// 				weightNew.innerText = weightValue;
-				
-				document.getElementById('infoTable').style.display='block';
-			//} else {
-			//	alert("빈칸을 채워주세요");
-			//}
-			
 		}
 	</script>
 </body>

@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -56,6 +57,18 @@ public class HomeController {
 		
 		model.addAttribute("user", user);
 		
+		return "/loginHome";
+	}
+	
+	/**
+	 * 회원가입 후 넘어오는 home 화면
+	 * 회원가입 완료 시에 자동으로 로그인 될 예정
+	 * 그래서 바로 loginHome으로 return 해둠
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/")
+	public String home(Model model) {
 		return "/loginHome";
 	}
 }

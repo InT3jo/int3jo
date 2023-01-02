@@ -130,16 +130,17 @@ public class JoinController {
 	 */
 	@PostMapping("/addAllergy")
 	public String addUsingDrugs(
-			@RequestParam("usingDrugs") String usingDrugs
+//			@RequestParam("usingDrugs") String usingDrugs
+			@RequestParam("usingDrugs") List<String> usingDrugs
 			, Model model) {
 		//usingDrugs를 받기 위한 리스트 생성
-		List<String> usingList = new ArrayList<>();
-		usingList.add(usingDrugs);
+//		List<String> usingList = new ArrayList<>();
+//		usingList.add(usingDrugs);
 		
 		//usersInfo에 세팅
-		usersInfo.setUsingDrugs(usingList);
+		usersInfo.setUsingDrugs(usingDrugs);
 		
-		log.info("usingList = {}", usingList);
+//		log.info("usingList = {}", usingList);
 		log.info("usersInfo = {}", usersInfo);
 		UsersInfoForm usersInfoForm = new UsersInfoForm();
 		model.addAttribute("usersInfoForm", usersInfoForm);
@@ -181,6 +182,6 @@ public class JoinController {
 		log.info("allergyList = {}", allergyList);
 		log.info("usersInfo = {}", usersInfo);
 
-		return "redirect:/login";
+		return "/home";
 	}
 }
