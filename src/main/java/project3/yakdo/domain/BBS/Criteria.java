@@ -1,8 +1,8 @@
 package project3.yakdo.domain.BBS;
 
 public class Criteria {
-	   private int page;
-	   private int perPageNum;
+	   private int page;	// 현재페이지 번호 
+	   private int perPageNum;	//페이지당 출력할 갯수
 	   private int rowStart;
 	   private int rowEnd;
 	   

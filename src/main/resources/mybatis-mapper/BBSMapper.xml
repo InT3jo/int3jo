@@ -140,7 +140,7 @@
 	</update>
 
 	<!-- rNum의 제한값을 임의로 바꾸는 것으로 페이징 구현-->
-	<select id="listPage" resultType="BBS">
+	<!-- <select id="listPage" resultType="BBS">
 		select BBS_no, user_no,
 		BBS_title, BBS_content, BBS_date, BBS_show
 		from (
@@ -151,7 +151,32 @@
 		where rNum between #{rowStart} and #{rowEnd}
 		and BBS_show=0
 		order by BBS_no desc
+	</select>-->
+	
+	
+	<!-- rNum의 제한값을 임의로 바꾸는 것으로 페이징 구현-->
+	 <!--닉네임도 불러오면서 bbs_show 상태 0 인 게시물들 10개씩 잘라서 출력하는걸로 수정-->
+	<select id="listPage" resultType="BBS">
+	 select BBS_no, user_no,
+		BBS_title, BBS_content, BBS_date, BBS_show, user_nick
+		from (
+          select 
+        b.BBS_no, 
+        b.user_no, 
+        b.BBS_title, 
+        b.BBS_content, 
+        b.BBS_date, 
+        b.BBS_show,
+		row_number() over(order by BBS_no desc) as rNum,
+        u.user_nick       
+		from bbs b, users u
+        where b.user_no = u.user_no) b
+		where rNum between #{rowStart} and #{rowEnd}
+		and BBS_show=0
+		order by BBS_no desc
 	</select>
+	
+	
 	
 <!-- 	게시물의 총 갯수를 구하는 쿼리 -->
 	<select id="listCount" resultType="int">

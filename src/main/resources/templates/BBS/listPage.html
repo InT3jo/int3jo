@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 
 <body>
@@ -20,7 +20,8 @@
 		<tbody>
 			<tr th:each="BBS : ${list}">
 				<td th:text=${BBS.bbsNo}></td>
-				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
+				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}"
+					th:text=${BBS.bbsTitle}></a></td>
 				<td th:text=${BBS.bbsDate}></td>
 				<td th:text="${BBS.userNick}"></td>
 			</tr>
@@ -31,26 +32,29 @@
 	<div th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
 		<ul>
 			<div>
-				<li><a th:href="@{|/BBS/listPage?page=${pageMaker.startPage - 1}&perPageNum=10|}">처음</a></li>
-			</div>
-			
-			 
-<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
-			<div th:each="pageMaker : ${#numbers.sequence(start,end)}">
-				<li>
-<!--					<a th:href="@{|BBS/lisgPage?page=${Criteria.page}|}">${Criteria.page}</a>-->
-<a th:text="${page}"></a>
-				</li>
+				<li><a
+					th:href="@{|/BBS/listPage?page=${pageMaker.startPage - 1}&perPageNum=10|}">처음</a></li>
 			</div>
 
-<div>
-<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
-				<li><a th:href="@{|/BBS/listPage?page=${pageMaker.endPage - 1}&perPageNum=10|}">끝</a></li>
+
+			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
+			<div th:each="num : ${#numbers.sequence(start,end)}">
+				<li><code th:if="${pageMaker.cri.getPage() == num}"
+						th:text="${num}"></code> <a
+					th:unless="${pageMaker.cri.getPage()==num}"
+					th:href="@{|/BBS/listPage?page=${num}&perPageNum=10|}"> <code
+							th:text="${num}"></code></a></li>
+			</div>
+
+			<div>
+				<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
+				<li><a
+					th:href="@{|/BBS/listPage?page=${pageMaker.endPage - 1}&perPageNum=10|}">끝</a></li>
 			</div>
 		</ul>
 	</div>
-	
-	
+
+
 
 
 
