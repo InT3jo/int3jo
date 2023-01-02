@@ -24,6 +24,7 @@ import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.BBSComment;
 import project3.yakdo.domain.BBS.Criteria;
 import project3.yakdo.domain.BBS.PageMaker;
+import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.BBSCommentRepository;
 import project3.yakdo.repository.BBSRepository;
@@ -105,6 +106,82 @@ public class BBSController {
 			return "BBS/listPage";
 		}
 		
+		
+		
+		// 게시글 목록 출력 + 페이징 추가 + 검색 추가
+		@GetMapping("/listSearch")
+		public String BBSList(@ModelAttribute ("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
+			HttpSession session = req.getSession(false);
+			if (session == null) {
+				return "/home";
+			}
+			// session 정보 출력해보기
+			Enumeration<String> sessionNames = session.getAttributeNames();
+			while (sessionNames.hasMoreElements()) {
+				String name = sessionNames.nextElement();
+
+				log.info("session {}, {}", name, session.getAttribute(name));
+			}
+
+			Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
+			log.info("user객쳇 {}", user);
+			if (user == null) {
+				return "/home";
+			}
+
+			model.addAttribute("user", user);
+			
+//			List<BBS> list = BBSRepository.listPage(cri);
+			List<BBS> list = BBSRepository.listPage(scri);
+			
+			model.addAttribute("list", list);
+			
+			
+			 PageMaker pageMaker = new PageMaker();
+			 pageMaker.setCri(scri);
+//			 pageMaker.setTotalCount(BBSRepository.listCount());
+			 pageMaker.setTotalCount(BBSRepository.countSearch(scri));
+			 model.addAttribute("pageMaker", pageMaker);
+			
+			return "BBS/listPage";
+		}
+		
+		
+		// 게시글 목록 출력 + 페이징 추가 + 검색 2번째 방법 
+				@GetMapping("/listPageSearch")
+				public String BBSListSearch(Criteria cri, Model model, HttpServletRequest req,@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword) {
+					HttpSession session = req.getSession(false);
+					if (session == null) {
+						return "/home";
+					}
+					// session 정보 출력해보기
+					Enumeration<String> sessionNames = session.getAttributeNames();
+					while (sessionNames.hasMoreElements()) {
+						String name = sessionNames.nextElement();
+
+						log.info("session {}, {}", name, session.getAttribute(name));
+					}
+
+					Users user = (Users) session.getAttribute(SessionVar.LOGIN_MEMBER);
+					log.info("user객쳇 {}", user);
+					if (user == null) {
+						return "/home";
+					}
+
+					model.addAttribute("user", user);
+					
+					List<BBS> list = BBSRepository.listPageSearch(cri,searchType,keyword);
+					
+					model.addAttribute("list", list);
+					
+					
+					 PageMaker pageMaker = new PageMaker();
+					 pageMaker.setCri(cri);
+					 pageMaker.setTotalCount(BBSRepository.listCount());
+					 model.addAttribute("pageMaker", pageMaker);
+					
+					return "BBS/listPageSearch";
+				}
 	
 	
 	

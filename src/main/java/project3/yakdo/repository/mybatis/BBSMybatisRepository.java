@@ -1,5 +1,6 @@
 package project3.yakdo.repository.mybatis;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.Criteria;
+import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.repository.BBSRepository;
 
 @Slf4j
@@ -145,6 +147,30 @@ public class BBSMybatisRepository implements BBSRepository {
 		// TODO Auto-generated method stub
 		return BBSMapper.listCount();
 	}
+
+	//목록 + 페이징 + 검색
+	@Override
+	public List<BBS> listSearch(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		
+		return BBSMapper.listSearch(scri);
+	}
+
+	//검색결과 총 갯수 
+	@Override
+	public int countSearch(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return BBSMapper.countSearch(scri);
+	}
+
+	@Override
+	public List<BBS> listPageSearch(Criteria cri, String searchType, String keyword) {
+		// TODO Auto-generated method stub
+		return BBSMapper.listPageSearch(cri, searchType, keyword);
+	}
+
+
+	
 
 
 	/*

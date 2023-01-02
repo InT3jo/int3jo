@@ -4,6 +4,7 @@ import java.util.List;
 
 import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.Criteria;
+import project3.yakdo.domain.BBS.SearchCriteria;
 
 public interface BBSRepository {
 
@@ -38,4 +39,15 @@ public interface BBSRepository {
 	
 	//게시물 총 갯수
 	public int listCount();
+	
+	
+	//목록 + 페이징 + 검색
+	public List<BBS> listSearch(SearchCriteria scri);
+	
+	//검색 결과 갯수
+	public int countSearch(SearchCriteria scri);
+	
+	//목록 + 페이징 + 검색 두번째방법시도중
+	public List<BBS> listPageSearch(Criteria cri,String searchType, String keyword);
+	
 }
