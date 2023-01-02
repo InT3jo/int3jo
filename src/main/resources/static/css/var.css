@@ -14,6 +14,16 @@
 	src:url('/font/HMFMOLD.TTF') format('truetype')
 }
 
+label{
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+input{
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+select{
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+
 /* 변수 */
 :root{
 	--Signature-blue: #315290;
@@ -27,4 +37,5 @@
 	
 	--Font-title1: 'maruburi';
 	--Font-title2: 'hmfmold';
+	
 }

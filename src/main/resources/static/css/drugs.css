@@ -3,6 +3,7 @@
 
 
 /* 공용 */
+
 .d-CSS{
 	margin:0px;
 	padding:5px;
@@ -140,6 +141,9 @@
 .findCardEntp{
 	height: 35px;
 }
+.selectDrugMark{
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
 #findMore{
 	width: 800px;
 }
@@ -153,7 +157,7 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 #findSearchMoreCloseBtn{
 	margin-left: 10px;
@@ -165,5 +169,5 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }

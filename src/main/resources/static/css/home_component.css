@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body{
+	margin: 0px;
+	cursor: url(/cursor/capsule.cur) 0 0, auto;
+}
 
 /* 헤더 */
 .headerMain{
@@ -12,7 +16,7 @@
 }
 .headerTitle{
 	margin: 10px;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	text-align: center;
 }
 .headerTitle1{
@@ -31,6 +35,7 @@
 	text-align: center;
 	margin-top: 10px;
 }
+
 #headerSearchInput{
 	width: 250px;
 	height: 13px;
@@ -54,7 +59,7 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 #headerSearchMoreBtn{
 	margin-left: 10px;
@@ -66,7 +71,7 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 .headerSearchBox{
 	margin: 10px -20px;
@@ -79,27 +84,28 @@
 	font-family: var(--Font-title1);
 }
 #headerNavLogin{
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	margin: 30px;
 	font-weight: 300;
 }
 #headerNavJoin{
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	margin: 30px;
 	font-weight: 300;
 }
 #headerNavBBS{
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	margin: 30px;
 	font-weight: 300;
 }
 #headerNavAdmin{
-	cursor: pointer;
-	font-weight: 300;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+	font-weight: 700;
 	position: absolute;
 	right: 10px;
 	top: 20px;
 	color: var(--Signature-blue);
+	font-family: fantasy;
 }
 .headerWelcome{
 	display: block;

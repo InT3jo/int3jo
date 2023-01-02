@@ -21,7 +21,7 @@ import project3.yakdo.session.SessionVar;
  */
 @Slf4j
 public class InspectionFilter implements Filter {
-	private static final String[] InspectionWhiteList = {"/inspection","/drugs/apiUpdate","/drugs/dbupdate","/admin","/admin/*"};
+	private static final String[] InspectionWhiteList = {"/inspection","/drugs/apiUpdate","/drugs/dbupdate","/admin","/admin/*", "/css/*", "/font/*", "/cursor/*"};
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
