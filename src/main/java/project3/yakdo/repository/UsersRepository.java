@@ -3,11 +3,12 @@ package project3.yakdo.repository;
 
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.validation.form.JoinForm;
+import project3.yakdo.validation.form.SignUpForm;
 
 public interface UsersRepository {
 
 	//회원 가입 시 Users에 insert 실행될 인터페이스
-	public Integer insertUsers(JoinForm joinForm);
+	public Integer insertUsers(SignUpForm signUpForm);
 	
 	//회원 가입 시 Users_info에 insert 실행될 인터페이스
 	public Integer insertUsersInfo(JoinForm joinForm);

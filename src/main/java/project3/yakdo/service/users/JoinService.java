@@ -8,6 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.repository.UsersRepository;
 import project3.yakdo.validation.form.JoinForm;
 
+
+/**
+ * 삭제할 파일
+ *
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,12 +30,12 @@ public class JoinService {
 	 * 담당자 : 빙예은
 	 */
 	public Integer signUp(JoinForm joinForm) {
-		Integer result = usersRepository.insertUsers(joinForm);
-		if(result == 1) {
-			log.info("기본 회원가입 완료");
-			return result;
-		}
-		log.info("기본 회원가입 실패");
+//		Integer result = usersRepository.insertUsers(joinForm);
+//		if(result == 1) {
+//			log.info("기본 회원가입 완료");
+//			return result;
+//		}
+//		log.info("기본 회원가입 실패");
 		return 0;
 	}
 	

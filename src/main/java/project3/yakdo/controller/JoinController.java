@@ -19,10 +19,7 @@ import project3.yakdo.service.users.JoinService;
 import project3.yakdo.validation.form.JoinForm;
 import project3.yakdo.validation.form.UsersInfoForm;
 /**
- * 
- * 현재 회원가입 작업 중,
- * 프론트 수정 완료 되면 java로 데이터 넘겨받도록 해야함
- * @author honey
+ * 삭제할 파일
  *
  */
 @Slf4j
