@@ -34,6 +34,7 @@ public class JoinController {
 	private final JoinService joinService;
 	//UsersInfoForm으로 받아온 데이터 저장
 	private final UsersInfo usersInfo = new UsersInfo();
+	private final List<UsersInfo> usersInfoList = new ArrayList<UsersInfo>();
 	
 	
 	/**
@@ -91,7 +92,9 @@ public class JoinController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/addUsingDrugs")
-	public String addInfo(@ModelAttribute UsersInfoForm usersInfoForm) {
+	public String addInfo(
+			@ModelAttribute UsersInfoForm usersInfoForm
+			) {
 		//String으로 받아온 생일 date 타입으로 변환
 		Date birth = Date.valueOf(usersInfoForm.getBirth());
 		
@@ -101,7 +104,6 @@ public class JoinController {
 		usersInfo.setGender(usersInfoForm.getGender());
 		usersInfo.setWeight(usersInfoForm.getWeight());
 		
-		log.info("usersInfoForm = {}", usersInfoForm);
 		log.info("usersInfo = {}", usersInfo);
 		
 		return "/users/join/addUsingDrugs";
@@ -130,18 +132,13 @@ public class JoinController {
 	 */
 	@PostMapping("/addAllergy")
 	public String addUsingDrugs(
-//			@RequestParam("usingDrugs") String usingDrugs
-			@RequestParam("usingDrugs") List<String> usingDrugs
+			@RequestParam(value = "usingDrugList", required = false) List<String> usingDrugList
 			, Model model) {
-		//usingDrugs를 받기 위한 리스트 생성
-//		List<String> usingList = new ArrayList<>();
-//		usingList.add(usingDrugs);
-		
 		//usersInfo에 세팅
-		usersInfo.setUsingDrugs(usingDrugs);
+		usersInfo.setUsingDrugList(usingDrugList);
 		
-//		log.info("usingList = {}", usingList);
 		log.info("usersInfo = {}", usersInfo);
+		
 		UsersInfoForm usersInfoForm = new UsersInfoForm();
 		model.addAttribute("usersInfoForm", usersInfoForm);
 		
@@ -164,24 +161,24 @@ public class JoinController {
 	
 	/**
 	 * 알러지 약물 추가 실행
-	 * @param joinForm
+	 * @param allergyList
 	 * @return
 	 * 
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/joinSuccess")
-	public String addAllergy(@RequestParam("allergy") String allergy) {
-		
-		//usingDrugs를 받기 위한 리스트 생성
-		List<String> allergyList = new ArrayList<>();
-		allergyList.add(allergy);
-		
+	public String addAllergy(@RequestParam(value = "allergyList", required = false) List<String> allergyList) {
 		//usersInfo에 세팅
-		usersInfo.setAllergy(allergyList);
-		
-		log.info("allergyList = {}", allergyList);
+		usersInfo.setAllergyList(allergyList);
 		log.info("usersInfo = {}", usersInfo);
-
+		//usersInfoList에 usersInfo 추가
+		usersInfoList.add(usersInfo);
+		log.info("usersInfoList = {}", usersInfoList);
 		return "/home";
+	}
+	
+	@GetMapping("/joinSuccess")
+	public String joinSuccess() {
+		return "redirect:/joinSuccess";
 	}
 }

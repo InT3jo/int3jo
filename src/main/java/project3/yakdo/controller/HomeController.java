@@ -68,7 +68,7 @@ public class HomeController {
 	 * @return
 	 */
 	@PostMapping("/")
-	public String home(Model model) {
+	public String home() {
 		return "/loginHome";
 	}
 }

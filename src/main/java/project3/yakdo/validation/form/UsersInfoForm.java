@@ -19,7 +19,7 @@ public class UsersInfoForm {
 	private Integer weight;		//체중
 
 	//usingDrugs, allergy를 여기서 List로 받아야함
-	private List<String> usingDrugs;	//복용 중인 약
-	private List<String> allergy;		//알러지
+	private List<String> usingDrugList;	//복용 중인 약
+	private List<String> allergyList;		//알러지
 	
 }

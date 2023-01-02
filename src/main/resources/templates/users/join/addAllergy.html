@@ -34,7 +34,7 @@
 				location.href='/join/addInfo';
 			} else {
 				//no
-				location.href='/join/joinSuccess';
+				location.href='/';
 			}
 		}
 		
@@ -48,7 +48,7 @@
 			if (inputValue != null && inputValue.trim() != "") {
 				addAllergy.innerHTML += '<div id="'+inputValue+'box"><label for="'+inputValue+'">'
 						+ inputValue
-						+ '</lable><input name="allergy" id="'+inputValue+'" type="hidden" value="'+inputValue+'"/><button type="button" onclick="deleteDrug(\''
+						+ '</lable><input name="allergyList" id="'+inputValue+'" type="hidden" value="'+inputValue+'"/><button type="button" onclick="deleteDrug(\''
 						+ inputValue + 'box\')">삭제</button></div>'
 			}
 		}
