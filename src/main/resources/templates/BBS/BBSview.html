@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -66,7 +68,7 @@
 			return false;
 		}
 	</script>
-
+	<div th:replace="home_component.html :: header"></div>
 	<h1>BBS view Page</h1>
 	게시글 클릭하면 보여주는 화면
 	<div>
@@ -221,6 +223,6 @@
 
 	</div>
 
-
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

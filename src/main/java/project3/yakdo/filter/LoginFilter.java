@@ -27,7 +27,7 @@ import project3.yakdo.session.SessionVar;
 public class LoginFilter implements Filter{
 
 	//로그인 하지 않아도 접속 가능한 페이지 리스트
-	private static final String[] whiteList = {"/", "/login", "/logout", "/join", "/drugs", "drugs/*"};
+	private static final String[] whiteList = {"/", "/login", "/logout", "/signUp", "/drugs", "drugs/*"};
 	
 
 	@Override
@@ -43,12 +43,12 @@ public class LoginFilter implements Filter{
 		 */
 		if(!PatternMatchUtils.simpleMatch(whiteList, uri)) {
 			HttpSession session = req.getSession(false);
-// 개발중이니까 일단 필터는 주석처리
-//			if(session == null || session.getAttribute(SessionVar.LOGIN_MEMBER) == null) {
-//				log.info("로그인 없이 접근 시도 {}", uri);
-//				resp.sendRedirect("/login?redirectURL="+uri);
-//				return;
-//			}
+
+			if(session == null || session.getAttribute(SessionVar.LOGIN_MEMBER) == null) {
+				log.info("로그인 없이 접근 시도 {}", uri);
+				resp.sendRedirect("/login?redirectURL="+uri);
+				return;
+			}
 		}
 		chain.doFilter(request, response);
 	}

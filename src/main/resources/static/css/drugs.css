@@ -1,0 +1,169 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap');
+
+
+/* 공용 */
+.d-CSS{
+	margin:0px;
+	padding:5px;
+	display:inline-block;
+	position: relative;
+	box-sizing:border-box;
+	white-space: normal;
+	font-size: 15px;
+}
+.border{
+	border:1px solid black;
+}
+.bottomLine{
+	border-bottom: 1px solid var(--Lowtone-silver);
+}
+.fontBlue{
+	color: var(--Signature-blue);
+}
+.ContentBox{
+	margin:0px auto;
+	width:800px;
+	display:block;
+}
+.headTitle{
+	color:var(--Signature-blue);
+	font-size: 17px;
+	font-weight: 700;
+	width:800px;
+	text-align: center;
+}
+.center{
+	text-align: center;
+}
+
+
+
+
+
+/* DrugInfo page */
+
+
+.infoImage{
+	width:350px;
+}
+.infoHeadOutter{
+	width:394px;
+	top: -40px;
+}
+.infoHead{
+	width:394px;
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+.infoTitle{
+	color: var(--Signature-blue);
+	font-weight: 700;
+	width: 77px;
+}
+.infoContent1{
+	width: 301px;
+}
+.infoContent2{
+	width: 250px;
+	padding-bottom: 5px;
+}
+.infoContent3{
+	width: 800px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+}
+
+/* FindDrug page */
+.findWarn{
+	display: block;
+	margin: 5px auto;
+	width: 80%;
+	background-color: var(--Bg-gray);
+	color: green;
+	font-size: 13px;
+}
+.findGrid{
+	padding:0px;
+	display: grid;
+	grid-template-columns: 100px 250px 100px 250px;
+	border: 1px solid var(--Signatrue-blue);
+}
+.findGridLabel{ 
+	background-color: var(--Bg-gray);
+	color : var(--Signature-blue);
+ 	height:54px;
+ 	border:1px solid var(--Lowtone-silver);
+}
+.findGridContent{
+	width:249px;
+ 	height:54px;
+ 	border:1px solid var(--Lowtone-silver);
+}
+.innerGrid{
+	margin: 15px 18px;
+}
+.findMarkModal{
+	width: 800px;
+	display:none;
+	position: fixed;
+	top: 100px;
+	left: 100px;
+	background-color: var(--Bg-gray);
+	border:1px solid var(--Signature-blue);
+	z-index: 999;
+}
+.findMarkModalImage{
+	width:50px;
+	height:50px;
+	margin: 10px;
+}
+.findCard{
+	width: 240px;
+	height: 193px;
+	margin: 25px 8px;
+	border:1px solid var(--Lowtone-silver);
+	border-radius: 50px;
+	overflow: hidden;
+}
+.findCardImage{
+	width: 250px;
+	height: 130px;
+	margin: -11px;
+}
+.findCardName{
+	white-space: pre-wrap;
+	height: 45px;
+	font-weight: 700;
+}
+.findCardEntp{
+	height: 35px;
+}
+#findMore{
+	width: 800px;
+}
+#findSearchMoreBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+#findSearchMoreCloseBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-silver);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}

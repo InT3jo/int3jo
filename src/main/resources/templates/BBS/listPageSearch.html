@@ -3,10 +3,13 @@
 
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <title>Insert title here</title>
 </head>
 
 <body>
+	<div th:replace="home_component.html :: header"></div>
 	<h1>게시판</h1>
 	<table border="1" width="800" height="100">
 		<thead>
@@ -75,6 +78,7 @@
 	<div th:if="${user}!=null">
 		<button th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>
 	</div>
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 
 </html>

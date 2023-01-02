@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <title>Insert title here</title>
 <style>
 .errormsg {
@@ -10,6 +12,7 @@
 </style>
 </head>
 <body>
+	<div th:replace="home_component.html :: header"></div>
 	<h1>BBS write Page</h1>
 	글쓰는페이지
 
@@ -33,6 +36,6 @@
 			<button type="submit">등록하기</button>
 		</div>
 	</form>
-
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

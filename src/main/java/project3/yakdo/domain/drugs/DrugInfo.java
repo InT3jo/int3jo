@@ -83,7 +83,8 @@ public class DrugInfo {
 			NodeList nodeList = doc.getElementsByTagName("PARAGRAPH");
 			int len = nodeList.getLength();
 			for(int i=0;i<len;i++) {
-				cDataList.add(nodeList.item(i).getTextContent());				
+				cDataList.add(nodeList.item(i).getTextContent());
+				cDataList.add("<br>");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

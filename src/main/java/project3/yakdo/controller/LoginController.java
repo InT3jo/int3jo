@@ -94,17 +94,17 @@ public class LoginController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/logout")
-	public String logout(HttpServletRequest req) {
-		//session없을 때 생성되지 않게 막아주기
-		HttpSession session = req.getSession(false); // 다시 세션만들어지지 않게 막기
+	public String logout(HttpServletRequest req, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
+		//false = session없을 때, 새로 만들지 않고 null값 반환
+		HttpSession session = req.getSession(false);
 		
-		if (session != null){// 있으면 로그인 안되게 처리
-			session.invalidate(); // 서버에서 세션정보 없애기
+		if (session != null && session.getAttribute(SessionVar.LOGIN_MEMBER) != null){
+			session.removeAttribute(SessionVar.LOGIN_MEMBER);
 		}
 
 		log.info("로그아웃 성공");
 		
-		return "redirect:/";
+		return "redirect:"+redirectURL;
 	}
 	
 }

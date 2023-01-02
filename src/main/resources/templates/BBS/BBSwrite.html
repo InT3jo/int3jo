@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <title>Insert title here</title>
 <style>
 .errormsg {
@@ -10,6 +12,7 @@
 </style>
 </head>
 <body>
+	<div th:replace="home_component.html :: header"></div>
 <script type="text/javascript">
 function writeOk(){
 	if(confirm('등록하시겠습니까?')){
@@ -47,5 +50,6 @@ function writeOk(){
 	</form>
 
 	<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

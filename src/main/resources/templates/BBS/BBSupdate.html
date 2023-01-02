@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 </head>
 <body>
+	<div th:replace="home_component.html :: header"></div>
 	<h1>BBS update Page</h1>
 	
 	<form action="" method="post" th:object="${BBS}">
@@ -23,5 +26,6 @@
 		 </div>
 		
 	</form>
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

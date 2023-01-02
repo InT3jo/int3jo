@@ -43,13 +43,13 @@ public class DrugAPIService {
 	 */
 	public void getAPI(HttpServletRequest req) {
 		// TODO Auto-generated method stub
-		log.info("이거 진짜 업데이트 하려면 10시간 넘게 걸릴듯..");
-		log.info("일단 개발중이니까 DB는 중간에 종료해도 상관없는 업데이트만 진행");
-		/* 
+		log.info("이거 실제로 업데이트 하려면 5시간정도가 소요되기 때문에,");
+		log.info("일단 테스트중이니까 DB는 중간에 종료해도 상관없는 업데이트만 진행");
+		
 		log.info("API 데이터 DB 최신화 작업 시작");
 		trustUrl("https://apis.data.go.kr"); // 신뢰하는 URL에 추가
 		
-		
+		/*
 		List<DrugInfo> drugInfoList = new ArrayList<>();
 		List<FindDrug> findDrugList = new ArrayList<>();
 		List<Dur> durList = new ArrayList<>();
@@ -93,8 +93,8 @@ public class DrugAPIService {
 		setDomainByDurCombiAPI(durCombiList);
 		setDurCombiByAPI(durCombiList);
 		
-		*/
 		
+		*/
 		setDrugImage("drugOpenData.csv", req);
 		
 	}
@@ -290,7 +290,7 @@ public class DrugAPIService {
 					drugInfo.setUseMethodQesitm(itemObj.get("UD_DOC_DATA").toString());
 					drugInfo.setAtpnQesitm(itemObj.get("NB_DOC_DATA").toString());
 					drugInfo.setNarcotic(itemObj.get("NARCOTIC_KIND_CODE").toString());
-					String temp = itemObj.get("MAIN_ITEM_INGR").toString()+"|"+itemObj.get("INGR_NAME").toString();
+					String temp = itemObj.get("MAIN_ITEM_INGR").toString();
 					List<String> ingrList = new ArrayList<>(Arrays.asList(temp.split("\\|")));
 					drugInfo.setIngrNameList(ingrList);
 					drugInfoList.add(drugInfo);
@@ -395,12 +395,14 @@ public class DrugAPIService {
 	private int setDurByAPI(List<Dur> durList) {
 		int result = drugRepository.insertDur(durList);
 		durList.clear(); // 메모리 회수 필요
+		log.info("DUR DB insert 완료");
 		return result;
 	}
 	
 	private int setDurCombiByAPI(List<DurCombi> durList) {
 		int result = drugRepository.insertDurCombi(durList);
 		durList.clear(); // 메모리 회수 필요
+		log.info("DUR_Combi DB insert 완료");
 		return result;
 	}
 	
@@ -413,7 +415,7 @@ public class DrugAPIService {
 
 	private int setFindDrugByAPI(List<FindDrug> findDrugList) {
 		int result = drugRepository.insertFindDrug(findDrugList);
-		log.info("FindDrug DB(FindDrug) insert 완료");
+		log.info("FindDrug DB insert 완료");
 		return result;
 	}
 }

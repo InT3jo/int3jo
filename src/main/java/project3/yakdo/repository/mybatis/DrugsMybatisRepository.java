@@ -1,6 +1,5 @@
 package project3.yakdo.repository.mybatis;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project3.yakdo.domain.drugs.FindDrug;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
+import project3.yakdo.domain.drugs.FindDrug;
 import project3.yakdo.repository.DrugsRepository;
 import project3.yakdo.service.drugs.search.FindDrugForm;
 
@@ -29,8 +28,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	/**
 	 * DB의 DRUG_INFO Table에 파라미터의 리스트를 추가
 	 * 이미 있는 일련번호는 빈 내용만 가져온 내용으로 채워넣는다.
-	 * parameter : List<DrugInfo>
-	 * return : insert count
+	 * @param: List<DrugInfo>
+	 * @return: Integer(insert count)
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -134,8 +133,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 
 	/**
 	 * DB의 FIND_DRUG 테이블에 파라미터의 리스트를 추가하기
-	 * parameter : List<FindDrug>
-	 * return : insert count
+	 * @param: List<FindDrug>
+	 * @return: Integer(insert count)
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -164,8 +163,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	
 	/**
 	 * DB의 DUR 테이블에 파라미터의 리스트를 추가하기
-	 * parameter : List<Dur>
-	 * return : insert count
+	 * @param: List<Dur>
+	 * @return: Integer(insert count)
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -178,24 +177,24 @@ public class DrugsMybatisRepository implements DrugsRepository{
 				result++;
 				dur.allClear(); // 메모리 회수
 				if(result==1) {
-					log.info("DUR 테이블에 자료 넣는중()",result,durList.size());
+					log.info("DUR 테이블에 자료 넣는중({}/{})",result,durList.size());
 				}
 				if(result%100==0) {
-					log.info("DUR 테이블에 자료 넣는중()",result,durList.size());
+					log.info("DUR 테이블에 자료 넣는중({}/{})",result,durList.size());
 				}
 			}
 			durList.clear(); // 메모리 회수 필요			
 		} catch (Exception e) {
 			// TODO: handle exception
-			log.info("DUR 테이블에 자료 넣는중, 오류발생으로 중지()",result,durList.size());
+			log.info("DUR 테이블에 자료 넣는중, 오류발생으로 중지({}/{})",result,durList.size());
 		}
 		return result;
 	}
 	
 	/**
 	 * DB의 DUR_COMBI 테이블에 파라미터의 리스트를 추가하기
-	 * parameter : List<DurCombi>
-	 * return : insert count
+	 * @param: List<DurCombi>
+	 * @return: Integer(insert count)
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -228,8 +227,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	/**
 	 * FindDrugForm을 기반으로 DrugInfo 객체로 이루어진 리스트로 반환
 	 * 목록용 객체로, 내용은 itemSeq, itemName, itemImage, entpName 만 가져온다.
-	 * parameter : FindDrugForm findDrugForm
-	 * return : ArrayList<DrugInfo>
+	 * @param: FindDrugForm
+	 * @return: ArrayList<DrugInfo>
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -251,8 +250,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	/**
 	 * FindDrugForm을 기반으로 DrugInfo 객체로 이루어진 리스트로 반환
 	 * 목록용 객체로, 내용은 itemSeq, itemName, itemImage, entpName 만 가져온다.
-	 * parameter : FindDrugForm findDrugForm
-	 * return : ArrayList<DrugInfo>
+	 * @param: FindDrugForm
+	 * @return: ArrayList<DrugInfo>
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -267,8 +266,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 
 	/**
 	 * DB에서 itemSeq를 찾아 DrugInfo 객체 반환
-	 * parameter : String itemSeq
-	 * return : DrugInfo
+	 * @param: String(itemSeq)
+	 * @return: DrugInfo
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -279,9 +278,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	}
 	
 	/**
-	 * DB에서 itemSeq를 찾아 DrugInfo 객체 반환
-	 * parameter : String itemSeq
-	 * return : DrugInfo
+	 * DB에서 모든 DrugInfo 객체 반환
+	 * @return: List<DrugInfo>
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -292,7 +290,7 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	
 	/**
 	 * DB에서 모든 drugMark와 itemSeq를 List형태로 반환
-	 * return List<FindDrugForm>
+	 * @return: List<FindDrugForm>
 	 * 담당자 : 홍준표
 	 */
 	@Override
@@ -305,7 +303,7 @@ public class DrugsMybatisRepository implements DrugsRepository{
 /* UPDATE 관련 메서드 */
 	/**
 	 * DurgInfo 객체를 받아와서 해당 DB의 ITEM_IMAGE열을 업데이트
-	 * parameter : DrugInfo drugInfo
+	 * @param: DrugInfo
 	 * 담당자 : 홍준표
 	 */
 	public Integer updateDrugInfoImage(DrugInfo drugInfo) {

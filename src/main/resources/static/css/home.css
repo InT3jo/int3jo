@@ -1,0 +1,132 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap');
+
+/* 공용 */
+body{
+	background-color: var(--Bg-silver);
+}
+.d-CSS{
+	margin:0px;
+	padding:5px;
+	display:inline-block;
+	position: relative;
+	box-sizing:border-box;
+	white-space: normal;
+	font-size: 15px;
+}
+.ContentBox{
+	margin:0px auto;
+	width: 800px;
+	display:block;
+}
+.mainTitleBox{
+	width: 800px;
+	text-align: center;
+	padding-top: 180px;
+}
+.mainTitle1{
+	color: var(--Signature-blue);
+	font-size: 80px;
+	font-weight: 1000;
+	font-family: var(--Font-title1);
+}
+.mainTitle2{
+	color: var(--Signature-silver);
+	font-size: 40px;
+	font-weight: 700;
+	font-family: var(--Font-title2);
+}
+.mainSubTitle{
+	text-align: center;
+	color: var(--Signature-silver);
+	font-size: 15px;
+	font-family: var(--Font-title1);
+}
+.mainSearchBox{
+	margin: 10px;
+	text-align: center;
+}
+#mainSearchInput{
+	width: 400px;
+	height: 30px;
+	font-size: 20px;
+	color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	padding: 10px;
+	padding-left: 30px;
+}
+#mainSearchInput::placeholder{
+	color: var(--Signature-silver);
+}
+#mainSearchBtn{
+	margin-left: 10px;
+	width: 100px;
+	height: 45px;
+	background-color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 18px;
+	font-weight: 700;
+	cursor: pointer;
+}
+#mainSearchMoreBtn{
+	margin-left: 10px;
+	width: 100px;
+	height: 45px;
+	background-color: var(--Signature-silver);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 18px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.mainNavBox{
+	text-align: center;
+	margin-top: 40px;
+	font-weight: 700;
+	cursor: pointer;
+	color: var(--Signature-silver);
+	font-size: 18px;
+	font-family: var(--Font-title1);
+}
+#mainNavLogin{
+	margin: 30px;	
+	font-size: 18px;
+	font-weight: 700;
+}
+#mainNavJoin{
+	margin: 30px;	
+}
+#mainNavBBS{
+	margin: 30px;		
+}
+#mainNavAdmin{
+	cursor: pointer;
+	margin: 30px; 
+	font-weight: 700;
+	position: absolute;
+	right: 10px;
+	top: 20px;
+	color: var(--Signature-blue);
+}
+.mainWelcome{
+	display: block;
+	text-align: center;
+	font-size: 18px;
+	font-weight: 700;
+}
+.mainWelcome1{
+	color: var(--Signature-blue);
+}
+.mainWelcome2{
+	color: var(--Signature-silver);
+	
+}
+.mainFooter{
+	position: fixed;
+	bottom: 0px;
+	height: 200px;
+}

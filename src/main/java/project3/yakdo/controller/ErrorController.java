@@ -31,6 +31,12 @@ public class ErrorController {
 		printError(req);
 		return "error/404";
 	}
+	
+	@RequestMapping("/error/405")
+	public String err405(HttpServletRequest req, HttpServletResponse resp) {
+		printError(req);
+		return "error/405";
+	}
 
 	@RequestMapping("/error/500")
 	public String err500(HttpServletRequest req, HttpServletResponse resp) {
@@ -39,13 +45,13 @@ public class ErrorController {
 	}
 	
 	private void printError(HttpServletRequest req) {
-		log.info("ERROR_EXCEPTION {}", req.getAttribute(ERROR_EXCEPTION));
-		log.info("ERROR_EXCEPTION_TYPE {}", req.getAttribute(ERROR_EXCEPTION_TYPE));
-		log.info("ERROR_MESSAGE {}", req.getAttribute(ERROR_MESSAGE));
-		log.info("ERROR_REQUEST_URI {}", req.getAttribute(ERROR_REQUEST_URI));
-		log.info("ERROR_SERVLET_NAME {}", req.getAttribute(ERROR_SERVLET_NAME));
-		log.info("ERROR_STATUS_CODE {}", req.getAttribute(ERROR_STATUS_CODE));
-		log.info("DispatcherType {}", req.getDispatcherType());
+		log.warn("ERROR_EXCEPTION {}", req.getAttribute(ERROR_EXCEPTION));
+		log.warn("ERROR_EXCEPTION_TYPE {}", req.getAttribute(ERROR_EXCEPTION_TYPE));
+		log.warn("ERROR_MESSAGE {}", req.getAttribute(ERROR_MESSAGE));
+		log.warn("ERROR_REQUEST_URI {}", req.getAttribute(ERROR_REQUEST_URI));
+		log.warn("ERROR_SERVLET_NAME {}", req.getAttribute(ERROR_SERVLET_NAME));
+		log.warn("ERROR_STATUS_CODE {}", req.getAttribute(ERROR_STATUS_CODE));
+		log.warn("DispatcherType {}", req.getDispatcherType());
 	}
 	
 }

@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+
+/* 헤더 */
+.headerMain{
+	background-color: var(--Bg-silver);
+	padding: 20px;
+	padding-bottom: 0px;
+	color: var(--Signature-silver);
+	margin: 0px auto;
+	display: block;
+}
+.headerTitle{
+	margin: 10px;
+	cursor: pointer;
+	text-align: center;
+}
+.headerTitle1{
+	color: var(--Signature-blue);
+	font-size: 30px;
+	font-weight: 1000;
+	font-family: var(--Font-title1);
+}
+.headerTitle2{
+	color: var(--Signature-silver);
+	font-size: 17px;
+	font-weight: 700;
+	font-family: var(--Font-title2);
+}
+.headerNavBox{
+	text-align: center;
+	margin-top: 10px;
+}
+#headerSearchInput{
+	width: 250px;
+	height: 13px;
+	font-size: 16px;
+	color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	padding: 10px;
+	padding-left: 30px;
+}
+#headerSearchInput::placeholder{
+	color: var(--Signature-silver);
+}
+#headerSearchBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-blue);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+#headerSearchMoreBtn{
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: var(--Signature-silver);
+	border: none;
+	border-radius: 30px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.headerSearchBox{
+	margin: 10px -20px;
+	text-align: center;
+	height: 30px;
+	padding-top: 10px;
+	background-color: var(--Signature-blue);
+	color: var(--Bg-gray);
+	font-size: 16px;
+	font-family: var(--Font-title1);
+}
+#headerNavLogin{
+	cursor: pointer;
+	margin: 30px;
+	font-weight: 300;
+}
+#headerNavJoin{
+	cursor: pointer;
+	margin: 30px;
+	font-weight: 300;
+}
+#headerNavBBS{
+	cursor: pointer;
+	margin: 30px;
+	font-weight: 300;
+}
+#headerNavAdmin{
+	cursor: pointer;
+	font-weight: 300;
+	position: absolute;
+	right: 10px;
+	top: 20px;
+	color: var(--Signature-blue);
+}
+.headerWelcome{
+	display: block;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 600;
+	height: 30px;
+}
+.headerWelcome1{
+	color: var(--Signature-blue);
+}
+.headerWelcome2{
+	color: var(--Signature-silver);
+	
+}
+
+/* 푸터 */
+.footerMain{
+	background-color: var(--Bg-silver);
+	padding: 20px;
+	font-size: 13px;
+	color: var(--Signature-silver);
+	margin: 0px auto;
+	display: block;
+}
+.footerTitle1{
+	color: var(--Signature-blue);
+	font-size: 23px;
+	padding-bottom: 13px;
+	font-weight: 700;
+	font-family: var(--Font-title1);
+}
+.footerTitle2{
+	color: var(--Signature-silver);
+	font-size: 13px;
+	font-weight: 700;
+	font-family: var(--Font-title2);
+}
+.fotterBottomLine{
+	border-bottom: 1px solid var(--Bg-gray);
+}

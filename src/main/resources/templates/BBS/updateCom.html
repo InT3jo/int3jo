@@ -2,9 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <title>Insert title here</title>
 </head>
 <body>
+	<div th:replace="home_component.html :: header"></div>
 	<h1>BBS Comment update Page</h1>
 	댓글 수정하는 곳 
 	
@@ -23,5 +26,6 @@
 		 </div>
 		
 	</form>
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

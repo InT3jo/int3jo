@@ -1,0 +1,30 @@
+@charset "UTF-8";
+@font-face{
+	font-family: 'maruburi';
+	src:url('/font/maruburi/MaruBuri-Regular.ttf') format('truetype');
+	font-weight: narmal;
+}
+@font-face{
+	font-family: 'maruburi';
+	src:url('/font/maruburi/MaruBuri-Bold.ttf') format('truetype');
+	font-weight: bold;
+}
+@font-face{
+	font-family: 'hmfmold';
+	src:url('/font/HMFMOLD.TTF') format('truetype')
+}
+
+/* 변수 */
+:root{
+	--Signature-blue: #315290;
+	--Lowtone-blue: #77b6ea;
+
+	--Signature-silver: gray;	
+	--Lowtone-silver: #eeeeee;
+	
+	--Bg-silver: #f4f7f9;
+	--Bg-gray: #dddddd;
+	
+	--Font-title1: 'maruburi';
+	--Font-title2: 'hmfmold';
+}
