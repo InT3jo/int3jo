@@ -1,6 +1,8 @@
 package project3.yakdo.repository;
 
 
+import java.util.Map;
+
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.validation.form.JoinForm;
 import project3.yakdo.validation.form.SignUpForm;
@@ -11,13 +13,14 @@ public interface UsersRepository {
 	public Integer insertUsers(SignUpForm signUpForm);
 	
 	//회원 가입 시 Users_info에 insert 실행될 인터페이스
-	public Integer insertUsersInfo(JoinForm joinForm);
+	public Integer insertUsersInfo(SignUpForm signUpForm);
+
+	//회원 가입 시 Users_Info_UsingDrugs에 insert 실행될 인터페이스
+//	public Integer insertUsingDrugs(Map<String, Object> usingDrugsMap);
+	public Integer insertUsingDrugs(SignUpForm signUpForm);
 	
 	//회원 가입 시 Users_Info_Allergy에 insert 실행될 인터페이스
-	public Integer insertUsersInfoAllergy(JoinForm joinForm);
-	
-	//회원 가입 시 Users_Info_UsingDrugs에 insert 실행될 인터페이스
-	public Integer insertUsersUsingDrugs(JoinForm joinForm);
+	public Integer insertAllergy(SignUpForm signUpForm);
 	
 	public Users selectByUserEmail(String userEmail);
 //	

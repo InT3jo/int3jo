@@ -12,12 +12,16 @@
 		INSERT INTO users_info VALUES (user_no_pk.currval, #{familyNo}, #{birth}, #{gender}, #{weight})
 	</insert>
 	
-	<insert id="insertUsersInfoAllergy">
-		INSERT INTO users_info_allergy VALUES (user_no_pk.currval, #{familyNo}, #{allergy})
+<!-- 		INSERT users_info_using_drugs VALUES (user_no_pk.currval, #{familyNo}, #{usingDrugs}) -->
+	<insert id="insertUsingDrugs">
+		<foreach collection="usingDrugList" item="usingDrugList">
+		INSERT INTO users_info_using_drugs VALUES
+			 ( user_no_pk.currval, #{familyNo},#{usingDrugList} )
+		</foreach>
 	</insert>
 	
-	<insert id="insertUsersUsingDrugs">
-		INSERT users_info_using_drugs VALUES (user_no_pk.currval, #{familyNo}, #{usingDrugs})
+	<insert id="insertAllergy">
+		INSERT INTO users_info_allergy VALUES (user_no_pk.currval, #{familyNo}, #{allergy})
 	</insert>
 	
 	

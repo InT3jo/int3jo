@@ -1,12 +1,14 @@
 package project3.yakdo.repository.mybatis;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.UsersRepository;
-import project3.yakdo.validation.form.JoinForm;
+import project3.yakdo.validation.form.SignUpForm;
 
 @Slf4j
 @Repository
@@ -16,28 +18,34 @@ public class UsersMybatisRepository implements UsersRepository{
 	private final UsersMapper usersMapper;
 	
 	@Override
-	public Integer insertUsers(JoinForm joinForm) {
-		Integer result = usersMapper.insertUsers(joinForm);
+	public Integer insertUsers(SignUpForm signUpForm) {
+		Integer result = usersMapper.insertUsers(signUpForm);
 		return result;
 	}
 
 	@Override
-	public Integer insertUsersInfo(JoinForm joinForm) {
-		Integer result = usersMapper.insertUsersInfo(joinForm);
+	public Integer insertUsersInfo(SignUpForm signUpForm) {
+		Integer result = usersMapper.insertUsersInfo(signUpForm);
 		return result;
 	}
 
+//	@Override
+//	public Integer insertUsingDrugs(Map<String, Object> usingDrugsMap) {
+//		Integer result = usersMapper.insertUsingDrugs(usingDrugsMap);
+//		return result;
+//	}
 	@Override
-	public Integer insertUsersInfoAllergy(JoinForm joinForm) {
-		Integer result = usersMapper.insertUsersInfoAllergy(joinForm);
+	public Integer insertUsingDrugs(SignUpForm signUpForm) {
+		Integer result = usersMapper.insertUsingDrugs(signUpForm);
+		return result;
+	}
+	
+	@Override
+	public Integer insertAllergy(SignUpForm signUpForm) {
+		Integer result = usersMapper.insertAllergy(signUpForm);
 		return result;
 	}
 
-	@Override
-	public Integer insertUsersUsingDrugs(JoinForm joinForm) {
-		Integer result = usersMapper.insertUsersUsingDrugs(joinForm);
-		return result;
-	}
 
 	@Override
 	public Users selectByUserEmail(String userEmail) {

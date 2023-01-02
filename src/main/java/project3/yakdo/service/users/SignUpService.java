@@ -24,12 +24,21 @@ public class SignUpService {
 	 * 담당자 : 빙예은
 	 */
 	public Integer signUp(SignUpForm signUpForm) {
-		Integer result = usersRepository.insertUsers(signUpForm);
-		if(result == 1) {
-			log.info("기본 회원가입 완료");
-			return result;
-		}
-		log.info("기본 회원가입 실패");
-		return 0;
+		
+		//users 테이블 insert
+		Integer result1 = usersRepository.insertUsers(signUpForm);
+		//users_info 테이블 insert
+		Integer result2 = usersRepository.insertUsersInfo(signUpForm);
+//		//users_info_drugs 테이블 insert
+		Integer result3 = usersRepository.insertUsingDrugs(signUpForm);
+		
+		
+		Integer result4 = usersRepository.insertAllergy(signUpForm);
+//		if(result == 1) {
+//			log.info("기본 회원가입 완료");
+			return result1+result2+result3+result4;
+//		}
+//		log.info("기본 회원가입 실패");
+//		return 0;
 	}
 }

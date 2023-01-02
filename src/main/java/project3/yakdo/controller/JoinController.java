@@ -23,159 +23,159 @@ import project3.yakdo.validation.form.UsersInfoForm;
  *
  */
 @Slf4j
-@Controller
-@RequestMapping("/join")
-@RequiredArgsConstructor
+//@Controller
+//@RequestMapping("/join")
+//@RequiredArgsConstructor
 public class JoinController {
-
-	private final JoinService joinService;
-	//UsersInfoForm으로 받아온 데이터 저장
-	private final UsersInfo usersInfo = new UsersInfo();
-	private final List<UsersInfo> usersInfoList = new ArrayList<UsersInfo>();
-	
-	
-	/**
-	 * 기본 회원가입 창
-	 * @return "/users/join/join";
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@GetMapping
-	public String signUpForm (Model model) {
-		JoinForm joinForm = new JoinForm();
-		model.addAttribute("joinForm", joinForm);
-
-		return "/users/join/join";
-	}
-	
-	/**
-	 * 기본 정보로 회원가입 진행
-	 * @param joinForm
-	 * @return 회원가입 성공하면 welcome, 아니면 그대로
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@PostMapping("/welcome")
-	public String signUp(@ModelAttribute JoinForm joinForm) {
-		log.info("signUp joinForm = {}", joinForm);
-		
-		Integer result = joinService.signUp(joinForm);
-		if(result == 1) {
-			return "/welcome";
-		}
-		return "redirect:/join";
-	}
-	
-	/**
-	 * 회원 가입 후 
-	 * 본인 및 가족 건강 정보 추가 창
-	 * @param model
-	 * @return
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@GetMapping("/addInfo")
-	public String addInfoForm(Model model) {
-		UsersInfoForm usersInfoForm = new UsersInfoForm();
-		model.addAttribute("usersInfoForm", usersInfoForm);
-		return "/users/join/addInfo";
-	}
-	
-	/**
-	 * 본인 및 가족 건강 정보 추가 실행
-	 * @param joinForm
-	 * @return
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@PostMapping("/addUsingDrugs")
-	public String addInfo(
-			@ModelAttribute UsersInfoForm usersInfoForm
-			) {
-		//String으로 받아온 생일 date 타입으로 변환
-		Date birth = Date.valueOf(usersInfoForm.getBirth());
-		
-		//usersInfo에 세팅
-		usersInfo.setFamilyNo(usersInfoForm.getFamilyNo());
-		usersInfo.setBirth(birth);
-		usersInfo.setGender(usersInfoForm.getGender());
-		usersInfo.setWeight(usersInfoForm.getWeight());
-		
-		log.info("usersInfo = {}", usersInfo);
-		
-		return "/users/join/addUsingDrugs";
-	}
-
-	/**
-	 * 복용 중인 약물 추가 창
-	 * @param model
-	 * @return
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@GetMapping("/addUsingDrugs")
-	public String aaddUsingDrugsForm(Model model) {
-		UsersInfoForm usersInfoForm = new UsersInfoForm();
-		model.addAttribute("usersInfoForm", usersInfoForm);
-		return "/users/join/addUsingDrugs";
-	}
-	
-	/**
-	 * 복용 중인 약물 추가 실행
-	 * @param joinForm
-	 * @return
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@PostMapping("/addAllergy")
-	public String addUsingDrugs(
-			@RequestParam(value = "usingDrugList", required = false) List<String> usingDrugList
-			, Model model) {
-		//usersInfo에 세팅
-		usersInfo.setUsingDrugList(usingDrugList);
-		
-		log.info("usersInfo = {}", usersInfo);
-		
-		UsersInfoForm usersInfoForm = new UsersInfoForm();
-		model.addAttribute("usersInfoForm", usersInfoForm);
-		
-		return "/users/join/addAllergy";
-	}
-
-	/**
-	 * 알러지 추가 창
-	 * @param model
-	 * @return
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@GetMapping("/addAllergy")
-	public String addAllergyForm(Model model) {
-		UsersInfoForm usersInfoForm = new UsersInfoForm();
-		model.addAttribute("usersInfoForm", usersInfoForm);
-		return "/users/join/addAllergy";
-	}
-	
-	/**
-	 * 알러지 약물 추가 실행
-	 * @param allergyList
-	 * @return
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@PostMapping("/joinSuccess")
-	public String addAllergy(@RequestParam(value = "allergyList", required = false) List<String> allergyList) {
-		//usersInfo에 세팅
-		usersInfo.setAllergyList(allergyList);
-		log.info("usersInfo = {}", usersInfo);
-		//usersInfoList에 usersInfo 추가
-		usersInfoList.add(usersInfo);
-		log.info("usersInfoList = {}", usersInfoList);
-		return "/home";
-	}
-	
-	@GetMapping("/joinSuccess")
-	public String joinSuccess() {
-		return "redirect:/joinSuccess";
-	}
+//
+//	private final JoinService joinService;
+//	//UsersInfoForm으로 받아온 데이터 저장
+//	private final UsersInfo usersInfo = new UsersInfo();
+//	private final List<UsersInfo> usersInfoList = new ArrayList<UsersInfo>();
+//	
+//	
+//	/**
+//	 * 기본 회원가입 창
+//	 * @return "/users/join/join";
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@GetMapping
+//	public String signUpForm (Model model) {
+//		JoinForm joinForm = new JoinForm();
+//		model.addAttribute("joinForm", joinForm);
+//
+//		return "/users/join/join";
+//	}
+//	
+//	/**
+//	 * 기본 정보로 회원가입 진행
+//	 * @param joinForm
+//	 * @return 회원가입 성공하면 welcome, 아니면 그대로
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@PostMapping("/welcome")
+//	public String signUp(@ModelAttribute JoinForm joinForm) {
+//		log.info("signUp joinForm = {}", joinForm);
+//		
+//		Integer result = joinService.signUp(joinForm);
+//		if(result == 1) {
+//			return "/welcome";
+//		}
+//		return "redirect:/join";
+//	}
+//	
+//	/**
+//	 * 회원 가입 후 
+//	 * 본인 및 가족 건강 정보 추가 창
+//	 * @param model
+//	 * @return
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@GetMapping("/addInfo")
+//	public String addInfoForm(Model model) {
+//		UsersInfoForm usersInfoForm = new UsersInfoForm();
+//		model.addAttribute("usersInfoForm", usersInfoForm);
+//		return "/users/join/addInfo";
+//	}
+//	
+//	/**
+//	 * 본인 및 가족 건강 정보 추가 실행
+//	 * @param joinForm
+//	 * @return
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@PostMapping("/addUsingDrugs")
+//	public String addInfo(
+//			@ModelAttribute UsersInfoForm usersInfoForm
+//			) {
+//		//String으로 받아온 생일 date 타입으로 변환
+//		Date birth = Date.valueOf(usersInfoForm.getBirth());
+//		
+//		//usersInfo에 세팅
+//		usersInfo.setFamilyNo(usersInfoForm.getFamilyNo());
+//		usersInfo.setBirth(birth);
+//		usersInfo.setGender(usersInfoForm.getGender());
+//		usersInfo.setWeight(usersInfoForm.getWeight());
+//		
+//		log.info("usersInfo = {}", usersInfo);
+//		
+//		return "/users/join/addUsingDrugs";
+//	}
+//
+//	/**
+//	 * 복용 중인 약물 추가 창
+//	 * @param model
+//	 * @return
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@GetMapping("/addUsingDrugs")
+//	public String aaddUsingDrugsForm(Model model) {
+//		UsersInfoForm usersInfoForm = new UsersInfoForm();
+//		model.addAttribute("usersInfoForm", usersInfoForm);
+//		return "/users/join/addUsingDrugs";
+//	}
+//	
+//	/**
+//	 * 복용 중인 약물 추가 실행
+//	 * @param joinForm
+//	 * @return
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@PostMapping("/addAllergy")
+//	public String addUsingDrugs(
+//			@RequestParam(value = "usingDrugList", required = false) List<String> usingDrugList
+//			, Model model) {
+//		//usersInfo에 세팅
+//		usersInfo.setUsingDrugList(usingDrugList);
+//		
+//		log.info("usersInfo = {}", usersInfo);
+//		
+//		UsersInfoForm usersInfoForm = new UsersInfoForm();
+//		model.addAttribute("usersInfoForm", usersInfoForm);
+//		
+//		return "/users/join/addAllergy";
+//	}
+//
+//	/**
+//	 * 알러지 추가 창
+//	 * @param model
+//	 * @return
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@GetMapping("/addAllergy")
+//	public String addAllergyForm(Model model) {
+//		UsersInfoForm usersInfoForm = new UsersInfoForm();
+//		model.addAttribute("usersInfoForm", usersInfoForm);
+//		return "/users/join/addAllergy";
+//	}
+//	
+//	/**
+//	 * 알러지 약물 추가 실행
+//	 * @param allergyList
+//	 * @return
+//	 * 
+//	 * 담당자 : 빙예은
+//	 */
+//	@PostMapping("/joinSuccess")
+//	public String addAllergy(@RequestParam(value = "allergyList", required = false) List<String> allergyList) {
+//		//usersInfo에 세팅
+//		usersInfo.setAllergyList(allergyList);
+//		log.info("usersInfo = {}", usersInfo);
+//		//usersInfoList에 usersInfo 추가
+//		usersInfoList.add(usersInfo);
+//		log.info("usersInfoList = {}", usersInfoList);
+//		return "/home";
+//	}
+//	
+//	@GetMapping("/joinSuccess")
+//	public String joinSuccess() {
+//		return "redirect:/joinSuccess";
+//	}
 }
