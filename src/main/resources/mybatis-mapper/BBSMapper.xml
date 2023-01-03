@@ -266,7 +266,7 @@
 <!-- 	</if> -->
 <!-- </sql> -->
 
-	<!-- 닉네임 같이 불러오면서 제목 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 -->
+	<!-- 닉네임 같이 불러오면서 제목,내용,작성자 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 -->
 	<select id="listSearch" resultType="BBS"
 		parameterType="SearchCriteria">
 		select BBS_no, user_no,

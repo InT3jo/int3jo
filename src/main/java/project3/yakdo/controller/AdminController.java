@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 import project3.yakdo.domain.BBS.BBS;
+import project3.yakdo.domain.BBS.PageMaker;
+import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.BBSCommentRepository;
 import project3.yakdo.repository.BBSRepository;
@@ -68,11 +70,27 @@ public class AdminController {
 //		return "redirect:/admin/adminBBSlist";
 //	}
 
-	// 관리할 회원 리스트 불러오기
-	@GetMapping("/userlist")
+	// 관리할 회원 리스트 불러오기 - 원래 있던 userlist 페이지로 보내주는것 주석 0104 00:47
+	/*@GetMapping("/userlist")
 	public String userlist(Model model) {
 		List<Users> userList = usersRepository.selectAllUsers();
 		model.addAttribute("userList", userList);
+		return "admin/userlist";
+	}*/
+	
+	// 관리할 회원 리스트 불러오기
+	@GetMapping("/userlist")
+	public String userlist(@ModelAttribute("scri") SearchCriteria scri,Model model) {
+		
+//		List<Users> userList = usersRepository.selectAllUsers();
+//		model.addAttribute("userList", userList);
+		List<Users> userList = usersRepository.userList(scri);
+		model.addAttribute("userList", userList);
+		PageMaker pageMaker = new PageMaker();
+		 pageMaker.setCri(scri);
+//		 pageMaker.setTotalCount(BBSRepository.listCount());
+		 pageMaker.setTotalCount(usersRepository.countSearchUsers(scri));
+		 model.addAttribute("pageMaker", pageMaker);
 		return "admin/userlist";
 	}
 

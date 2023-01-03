@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.validation.form.SignUpForm;
 
@@ -38,6 +39,11 @@ public interface UsersRepository {
 	//회원블락처리 / 작성자 : 배고운
 	public boolean updateUserStatus(@Param("userNo")Integer userNo, @Param("users")Users users);
 	
+	//회원 목록 + 페이징 + 검색 / 작성자: 배고운 
+	public List<Users> userList(SearchCriteria scri);
+	
+	//검색 결과 갯수 / 작성자 : 배고운 
+	public int countSearchUsers(SearchCriteria scri);
 	
 	
 
