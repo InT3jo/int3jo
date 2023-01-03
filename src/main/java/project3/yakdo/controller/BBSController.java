@@ -86,7 +86,7 @@ public class BBSController {
 		
 		
 		
-		// 게시글 목록 출력 + 페이징 추가 + 검색 추가
+		// 게시글 목록 출력 + 페이징 추가 + 검색 추가 (1번째 방법 다시 시도중)
 		@GetMapping("/listSearch")
 		public String BBSList(@ModelAttribute ("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 			// 현재 주소정보
@@ -99,7 +99,7 @@ public class BBSController {
 			
 			
 //			List<BBS> list = BBSRepository.listPage(cri);
-			List<BBS> list = BBSRepository.listPage(scri);
+			List<BBS> list = BBSRepository.listSearch(scri);
 			
 			model.addAttribute("list", list);
 			
@@ -110,11 +110,12 @@ public class BBSController {
 			 pageMaker.setTotalCount(BBSRepository.countSearch(scri));
 			 model.addAttribute("pageMaker", pageMaker);
 			
-			return "BBS/listPage";
+			return "BBS/listSearch";
 		}
 		
 		
-		// 게시글 목록 출력 + 페이징 추가 + 검색 2번째 방법 
+		/*
+		// 게시글 목록 출력 + 페이징 추가 + 검색 2번째 방법 (1번째 방법 다시 시도중 01-03 10:07 주석)
 				@GetMapping("/listPageSearch")
 				public String BBSListSearch(Criteria cri, Model model, HttpServletRequest req,@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword) {
 					// 현재 주소정보
@@ -138,7 +139,7 @@ public class BBSController {
 					
 					return "BBS/listPageSearch";
 				}
-	
+	*/
 	
 	
 	

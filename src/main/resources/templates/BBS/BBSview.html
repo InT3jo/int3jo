@@ -164,7 +164,6 @@
 	<p>등록된 댓글이 없습니다.</p>
 </div>
 
-
 <!-- 댓글테이블 -->
 <div th:if="${commentListZero}!=null and ${commentListZero.size()}!=0">
 	<table border="1" width="800" height="100">
@@ -202,6 +201,7 @@
 							수정</button>
 					</td>
 				</div>
+
 
 				<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
 					<td>

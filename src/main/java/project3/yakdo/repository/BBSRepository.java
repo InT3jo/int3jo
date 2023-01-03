@@ -41,13 +41,25 @@ public interface BBSRepository {
 	public int listCount();
 	
 	
+	
+	//검색 페이징 1번째 방법에 필요
 	//목록 + 페이징 + 검색
 	public List<BBS> listSearch(SearchCriteria scri);
 	
 	//검색 결과 갯수
 	public int countSearch(SearchCriteria scri);
 	
-	//목록 + 페이징 + 검색 두번째방법시도중
-	public List<BBS> listPageSearch(Criteria cri,String searchType, String keyword);
 	
+	
+	//목록 + 페이징 + 검색 두번째방법시도중(첫번째 방법으로 다시시도중 일단 주석처리 01-03-09:53)
+	//public List<BBS> listPageSearch(Criteria cri,String searchType, String keyword);
+	
+	
+	
+	//검색 페이징 3번째 방법- 제목 내용 나눠서 
+	
+	//제목 결과 리스트 
+	public List<BBS> listSearchByTitle(SearchCriteria scri);
+	//내용 결과 리스트 
+	public List<BBS> listSearchByContent(SearchCriteria scri);
 }

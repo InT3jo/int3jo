@@ -75,13 +75,17 @@ public class PageMaker {
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
 	}
 
-	public String makeQuery(int page) {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-				.queryParam("perPageNum", cri.getPerPageNum()).build();
+	//페이징 uri 중 perPageNum때문에 추가 
+	public String makeQuery(int page) {//page와 perPageNum의 파라미터와 값을 설정하여 URI를 생성
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()//UriComponents는 URI를 생성해주는 클래스
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.build();
 
 		return uriComponents.toUriString();
 	}
 	
+	//검색 기능 때문에 추가함 
 	public String makeSearch(int page)
 	{
 	    
@@ -94,7 +98,7 @@ public class PageMaker {
 	            .build();   
 	   return uriComponents.toUriString();    
 	}
-
+	//검색 기능 때문에 추가함 (keyword는 인코딩에 따라 의도한것과 다른 결과가 나올 수 있기 때문에 인코딩 기능을 추가)
 	private String encoding(String keyword) {
 	   if(keyword == null || keyword.trim().length() == 0)
 	   { return ""; }

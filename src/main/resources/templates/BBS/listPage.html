@@ -48,11 +48,41 @@
 
 	</table>
 </div>
-	<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
+<!-- 	<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}"> -->
+<!-- 		<ul> -->
+<!-- 			<div> -->
+<!-- 				<li><a -->
+<!-- 					th:href="@{|/BBS/listPage?page=${pageMaker.startPage - 1}&perPageNum=10|}">이전</a></li> -->
+<!-- 			</div> -->
+
+
+<!-- 			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 --> -->
+<!-- 			<div th:each="num : ${#numbers.sequence(start,end)}"> -->
+<!-- 				<li><code th:if="${pageMaker.cri.getPage() == num}" -->
+<!-- 						th:text="${num}"></code> <a -->
+<!-- 					th:unless="${pageMaker.cri.getPage()==num}" -->
+<!-- 					th:href="@{|/BBS/listPage?page=${num}&perPageNum=10|}"> <code -->
+<!-- 							th:text="${num}"></code></a></li> -->
+<!-- 			</div> -->
+
+<!-- 			<div> -->
+<!-- 							<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0"> -->
+<!-- 				<li> -->
+<!-- 									<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
+<!-- 					<a -->
+<!-- 					th:href="@{|/BBS/listPage?page=${pageMaker.endPage+1}&perPageNum=10|}">다음</a> -->
+<!-- 				</li> -->
+<!-- 			</div> -->
+<!-- 		</ul> -->
+<!-- 	</div> -->
+
+<!-- makeQuery 넣어서 다시 시도  -->
+<!-- makeQuery 사용해도 페이징 잘 되는거 확인 01-03-11:12 -->
+<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
 		<ul>
 			<div>
 				<li><a
-					th:href="@{|/BBS/listPage?page=${pageMaker.startPage - 1}&perPageNum=10|}">이전</a></li>
+					th:href="@{|/BBS/listPage${pageMaker.makeQuery(pageMaker.startPage-1)}|}">이전</a></li>
 			</div>
 
 
@@ -61,7 +91,7 @@
 				<li><code th:if="${pageMaker.cri.getPage() == num}"
 						th:text="${num}"></code> <a
 					th:unless="${pageMaker.cri.getPage()==num}"
-					th:href="@{|/BBS/listPage?page=${num}&perPageNum=10|}"> <code
+					th:href="@{|/BBS/listPage${pageMaker.makeQuery(num)}|}"> <code
 							th:text="${num}"></code></a></li>
 			</div>
 
@@ -70,7 +100,7 @@
 				<li>
 					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
 					<a
-					th:href="@{|/BBS/listPage?page=${pageMaker.endPage+1}&perPageNum=10|}">다음</a>
+					th:href="@{|/BBS/listPage${pageMaker.makeQuery(pageMaker.endPage+1)}|}">다음</a>
 				</li>
 			</div>
 		</ul>

@@ -148,7 +148,7 @@ public class BBSMybatisRepository implements BBSRepository {
 		return BBSMapper.listCount();
 	}
 
-	//목록 + 페이징 + 검색
+	//목록 + 페이징 + 검색 1번째 방법에 필요
 	@Override
 	public List<BBS> listSearch(SearchCriteria scri) {
 		// TODO Auto-generated method stub
@@ -164,11 +164,24 @@ public class BBSMybatisRepository implements BBSRepository {
 	}
 
 	@Override
+	public List<BBS> listSearchByTitle(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BBS> listSearchByContent(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	@Override (첫번째 방법으로 다시시도중 일단 주석처리 01-03-09:53)
 	public List<BBS> listPageSearch(Criteria cri, String searchType, String keyword) {
 		// TODO Auto-generated method stub
 		return BBSMapper.listPageSearch(cri, searchType, keyword);
 	}
-
+	 */
 
 	
 
