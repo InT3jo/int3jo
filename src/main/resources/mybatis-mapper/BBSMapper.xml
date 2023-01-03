@@ -289,6 +289,9 @@
 			<if test="searchType == 'content'">
 			AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
+			<if test="searchType == 'writer'">
+			AND USER_NICK like '%' || #{keyword} || '%'
+			</if>
 		and b.user_no = u.user_no
 		</where>
 		) b
