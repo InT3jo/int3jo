@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.validation.form.SignUpForm;
 
 public interface UsersRepository {
@@ -37,6 +38,9 @@ public interface UsersRepository {
 	
 	//회원블락처리 / 작성자 : 배고운
 	public boolean updateUserStatus(@Param("userNo")Integer userNo, @Param("users")Users users);
+	
+	// UsersInfoList 가져오기 / 담당자 : 홍준표
+	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo);
 	
 	
 	

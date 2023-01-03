@@ -79,4 +79,22 @@
 		block_reason = {updateUser.blockReason}
 		where user_no = #{userNo}
 	</update>
+	
+	
+	<!-- 	UserNo로 UsersInfo를 리스트타입으로 반환 / 담당자 : 홍준표 -->
+	<select id="selectUsersInfoByUserNo" resultType="UsersInfo">
+		SELECT * FROM users_info WHERE USER_NO = #{userNo}
+	</select>
+	
+	<!-- 	UserNo와 FamilyNo로 UsingDrug을 리스트타입으로 반환 / 담당자 : 홍준표 -->
+	<select id="selectUsingDrugByUserNoAndFamilyNo" resultType="String">
+		SELECT ITEM_SEQ FROM users_info_using_drugs WHERE USER_NO = #{userNo} AND FAMILY_NO = #{familyNo}
+	</select>
+	
+	<!-- 	UserNo와 FamilyNo로 AllergyItemSeq를 리스트타입으로 반환 / 담당자 : 홍준표 -->
+	<select id="selectAllergyByUserNoAndFamillyNo" resultType="String">
+		SELECT ITEM_SEQ FROM users_info_allergy WHERE USER_NO = #{userNo} AND FAMILY_NO = #{familyNo}
+	</select>
+	
+	
 </mapper>

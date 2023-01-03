@@ -1,5 +1,8 @@
 package project3.yakdo.service.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
 import project3.yakdo.session.SessionVar;
 import project3.yakdo.validation.form.LoginForm;
@@ -43,5 +47,16 @@ public class LoginService {
 		}
 		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		return user;
+	}
+
+	/**
+	 * Users를 받아 UsersInfoList를 반환
+	 * @param: Users
+	 * @return: List<UsersInfo>
+	 */
+	public List<UsersInfo> getUsersInfoListByUserNo(Integer userNo) {
+		// TODO Auto-generated method stub
+		List<UsersInfo> usersInfoList = usersRepository.selectUsersInfoByUsersNo(userNo);
+		return usersInfoList;
 	}
 }

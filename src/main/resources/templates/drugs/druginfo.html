@@ -8,6 +8,12 @@
 <title th:utext="${'약도-'+drugInfo.itemName}"></title>
 </head>
 <body>
+	<script th:inline="javascript" th:if="${warningMessage}!=null and ${!warningMessage.equals('')}" type="text/javascript">
+	/*<![CDATA[*/
+		var msg = /*[[${warningMessage}]]*/; 
+		alert(msg);
+	/*]]>*/
+	</script>
 	<div th:replace="home_component.html :: infoHeader"></div>
 	<div class="d-CSS ContentBox">
 		<div class="d-CSS headTitle">약품 상세정보</div>
@@ -16,7 +22,7 @@
 				<img class="d-CSS infoImage" th:src="${drugInfo.itemImage}" alt="(이미지 준비중)"/>
 			</span>
 			<span th:if="${drugInfo.itemImage} == null">
-				<span>이미지 준비중입니다.</span>
+				<span class="d-CSS infoImage">이미지 준비중입니다.</span>
 			</span>
 			<div class="d-CSS infoHeadOutter">
 				<div class="d-CSS infoHead">

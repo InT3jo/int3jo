@@ -21,6 +21,8 @@ public interface DrugsRepository {
 	public List<DrugInfo> getDrugInfoListByFindDrugForm(FindDrugForm findDrugForm);
 	public List<DrugInfo> getDrugInfoListAllByFindDrugForm(FindDrugForm findDrugForm);
 	public List<DrugMark> getDrugMarkAll();
+	public List<String> getDurWarningByItemSeq(String itemSeq);
+	public List<String> getDurCombiIngrNameByItemSeq(String itemSeq);
 	
 	/* UPDATE 메서드 */
 	 public Integer updateDrugInfoImage(DrugInfo drugInfo);
@@ -31,4 +33,5 @@ public interface DrugsRepository {
 	public void deleteFindDrug();
 	public void deleteDur();
 	public void deleteDurCombi();
+	
 }

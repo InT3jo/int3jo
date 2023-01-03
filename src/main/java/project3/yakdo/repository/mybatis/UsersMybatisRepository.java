@@ -91,7 +91,21 @@ public class UsersMybatisRepository implements UsersRepository{
 		return result;
 	}
 	
-	
-
+	/**
+	 * userNo를 받아서 UsersInfo를 List방식으로 반환
+	 * @param: Integer(userNo)
+	 * @return: List<UsersInfo>
+	 * 담당자 : 홍준표
+	 */
+	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo){
+		List<UsersInfo> usersInfoList = usersMapper.selectUsersInfoByUserNo(userNo);
+		for(UsersInfo usersInfo : usersInfoList) {
+			List<String> usingDrugList = usersMapper.selectUsingDrugByUserNoAndFamilyNo(usersInfo.getUserNo(),usersInfo.getFamilyNo());
+			usersInfo.setUsingDrugList(usingDrugList);
+			List<String> allergyList = usersMapper.selectAllergyByUserNoAndFamillyNo(usersInfo.getUserNo(),usersInfo.getFamilyNo());
+			usersInfo.setAllergyList(allergyList);
+		}
+		return usersInfoList;
+	}
 
 }

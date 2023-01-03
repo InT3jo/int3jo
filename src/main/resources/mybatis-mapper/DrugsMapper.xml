@@ -194,6 +194,14 @@
 		SELECT COUNT(ITEM_SEQ) FROM drug_info
 	</select>
 		
+	<select id="selectTypeNameByItemSeq" resultType="String">
+		SELECT TYPE_NAME FROM dur WHERE ITEM_SEQ = #{itemSeq}
+	</select>
+	
+	<select id="selectCombiIngrNameByItemSeq" resultType="String">
+		SELECT DISTINCT MIX_INGR_NAME FROM dur_combi WHERE ITEM_SEQ = #{itemSeq}
+	</select>
+
 
 	
 <!-- DELETE 관련 쿼리문 -->

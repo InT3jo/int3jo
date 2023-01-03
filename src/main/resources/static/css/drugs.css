@@ -127,6 +127,8 @@
 	border:1px solid var(--Lowtone-silver);
 	border-radius: 50px;
 	overflow: hidden;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+	text-align: center;
 }
 .findCardImage{
 	width: 250px;
