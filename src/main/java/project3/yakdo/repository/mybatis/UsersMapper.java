@@ -7,27 +7,37 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.validation.form.SignUpForm;
 
 @Mapper
 public interface UsersMapper {
-	
-	//회원 가입 시 Users에 insert 실행될 인터페이스
+/* INSERT */
+	//Users insert
 	public Integer insertUsers(SignUpForm signUpForm);
 	
-	//회원 가입 시 Users_info에 insert 실행될 인터페이스
+	//Users_info insert
 	public Integer insertUsersInfo(SignUpForm signUpForm);
 
-	//회원 가입 시 Users_Info_UsingDrugs에 insert 실행될 인터페이스
+	//Users_Info_UsingDrugs insert
 	public Integer insertUsingDrugs(Map<String, Object> usingDrugMap);
 	
-	//회원 가입 시 Users_Info_Allergy에 insert 실행될 인터페이스
+	//Users_Info_Allergy insert
 	public Integer insertAllergy(Map<String, Object> usingDrugMap);
 	
+/* SELECT */
+	
+	//USERS_INFO select(familyNo 1씩 증가) 기준 :  userNo
+	public UsersInfo addFamilyNoByUserNo(Integer UserNo);
+	
+	//USERS_INFO select 기준 : familyNo, userNo
+	public UsersInfo selectByFamilyNo(SignUpForm signUpForm);
+	
+	//Users select 기준 : userEmail
 	public Users selectByUserEmail(String userEmail);
 
+	//Users selectAll
 	public List<Users> selectAllUsers();
-	
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	

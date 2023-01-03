@@ -3,30 +3,35 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="project3.yakdo.repository.mybatis.UsersMapper">
-	<!-- 회원가입 시 users, users_info_allergy, users_info_using_drugs 정보insert -->
+<!-- INSERT -->
 	<insert id="insertUsers">
 		INSERT INTO users VALUES (user_no_pk.NEXTVAL, #{userEmail}, #{userPw}, #{userNick}, sysdate, 2, 0, null, null)
 	</insert>
 
 	<insert id="insertUsersInfo">
-		INSERT INTO users_info VALUES (user_no_pk.currval, #{familyNo}, #{birth}, #{gender}, #{weight})
+		INSERT INTO users_info VALUES (${userNo}, #{familyNo}, #{birth}, #{gender}, #{weight}, #{familyNick})
 	</insert>
 	
 	<insert id="insertUsingDrugs">
-		INSERT INTO users_info_using_drugs VALUES (user_no_pk.currval, #{familyNo},#{usingDrug})
+		INSERT INTO users_info_using_drugs VALUES (${userNo}, #{familyNo}, #{usingDrug})
 	</insert>
 	
 	<insert id="insertAllergy">
-		INSERT INTO users_info_allergy VALUES (user_no_pk.currval, #{familyNo}, #{allergy})
+		INSERT INTO users_info_allergy VALUES (${userNo}, #{familyNo}, #{allergy})
 	</insert>
 	
+<!-- SELECT -->
+	<select id="addFamilyNoByUserNo">
+		SELECT NVL(MAX(family_no), 0) + 1 FROM users_info WHERE user_no = ${userNo}
+	</select>
 	
+	<select id="selectByFamilyNo">
+		SELECT family_no FROM users_info WHERE family_no = ${familyNo} AND user_no = ${userNo}
+	</select>
 	
-	<!-- select -->
 	<select id="selectByUserEmail" parameterType="String" resultType="Users">
 		SELECT user_no, user_email, user_pw, user_nick, join_date
-		,
-		user_grade, user_status, leave_date, block_reason
+			, user_grade, user_status, leave_date, block_reason
 		FROM users
 		WHERE
 		user_email = #{userEmail} AND USER_STATUS = 0
@@ -40,6 +45,7 @@
 		FROM users
 	</select>
 
+<!-- DELETE -->
 	<delete id="deleteAllUsers">
 		DELETE FROM users
 	</delete>

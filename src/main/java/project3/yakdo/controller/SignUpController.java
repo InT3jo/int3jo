@@ -24,7 +24,6 @@ import project3.yakdo.validation.form.SignUpForm;
 @RequiredArgsConstructor
 public class SignUpController {
 	
-//	private final JoinService joinService;
 	private final SignUpService signUpService;
 	
 	/**
@@ -37,20 +36,19 @@ public class SignUpController {
 	public String signUpForm (Model model) {
 		SignUpForm signUpForm = new SignUpForm();
 		model.addAttribute("signUpForm", signUpForm);
-
 		return "/users/signUp/signUp";
 	}
 	
 	/**
 	 * 회원가입 진행
-	 * @param joinForm
+	 * @param SignUpForm signUpForm
 	 * @return 회원가입 성공하면 welcome, 아니면 그대로
 	 * 
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping
 	public String signUp(@ModelAttribute SignUpForm signUpForm) {
-		log.info("signUp joinForm = {}", signUpForm);
+		log.info("signUp signUpForm = {}", signUpForm);
 		
 //		Integer result =
 				signUpService.signUp(signUpForm);

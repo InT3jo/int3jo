@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
 import project3.yakdo.validation.form.SignUpForm;
 
@@ -19,9 +20,12 @@ public class UsersMybatisRepository implements UsersRepository{
 	
 	private final UsersMapper usersMapper;
 
+/* Insert 관련 메소드 */
+	
 	/**
-	 * 기본 정보 insert 하는 메소드
-	 * @return result (Integer) 
+	 * USERS 테이블에 파라미터의 객체 추가
+	 * @param SignUpForm signUpForm
+	 * @return Integer(result)
 	 * 담당자 : 빙예은
 	 */
 	@Override
@@ -31,8 +35,9 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 	/**
-	 * 가족 정보 insert 하는 메소드
-	 * @return result (Integer) 
+	 * USERS_INFO 테이블에 insert 하는 메소드
+	 * @param SignUpForm signUpForm
+	 * @return Integer(result) 
 	 * 담당자 : 빙예은
 	 */
 	@Override
@@ -42,8 +47,12 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 	/**
-	 * 복용 중인 약물 insert 하는 메소드
-	 * @return result (Integer) 
+	 * USERS_INFO_USING_DRUGS insert 하는 메소드
+	 * SingUpForm을 파라미터로 받아서 usingDrugList List 생성
+	 * List의 약물을 Map에 저장한 후 insert 진행
+	 * 
+	 * @param SignUpForm signUpForm
+	 * @return Integer(result) 
 	 * 담당자 : 빙예은
 	 */
 	@Override
@@ -61,8 +70,12 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 	
 	/**
-	 * 알러지 목록 insert 하는 메소드
-	 * @return result (Integer) 
+	 * USERS_INFO_ALLERGY insert 하는 메소드
+	 * SingUpForm을 파라미터로 받아서 allergyList List 생성
+	 * List의 알러지를 Map에 저장한 후 insert 진행
+	 * 
+	 * @param SignUpForm signUpForm
+	 * @return Integer(result) 
 	 * 담당자 : 빙예은
 	 */
 	@Override
@@ -79,10 +92,35 @@ public class UsersMybatisRepository implements UsersRepository{
 		return result;
 	}
 
+/* SELECT 관련 메소드 */
+	/**
+	 * userNo의 max값 기준으로 familyNo 1씩 증가시키는 쿼리 실행
+	 * @param Integer UserNo
+	 * @return UsersInfo usersInfo
+	 */
+	@Override
+	public UsersInfo addFamilyNoByUserNo(Integer UserNo) {
+		UsersInfo usersInfo = usersMapper.addFamilyNoByUserNo(UserNo);
+		return usersInfo;
+	}
 
 	/**
-	 * userEmail을 찾아서 db select 하기
-	 * @return result (Integer) 
+	 * signUpForm을 전달 받아 familyNo와 userNo 기준으로 select
+	 * @param SignUpForm signUpForm
+	 * @return usersInfo
+	 */
+	@Override
+	public UsersInfo selectByFamilyNo(SignUpForm signUpForm) {
+		UsersInfo usersInfo = usersMapper.selectByFamilyNo(signUpForm);
+		return usersInfo;
+	}
+
+	
+	/**
+	 * userEmail을 전달 받아 USERS select 하기
+	 * userEmail이 같고 활동중(0)인 회원 데이터만 가져온다 
+	 * @param String userEmail
+	 * @return Integer(result)
 	 * 담당자 : 빙예은
 	 */
 	@Override
@@ -94,8 +132,8 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 	/**
-	 * users에 있는 전체 데이터 가져오기
-	 * @return result (Integer) 
+	 * USERS에 있는 전체 DB SELECT
+	 * @return List<Users> userList 
 	 * 담당자 : 빙예은
 	 */
 	@Override
@@ -136,8 +174,7 @@ public class UsersMybatisRepository implements UsersRepository{
 		usersMapper.updateUserStatus(userNo, users);
 		return result;
 	}
-	
-	
+
 
 
 }

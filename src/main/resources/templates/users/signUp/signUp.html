@@ -34,56 +34,50 @@
 				<input type="text" name="userNick" id="userNick" th:field="*{userNick}"/>
 			</div>
 			
-			<div>
-				<label for="familyNo">가족 관계</label>
-				<select id="familyNo" name="familyNo" th:field="*{familyNo}" required>
-					<option value="">가족관계</option>
-					<option value="0">본인</option>
-					<option value="1">엄마</option>
-					<option value="2">아빠</option>
-					<option value="3">배우자</option>
-					<option value="4">자녀</option>
-					<option value="5">기타</option>
-				</select>
-			</div>
-			
-			<div>
-				<label for="gender">성별</label>
-				<select id="gender" name="gender" th:field="*{gender}" required>
-					<option value="">성별</option>
-					<option value="남자">남자</option>
-					<option value="여자">여자</option>
-				</select>
-			</div>
-			
-			<div>
-				<label for="birth">생년월일</label>
-				<input type="date" name="birth" id="birth" th:field="*{birth}" required/>
-			</div>
-			
-			<div>
-				<label for="weight">몸무게(kg)</label>
-				<input type="text" name="weight" id="weight" th:field="*{weight}" required/>
-			</div>
-			
-			<div>
-				<label for="usingDrugs">복용 중인 약</label>
-				<input id="usingDrugs" name="usingDrugs" />
-				<button type="button">검색</button>
-				<button type="button" onclick="addDrug()">추가</button>
-				<div id="addDrugs">
+			<div id="familyBox">
+				<div>
+					<label for="familyNick">가족 관계</label>
+					<input type="text" name="familyNick" id="familyNick" th:field="*{familyNick}" style="width:300px"/>
+					<button type="button" onclick="addFamily()">추가</button>
+				</div>
+				
+				<div>
+					<label for="gender">성별</label>
+					<select id="gender" name="gender" th:field="*{gender}" required>
+						<option value="">성별</option>
+						<option value="남자">남자</option>
+						<option value="여자">여자</option>
+					</select>
+				</div>
+				
+				<div>
+					<label for="birth">생년월일</label>
+					<input type="date" name="birth" id="birth" th:field="*{birth}" required/>
+				</div>
+				
+				<div>
+					<label for="weight">몸무게(kg)</label>
+					<input type="text" name="weight" id="weight" th:field="*{weight}" required/>
+				</div>
+				
+				<div>
+					<label for="usingDrugs">복용 중인 약</label>
+					<input id="usingDrugs" name="usingDrugs" />
+					<button type="button">검색</button>
+					<button type="button" onclick="addDrug()">추가</button>
+					<div id="addDrugs">
+					</div>
+				</div>
+				
+				<div>
+					<label for="allergy">알레르기</label>
+					<input id="allergy" name="allergy" />
+					<button type="button">검색</button>
+					<button type="button" onclick="addAllergy()">추가</button>
+					<div id="addAllergy">
+					</div>
 				</div>
 			</div>
-			
-			<div>
-				<label for="allergy">알레르기</label>
-				<input id="allergy" name="allergy" />
-				<button type="button">검색</button>
-				<button type="button" onclick="addAllergy()">추가</button>
-				<div id="addAllergy">
-				</div>
-			</div>
-			
 			<div>
 				<button type="submit">가입하기</button>
 			</div>
@@ -91,6 +85,16 @@
 	</div>
 	
 	<script>
+		function addFamily() {
+			//input 추가할 div 찾기
+			const addFamily = document.getElementById('familyBox');
+			//입력된 가족닉네임 가져오기
+			let inputValue = document.getElementById('familyNick').value;
+			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
+			if (inputValue != null && inputValue.trim() != "") {
+				addDrugs.innerHTML += 
+			}
+		}
 		//약품 추가
 		function addDrug() {
 			//input 추가할 div 찾기
@@ -99,10 +103,7 @@
 			let inputValue = document.getElementById('usingDrugs').value;
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
 			if (inputValue != null && inputValue.trim() != "") {
-				addDrugs.innerHTML += '<div id="'+inputValue+'box"><label for="'+inputValue+'">'
-						+ inputValue
-						+ '</lable><input name="usingDrugList" id="'+inputValue+'" value="'+inputValue+'" type="hidden" /><button type="button" onclick="deleteInput(\''
-						+ inputValue + 'box\')">삭제</button></div>'
+				addDrugs.innerHTML += ''
 			}
 		}
 		
