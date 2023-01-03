@@ -10,74 +10,38 @@
 		<form action="/signUp" method="post" th:object="${signUpForm}">
 			<div>
 				<label for="userEmail">이메일</label>
-				<input type="email" name="userEmail" id="userEmail" th:field="*{userEmail}"/>
+				<input type="email" name="userEmail" id="userEmail" th:field="*{userEmail}" required />
 				<button type="button">인증코드 받기</button>
 			</div>
 			
 			<div>
 				<label for="emailCodeCheck">인증코드</label>
-				<input type="text" name="emailCodeCheck" id="emailCodeCheck" th:field="*{emailCodeCheck}"/>
+				<input type="text" name="emailCodeCheck" id="emailCodeCheck" th:field="*{emailCodeCheck}" required />
 				<button type="button">인증</button>
 			</div>
 			
 			<div>
 				<label for="userPw">비밀번호</label>
-				<input type="password" name="userPw" id="userPw" th:field="*{userPw}"/>
+				<input type="password" name="userPw" id="userPw" th:field="*{userPw}" required />
 			</div>
 			<div>
 				<label for="reJoinPw">비밀번호 확인</label>
-				<input type="password" name="reJoinPw" id="reJoinPw" th:field="*{reJoinPw}"/>
+				<input type="password" name="reJoinPw" id="reJoinPw" th:field="*{reJoinPw}" required />
 			</div>
 			
 			<div>
 				<label for="userNick">닉네임</label>
-				<input type="text" name="userNick" id="userNick" th:field="*{userNick}"/>
+				<input type="text" name="userNick" id="userNick" th:field="*{userNick}" required />
 			</div>
 			
-			<div id="familyBox">
-				<div>
-					<label for="familyNick">가족 관계</label>
-					<input type="text" name="familyNick" id="familyNick" th:field="*{familyNick}" style="width:300px"/>
-					<button type="button" onclick="addFamily()">추가</button>
-				</div>
-				
-				<div>
-					<label for="gender">성별</label>
-					<select id="gender" name="gender" th:field="*{gender}" required>
-						<option value="">성별</option>
-						<option value="남자">남자</option>
-						<option value="여자">여자</option>
-					</select>
-				</div>
-				
-				<div>
-					<label for="birth">생년월일</label>
-					<input type="date" name="birth" id="birth" th:field="*{birth}" required/>
-				</div>
-				
-				<div>
-					<label for="weight">몸무게(kg)</label>
-					<input type="text" name="weight" id="weight" th:field="*{weight}" required/>
-				</div>
-				
-				<div>
-					<label for="usingDrugs">복용 중인 약</label>
-					<input id="usingDrugs" name="usingDrugs" />
-					<button type="button">검색</button>
-					<button type="button" onclick="addDrug()">추가</button>
-					<div id="addDrugs">
-					</div>
-				</div>
-				
-				<div>
-					<label for="allergy">알레르기</label>
-					<input id="allergy" name="allergy" />
-					<button type="button">검색</button>
-					<button type="button" onclick="addAllergy()">추가</button>
-					<div id="addAllergy">
-					</div>
-				</div>
+			<div id="familyContainor">
 			</div>
+			
+			<div>
+				가족 건강 정보 추가
+				<button type="button" onclick="addFamily()">추가</button>
+			</div>
+			
 			<div>
 				<button type="submit">가입하기</button>
 			</div>
@@ -85,47 +49,96 @@
 	</div>
 	
 	<script>
+		var	i = 1
 		function addFamily() {
-			//input 추가할 div 찾기
-			const addFamily = document.getElementById('familyBox');
-			//입력된 가족닉네임 가져오기
-			let inputValue = document.getElementById('familyNick').value;
-			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
-			if (inputValue != null && inputValue.trim() != "") {
-				addDrugs.innerHTML += 
-			}
+			//input 추가할 div 찾기familyList
+			const addFamily = document.getElementById('familyContainor');
+			addFamily.innerHTML += 
+				'<div id="familyBox'+i+'">'
+	+ '				<div>'
+	+ '					<label for="familyNick'+i+'">가족 관계</label>'
+	+ '					<input type="text" name="familyNick'+i+'" id="familyNick'+i+'" th:field="*{familyNick}" placeholder="ex.본인, 배우자, 자녀 등"/>'
+	+ '					<button type="button" onclick="deleteTarget(\'familyBox'+i+'\')">삭제</button>'
+	+ '				</div>'
+	+ '				'
+	+ '				<div>'
+	+ '					<label for="gender'+i+'">성별</label>'
+	+ '					<select id="gender'+i+'" name="gender'+i+'" th:field="*{gender}" required>'
+	+ '						<option value="">성별</option>'
+	+ '						<option value="남자">남자</option>'
+	+ '						<option value="여자">여자</option>'
+	+ '					</select>'
+	+ '				</div>'
+	+ '				'
+	+ '				<div>'
+	+ '					<label for="birth'+i+'">생년월일</label>'
+	+ '					<input type="date" name="birth'+i+'" id="birth'+i+'" th:field="*{birth}" required/>'
+	+ '				</div>'
+	+ '				'
+	+ '				<div>'
+	+ '					<label for="weight'+i+'">몸무게(kg)</label>'
+	+ '					<input type="text" name="weight'+i+'" id="weight'+i+'" th:field="*{weight}" required/>'
+	+ '				</div>'
+	+ '				'
+	+ '				<div>'
+	+ '					<label for="usingDrugs'+i+'">복용 중인 약</label>'
+	+ '					<input id="usingDrugs'+i+'" name="usingDrugs'+i+'" />'
+	+ '					<button type="button">검색</button>'
+	+ '					<button type="button" onclick="addDrug('+i+')">추가</button>'
+	+ '					<div id="addDrugs'+i+'">'
+	+ '					</div>'
+	+ '				</div>'
+	+ '				'
+	+ '				<div>'
+	+ '					<label for="allergy'+i+'">알레르기</label>'
+	+ '					<input id="allergy'+i+'" name="allergy'+i+'" />'
+	+ '					<button type="button">검색</button>'
+	+ '					<button type="button" onclick="addAllergy('+i+')">추가</button>'
+	+ '					<div id="addAllergy'+i+'">'
+	+ '					</div>'
+	+ '				</div>';
+	+ '			</div>';
+			i++;
 		}
+		
+		var j = 1;
 		//약품 추가
-		function addDrug() {
+		function addDrug(i) {
 			//input 추가할 div 찾기
-			const addDrugs = document.getElementById('addDrugs');
+			const addDrugs = document.getElementById('addDrugs'+i);
 			//입력된 약물 가져오기
-			let inputValue = document.getElementById('usingDrugs').value;
+			let inputValue = document.getElementById('usingDrugs'+i).value;
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
 			if (inputValue != null && inputValue.trim() != "") {
-				addDrugs.innerHTML += ''
+				addDrugs.innerHTML += '<div id="usingDrugBox' + j + '">'
+						+				'<label for="usingDrug' + j + '">' + inputValue + '</lable>'
+						+				'<input name="usingDrug' + j + '" id="'+inputValue + j + '" value="' + inputValue + '" type="hidden" />'
+						+				'<button type="button" onclick="deleteTarget(\'usingDrugBox' + j + '\')">삭제</button>'
+						+			'</div>'
 			}
+			j++;
 		}
 		
 		//알레르기 약물 추가
-		function addAllergy() {
+		function addAllergy(i) {
 			//input 추가할 div 찾기
-			const addAllergy = document.getElementById('addAllergy');
+			const addAllergy = document.getElementById('addAllergy'+i);
 			//입력된 알러지 가져오기
-			let inputValue = document.getElementById('allergy').value;
+			let inputValue = document.getElementById('allergy'+i).value;
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
 			if (inputValue != null && inputValue.trim() != "") {
-				addAllergy.innerHTML += '<div id="'+inputValue+'box"><label for="'+inputValue+'">'
-						+ inputValue
-						+ '</lable><input name="allergyList" id="'+inputValue+'" type="hidden" value="'+inputValue+'"/><button type="button" onclick="deleteInput(\''
-						+ inputValue + 'box\')">삭제</button></div>'
+				addAllergy.innerHTML += '<div id="allergyBox'+j+'">'
+						+ 					'<label for="allergy' + j + '">'+ inputValue + '</lable>'
+						+ 					'<input name="allergy' + j + '" id="' + inputValue + j + '" type="hidden" value="' + inputValue + '"/>'
+						+					'<button type="button" onclick="deleteTarget(\'allergyBox' + j + '\')">삭제</button>'
+						+				'</div>'
 			}
+			j++;
 		}
 		
-		//추가한 usingDrug or allergy 삭제
-		function deleteInput(inputValuebox) {
-			console.log(inputValuebox);
-			document.getElementById(inputValuebox).remove();
+		//파라미터에 맞는 태그 삭제
+		function deleteTarget(target) {
+			document.getElementById(target).remove();
 		}
 		
 	</script>

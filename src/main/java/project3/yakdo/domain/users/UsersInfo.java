@@ -13,7 +13,8 @@ public class UsersInfo {
 	private Integer familyNo;	//가족번호
 	private Date birth;			//생년월일
 	private String gender;		//성별
-	private Integer weight;		//체중
+	private double weight;		//체중
+	private String familyNick;	//familyNick
 	
 	private List<String> usingDrugList;	//복용중인 약물
 	private List<String> allergyList;		//알러지

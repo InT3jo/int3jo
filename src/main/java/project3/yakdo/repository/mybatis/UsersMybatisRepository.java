@@ -57,15 +57,15 @@ public class UsersMybatisRepository implements UsersRepository{
 	 */
 	@Override
 	public Integer insertUsingDrugs(SignUpForm signUpForm) {
-		Map<String, Object> usingDrugMap = new LinkedHashMap<>();
-		List<String> drugList = signUpForm.getUsingDrugList();
-		
+//		Map<String, Object> usingDrugMap = new LinkedHashMap<>();
+//		List<String> drugList = signUpForm.getUsingDrugList();
+//		
 		int result = 0;
-		for(int i = 0; i<drugList.size(); i++) {
-			usingDrugMap.put("familyNo", signUpForm.getFamilyNo());
-			usingDrugMap.put("usingDrug", drugList.get(i));
-			result = usersMapper.insertUsingDrugs(usingDrugMap);
-		}
+//		for(int i = 0; i<drugList.size(); i++) {
+//			usingDrugMap.put("familyNo", signUpForm.getFamilyNo());
+//			usingDrugMap.put("usingDrug", drugList.get(i));
+//			result = usersMapper.insertUsingDrugs(usingDrugMap);
+//		}
 		return result;
 	}
 	
@@ -80,15 +80,15 @@ public class UsersMybatisRepository implements UsersRepository{
 	 */
 	@Override
 	public Integer insertAllergy(SignUpForm signUpForm) {
-		Map<String, Object> allergyMap = new LinkedHashMap<>();
-		List<String> allergyList = signUpForm.getAllergyList();
-		
+//		Map<String, Object> allergyMap = new LinkedHashMap<>();
+//		List<String> allergyList = signUpForm.getAllergyList();
+//		
 		int result = 0;
-		for(int i = 0; i<allergyList.size(); i++) {
-			allergyMap.put("familyNo", signUpForm.getFamilyNo());
-			allergyMap.put("allergy", allergyList.get(i));
-			result = usersMapper.insertAllergy(allergyMap);
-		}
+//		for(int i = 0; i<allergyList.size(); i++) {
+//			allergyMap.put("familyNo", signUpForm.getFamilyNo());
+//			allergyMap.put("allergy", allergyList.get(i));
+//			result = usersMapper.insertAllergy(allergyMap);
+//		}
 		return result;
 	}
 
