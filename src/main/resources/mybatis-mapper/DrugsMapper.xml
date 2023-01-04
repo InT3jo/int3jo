@@ -195,7 +195,7 @@
 	</select>
 		
 	<select id="selectTypeNameByItemSeq" resultType="String">
-		SELECT TYPE_NAME FROM dur WHERE ITEM_SEQ = #{itemSeq}
+		SELECT DISTINCT TYPE_NAME FROM dur WHERE ITEM_SEQ = #{itemSeq}
 	</select>
 	
 	<select id="selectCombiIngrNameByItemSeq" resultType="String">
