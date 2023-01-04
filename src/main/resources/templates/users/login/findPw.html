@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/user.css">
-<title>약도 - 로그인</title>
+<title>약도 - 비밀번호 찾기</title>
 </head>
 <body>
 	<div class="ContentBox center">
@@ -16,19 +16,20 @@
 		</div>
 		<div class="d-CSS loginForm">
 			<form action="" method="post" th:object="${loginForm}">
-				<div th:if="${#fields.hasGlobalErrors()}">
-					<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+				<div class="loginEmailBox">
+					<input type="email" id="loginEmail" placeholder="이메일" />
 				</div>
 				<div class="loginEmailBox">
-					<input type="email" id="loginEmail" th:field="*{loginEmail}" placeholder="이메일" />
-					<div th:errors="*{loginEmail}"></div>
+					<input type="text" id="loginEmail" placeholder="이메일" />
 				</div>
 				<div class="loginPwBox">
-					<input type="password" id="loginPw" th:field="*{loginPw}" placeholder="비밀번호" />
-					<div th:errors="*{loginPw}"></div>
+					<input type="password" id="loginPw" placeholder="비밀번호" />
+				</div>
+				<div class="loginPwBox">
+					<input type="password" id="loginPw" placeholder="비밀번호" />
 				</div>
 				
-				<button id="loginBtn" type="submit">로그인</button>
+				<button id="loginBtn" type="submit">수정하기</button>
 				<button id="goHomeBtn" type="button" onclick="location.href='/'">메인화면으로</button>
 			</form>
 		</div>
