@@ -28,7 +28,7 @@ public interface UsersMapper {
 	
 /* SELECT */
 	//USERS_INFO select(familyNo 1씩 증가) 기준 :  userNo
-	public UsersInfo addFamilyNoByUserNo(Integer UserNo);
+	public UsersInfo selectFamilyNoByUserNo(Integer UserNo);
 	
 	//USERS_INFO select 기준 : familyNo, userNo
 	public UsersInfo selectByFamilyNo(SignUpForm signUpForm);

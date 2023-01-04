@@ -9,7 +9,7 @@
 	</insert>
 
 	<insert id="insertUsersInfo">
-		INSERT INTO users_info VALUES (${userNo}, #{familyNo}, #{birth}, #{gender}, #{weight}, #{familyNick})
+		INSERT INTO users_info VALUES (${userNo}, SELECT NVL(MAX(family_no), 0)+1 FROM users_info WHERE user_no = ${userNo}, #{birth}, #{gender}, #{weight}, #{familyNick})
 	</insert>
 	
 	<insert id="insertUsingDrugs">
@@ -21,11 +21,11 @@
 	</insert>
 	
 <!-- SELECT -->
-	<select id="addFamilyNoByUserNo">
-		SELECT NVL(MAX(family_no), 0) + 1 FROM users_info WHERE user_no = ${userNo}
+	<select id="selectFamilyNoByUserNo" resultType="UsersInfo">
+		SELECT NVL(MAX(family_no), 0) "user_no" FROM users_info WHERE user_no = ${userNo}
 	</select>
 	
-	<select id="selectByFamilyNo">
+	<select id="selectUsersInfoByFamilyNo">
 		SELECT family_no FROM users_info WHERE family_no = ${familyNo} AND user_no = ${userNo}
 	</select>
 	

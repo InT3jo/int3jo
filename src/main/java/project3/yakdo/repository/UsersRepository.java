@@ -20,8 +20,8 @@ public interface UsersRepository {
 	public Integer insertAllergy(SignUpForm signUpForm);
 	
 	/* SELECT 담당자 : 빙예은 */
-	public UsersInfo addFamilyNoByUserNo(Integer UserNo);
-	public UsersInfo selectByFamilyNo(SignUpForm signUpForm);
+	public UsersInfo selectFamilyNoByUserNo(Integer UserNo);
+	public UsersInfo selectUsersInfoByFamilyNo(SignUpForm signUpForm);
 	public Users selectByUserEmail(String userEmail);
 	public List<Users> selectAllUsers();
 	

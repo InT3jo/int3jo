@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,7 +39,9 @@ public class SignUpController {
 	 * 담당자 : 빙예은
 	 */
 	@GetMapping
-	public String signUpForm () {
+	public String signUpForm (Model model) {
+		SignUpForm signUpform = new SignUpForm();
+		model.addAttribute("signUpForm", signUpform);
 		return "/users/signUp/signUp";
 	}
 	
@@ -52,8 +56,8 @@ public class SignUpController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping
-	public String signUp(HttpServletRequest req) {
-		SignUpForm signUpForm = new SignUpForm();
+	public String signUp(@ModelAttribute SignUpForm signUpForm
+			, HttpServletRequest req) {
 		List<UsersInfo> tempFamilyList = new ArrayList<UsersInfo>();
 		int i= 1;
 		while(true) {
@@ -116,7 +120,7 @@ public class SignUpController {
 		}
 		//세팅 완료된 tempfamilyList signUpForm의 familyList에 저장
 		signUpForm.setFamilyList(tempFamilyList);
-		log.info("signUp signUpFormList = {}", signUpForm.getFamilyList());
+		log.info("signUp signUpForm = {}", signUpForm);
 		
 //		Integer result =
 				signUpService.signUp(signUpForm);

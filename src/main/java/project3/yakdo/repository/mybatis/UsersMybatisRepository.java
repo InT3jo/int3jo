@@ -98,8 +98,8 @@ public class UsersMybatisRepository implements UsersRepository{
 	 * @return UsersInfo usersInfo
 	 */
 	@Override
-	public UsersInfo addFamilyNoByUserNo(Integer UserNo) {
-		UsersInfo usersInfo = usersMapper.addFamilyNoByUserNo(UserNo);
+	public UsersInfo selectFamilyNoByUserNo(Integer UserNo) {
+		UsersInfo usersInfo = usersMapper.selectFamilyNoByUserNo(UserNo);
 		return usersInfo;
 	}
 
@@ -109,7 +109,7 @@ public class UsersMybatisRepository implements UsersRepository{
 	 * @return usersInfo
 	 */
 	@Override
-	public UsersInfo selectByFamilyNo(SignUpForm signUpForm) {
+	public UsersInfo selectUsersInfoByFamilyNo(SignUpForm signUpForm) {
 		UsersInfo usersInfo = usersMapper.selectByFamilyNo(signUpForm);
 		return usersInfo;
 	}
