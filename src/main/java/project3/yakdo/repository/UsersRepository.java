@@ -7,22 +7,20 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.BBS.SearchCriteria;
+import project3.yakdo.domain.users.SignUpForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
-import project3.yakdo.validation.form.SignUpForm;
 
 public interface UsersRepository {
 
 	/* INSERT 담당자 : 빙예은 */
 	public Integer insertUsers(SignUpForm signUpForm);
-	public Integer insertUsersInfo(SignUpForm signUpForm);
+	public Integer insertUsersInfo(UsersInfo usersInfo);
 	public Integer insertUsingDrugs(SignUpForm signUpForm);
 	public Integer insertAllergy(SignUpForm signUpForm);
 	
 	/* SELECT 담당자 : 빙예은 */
-	public UsersInfo selectFamilyNoByUserNo(Integer UserNo);
-	public UsersInfo selectUsersInfoByFamilyNo(SignUpForm signUpForm);
-	public Users selectByUserEmail(String userEmail);
+	public Users selectUserByUserEmail(String userEmail);
 	public List<Users> selectAllUsers();
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 

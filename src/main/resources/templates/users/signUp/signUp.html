@@ -63,7 +63,7 @@
 	+ '				'
 	+ '				<div>'
 	+ '					<label for="gender'+i+'">성별</label>'
-	+ '					<select id="gender'+i+'" name="gender'+i+'" th:field="*{gender}" required>'
+	+ '					<select id="gender'+i+'" name="gender'+i+'" required>'
 	+ '						<option value="">성별</option>'
 	+ '						<option value="남자">남자</option>'
 	+ '						<option value="여자">여자</option>'
@@ -84,56 +84,72 @@
 	+ '					<label for="usingDrugs'+i+'">복용 중인 약</label>'
 	+ '					<input id="usingDrugs'+i+'" name="usingDrugs'+i+'" />'
 	+ '					<button type="button">검색</button>'
-	+ '					<button type="button" onclick="addDrug('+i+')">추가</button>'
+	+ '					<button id="addDrugButton'+i+'" type="button" onclick="addDrug(this.getAttribute(\'id\'))">추가</button>'
 	+ '					<div id="addDrugs'+i+'">'
 	+ '					</div>'
 	+ '				</div>'
 	+ '				'
 	+ '				<div>'
-	+ '					<label for="allergy'+i+'">알레르기</label>'
-	+ '					<input id="allergy'+i+'" name="allergy'+i+'" />'
+	+ '					<label for="allergys'+i+'">알레르기</label>'
+	+ '					<input id="allergys'+i+'" name="allergys'+i+'" />'
 	+ '					<button type="button">검색</button>'
-	+ '					<button type="button" onclick="addAllergy('+i+')">추가</button>'
-	+ '					<div id="addAllergy'+i+'">'
+	+ '					<button id="addAllergyButton'+i+'" type="button" onclick="addAllergy(this.getAttribute(\'id\'))">추가</button>'
+	+ '					<div id="addAllergys'+i+'">'
 	+ '					</div>'
 	+ '				</div>';
 	+ '			</div>';
 			i++;
 		}
 		
-		var j = 1;
+		
 		//약품 추가
-		function addDrug(i) {
+		function addDrug(buttonId) {
+			var i = buttonId.slice(13);
 			//input 추가할 div 찾기
 			const addDrugs = document.getElementById('addDrugs'+i);
 			//입력된 약물 가져오기
 			let inputValue = document.getElementById('usingDrugs'+i).value;
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
 			if (inputValue != null && inputValue.trim() != "") {
-				addDrugs.innerHTML += '<div id="usingDrugBox' + j + '">'
-						+				'<label for="usingDrug' + j + '">' + inputValue + '</lable>'
-						+				'<input name="usingDrug' + j + '" id="'+inputValue + j + '" value="' + inputValue + '" type="hidden" />'
-						+				'<button type="button" onclick="deleteTarget(\'usingDrugBox' + j + '\')">삭제</button>'
+				var cnt = 1;
+				for(var forI=1;true;forI++){
+					var tempId = '#usingDrug' + i + 'and' +forI;
+					if(document.querySelector(tempId)==null){
+						cnt=forI;
+						break;
+					}
+				}
+				addDrugs.innerHTML += '<div id="usingDrugBox' + i + 'and' + cnt + '">'
+						+				'<label for="usingDrug' + i + 'and' + cnt + '">' + inputValue + '</lable>'
+						+				'<input name="usingDrug' + i + 'and' + cnt + '" id="usingDrug' + i + 'and' + cnt + '" value="' + inputValue + '" type="hidden" />'
+						+				'<button type="button" onclick="deleteTarget(\'usingDrugBox' + i + 'and' + cnt + '\')">삭제</button>'
 						+			'</div>'
 			}
-			j++;
 		}
 		
 		//알레르기 약물 추가
-		function addAllergy(i) {
+		function addAllergy(buttonId) {
+			var i = buttonId.slice(16);
 			//input 추가할 div 찾기
-			const addAllergy = document.getElementById('addAllergy'+i);
+			const addAllergy = document.getElementById('addAllergys'+i);
 			//입력된 알러지 가져오기
-			let inputValue = document.getElementById('allergy'+i).value;
+			let inputValue = document.getElementById('allergys'+i).value;
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
 			if (inputValue != null && inputValue.trim() != "") {
-				addAllergy.innerHTML += '<div id="allergyBox'+j+'">'
-						+ 					'<label for="allergy' + j + '">'+ inputValue + '</lable>'
-						+ 					'<input name="allergy' + j + '" id="' + inputValue + j + '" type="hidden" value="' + inputValue + '"/>'
-						+					'<button type="button" onclick="deleteTarget(\'allergyBox' + j + '\')">삭제</button>'
+				var cnt = 1;
+				for(var forI=1;true;forI++){
+					var tempId = '#allergy' + i + 'and' +forI;
+					if(document.querySelector(tempId)==null){
+						cnt=forI;
+						break;
+					}
+				}
+				addAllergy.innerHTML += '<div id="allergyBox' + i + 'and' + cnt + '">'
+						+ 					'<label for="allergy' + i + 'and' + cnt + '">'+ inputValue + '</lable>'
+						+ 					'<input name="allergy' + i + 'and' + cnt + '" id="allergy' + i + 'and' + cnt + '" type="hidden" value="' + inputValue + '"/>'
+						+					'<button type="button" onclick="deleteTarget(\'allergyBox' + i + 'and' + cnt + '\')">삭제</button>'
 						+				'</div>'
 			}
-			j++;
 		}
 		
 		//파라미터에 맞는 태그 삭제

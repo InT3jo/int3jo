@@ -1,66 +1,100 @@
 package project3.yakdo.service.users;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project3.yakdo.domain.users.SignUpForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
-import project3.yakdo.validation.form.SignUpForm;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class SignUpService {
 	private final UsersRepository usersRepository;
-
+	
 	/**
-	 * 기본 정보 가입 서비스가 이뤄지는 메소드
-	 * signForm으로 받은 데이터 Users DB에 insert 실행
-	 * 유효성 검사 해야함
+	 * SignUp 페이지에서 입력한 값을 가진 UsersInfo List를 반환
+	 * userNo와 familyNo는 null
+	 * @param HttpServletRequest
+	 * @return List<UsersInfo>
+	 */
+	public List<UsersInfo> getUsersInfoList(HttpServletRequest req) {
+		List<UsersInfo> usersInfoList = new ArrayList<UsersInfo>();
+		int i= 1;
+		while(true) {
+			if(req.getParameter("familyNick"+i) == null) {
+				break; 
+			}
+			UsersInfo userInfo = getUsersInfo(req, i);
+			usersInfoList.add(userInfo);
+			i++;
+		}
+		return usersInfoList;
+	}
+
+	private UsersInfo getUsersInfo(HttpServletRequest req, int i) {
+		UsersInfo userInfo = new UsersInfo();
+		userInfo.setFamilyNick(req.getParameter("familyNick"+i));
+		userInfo.setBirth(Date.valueOf(req.getParameter("birth"+i)));
+		userInfo.setGender(req.getParameter("gender"+i));
+		userInfo.setWeight(Double.parseDouble(req.getParameter("weight"+i)));
+		userInfo.setUsingDrugList(getUsingDrugList(req,i));
+		userInfo.setAllergyList(getAllergyList(req,i));
+		return userInfo;
+	}
+
+	private List<String> getAllergyList(HttpServletRequest req, int i) {
+		List<String> allergyList = new ArrayList<String>();
+		int allergyDrugNo = 1;
+		while(true) {
+			String allergy = req.getParameter("allergy" + i + "and" + allergyDrugNo);
+			if(allergy == null) {
+				break;
+			}
+			allergyList.add(allergy);
+			allergyDrugNo++;
+		}
+		return allergyList;
+	}
+
+	private List<String> getUsingDrugList(HttpServletRequest req, int i) {
+		List<String> usingDrugList = new ArrayList<String>();
+		int usingDrugNo = 1;
+		while(true) {
+			String usingDrug = req.getParameter("usingDrug" + i + "and" + usingDrugNo);
+			if(usingDrug == null) {
+				break;
+			}
+			usingDrugList.add(usingDrug);
+			usingDrugNo++;
+		}
+		return usingDrugList;
+	}
+	
+	/**
 	 * 
 	 * @param signUpForm
-	 * @return Integer
+	 * @param usersInfoList
 	 */
-	public Integer signUp(SignUpForm signUpForm) {
-		//users에 signUpForm의 userEmail 전달해서 userNo 가져오기
-		//users 테이블 insert
+	@Transactional
+	public void signUpUsersAndUsersInfo(SignUpForm signUpForm, List<UsersInfo> usersInfoList) {
 		Integer result1 = usersRepository.insertUsers(signUpForm);
-		//userNo가져오기 위한 임시 users
-		Users tempUsers = usersRepository.selectByUserEmail(signUpForm.getUserEmail());
-		//userNo
-		Integer userNo = tempUsers.getUserNo();
-		//familyList의 userNo 세팅하기 위한 임시 familyList
-		List<UsersInfo> tempFamilyList = signUpForm.getFamilyList();
-		for(UsersInfo info : tempFamilyList) {
-			info.setUserNo(userNo);
-			//임시 usersInfo에 familyNo담기
-			UsersInfo tempUsersInfo = usersRepository.selectFamilyNoByUserNo(userNo);
-			Integer familyNo = tempUsersInfo.getFamilyNo();
-			info.setFamilyNo(familyNo);
+		Integer userNo = usersRepository.selectUserByUserEmail(signUpForm.getUserEmail()).getUserNo();
+		for(UsersInfo userInfo : usersInfoList) {
+			userInfo.setUserNo(userNo);
+			usersRepository.insertUsersInfo(userInfo);
 		}
-		//signUpForm의 familyList에 저장
-		signUpForm.setFamilyList(tempFamilyList);
 		
-		log.info("familyList = {}", signUpForm.getFamilyList());
-		
-		//users_info 테이블 insert
-		Integer result2 = usersRepository.insertUsersInfo(signUpForm);
-		
-//		//users_info_using_drugs 테이블 insert
-//		Integer result3 = usersRepository.insertUsingDrugs(signUpForm);
-//		//users_info_allergy
-//		Integer result4 = usersRepository.insertAllergy(signUpForm);
-		
-//		if(result == 1) {
-//			log.info("기본 회원가입 완료");
-//		return result1+result2+result3+result4;
-//		}
-//		log.info("기본 회원가입 실패");
-		return 0;
 	}
+
 	
 }

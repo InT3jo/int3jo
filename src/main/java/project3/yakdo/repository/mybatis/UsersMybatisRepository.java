@@ -1,16 +1,18 @@
 package project3.yakdo.repository.mybatis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.BBS.SearchCriteria;
+import project3.yakdo.domain.users.SignUpForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
-import project3.yakdo.validation.form.SignUpForm;
 
 @Slf4j
 @Repository
@@ -40,8 +42,23 @@ public class UsersMybatisRepository implements UsersRepository{
 	 * 담당자 : 빙예은
 	 */
 	@Override
-	public Integer insertUsersInfo(SignUpForm signUpForm) {
-		Integer result = usersMapper.insertUsersInfo(signUpForm);
+	public Integer insertUsersInfo(UsersInfo usersInfo) {
+		Integer result = usersMapper.insertUsersInfo(usersInfo);
+		Integer familyNo = usersMapper.selectUsersInfoByFamilyNick(usersInfo.getFamilyNick(),usersInfo.getUserNo()).getFamilyNo();
+		for(String usingDrug : usersInfo.getUsingDrugList()) {
+			Map<String, Object> usingDrugMap = new HashMap<>();
+			usingDrugMap.put("userNo", usersInfo.getUserNo());
+			usingDrugMap.put("familyNo", familyNo);
+			usingDrugMap.put("usingDrug", usingDrug);
+			Integer result2 = usersMapper.insertUsingDrugs(usingDrugMap);			
+		}
+		for(String allergy : usersInfo.getAllergyList()) {
+			Map<String, Object> allergyMap = new HashMap<>();
+			allergyMap.put("userNo", usersInfo.getUserNo());
+			allergyMap.put("familyNo", familyNo);
+			allergyMap.put("allergy", allergy);
+			Integer result3 = usersMapper.insertAllergy(allergyMap);			
+		}
 		return result;
 	}
 
@@ -92,27 +109,8 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 /* SELECT 관련 메소드 */
-	/**
-	 * userNo의 max값 기준으로 familyNo 1씩 증가시키는 쿼리 실행
-	 * @param Integer UserNo
-	 * @return UsersInfo usersInfo
-	 */
-	@Override
-	public UsersInfo selectFamilyNoByUserNo(Integer UserNo) {
-		UsersInfo usersInfo = usersMapper.selectFamilyNoByUserNo(UserNo);
-		return usersInfo;
-	}
 
-	/**
-	 * signUpForm을 전달 받아 familyNo와 userNo 기준으로 select
-	 * @param SignUpForm signUpForm
-	 * @return usersInfo
-	 */
-	@Override
-	public UsersInfo selectUsersInfoByFamilyNo(SignUpForm signUpForm) {
-		UsersInfo usersInfo = usersMapper.selectByFamilyNo(signUpForm);
-		return usersInfo;
-	}
+	
 
 	
 	/**
@@ -123,10 +121,8 @@ public class UsersMybatisRepository implements UsersRepository{
 	 * 담당자 : 빙예은
 	 */
 	@Override
-	public Users selectByUserEmail(String userEmail) {
-		log.info(userEmail);
-		Users user = usersMapper.selectByUserEmail(userEmail);
-		log.info("user {}", user);
+	public Users selectUserByUserEmail(String userEmail) {
+		Users user = usersMapper.selectUserByUserEmail(userEmail);
 		return user;
 	}
 

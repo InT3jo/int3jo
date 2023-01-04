@@ -24,7 +24,7 @@ public class LoginService {
 	
 	public Users login(LoginForm loginForm) {
 		log.info("loginForm{}", loginForm);
-		Users user = usersRepository.selectByUserEmail(loginForm.getLoginEmail());
+		Users user = usersRepository.selectUserByUserEmail(loginForm.getLoginEmail());
 		log.info("user {}", user);
 		if(user != null) {
 			if(user.getUserPw().equals(loginForm.getLoginPw())) {

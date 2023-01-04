@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.BBS.SearchCriteria;
+import project3.yakdo.domain.users.SignUpForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
-import project3.yakdo.validation.form.SignUpForm;
 
 @Mapper
 public interface UsersMapper {
@@ -18,26 +18,24 @@ public interface UsersMapper {
 	public Integer insertUsers(SignUpForm signUpForm);
 	
 	//Users_info insert
-	public Integer insertUsersInfo(SignUpForm signUpForm);
+	public Integer insertUsersInfo(UsersInfo usersInfo);
 
 	//Users_Info_UsingDrugs insert
 	public Integer insertUsingDrugs(Map<String, Object> usingDrugMap);
 	
 	//Users_Info_Allergy insert
-	public Integer insertAllergy(Map<String, Object> usingDrugMap);
+	public Integer insertAllergy(Map<String, Object> allergyMap);
 	
 /* SELECT */
-	//USERS_INFO select(familyNo 1씩 증가) 기준 :  userNo
-	public UsersInfo selectFamilyNoByUserNo(Integer UserNo);
-	
-	//USERS_INFO select 기준 : familyNo, userNo
-	public UsersInfo selectByFamilyNo(SignUpForm signUpForm);
 	
 	//Users select 기준 : userEmail
-	public Users selectByUserEmail(String userEmail);
+	public Users selectUserByUserEmail(String userEmail);
 
 	//Users selectAll
 	public List<Users> selectAllUsers();
+
+	//
+	public UsersInfo selectUsersInfoByFamilyNick(@Param("familyNick") String familyNick, @Param("userNo") Integer userNo);
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
@@ -66,6 +64,7 @@ public interface UsersMapper {
 	
 	// Allergy 리스트 가져오기 / 담당자 : 홍준표
 	public List<String> selectAllergyByUserNoAndFamillyNo(@Param("userNo")Integer userNo, @Param("familyNo") Integer familyNo);
+
 
 
 }
