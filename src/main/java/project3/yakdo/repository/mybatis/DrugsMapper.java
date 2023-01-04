@@ -36,11 +36,15 @@ public interface DrugsMapper {
 			@Param("drugLineBacks") String[] drugLineBacks, @Param("drugMarks") String[] drugMarks);
 	public List<DrugInfo> selectDrugInfoAllByFindDrugForm(@Param("itemNames") String[] itemNames, @Param("ingrNames") String[] ingrNames,
 			@Param("entpNames") String[] entpNames);
-
+	public List<String> selectTypeNameByItemSeq(String itemSeq);
+	public List<String> selectCombiIngrNameByItemSeq(String itemSeq);
+	
 	//delete
 	public void deleteDrugInfo();
 	public void deleteDrugInfoIngr();
 	public void deleteFindDrug();
 	public void deleteDur();
 	public void deleteDurCombi();
+	
+	
 }

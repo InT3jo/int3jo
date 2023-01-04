@@ -299,6 +299,25 @@ public class DrugsMybatisRepository implements DrugsRepository{
 		return drugMarkAll;
 	}
 
+	/**
+	 * DB에서 DUR ItemSeq의 주의사항을 넘겨받음
+	 * @param: String(itemSeq)
+	 * @return: List<String>(typeName) 
+	 */
+	public List<String> getDurWarningByItemSeq(String itemSeq) {
+		List<String> warningList = drugsMapper.selectTypeNameByItemSeq(itemSeq);
+		return warningList;
+	}
+	
+	/**
+	 * DB에서 DUR_Combi의 병용금기 성분코드를 넘겨받음
+	 * @param: String(itemSeq)
+	 * @return: List<String>(mixIngrName) 
+	 */
+	public List<String> getDurCombiIngrNameByItemSeq(String itemSeq){
+		List<String> warningCombiList = drugsMapper.selectCombiIngrNameByItemSeq(itemSeq);
+		return warningCombiList;
+	}
 
 /* UPDATE 관련 메서드 */
 	/**

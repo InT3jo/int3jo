@@ -39,6 +39,12 @@
 			document.querySelector('.selectDrugMarkInput').value=code;
 		}
 	</script>
+	<script type="text/javascript">
+		function moveTop(){
+			window.scrollTo({top:0, behavior:"smooth"})
+		}
+	</script>
+	<div class="moveTopBtn" onclick="moveTop()">▲</div>
 	<div th:replace="home_component.html :: header"></div>
 	<div class="d-CSS ContentBox" style="border:1px solid var(--Signature=blue)">
 		<div id="findMore" th:style="${findMoreStyle}">
@@ -204,7 +210,7 @@
 	<div class="d-CSS ContentBox center" th:if="${findDrugInfoList} != null and ${findDrugInfoList.size} == 0">
 		<div class="d-CSS headTitle" style="margin-bottom:20px;">검색 결과가 없습니다.</div>
 	</div>
-	<div class="d-CSS ContentBox center" th:unless="${findDrugInfoList} == null or ${findDrugInfoList.size} == 0">
+	<div class="d-CSS ContentBox" th:unless="${findDrugInfoList} == null or ${findDrugInfoList.size} == 0">
 		<div class="d-CSS headTitle">약품 검색 결과</div>
 		<div class="d-CSS findCard" th:each="di:${findDrugInfoList}" th:onclick="|location.href='@{/drugs/{itemSeq}(itemSeq=${di.getItemSeq})}'|">
 			<img class="d-CSS findCardImage" th:src="${di.getItemImage}" alt="이미지 준비중입니다."/><br>

@@ -3,6 +3,7 @@
 
 
 /* 공용 */
+
 .d-CSS{
 	margin:0px;
 	padding:5px;
@@ -46,6 +47,7 @@
 
 .infoImage{
 	width:350px;
+	height:200px;
 }
 .infoHeadOutter{
 	width:394px;
@@ -112,7 +114,7 @@
 	left: 100px;
 	background-color: var(--Bg-gray);
 	border:1px solid var(--Signature-blue);
-	z-index: 999;
+	z-index: 998;
 }
 .findMarkModalImage{
 	width:50px;
@@ -126,6 +128,8 @@
 	border:1px solid var(--Lowtone-silver);
 	border-radius: 50px;
 	overflow: hidden;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+	text-align: center;
 }
 .findCardImage{
 	width: 250px;
@@ -140,6 +144,9 @@
 .findCardEntp{
 	height: 35px;
 }
+.selectDrugMark{
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
 #findMore{
 	width: 800px;
 }
@@ -153,7 +160,7 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 #findSearchMoreCloseBtn{
 	margin-left: 10px;
@@ -165,5 +172,5 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }

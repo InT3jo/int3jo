@@ -43,6 +43,9 @@ public interface UsersRepository {
 	//검색 결과 갯수 / 작성자 : 배고운 
 	public int countSearchUsers(SearchCriteria scri);
 	
+	// UsersInfoList 가져오기 / 담당자 : 홍준표
+	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo);
+	
 	
 
 

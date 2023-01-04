@@ -4,6 +4,7 @@
 /* 공용 */
 body{
 	background-color: var(--Bg-silver);
+	cursor: url(/cursor/capsule.cur) 0 0, auto;
 }
 .d-CSS{
 	margin:0px;
@@ -69,7 +70,7 @@ body{
 	color: white;
 	font-size: 18px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 #mainSearchMoreBtn{
 	margin-left: 10px;
@@ -81,13 +82,13 @@ body{
 	color: white;
 	font-size: 18px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 .mainNavBox{
 	text-align: center;
 	margin-top: 40px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	color: var(--Signature-silver);
 	font-size: 18px;
 	font-family: var(--Font-title1);
@@ -104,7 +105,7 @@ body{
 	margin: 30px;		
 }
 #mainNavAdmin{
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	margin: 30px; 
 	font-weight: 700;
 	position: absolute;

@@ -1,8 +1,10 @@
 package project3.yakdo.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.DrugsRepository;
 import project3.yakdo.service.drugs.api.DrugAPIService;
 import project3.yakdo.service.drugs.search.FindDrugForm;
@@ -97,7 +100,7 @@ public class DrugsController {
 	}
 
 	/**
-	 * 약품 상세정보페이지 회원정보와 대조하여 얼럿창 띄우기 기능 추가예정 담당자 : 홍준표
+	 * 약품 상세정보페이지 담당자 : 홍준표
 	 */
 	@GetMapping("/{itemSeq}")
 	public String drugInfo(Model model, @PathVariable("itemSeq") String itemSeq, HttpServletRequest req) {
@@ -112,8 +115,14 @@ public class DrugsController {
 		// 선택된 약물정보
 		DrugInfo drugInfo = drugsRepository.getDrugInfoByItemSeq(itemSeq);
 		model.addAttribute("drugInfo", drugInfo);
+
+		// 유저와 약에 따른 경고메시지 작성
+		String warningMessage = findDrugService.getWarningMessage(user, drugInfo);
+		model.addAttribute("warningMessage",warningMessage);
 		return "drugs/druginfo";
 	}
+
+	
 
 	/**
 	 * API로 db update 시작(POST로 "/drugs/apiUpdate" 경로 이동만 하면 API 로 DB업데이트 시작) 실제 동작은

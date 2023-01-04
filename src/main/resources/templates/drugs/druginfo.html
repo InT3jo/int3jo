@@ -8,17 +8,25 @@
 <title th:utext="${'약도-'+drugInfo.itemName}"></title>
 </head>
 <body>
+	<script th:inline="javascript" th:if="${warningMessage}!=null and ${!warningMessage.equals('')}" type="text/javascript">
+	/*<![CDATA[*/
+		var msg = /*[[${warningMessage}]]*/; 
+		alert(msg);
+	/*]]>*/
+	</script>
+	<script type="text/javascript">
+		function moveTop(){
+			window.scrollTo({top:0, behavior:"smooth"})
+		}
+	</script>
+	<div class="moveTopBtn" onclick="moveTop()">▲</div>
 	<div th:replace="home_component.html :: infoHeader"></div>
 	<div class="d-CSS ContentBox">
 		<div class="d-CSS headTitle">약품 상세정보</div>
 		<div class="d-CSS bottomLine">
 			<span th:if="${drugInfo.itemImage} != null">
 				<img class="d-CSS infoImage" th:src="${drugInfo.itemImage}" alt="(이미지 준비중)"/>
-			</span>
-			<span th:if="${drugInfo.itemImage} == null">
-				<span>이미지 준비중입니다.</span>
-			</span>
-			<div class="d-CSS infoHeadOutter">
+				<div class="d-CSS infoHeadOutter">
 				<div class="d-CSS infoHead">
 					<div class="d-CSS infoTitle">제품명</div>
 					<div class="d-CSS infoContent1"><span th:utext="${drugInfo.itemName}"></span> <span th:unless="${drugInfo.itemEngName} == null or ${drugInfo.itemEngName} == 'null'">(영문명:<span th:utext="${drugInfo.itemEngName}"></span>)</span></div>
@@ -32,6 +40,25 @@
 					<div class="d-CSS infoContent1" th:utext="${drugInfo.chart}"></div>
 				</div>
 			</div>
+			</span>
+			<span th:if="${drugInfo.itemImage} == null">
+				<span class="d-CSS infoImage" style="top:-50px; padding: 100px;">이미지 준비중입니다.</span>
+				<div class="d-CSS infoHeadOutter" style="top: 20px;">
+				<div class="d-CSS infoHead">
+					<div class="d-CSS infoTitle">제품명</div>
+					<div class="d-CSS infoContent1"><span th:utext="${drugInfo.itemName}"></span> <span th:unless="${drugInfo.itemEngName} == null or ${drugInfo.itemEngName} == 'null'">(영문명:<span th:utext="${drugInfo.itemEngName}"></span>)</span></div>
+				</div>
+				<div class="d-CSS fontLeft infoHead">
+					<div class="d-CSS infoTitle">제조사명</div>
+					<div class="d-CSS infoContent1" th:utext="${drugInfo.entpName}"></div>
+				</div>
+				<div class="d-CSS fontLeft infoHead">
+					<div class="d-CSS infoTitle">성상</div>
+					<div class="d-CSS infoContent1" th:utext="${drugInfo.chart}"></div>
+				</div>
+			</div>
+			</span>
+			
 		</div>
 		<div class="d-CSS bottomLine">
 			<div class="d-CSS">

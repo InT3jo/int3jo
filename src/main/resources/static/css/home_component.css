@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body{
+	margin: 0px;
+	cursor: url(/cursor/capsule.cur) 0 0, auto;
+}
 
 /* 헤더 */
 .headerMain{
@@ -12,7 +16,7 @@
 }
 .headerTitle{
 	margin: 10px;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	text-align: center;
 }
 .headerTitle1{
@@ -31,6 +35,7 @@
 	text-align: center;
 	margin-top: 10px;
 }
+
 #headerSearchInput{
 	width: 250px;
 	height: 13px;
@@ -54,7 +59,7 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 #headerSearchMoreBtn{
 	margin-left: 10px;
@@ -66,7 +71,7 @@
 	color: white;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 .headerSearchBox{
 	margin: 10px -20px;
@@ -79,27 +84,28 @@
 	font-family: var(--Font-title1);
 }
 #headerNavLogin{
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	margin: 30px;
-	font-weight: 300;
+	font-weight: 500;
 }
 #headerNavJoin{
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	margin: 30px;
-	font-weight: 300;
+	font-weight: 500;
 }
 #headerNavBBS{
-	cursor: pointer;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 	margin: 30px;
-	font-weight: 300;
+	font-weight: 500;
 }
 #headerNavAdmin{
-	cursor: pointer;
-	font-weight: 300;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+	font-weight: 700;
 	position: absolute;
 	right: 10px;
 	top: 20px;
 	color: var(--Signature-blue);
+	font-family: fantasy;
 }
 .headerWelcome{
 	display: block;
@@ -141,3 +147,23 @@
 .fotterBottomLine{
 	border-bottom: 1px solid var(--Bg-gray);
 }
+
+/* 상단이동버튼 */
+.moveTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--Signature-blue);
+  color: var(--Lowtone-silver);
+  border-radius: 30px;
+  overflow: hidden;
+  text-align: center;
+  cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+  font-size: 29px;
+  z-index: 999;
+ }
+ .moveTopBtn:hover{
+ 	transform: scale(1.2);
+ }

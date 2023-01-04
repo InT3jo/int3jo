@@ -85,6 +85,7 @@
 		where user_no = #{userNo}
 	</update>
 	
+
 	<!-- users 목록 회원번호,이메일,닉네임 검색 결과 10개씩 잘라서 출력 / 작성자: 배고운 -->
 	<!--	회원 목록 검색 페이징 처리 시도중 0104 01:02 -->
 	<select id="searchUserList" resultType="Users" 
@@ -132,7 +133,20 @@
 	</select>
 	
 	
-
+	<!-- 	UserNo로 UsersInfo를 리스트타입으로 반환 / 담당자 : 홍준표 -->
+	<select id="selectUsersInfoByUserNo" resultType="UsersInfo">
+		SELECT * FROM users_info WHERE USER_NO = #{userNo}
+	</select>
+	
+	<!-- 	UserNo와 FamilyNo로 UsingDrug을 리스트타입으로 반환 / 담당자 : 홍준표 -->
+	<select id="selectUsingDrugByUserNoAndFamilyNo" resultType="String">
+		SELECT ITEM_SEQ FROM users_info_using_drugs WHERE USER_NO = #{userNo} AND FAMILY_NO = #{familyNo}
+	</select>
+	
+	<!-- 	UserNo와 FamilyNo로 AllergyItemSeq를 리스트타입으로 반환 / 담당자 : 홍준표 -->
+	<select id="selectAllergyByUserNoAndFamillyNo" resultType="String">
+		SELECT ITEM_SEQ FROM users_info_allergy WHERE USER_NO = #{userNo} AND FAMILY_NO = #{familyNo}
+	</select>
 	
 	
 </mapper>

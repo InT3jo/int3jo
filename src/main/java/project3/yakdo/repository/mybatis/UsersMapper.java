@@ -49,10 +49,23 @@ public interface UsersMapper {
 
 	//회원블락처리 / 작성자 : 배고운
 	public void updateUserStatus(@Param("userNo")Integer userNo, @Param("updateUser")Users users);
+
 	
 	//회원 목록 + 페이징 + 검색 / 작성자: 배고운 
 	public List<Users> searchUserList(SearchCriteria scri);
 	
 	//검색 결과 갯수 / 작성자 : 배고운 
 	public int countSearchUsers(SearchCriteria scri);
+
+
+	// UsersInfo 리스트 가져오기 / 담당자 : 홍준표
+	public List<UsersInfo> selectUsersInfoByUserNo(@Param("userNo") Integer userNo);
+
+	// UsingDrug 리스트 가져오기 / 담당자 : 홍준표
+	public List<String> selectUsingDrugByUserNoAndFamilyNo(@Param("userNo") Integer userNo, @Param("familyNo") Integer familyNo);
+	
+	// Allergy 리스트 가져오기 / 담당자 : 홍준표
+	public List<String> selectAllergyByUserNoAndFamillyNo(@Param("userNo")Integer userNo, @Param("familyNo") Integer familyNo);
+
+
 }
