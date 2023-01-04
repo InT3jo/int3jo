@@ -50,7 +50,7 @@ public class AdminController {
 		return "admin/adminBBSlist";
 	}
 	
-	//게시물 관리 + 페이징 + 검색 
+	//게시물 관리 + 페이징 + 검색 - 한페이지에 페이징 검색 둘 다 불러오는 것 보다 나누는걸로 아래에서 다시 시도 .. 
 	@GetMapping("/adminBBSlistPage")
 	public String adminBBSlistPage(@ModelAttribute ("scri") SearchCriteria scri,Model model) {
 		// 본인삭제 게시글 리스트 불러오기
@@ -61,25 +61,63 @@ public class AdminController {
 //		List<BBS> bbsListTwo = BBSRepository.selectByShowTwo();
 //		model.addAttribute("bbsListTwo", bbsListTwo);
 		
-				// 본인삭제 게시글 리스트 불러오기
-				List<BBS> bbsListOne = BBSRepository.selectByShowOne();
-				model.addAttribute("bbsListOne", bbsListOne);
+		// 본인삭제 게시글 리스트 불러오기
+		List<BBS> bbsListOne = BBSRepository.adminShowOnelist(scri);
+		model.addAttribute("bbsListOne", bbsListOne);
 
-				// 관리자 삭제 게시글 리스트 불러오기
-				List<BBS> bbsListTwo = BBSRepository.selectByShowTwo();
-				model.addAttribute("bbsListTwo", bbsListTwo);
+		// 관리자 삭제 게시글 리스트 불러오기
+		List<BBS> bbsListTwo = BBSRepository.adminShowTwolist(scri);
+		model.addAttribute("bbsListTwo", bbsListTwo);
 		
 				
 		 PageMaker pageMaker = new PageMaker();
 		 pageMaker.setCri(scri);
 //		 pageMaker.setTotalCount(BBSRepository.listCount());
-		 pageMaker.setTotalCount(BBSRepository.countSearch(scri));
+		 pageMaker.setTotalCount(BBSRepository.countSearchShowOne(scri));
 		 model.addAttribute("pageMaker", pageMaker);
 		
 		
 
-		return "admin/adminBBSlist";
+		return "admin/adminBBSlistPage";
 	}
+	
+	
+	//본인삭제 게시물 관리 + 페이징 + 검색  
+	@GetMapping("/adminShowOneList")
+	public String adminShowOneList(@ModelAttribute ("scri") SearchCriteria scri,Model model) {
+
+		// 본인삭제 게시글 리스트 불러오기
+		List<BBS> bbsListOne = BBSRepository.adminShowOnelist(scri);
+		model.addAttribute("bbsListOne", bbsListOne);
+
+		 PageMaker pageMaker = new PageMaker();
+		 pageMaker.setCri(scri);
+		 pageMaker.setTotalCount(BBSRepository.countSearchShowOne(scri));
+		 model.addAttribute("pageMaker", pageMaker);
+		
+
+		return "admin/adminShowOneList";
+	}
+	
+	
+	//관리자삭제 게시물 관리 + 페이징 + 검색 
+	@GetMapping("/adminShowTwoList")
+	public String adminShowTwoList(@ModelAttribute ("scri") SearchCriteria scri,Model model) {
+
+		// 관리자 삭제 게시글 리스트 불러오기
+		List<BBS> bbsListTwo = BBSRepository.adminShowTwolist(scri);
+		model.addAttribute("bbsListTwo", bbsListTwo);
+		
+		 PageMaker pageMaker = new PageMaker();
+		 pageMaker.setCri(scri);
+		 pageMaker.setTotalCount(BBSRepository.countSearchShowTwo(scri));
+		 model.addAttribute("pageMaker", pageMaker);
+		
+		return "admin/adminShowTwoList";
+	}
+	
+	
+	
 
 	// 게시글 복구
 	@RequestMapping("/recover/{bbsNo}")

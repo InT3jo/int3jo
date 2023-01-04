@@ -174,7 +174,7 @@ public class BBSController {
 		
 		BBSRepository.insertBBS(bbs);
 
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
@@ -283,7 +283,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowOneBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
@@ -299,7 +299,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowOneBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
@@ -315,7 +315,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowTwoBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
@@ -331,7 +331,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowTwoBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 

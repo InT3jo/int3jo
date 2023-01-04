@@ -164,16 +164,30 @@ public class BBSMybatisRepository implements BBSRepository {
 	}
 
 	@Override
-	public List<BBS> listSearchByTitle(SearchCriteria scri) {
+	public List<BBS> adminShowOnelist(SearchCriteria scri) {
 		// TODO Auto-generated method stub
-		return null;
+		return BBSMapper.adminShowOnelist(scri);
 	}
 
 	@Override
-	public List<BBS> listSearchByContent(SearchCriteria scri) {
+	public int countSearchShowOne(SearchCriteria scri) {
 		// TODO Auto-generated method stub
-		return null;
+		return BBSMapper.countSearchShowOne(scri);
 	}
+
+	@Override
+	public List<BBS> adminShowTwolist(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return BBSMapper.adminShowTwolist(scri);
+	}
+
+	@Override
+	public int countSearchShowTwo(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return BBSMapper.countSearchShowTwo(scri);
+	}
+
+
 
 	/*
 	@Override (첫번째 방법으로 다시시도중 일단 주석처리 01-03-09:53)

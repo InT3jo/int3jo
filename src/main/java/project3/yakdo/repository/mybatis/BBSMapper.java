@@ -62,4 +62,18 @@ public interface BBSMapper {
 		public List<BBS> listSearchByTitle(SearchCriteria scri);
 		//내용 결과 리스트 
 		public List<BBS> listSearchByContent(SearchCriteria scri);
+		
+		
+		//본인 삭제 글 리스트 + 페이징 + 검색 
+		public List<BBS> adminShowOnelist(SearchCriteria scri);
+		
+		//검색 결과 갯수 
+		public int countSearchShowOne(SearchCriteria scri);
+		
+		
+		//관리자 삭제 글 리스트 + 페이징 + 검색 
+		public List<BBS> adminShowTwolist(SearchCriteria scri);
+				
+		//관리자 삭제 검색 결과 갯수 
+		public int countSearchShowTwo(SearchCriteria scri);
 }

@@ -42,7 +42,7 @@ public interface BBSRepository {
 	
 	
 	
-	//검색 페이징 1번째 방법에 필요
+	//검색 페이징 1번째 방법에 필요 
 	//목록 + 페이징 + 검색     
 	public List<BBS> listSearch(SearchCriteria scri);
 	
@@ -54,14 +54,22 @@ public interface BBSRepository {
 	//목록 + 페이징 + 검색 두번째방법시도중(첫번째 방법으로 다시시도중 일단 주석처리 01-03-09:53)
 	//public List<BBS> listPageSearch(Criteria cri,String searchType, String keyword);
 	
+	//본인 삭제 글 리스트 + 페이징 + 검색 
+	public List<BBS> adminShowOnelist(SearchCriteria scri);
 	
-	//밑에 2개 안씀 
-	//검색 페이징 3번째 방법- 제목 내용 나눠서 
+	//본인삭제 검색 결과 갯수 
+	public int countSearchShowOne(SearchCriteria scri);
 	
-	//제목 결과 리스트 
-	public List<BBS> listSearchByTitle(SearchCriteria scri);
-	//내용 결과 리스트 
-	public List<BBS> listSearchByContent(SearchCriteria scri);
+	
+	//관리자 삭제 글 리스트 + 페이징 + 검색 
+	public List<BBS> adminShowTwolist(SearchCriteria scri);
+		
+	//관리자 삭제 검색 결과 갯수 
+	public int countSearchShowTwo(SearchCriteria scri);
+	
+	
+	
+	
 	
 	
 	
