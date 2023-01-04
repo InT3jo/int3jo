@@ -1,17 +1,13 @@
 package project3.yakdo.controller;
 
-import java.net.http.HttpRequest;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -41,70 +37,86 @@ public class SignUpController {
 	 * 담당자 : 빙예은
 	 */
 	@GetMapping
-	public String signUpForm (Model model) {
-		SignUpForm signUpForm = new SignUpForm();
-		model.addAttribute("signUpForm", signUpForm);
+	public String signUpForm () {
 		return "/users/signUp/signUp";
 	}
 	
 	/**
 	 * 회원가입 진행
-	 * @param SignUpForm signUpForm
-	 * @return 회원가입 성공하면 welcome, 아니면 그대로
+	 * .getParameter으로 넘어온 값을
+	 * usersInfo에 저장한 후, signUpForm에 담는다
+	 * 
+	 * @param SignUpForm signUpForm, HttpServletRequest req
+	 * @return 회원가입 성공하면 login, 아니면 그대로
 	 * 
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping
-	public String signUp(@ModelAttribute SignUpForm signUpForm
-			, HttpServletRequest req) {
+	public String signUp(HttpServletRequest req) {
+		SignUpForm signUpForm = new SignUpForm();
+		List<UsersInfo> tempFamilyList = new ArrayList<UsersInfo>();
 		int i= 1;
 		while(true) {
-			//가족명칭, 생일, 성별, 몸무게 받아오기
+			//familyNick, birth, gender, weight 받아오기
 			String familyNick = req.getParameter("familyNick"+i);
 			String birth = req.getParameter("birth"+i);
 			String gender = req.getParameter("gender"+i);
 			String weight = req.getParameter("weight"+i);
 			
-			//null이면 멈춤
+			//파라미터가 null이면 while문 break;
 			if(familyNick == null && birth == null && gender == null && weight == null) {
-				break;
+				break; 
 			}
+			
+			//UsersInfo에 파라미터 세팅
 			UsersInfo userInfo = new UsersInfo();
 			userInfo.setFamilyNick(familyNick);
 			userInfo.setBirth(Date.valueOf(birth));
 			userInfo.setGender(gender);
 			userInfo.setWeight(Double.parseDouble(weight));
 			
+			//usingDrugList 생성
 			List<String> usingDrugList = new ArrayList<String>();
-			List<String> allergyList = new ArrayList<String>();
-			int j = 1;
-			while(j>0) {
-				//복용 중 약물, 알러지 받아오기
-				String usingDrug = req.getParameter("usingDrug"+j);
-				String allergy = req.getParameter("allergy"+j);
-				log.info("usingDrug {}, allergy {}", usingDrug, allergy);
+			//usingDrugList 만들기
+			int no = 1;
+			while(no>0) {
+				//파라미터 가져와서 usingDrug로 초기화
+				String usingDrug = req.getParameter("usingDrug"+no);
 				if(usingDrug == null) {
-					j=0;
-					continue;
+					break;
 				}
-				//복용 중 약물, 알러지 리스트 추가
+				//usingDrugList에 usingDrug 담기
 				usingDrugList.add(usingDrug);
-				allergyList.add(allergy);
-
-				log.info("usingDrugList {}, allergyList {}", usingDrugList, allergyList);
-				j++;
+				no++;
 			}
-			//userInfo에 usingDrugList, setAllergyList 저장
+			
+			//allergyList 생성
+			List<String> allergyList = new ArrayList<String>();
+			//allergyList 만들기
+			no = 1;
+			while(no>0) {
+				//파라미터 가져와서 allergy로 초기화
+				String allergy = req.getParameter("allergy"+no);
+				if(allergy == null) {
+					break;
+				}
+				//allergyList에 allergy 담기
+				allergyList.add(allergy);
+				no++;
+			}
+			
+			//userInfo에 준비된 usingDrugList, setAllergyList setting
 			userInfo.setUsingDrugList(usingDrugList);
 			userInfo.setAllergyList(allergyList);
 			
-			//세팅된 familyList를 signUpForm에 추가하기
-			List<UsersInfo> familyList = new ArrayList<UsersInfo>();
-			familyList.add(userInfo);
-			signUpForm.setFamilyList(familyList);
+			//세팅된 userInfo를 signUpForm의 familyList에 추가하기
+			tempFamilyList.add(userInfo);
+			
 			i++;
 		}
-		log.info("signUp signUpForm = {}", signUpForm);
+		//세팅 완료된 tempfamilyList signUpForm의 familyList에 저장
+		signUpForm.setFamilyList(tempFamilyList);
+		log.info("signUp signUpFormList = {}", signUpForm.getFamilyList());
 		
 //		Integer result =
 				signUpService.signUp(signUpForm);
@@ -113,4 +125,5 @@ public class SignUpController {
 //		}
 		return "redirect:/login";
 	}
+	
 }

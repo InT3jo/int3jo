@@ -26,7 +26,6 @@ public interface UsersMapper {
 	public Integer insertAllergy(Map<String, Object> usingDrugMap);
 	
 /* SELECT */
-	
 	//USERS_INFO select(familyNo 1씩 증가) 기준 :  userNo
 	public UsersInfo addFamilyNoByUserNo(Integer UserNo);
 	

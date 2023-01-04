@@ -13,13 +13,18 @@ public class SignUpForm {
 	private String userPw;		//비밀번호
 	private String reJoinPw;		//비밀번호 재확인
 	private String userNick;	//닉네임
+	private List<UsersInfo> familyList;	//가족리스트(가족명칭, 생년월일, 성별, 체중, 복용중인 약 리스트, 알러지 리스트)
+	
+	/*아직 지우지 말아주세요
+	 * 
+	 * 
 //	private Integer familyNo;	//가족번호
 //	private String familyNick;	//familyNick
 //	private String birth;		//생년월일
 //	private String gender;		//성별
-//	private double weight;		//체중
+//	private String weight;		//체중
 //	private List<String> usingDrugList;	//복용 중인 약
 //	private List<String> allergyList;		//알러지
-	
-	private List<UsersInfo> familyList;
+	 * 
+	 */
 }
