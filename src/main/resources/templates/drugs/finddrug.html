@@ -39,6 +39,12 @@
 			document.querySelector('.selectDrugMarkInput').value=code;
 		}
 	</script>
+	<script type="text/javascript">
+		function moveTop(){
+			window.scrollTo({top:0, behavior:"smooth"})
+		}
+	</script>
+	<div class="moveTopBtn" onclick="moveTop()">▲</div>
 	<div th:replace="home_component.html :: header"></div>
 	<div class="d-CSS ContentBox" style="border:1px solid var(--Signature=blue)">
 		<div id="findMore" th:style="${findMoreStyle}">
