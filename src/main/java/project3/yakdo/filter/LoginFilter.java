@@ -27,7 +27,9 @@ import project3.yakdo.session.SessionVar;
 public class LoginFilter implements Filter{
 
 	//로그인 하지 않아도 접속 가능한 페이지 리스트
-	private static final String[] whiteList = {"/", "/login", "/logout", "/signUp", "/drugs", "/drugs/*", "/css/*", "/font/*"};
+
+	private static final String[] whiteList = {"/", "/login", "/logout", "/signUp", "/drugs", "/drugs/*","/css/*","/font/*"};
+
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

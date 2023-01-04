@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+a {
+	text-decoration-line: none;
+	color: black;
+}
+
+thead {
+	background-color: rgb(233, 233, 233);
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	float: left;
+	margin-left: 10px;
+}
+
+#BBSlist {
+	margin: 100px;
+}
+
+#BBS {
+	text-align: center;
+	font: Font-title1;
+}
+
+#searchBBS {
+	width: 370px;
+	margin: 0 auto;
+}
+
+#pageNumber {
+width: 350px;
+	margin: 0 auto;
+}
+
+#writeBtn {
+	text-align: right;
+	margin-bottom: 20px;
+}

@@ -8,32 +8,20 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/css/var.css">
 	<link rel="stylesheet" type="text/css" href="/css/home_component.css">
-	<style>
-		a{
-			text-decoration-line:none;
-			color:black;
-		}
-		
-		thead{
-			background-color:rgb(233, 233, 233);
-		}
-		
-		ul{
-		   list-style:none;
-		   }
-		
-		li {
-		    float: left;
-		      margin-left:10px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="/css/BBS.css">
 </head>
 
 <body>
 	<div th:replace="home_component.html :: header"></div>
-	<h4>게시판</h4>
-	<div class="col-md-9">
-	<table class="table table-hover" border="1" >
+	<div id="BBSlist">
+	<p id="BBS">이용문의</p>
+	<div id="writeBtn">
+	<!-- 	<div th:if="${user}!=null"> -->
+			<button id="headerSearchBtn" th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>
+	<!-- 	</div> -->
+</div>
+	<div class="col-md-12">
+	<table class="table table-hover"  >
 		<colgroup>
 					<col width="50">
 					<col width="300">
@@ -60,11 +48,41 @@
 
 	</table>
 </div>
-	<div th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
+<!-- 	<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}"> -->
+<!-- 		<ul> -->
+<!-- 			<div> -->
+<!-- 				<li><a -->
+<!-- 					th:href="@{|/BBS/listPage?page=${pageMaker.startPage - 1}&perPageNum=10|}">이전</a></li> -->
+<!-- 			</div> -->
+
+
+<!-- 			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 --> -->
+<!-- 			<div th:each="num : ${#numbers.sequence(start,end)}"> -->
+<!-- 				<li><code th:if="${pageMaker.cri.getPage() == num}" -->
+<!-- 						th:text="${num}"></code> <a -->
+<!-- 					th:unless="${pageMaker.cri.getPage()==num}" -->
+<!-- 					th:href="@{|/BBS/listPage?page=${num}&perPageNum=10|}"> <code -->
+<!-- 							th:text="${num}"></code></a></li> -->
+<!-- 			</div> -->
+
+<!-- 			<div> -->
+<!-- 							<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0"> -->
+<!-- 				<li> -->
+<!-- 									<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
+<!-- 					<a -->
+<!-- 					th:href="@{|/BBS/listPage?page=${pageMaker.endPage+1}&perPageNum=10|}">다음</a> -->
+<!-- 				</li> -->
+<!-- 			</div> -->
+<!-- 		</ul> -->
+<!-- 	</div> -->
+
+<!-- makeQuery 넣어서 다시 시도  -->
+<!-- makeQuery 사용해도 페이징 잘 되는거 확인 01-03-11:12 -->
+<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
 		<ul>
 			<div>
 				<li><a
-					th:href="@{|/BBS/listPage?page=${pageMaker.startPage - 1}&perPageNum=10|}">이전</a></li>
+					th:href="@{|/BBS/listPage${pageMaker.makeQuery(pageMaker.startPage-1)}|}">이전</a></li>
 			</div>
 
 
@@ -73,7 +91,7 @@
 				<li><code th:if="${pageMaker.cri.getPage() == num}"
 						th:text="${num}"></code> <a
 					th:unless="${pageMaker.cri.getPage()==num}"
-					th:href="@{|/BBS/listPage?page=${num}&perPageNum=10|}"> <code
+					th:href="@{|/BBS/listPage${pageMaker.makeQuery(num)}|}"> <code
 							th:text="${num}"></code></a></li>
 			</div>
 
@@ -82,7 +100,7 @@
 				<li>
 					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
 					<a
-					th:href="@{|/BBS/listPage?page=${pageMaker.endPage+1}&perPageNum=10|}">다음</a>
+					th:href="@{|/BBS/listPage${pageMaker.makeQuery(pageMaker.endPage+1)}|}">다음</a>
 				</li>
 			</div>
 		</ul>
@@ -90,20 +108,26 @@
 <br/>
 <br/>
 
-	<!-- 검색 -->
-	<div>
+	
+		
+	
+
+
+<!-- 검색 -->
+	<div id="searchBBS">
 		<form>
 			<select>
 				<option>제목</option>
 				<option>내용</option>
 			</select> <input type="text">
-			<button>검색</button>
-		</form>
-	</div>
+	
+			<button id="headerSearchBtn">검색</button>
+		
 
-	<div th:if="${user}!=null">
-		<button th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>
+		</form>
+		
 	</div>
+</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 

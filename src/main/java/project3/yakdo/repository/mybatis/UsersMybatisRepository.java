@@ -1,13 +1,12 @@
 package project3.yakdo.repository.mybatis;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
@@ -174,6 +173,23 @@ public class UsersMybatisRepository implements UsersRepository{
 		usersMapper.updateUserStatus(userNo, users);
 		return result;
 	}
+
+
+	//회원목록+페이징+검색 / 작성자:배고운
+	@Override
+	public List<Users> searchUserList(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return usersMapper.searchUserList(scri);
+	}
+
+	//검색결과갯수 / 작성자:배고운
+	@Override
+	public int countSearchUsers(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return usersMapper.countSearchUsers(scri);
+	}
+	
+	
 
 
 
