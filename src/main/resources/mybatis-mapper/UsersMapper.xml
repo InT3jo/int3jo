@@ -82,20 +82,52 @@
 	
 	<!-- users 목록 회원번호,이메일,닉네임 검색 결과 10개씩 잘라서 출력 / 작성자: 배고운 -->
 	<!--	회원 목록 검색 페이징 처리 시도중 0104 01:02 -->
-	<select id="userList" resultType="Users" parameterType="SearchCriteria">
+	<select id="searchUserList" resultType="Users" 
+	parameterType="SearchCriteria">
 	 select user_no, user_email,user_nick,join_date,
         user_grade,user_status,leave_date,block_reason
         from
         (
         select user_no, user_email,user_nick,join_date,
         user_grade,user_status,leave_date,block_reason,
-		(row_number() over(order by BBS_no desc)) as rNum
+		(row_number() over(order by user_no asc)) as rNum
 		from users
-        where user_no = 5
+        <where> 
+        <if test="searchType == 'userNo'">
+        and user_no = #{keyword}
+        </if>
+        <if test="searchType == 'email'">
+        and user_email like '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'nick'">
+        and user_nick like '%' || #{keyword} || '%'
+        </if>
+        </where>
         )
-        where rNum between 1 and 10
-		order by user_no asc;
+       where rNum between #{rowStart} and #{rowEnd}
+	   order by user_no asc
 	</select>
+	
+<!-- 	회원 검색 조건에 맞는 게시물 갯수 구하는 쿼리 / 작성자: 배고운 -->
+<select id="countSearchUsers" resultType="int">
+	
+		select count(user_no)
+		from users
+		<where>
+			<if test="searchType == 'userNo'"> 
+			AND user_no = #{keyword}  
+			</if>
+			<if test="searchType == 'email'"> 
+			AND user_email like '%' || #{keyword} || '%' 
+			</if>
+				<if test="searchType == 'nick'"> 
+			AND user_nick like '%' || #{keyword} || '%' 
+			</if>
+		</where>
+	</select>
+	
+	
+
 	
 	
 </mapper>

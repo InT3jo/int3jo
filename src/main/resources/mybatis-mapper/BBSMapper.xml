@@ -266,7 +266,7 @@
 <!-- 	</if> -->
 <!-- </sql> -->
 
-	<!-- 닉네임 같이 불러오면서 제목,내용,작성자 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 -->
+	<!-- 닉네임 같이 불러오면서 제목,내용,작성자 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 이걸로 성공-->
 	<select id="listSearch" resultType="BBS"
 		parameterType="SearchCriteria">
 		select BBS_no, user_no,
@@ -300,11 +300,8 @@
 		order by BBS_no desc
 	</select>
 
-	
 
-
-
-	<!-- 검색조건에 맞는 게시물 갯수 구하는 쿼리 (여기서 계속 sql에러 났었음) -->
+	<!-- 검색조건에 맞는 게시물 갯수 구하는 쿼리 -->
 	<select id="countSearch" resultType="int">
 	
 		select count(bbs_no)
@@ -315,6 +312,9 @@
 			</if>
 			<if test="searchType == 'content'"> 
 			AND BBS_CONTENT like '%' || #{keyword} || '%' 
+			</if>
+			<if test="searchType == 'writer'">
+			AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
 		and bbs_no > 0
 		</where>
@@ -391,6 +391,77 @@
 	    where BBS_CONTENT like '%' || #{keyword} || '%' 
 		and bbs_no > 0
 	</select>
+	
+<!-- 	관리자 페이지 본인 삭제 글 리스트 페이징  -->
+<select id="adminShowOnelistPage" resultType="BBS"
+		parameterType="SearchCriteria">
+ select BBS_no, user_no,
+		BBS_title, BBS_content, BBS_date, BBS_show,user_nick
+		from (
+		select
+		b.BBS_no,
+		b.user_no,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		b.BBS_show,
+		(row_number() over(order by BBS_no desc)) as rNum,
+		u.user_nick
+		from bbs b, users u
+		<where>
+			<if test="searchType == 'title'">
+			AND BBS_TITLE like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchType == 'content'">
+			AND BBS_CONTENT like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchType == 'writer'">
+			AND USER_NICK like '%' || #{keyword} || '%'
+			</if>
+		and b.user_no = u.user_no
+		</where>
+		) b
+		where rNum between #{rowStart} and #{rowEnd}
+		and BBS_show=1
+		order by BBS_no desc
+		</select>
+		
+		
+		<!-- 	관리자 페이지 관리자 삭제 글 리스트 페이징  -->
+<select id="adminShowTwolistPage" resultType="BBS"
+		parameterType="SearchCriteria">
+ select BBS_no, user_no,
+		BBS_title, BBS_content, BBS_date, BBS_show,user_nick
+		from (
+		select
+		b.BBS_no,
+		b.user_no,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		b.BBS_show,
+		(row_number() over(order by BBS_no desc)) as rNum,
+		u.user_nick
+		from bbs b, users u
+		<where>
+			<if test="searchType == 'title'">
+			AND BBS_TITLE like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchType == 'content'">
+			AND BBS_CONTENT like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchType == 'writer'">
+			AND USER_NICK like '%' || #{keyword} || '%'
+			</if>
+		and b.user_no = u.user_no
+		</where>
+		) b
+		where rNum between #{rowStart} and #{rowEnd}
+		and BBS_show=2
+		order by BBS_no desc
+		</select>
+		
+		
 
 
 

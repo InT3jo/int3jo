@@ -93,9 +93,9 @@ public class UsersMybatisRepository implements UsersRepository{
 
 	//회원목록+페이징+검색 / 작성자:배고운
 	@Override
-	public List<Users> userList(SearchCriteria scri) {
+	public List<Users> searchUserList(SearchCriteria scri) {
 		// TODO Auto-generated method stub
-		return usersMapper.userList(scri);
+		return usersMapper.searchUserList(scri);
 	}
 
 	//검색결과갯수 / 작성자:배고운

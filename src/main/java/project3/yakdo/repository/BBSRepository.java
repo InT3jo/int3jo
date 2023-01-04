@@ -43,7 +43,7 @@ public interface BBSRepository {
 	
 	
 	//검색 페이징 1번째 방법에 필요
-	//목록 + 페이징 + 검색
+	//목록 + 페이징 + 검색     
 	public List<BBS> listSearch(SearchCriteria scri);
 	
 	//검색 결과 갯수
@@ -55,11 +55,18 @@ public interface BBSRepository {
 	//public List<BBS> listPageSearch(Criteria cri,String searchType, String keyword);
 	
 	
-	
+	//밑에 2개 안씀 
 	//검색 페이징 3번째 방법- 제목 내용 나눠서 
 	
 	//제목 결과 리스트 
 	public List<BBS> listSearchByTitle(SearchCriteria scri);
 	//내용 결과 리스트 
 	public List<BBS> listSearchByContent(SearchCriteria scri);
+	
+	
+	
+	
+	
+	
+	
 }

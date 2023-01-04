@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+         <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -52,47 +52,9 @@
 		</table>
 		
 		
-		<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
-		<ul>
-			<div>
-				<li><a
-					th:href="@{|/admin/userlist${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
-			</div>
+	
 
 
-			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
-			<div th:each="num : ${#numbers.sequence(start,end)}">
-				<li><code th:if="${pageMaker.cri.getPage() == num}"
-						th:text="${num}"></code> <a
-					th:unless="${pageMaker.cri.getPage()==num}"
-					th:href="@{|/admin/userlist${pageMaker.makeSearch(num)}|}"> <code
-							th:text="${num}"></code></a></li>
-			</div>
-
-			<div>
-				<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
-				<li>
-					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
-					<a
-					th:href="@{|/admin/userlist${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
-				</li>
-			</div>
-		</ul>
-	</div>
-
-<!-- 검색 -->
-		<div id="searchUser">
-
-			<select name="searchType">
-				<!-- 				<option value="n" th:selected="${scri.searchType==null}"></option> -->
-				<option value="no" th:selected="${scri.searchType=='no'}">회원번호</option>
-				<option value="email" th:selected="${scri.searchType=='email'}">이메일</option>
-				<option value="nick" th:selected="${scri.searchType=='nick'}">닉네임</option>
-			</select>
-			 <input type="text" name="keyword" id="keywordInput" th:value="${scri.keyword}" />
-
-			<button id="headerSearchBtn" onclick="clickSearchBtn()">검색</button>
-		</div>
 		
 	
 	<button th:onclick="|location.href='@{/admin}'|">관리자 홈</button>

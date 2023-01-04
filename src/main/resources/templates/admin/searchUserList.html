@@ -1,0 +1,135 @@
+         <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+</head>
+<body>
+<script>
+ function clickSearchUserBtn(){
+	 location.href = "/admin/searchUserList?page=1&perPageNum=10&searchType="
+					 + $("select option:selected").val() 
+					 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+//	 location.href = "/admin/searchUserList?page=1&perPageNum=10&searchType=userNo&keyword=1";
+// 		 + $("select option:selected").val() 
+// 		 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+ }
+ 
+ 
+ // 삭제 예정 
+ $(function(){
+  $('#searchBtn').click(function() {
+   self.location = "searchUserList"
+     + '${pageMaker.makeQuery(1)}'
+     + "&searchType="
+     + $("select option:selected").val()
+     + "&keyword="
+     + encodeURIComponent($('#keywordInput').val());
+    });
+ }); 
+</script>
+
+	<h1>회원 관리</h1>
+	<p>회원목록 출력</p>
+	<p>관리자 권한 부여 USER_GRADE 운영진:0 , 관리자:1 , 일반회원:2 </p>
+ 	<p>USER_STATUS 정상상태:0 블락상태:1</p> 
+	
+	<table border="1" width="1000" height="100">
+		<thead>
+			<tr>
+				<th>회원번호</th>
+				<th>이메일</th>
+				<th>닉네임</th>
+				<th>가입일</th>
+				<th>회원등급</th>
+				<th>상태</th>
+				<th>등급/상태 관리</th>
+				<th>탈퇴일</th>
+				<th>블락사유</th>
+<!-- 				<th>블락</th> -->
+<!-- 				<th>블락복구</th> -->
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="Users : ${searchUserList}">
+				<td th:text=${Users.userNo}></td>
+				<td th:text=${Users.userEmail}></td>
+				<td th:text=${Users.userNick}></td>
+				<td th:text=${Users.joinDate}></td>
+				<td th:text=${Users.userGrade}></td>
+				<td th:text=${Users.userStatus}></td>
+				<td><button th:onclick="|location.href='@{/admin/updateGrade/{userNo}(userNo=${Users.userNo})}'|">관리</button></td>
+				<td th:text=${Users.leaveDate}></td>
+				<td th:text=${Users.blockReason}></td>
+<!-- 				<td><button th:onclick="|location.href='@{/admin/updateUserStatus/{userNo}(userNo=${Users.userNo})}'|">블락</button></td> -->
+<!-- 				<td><button>복구</button></td> -->
+				
+			</tr>			
+		</tbody>
+		</table>
+		
+		
+		<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
+		<ul>
+			<div>
+				<li><a
+					th:href="@{|/admin/searchUserList${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
+			</div>
+
+
+			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
+			<div th:each="num : ${#numbers.sequence(start,end)}">
+				<li><code th:if="${pageMaker.cri.getPage() == num}"
+						th:text="${num}"></code> <a
+					th:unless="${pageMaker.cri.getPage()==num}"
+					th:href="@{|/admin/searchUserList${pageMaker.makeSearch(num)}|}"> <code
+							th:text="${num}"></code></a></li>
+			</div>
+
+			<div>
+				<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
+				<li>
+					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
+					<a
+					th:href="@{|/admin/searchUserList${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
+				</li>
+			</div>
+		</ul>
+	</div>
+
+<!-- 검색 -->
+		<div id="searchUser">
+
+			<select name="searchType">
+				<!-- 				<option value="n" th:selected="${scri.searchType==null}"></option> -->
+				<option value="userNo" th:selected="${scri.searchType=='userNo'}">회원번호</option>
+				<option value="email" th:selected="${scri.searchType=='email'}">이메일</option>
+				<option value="nick" th:selected="${scri.searchType=='nick'}">닉네임</option>
+			</select>
+			 <input type="text" name="keyword" id="keywordInput" th:value="${scri.keyword}" />
+
+			<button id="headerSearchBtn" onclick="clickSearchUserBtn()">검색</button>
+		</div>
+	<button th:onclick="|location.href='@{/admin}'|">관리자 홈</button>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

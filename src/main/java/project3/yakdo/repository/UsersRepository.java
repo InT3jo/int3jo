@@ -40,7 +40,7 @@ public interface UsersRepository {
 	public boolean updateUserStatus(@Param("userNo")Integer userNo, @Param("users")Users users);
 	
 	//회원 목록 + 페이징 + 검색 / 작성자: 배고운 
-	public List<Users> userList(SearchCriteria scri);
+	public List<Users> searchUserList(SearchCriteria scri);
 	
 	//검색 결과 갯수 / 작성자 : 배고운 
 	public int countSearchUsers(SearchCriteria scri);

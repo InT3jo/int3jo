@@ -11,7 +11,7 @@ function updateUserOk(){
 		document.getElementById("updateUserStatus").submit();
 	}else{
 		alert("변경이 취소되었습니다.");
-		location.href = "/admin/userlist";
+		location.href = "/admin/searchUserList";
 	}
 	return false;
 	
@@ -70,6 +70,6 @@ function updateUserOk(){
 			</tbody>
 		</table>
 	</form>
-<button th:onclick="|location.href='@{/admin/userlist}'|">회원목록</button>
+<button th:onclick="|location.href='@{/admin/searchUserList}'|">회원목록</button>
 </body>
 </html>

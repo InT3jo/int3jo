@@ -18,7 +18,9 @@
  function clickSearchBtn(){
 // 	 location.href = "/BBS/listSearch?page=" + '${pageMaker.makeQuery(1)}' +"&searchType=title&keyword=" + encodeURIComponent($('#keywordInput').val());
 // 	 location.href = "/BBS/listSearch?page=1&perPageNum=10&searchType=title&keyword=" + encodeURIComponent($('#keywordInput').val());
-	 location.href = "/BBS/listSearch?page=1&perPageNum=10&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+	 location.href = "/BBS/listSearch?page=1&perPageNum=10&searchType=" 
+					 + $("select option:selected").val()
+					 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
  }
  
  //searchType이 title로 select 되면 title content면 content 
@@ -31,6 +33,7 @@
  }*/
  
  
+ // 삭제 예정 
  $(function(){
   $('#searchBtn').click(function() {
    self.location = "listSearch"

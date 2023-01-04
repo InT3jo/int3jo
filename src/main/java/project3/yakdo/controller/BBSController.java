@@ -86,7 +86,7 @@ public class BBSController {
 		
 		
 		
-		// 게시글 목록 출력 + 페이징 추가 + 검색 추가 (1번째 방법 다시 시도중)
+		// 게시글 목록 출력 + 페이징 추가 + 검색 추가 (1번째 방법 다시 시도중) - 최종 게시판 검색+페이징 다 됨 
 		@GetMapping("/listSearch")
 		public String BBSList(@ModelAttribute ("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 			// 현재 주소정보
