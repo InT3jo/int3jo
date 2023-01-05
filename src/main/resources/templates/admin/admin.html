@@ -8,16 +8,15 @@
 	<h1>관리자 Page</h1>
 	
 	<p> 관리자 전용</p>
-	<button th:onclick="|location.href='@{/admin/adminBBSlist}'|">게시판 </button>
-	<button th:onclick="|location.href='@{/admin/adminBBSlistPage}'|">게시판관리 페이징 + 검색 </button>
 	<button th:onclick="|location.href='@{/admin/adminShowOneList}'|">본인삭제글 관리 </button>
 	<button th:onclick="|location.href='@{/admin/adminShowTwoList}'|">관리자삭제글 관리 </button>
 	<p> 회원정보 조회 </p>
-	<button th:onclick="|location.href='@{/admin/userlist}'|">회원관리 </button>
-
 	<button th:onclick="|location.href='@{/admin/searchUserList}'|">회원관리 페이징+검색 </button>
 	<p> DB 업데이트</p>
 	<button>DB업데이트</button>
 
+<!-- 	<button th:onclick="|location.href='@{/admin/adminBBSlist}'|">게시판 </button> -->
+<!-- 	<button th:onclick="|location.href='@{/admin/adminBBSlistPage}'|">게시판관리 페이징 + 검색 </button> -->
+<!-- 	<button th:onclick="|location.href='@{/admin/userlist}'|">회원관리 </button> -->
 </body>
 </html>

@@ -34,7 +34,7 @@
 			<span th:if="${user}==null" id="mainNavLogin" onclick="location.href='/login'">로그인</span>
 			<span th:if="${user}!=null" id="mainNavLogin" onclick="logout()">로그아웃</span>
 			<span id="mainNavJoin" onclick="location.href='/signUp'">회원가입</span>
-			<span id="mainNavBBS" onclick="location.href='/BBS/BBSlist'">이용문의</span><br>
+			<span id="mainNavBBS" onclick="location.href='/BBS/listSearch'">이용문의</span><br>
 		</div>
 		<div style="text-align: right; margin: 20px;">
 			<span th:if="${user}!=null and ${user.userGrade}<2" id="mainNavAdmin" onclick="location.href='/admin'">관리자페이지</span>
