@@ -11,14 +11,15 @@
 <body>
 	<div th:replace="home_component.html :: header"></div>
 	<div class="accordionContainor">
+	
 		<div class="accordion" id="accordionExample">
 		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="headingOne">
-		      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		    <h2 class="accordion-header" id="heading1">
+		      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
 		        기본 정보
 		      </button>
 		    </h2>
-		    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+		    <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
 		      <div class="accordion-body">
 		        <table class="table">
 				  <tbody>
@@ -34,11 +35,12 @@
 				    </tr>
 				  </tbody>
 				</table>
+				<button type="button">기본 정보 수정</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
-		<button type="button">기본 정보 수정</button>
+		
 	</div>
 	<div th:replace="home_component.html :: footer"></div>
 	
