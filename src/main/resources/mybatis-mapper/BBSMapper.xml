@@ -392,8 +392,8 @@
 		and bbs_no > 0
 	</select>
 	
-<!-- 	관리자 페이지 본인 삭제 글 리스트 페이징  -->
-<select id="adminShowOnelistPage" resultType="BBS"
+<!-- 	 본인 삭제 글 리스트 페이징  -->
+<select id="adminShowOnelist" resultType="BBS"
 		parameterType="SearchCriteria">
  select BBS_no, user_no,
 		BBS_title, BBS_content, BBS_date, BBS_show,user_nick
@@ -416,7 +416,7 @@
 			AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND USER_NICK like '%' || #{keyword} || '%'
+			AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
 		and b.user_no = u.user_no
 		</where>
@@ -427,8 +427,28 @@
 		</select>
 		
 		
+<!-- 	 본인 삭제 글 검색 결과 갯수  -->
+<select id="countSearchShowOne" resultType="int">
+	
+		select count(bbs_no)
+		from bbs
+	<where>
+			<if test="searchType == 'title'"> 
+			AND BBS_TITLE like '%' || #{keyword} || '%' 
+			</if>
+			<if test="searchType == 'content'"> 
+			AND BBS_CONTENT like '%' || #{keyword} || '%' 
+			</if>
+			<if test="searchType == 'writer'">
+			AND USER_NICK like '%' || #{keyword} || '%'
+			</if>
+		and bbs_show=1
+		</where>
+	</select>
+		
+		
 		<!-- 	관리자 페이지 관리자 삭제 글 리스트 페이징  -->
-<select id="adminShowTwolistPage" resultType="BBS"
+<select id="adminShowTwolist" resultType="BBS"
 		parameterType="SearchCriteria">
  select BBS_no, user_no,
 		BBS_title, BBS_content, BBS_date, BBS_show,user_nick
@@ -451,7 +471,7 @@
 			AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND USER_NICK like '%' || #{keyword} || '%'
+			AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
 		and b.user_no = u.user_no
 		</where>
@@ -462,7 +482,24 @@
 		</select>
 		
 		
-
+<!-- 	관리자 삭제 글 검색 결과 갯수  -->
+<select id="countSearchShowTwo" resultType="int">
+	
+		select count(bbs_no)
+		from bbs
+	<where>
+			<if test="searchType == 'title'"> 
+			AND BBS_TITLE like '%' || #{keyword} || '%' 
+			</if>
+			<if test="searchType == 'content'"> 
+			AND BBS_CONTENT like '%' || #{keyword} || '%' 
+			</if>
+			<if test="searchType == 'writer'">
+			AND USER_NICK like '%' || #{keyword} || '%'
+			</if>
+		and bbs_show=2
+		</where>
+	</select>
 
 
 

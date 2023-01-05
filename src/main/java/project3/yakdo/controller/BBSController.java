@@ -174,11 +174,11 @@ public class BBSController {
 		
 		BBSRepository.insertBBS(bbs);
 
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
-	// 게시글 읽기 selectBybbsNo
+	// 게시글 상세보기 selectBybbsNo
 	@PostMapping("/BBSview")
 	public String BBSview2(Model model, @RequestParam("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
@@ -194,7 +194,7 @@ public class BBSController {
 		return "BBS/BBSview";
 	}
 
-	// 게시글 읽기 selectBybbsNo
+	// 게시글 상세보기 selectBybbsNo
 	// 글번호(bbsNo)에 해당하는 댓글 불러오기
 	@GetMapping("/BBSlist/{bbsNo}")
 	public String BBSview(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
@@ -207,9 +207,9 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
+		model.addAttribute("BBS", bbsItem);
 		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
 		model.addAttribute("commentListZero", commentListZero);
-		model.addAttribute("BBS", bbsItem);
 		model.addAttribute("BBSComment", new BBSComment());
 
 		return "BBS/BBSview";
@@ -283,7 +283,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowOneBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
@@ -299,7 +299,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowOneBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
@@ -315,7 +315,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowTwoBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 
@@ -331,7 +331,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowTwoBybbsNo(bbsNo);
-		return "redirect:/BBS/BBSlist";
+		return "redirect:/BBS/listSearch";
 
 	}
 

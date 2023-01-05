@@ -13,8 +13,42 @@
 </head>
 <body>
 	<div th:replace="home_component.html :: header"></div>
-	<h1>BBS write Page</h1>
-	글쓰는페이지
+	<h1>BBS writeAnswer Page 관리자가 답변 쓰는페이지</h1>
+
+
+<!-- 답변 등록할 글  -->
+<div>
+		<br />
+		<table border="1" width="800" height="100">
+			<thead>
+				<tr>
+					<th>글보기</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>작성일</td>
+					<td th:text="${BBS.bbsDate}"></td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td th:text="${BBS.userNick}"></td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td th:text="${BBS.bbsTitle}"></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td th:text="${BBS.bbsContent}"></td>
+				</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+
 
 	<form action="" method="post" th:object="${BBS}">
 	
@@ -24,10 +58,10 @@
 		 <!-- 	로그인한 사용자 정보에서 user_nick 불러오기  --> 
 		 </label>
 		 </br>
-		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
+		<label>제목<input type="text" name="bbsTitle"  value="문의 답변드립니다."></label>
 		<div class="errormsg" th:errors="*{bbsTitle}"></div> 
 		</br>
-<label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label>
+<label>내용<textarea name="bbsContent" ></textarea></label>
 			<div class="errormsg" th:errors="*{bbsContent}"></div>  
 
 
@@ -36,6 +70,7 @@
 			<button type="submit">등록하기</button>
 		</div>
 	</form>
+			<button th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

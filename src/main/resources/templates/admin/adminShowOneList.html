@@ -19,7 +19,7 @@ function showBBSAdmin(bbsNo) {
 function clickSearchBtn(){
 
 
-	 location.href = "/admin/adminBBSlistPage?page=1&perPageNum=10&searchType=" 
+	 location.href = "/admin/adminShowOneList?page=1&perPageNum=10&searchType=" 
 					 + $("select option:selected").val()
 					 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
 }
@@ -66,7 +66,7 @@ function clickSearchBtn(){
 		<ul>
 			<div>
 				<li><a
-					th:href="@{|/admin/adminBBSlistPage${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
+					th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
 			</div>
 
 
@@ -75,7 +75,7 @@ function clickSearchBtn(){
 				<li><code th:if="${pageMaker.cri.getPage() == num}"
 						th:text="${num}"></code> <a
 					th:unless="${pageMaker.cri.getPage()==num}"
-					th:href="@{|/admin/adminBBSlistPage${pageMaker.makeSearch(num)}|}"> <code
+					th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(num)}|}"> <code
 							th:text="${num}"></code></a></li>
 			</div>
 
@@ -84,7 +84,7 @@ function clickSearchBtn(){
 				<li>
 					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
 					<a
-					th:href="@{|/admin/adminBBSlistPage${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
+					th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
 				</li>
 			</div>
 		</ul>
@@ -105,84 +105,10 @@ function clickSearchBtn(){
 		</div>
 		
 		
-		<h2>관리자 삭제 게시글</h2>
-	<table border="1" width="800" height="100">
-		<thead>
-			<tr>
-				<th>게시글번호</th>
-				<th>제목</th>
-				<th>게시일</th>
-				<th>작성자</th>
-				<th>복구</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="BBS : ${bbsListTwo}">
-				<td th:text=${BBS.bbsNo}></td>
-				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
-				<td th:text=${BBS.bbsDate}></td>
-				<td th:text="${BBS.userNick}"></td>
-				<td>
-				<button th:name="${BBS.bbsNo}"
-				th:onclick="showBBSAdmin(this.getAttribute('name'))">
-				복구</button>
-				</td>
-			</tr>			
-		</tbody>
-		</table>
-		
-		
-	
-		
-<!-- 		관리자 삭제 게시글 페이징  -->
-	<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
-		<ul>
-			<div>
-				<li><a
-					th:href="@{|/admin/adminBBSlistPage${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
-			</div>
 
-
-			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
-			<div th:each="num : ${#numbers.sequence(start,end)}">
-				<li><code th:if="${pageMaker.cri.getPage() == num}"
-						th:text="${num}"></code> <a
-					th:unless="${pageMaker.cri.getPage()==num}"
-					th:href="@{|/admin/adminBBSlistPage${pageMaker.makeSearch(num)}|}"> <code
-							th:text="${num}"></code></a></li>
-			</div>
-
-			<div>
-				<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
-				<li>
-					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
-					<a
-					th:href="@{|/admin/adminBBSlistPage${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
-				</li>
-			</div>
-		</ul>
-	</div>
-<br/>
-<br/>
-
-	
 		
 	
 
-
-<!-- 관리자 삭제 게시글 검색 -->
-		<div id="searchBBS">
-
-			<select name="searchType">
-				<!-- 				<option value="n" th:selected="${scri.searchType==null}"></option> -->
-				<option value="title" th:selected="${scri.searchType=='title'}">제목</option>
-				<option value="content" th:selected="${scri.searchType=='content'}">내용</option>
-				<option value="writer" th:selected="${scri.searchType=='writer'}">작성자</option>
-			</select>
-			 <input type="text" name="keyword" id="keywordInput" th:value="${scri.keyword}" />
-
-			<button id="headerSearchBtn" onclick="clickSearchBtn()">검색</button>
-		</div>
 		
 		
 		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">사용자 게시판</button>
