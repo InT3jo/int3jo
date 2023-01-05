@@ -188,10 +188,12 @@ body{
 	margin-top : 100px;
 	display : grid;
 	place-items: center;
-/* 	grid-template-columns: 1fr 1fr; */
 }
-.myPageTitle {
+.myPageTitle
+, .accordionContainor
+{
 	width : 800px;
+	margin : auto;
 }
 .cardBtn {
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;

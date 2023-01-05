@@ -22,6 +22,7 @@
 		<span th:if="${user}!=null" id="headerNavLogin" onclick="logout()">로그아웃</span>
 		<span id="headerNavJoin" onclick="location.href='/signUp'">회원가입</span>
 		<span id="headerNavBBS" onclick="location.href='/BBS/BBSlist'">이용문의</span>
+		<span id="headerNavMyPage" onclick="location.href='/help/myPage'">마이페이지</span>
 		<span th:if="${user}!=null and ${user.userGrade}<2" id="headerNavAdmin" onclick="location.href='/admin'">관리자페이지</span>
 	</div>
 	<div>
