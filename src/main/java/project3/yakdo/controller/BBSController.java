@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,8 @@ import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.BBSCommentRepository;
 import project3.yakdo.repository.BBSRepository;
 import project3.yakdo.service.users.LoginService;
+import project3.yakdo.validation.BBSValidator;
+import project3.yakdo.validation.form.WriteBBSForm;
 
 @Slf4j
 @Controller
@@ -152,7 +155,7 @@ public class BBSController {
 
 	// 게시글쓰기 insert
 	@GetMapping("/BBSwrite")
-	public String BBSwrite(Model model, HttpServletRequest req) {
+	public String BBSwrite( Model model, HttpServletRequest req) {
 		// 현재 주소정보
 		String uriHere = req.getRequestURI();
 		model.addAttribute("uriHere", uriHere);
@@ -161,13 +164,18 @@ public class BBSController {
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 		
-		model.addAttribute("BBS", new BBS());
+		WriteBBSForm writeBBSform = new WriteBBSForm();
+		model.addAttribute("writeBBSform", writeBBSform);
+		
+//      test 중 주석처리함 01-05 20:39 		
+//		model.addAttribute("BBS", new BBS()); 
+		
 		return "BBS/BBSwrite";
 	}
 
 	// 게시글쓰기 insert
 	@PostMapping("/BBSwrite")
-	public String newBBSInsertModel(@ModelAttribute BBS bbs, Model model, HttpServletRequest req) {
+	public String newBBSInsertModel(@ModelAttribute WriteBBSForm writeBBSform, BindingResult bindingResult,@ModelAttribute BBS bbs, Model model, HttpServletRequest req) {
 		// 현재 주소정보
 		String uriHere = req.getRequestURI();
 		model.addAttribute("uriHere", uriHere);
@@ -176,7 +184,18 @@ public class BBSController {
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 		
-		BBSRepository.insertBBS(bbs);
+		// 에러검증
+		BBSValidator bbsValidator = new BBSValidator();
+		bbsValidator.validateWriteBBSFrom(writeBBSform, bindingResult);
+
+		// 에러 있는 경우 글쓰는 페이지에서 못넘어가게
+		if (bindingResult.hasErrors()) {
+			return "BBS/BBSwrite";
+		}
+
+		// 에러 없으면
+//		BBSRepository.insertBBS(bbs);
+		BBSRepository.insertBBS(writeBBSform);
 
 		return "redirect:/BBS/listSearch";
 

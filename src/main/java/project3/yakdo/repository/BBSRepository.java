@@ -6,10 +6,14 @@ import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.Criteria;
 import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
+import project3.yakdo.validation.form.WriteBBSForm;
 
 public interface BBSRepository {
 
 	public BBS insertBBS(BBS bbs); // 게시글 생성 Create
+	
+	//유효성 걸면서 form으로 게시글 작성 시도중 01-05 20:59
+	public Integer insertBBS(WriteBBSForm writeBBSform);	
 
 	public BBS selectBybbsNo(int bbsNo); // 게시글 읽기 Read
 
@@ -79,6 +83,8 @@ public interface BBSRepository {
 	
 	//답글 상세보기 
 	public Reply replyView(int bbsNo);
+	
+	
 	
 	
 	

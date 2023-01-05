@@ -1,6 +1,5 @@
 package project3.yakdo.repository.mybatis;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -13,6 +12,7 @@ import project3.yakdo.domain.BBS.Criteria;
 import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.repository.BBSRepository;
+import project3.yakdo.validation.form.WriteBBSForm;
 
 @Slf4j
 @Repository
@@ -21,13 +21,24 @@ public class BBSMybatisRepository implements BBSRepository {
 
 	private final BBSMapper BBSMapper;
 
-	// 게시판
+	
 	@Override
 	public BBS insertBBS(BBS bbs) {
 		// TODO Auto-generated method stub
 		Integer result = BBSMapper.insertBBS(bbs);
 		return bbs;
 	}
+	
+	
+	/*
+	// 게시판 글쓰기 
+		@Override
+		public BBS insertBBS(WriteBBSForm writeBBSfrom) {
+			// TODO Auto-generated method stub
+			Integer result = BBSMapper.insertBBS(writeBBSfrom);
+			return writeBBSfrom;
+		}
+		*/
 
 	//게시글 상세보기 
 	@Override
@@ -224,6 +235,13 @@ public class BBSMybatisRepository implements BBSRepository {
 		// TODO Auto-generated method stub
 		Reply re = BBSMapper.replyView(bbsNo);
 		return re;
+	}
+
+
+	@Override
+	public Integer insertBBS(WriteBBSForm writeBBSform) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

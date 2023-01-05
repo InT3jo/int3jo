@@ -2,29 +2,18 @@ package project3.yakdo.validation;
 
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 
-import project3.yakdo.domain.BBS.BBS;
+import project3.yakdo.validation.form.WriteBBSForm;
 
-public class BBSValidator implements Validator{
+public class BBSValidator {
 
-	@Override
-	public boolean supports(Class<?> clazz) {
-		// TODO Auto-generated method stub
-		return BBS.class.isAssignableFrom(clazz);
-	}
-
-	@Override
-	public void validate(Object target, Errors errors) {
-		// TODO Auto-generated method stub
-		
-		BBS bbs = (BBS)target;
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "bbsTitle", "required.bbs.bbsTitle");
-		
-	
-		
+	public void validateWriteBBSFrom(WriteBBSForm writeBBSform, Errors errors) {
+		if(!StringUtils.hasText(writeBBSform.getBbsTitle())) {
+			errors.rejectValue("bbsTitle", null, "제목을 입력해주세요.");
+		}
+		if(!StringUtils.hasText(writeBBSform.getBbsContent())) {
+			errors.rejectValue("bbsContent", null, "내용을 입력해주세요");
+		}
 	}
 
 }

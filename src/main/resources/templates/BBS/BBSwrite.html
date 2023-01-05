@@ -28,26 +28,51 @@ function writeOk(){
 	<h1>BBS write Page</h1>
 	글쓰는페이지
 
-	<form id="writeBBS" action="" method="post" th:object="${BBS}">
+<!-- 원래 있던거 유효성 시도 중 주석처리함 01-05 20:37 -->
+<!-- 	<form id="writeBBS" action="" method="post" th:object="${BBS}"> -->
 	
+<!-- 		<label>  -->
+<!-- 		<input type="hidden" name="userNo" th:value="${user.userNo}"> -->
+<!-- 		작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly> -->
+<!-- 		 </label> -->
+<!-- 		 </br> -->
+<!-- 		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label> -->
+<!-- 		<div class="errormsg" th:errors="*{bbsTitle}"></div>  -->
+<!-- 		</br> -->
+<!-- <label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label> -->
+<!-- 			<div class="errormsg" th:errors="*{bbsContent}"></div>   -->
+
+
+
+<!-- 		<div> -->
+<!-- 			<button type="button" onclick="writeOk()">등록하기</button> -->
+<!-- 		</div> -->
+<!-- 	</form> -->
+
+
+	<form id="writeBBS" action="" method="post" th:object="${WriteBBSForm}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+		</div>
+
 		<label> 
 		<input type="hidden" name="userNo" th:value="${user.userNo}">
 		작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly>
-		 <!-- 	로그인한 사용자 정보에서 user_nick 불러오기  --> 
 		 </label>
+		 
 		 </br>
+		 
 		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
 		<div class="errormsg" th:errors="*{bbsTitle}"></div> 
 		</br>
 <label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label>
 			<div class="errormsg" th:errors="*{bbsContent}"></div>  
 
-
-
 		<div>
 			<button type="button" onclick="writeOk()">등록하기</button>
 		</div>
 	</form>
+
 
 	<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
 	<div th:replace="home_component.html :: footer"></div>

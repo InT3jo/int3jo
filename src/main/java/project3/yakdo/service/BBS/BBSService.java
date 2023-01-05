@@ -14,14 +14,8 @@ import project3.yakdo.repository.mybatis.BBSMapper;
 @Service
 public class BBSService {
 	 private final BBSRepository BBSRepository;
-//	 private BBSMapper BBSMapper;
+
 	 
-	public List<BBS> selectByBBS_show_0()
-	{
-		List<BBS> bbslist = BBSRepository.selectByShowZero();
-		
-		return bbslist;
-	}
 	
 
 	
