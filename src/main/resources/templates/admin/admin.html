@@ -2,21 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/admin.css">
+<title>약도 - 관리자 페이지</title>
 </head>
 <body>
-	<h1>관리자 Page</h1>
-	
-	<p> 관리자 전용</p>
-	<button th:onclick="|location.href='@{/admin/adminShowOneList}'|">본인삭제글 관리 </button>
-	<button th:onclick="|location.href='@{/admin/adminShowTwoList}'|">관리자삭제글 관리 </button>
-	<p> 회원정보 조회 </p>
-	<button th:onclick="|location.href='@{/admin/searchUserList}'|">회원관리 페이징+검색 </button>
-	<p> DB 업데이트</p>
-	<button>DB업데이트</button>
-
-<!-- 	<button th:onclick="|location.href='@{/admin/adminBBSlist}'|">게시판 </button> -->
-<!-- 	<button th:onclick="|location.href='@{/admin/adminBBSlistPage}'|">게시판관리 페이징 + 검색 </button> -->
-<!-- 	<button th:onclick="|location.href='@{/admin/userlist}'|">회원관리 </button> -->
+	<script type="text/javascript">
+		function goSearchUserList(){
+			document.querySelector('#adminContent').src="/admin/searchUserList"
+		}
+		function goAdminShowOneList(){
+			document.querySelector('#adminContent').src="/admin/adminShowOneList"
+		}
+		function goAdminShowTwoList(){
+			document.querySelector('#adminContent').src="/admin/adminShowTwoList"
+		}
+		function adminApiUpdate(){
+			if(window.confirm("DB 업데이트는 평균 3~5시간이 소요되는 작업입니다. 실행하시겠습니까?")){
+				document.querySelector('#adminApiUpdate').submit();		
+			}
+		}
+		function goHome(){
+			location.href="/";
+		}
+	</script>
+	<div class="adminContainer">
+		<div class="adminNavBar">
+			<span class="adminNavTitle">-관리자 메뉴-</span>
+			<ul class="adminNavUl">
+				<li><span class="adminNavItem" onclick="goSearchUserList()">회원관리 페이징+검색 </span></li>
+				<li><span class="adminNavItem" onclick="goAdminShowOneList()">본인삭제글 관리 </span></li>
+				<li><span class="adminNavItem" onclick="goAdminShowTwoList()">관리자삭제글 관리 </span></li>
+				<li><span style="margin-top: 100px;" class="adminNavItem" onclick="adminApiUpdate()">DB업데이트 (※주의)</span></li>
+			</ul>
+			<form id="adminApiUpdate" action="/drugs/apiUpdate" method="post"></form>
+			<div class="mainTitleBox">
+				<div class="d_CSS">
+					<span class="mainTitle1" onclick="goHome()">약도</span>
+					<span class="mainTitle2" onclick="goHome()">藥道</span>
+				</div>
+			</div>
+		</div>
+		<div class="adminIframe">
+			<iframe id="adminContent" src="/admin/searchUserList" frameborder="0" style="display:block;width:100%;height:100vh"></iframe>
+		</div>
+	</div>
 </body>
 </html>

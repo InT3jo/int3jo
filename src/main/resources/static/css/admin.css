@@ -1,0 +1,137 @@
+@charset "UTF-8";
+/* 공용 */
+body{
+	margin: 0px;
+}
+.d-CSS{
+	margin:0px;
+	padding:5px;
+	display:inline-block;
+	position: relative;
+	box-sizing:border-box;
+	white-space: normal;
+	font-size: 15px;
+}
+.adminCommonContainer{
+	width: 800px;
+	text-align: center;
+}
+.adminCommonTitle{
+	display: block;
+	margin-top: 20px;
+	font-size: 30px;
+	font-weight: 700;
+}
+.adminCommonInfoBox{
+	display: block;
+	width:400px;
+	margin: 20px auto;
+	background-color: var(--Lowtone-silver);
+}
+.adminCommonInfo{
+	display: block;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+/* 관리자페이지 메인 */
+.adminContainer{
+	display: flex;
+	margin: 0px;
+}
+.adminNavBar{
+	margin: 0px;
+	padding: 0px;
+	display: inline-block;
+	border-right: 1px solid var(--Signature-blue);
+	text-align: center;
+	width: 300px;
+	background-color: var(--Bg-silver);
+	color: var(--Signature-blue);
+}
+.adminNavTitle{
+	display: block;
+	margin-top: 50px;
+	font-size: 30px;
+	font-weight: 700;
+}
+.adminNavUl{
+	margin-top: 40px;
+	text-align: left;
+}
+.adminNavItem{
+	cursor: pointer;
+	display: block;
+	margin-top: 20px;
+	font-size: 20px;
+	font-weight: 500;
+}
+.adminIframe{
+	display: inline-block;
+	width: 850px;
+	margin: 0px;
+}
+.mainTitleBox{
+	text-align: center;
+	padding-top: 40px;
+	position: fixed;
+	left: 80px;
+	bottom: 80px;
+}
+.mainTitle1{
+	color: var(--Signature-blue);
+	font-size: 40px;
+	font-weight: 800;
+	font-family: var(--Font-title1);
+	cursor: pointer;
+}
+.mainTitle2{
+	color: var(--Signature-silver);
+	font-size: 20px;
+	font-weight: 600;
+	font-family: var(--Font-title2);
+	cursor: pointer;
+}
+
+/* 회원관리 페이지 */
+.adminUserTable{
+	width: 700px;
+	display: block;
+	margin: 0px auto;
+	background-color: black;
+}
+.adminUserTableItem{
+	font-size: 15px;
+	background-color: white;
+}
+.wd36{
+	width:36px;
+}
+.wd70{
+	width:70px;
+}
+.wd85{
+	width:85px;
+}
+.wd100{
+	width:100px;
+}
+.wd114{
+	width: 114px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
