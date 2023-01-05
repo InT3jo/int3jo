@@ -33,7 +33,7 @@
 			, user_grade, user_status, leave_date, block_reason
 		FROM users
 		WHERE
-		user_email = '#{userEmail}' AND USER_STATUS = 0
+		user_email = #{userEmail} AND USER_STATUS = 0
 	</select>
 
 	<select id="selectAllUsers" resultType="Users">
