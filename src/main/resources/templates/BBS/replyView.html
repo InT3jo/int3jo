@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function deleteCom(bbsNo, comNo) {
+			if (confirm('삭제하시겠습니까?')) {
+				location.href = "/BBS/deleteCom/" + bbsNo + "/" + comNo;
+			} else {
+				alert("삭제가 취소되었습니다.")
+			}
+		}
+
+		function updateCom(bbsNo, comNo) {
+			if (confirm('수정하시겠습니까?')) {
+				location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo;
+			} else {
+				alert("수정이 취소되었습니다.")
+			}
+		}
+
+		function deleteComAdmin(bbsNo, comNo) {
+			if (confirm('삭제하시겠습니까?')) {
+			location.href = "/BBS/deleteComAdmin/" + bbsNo + "/" + comNo;
+			}else{
+				alert("삭제가 취소되었습니다.")
+			}
+		}
+
+		function writeComOk() {
+			if (confirm('등록하시겠습니까?')) {
+				document.getElementById("writeCom").submit();
+			} else {
+				alert("등록이 취소되었습니다.");
+			}
+			return false;
+		}
+
+		function updateBBSOk(bbsNo) {
+			if (confirm('수정하시겠습니까?')) {
+				location.href = "/BBS/update/" + bbsNo;
+			} else {
+				alert("등록이 취소되었습니다.");
+			}
+			return false;
+		}
+
+		function deleteBBSOk(bbsNo) {
+			if (confirm('삭제하시겠습니까?')) {
+				location.href = "/BBS/delete/" + bbsNo;
+			} else {
+				alert("삭제가 취소되었습니다.");
+			}
+			return false;
+		}
+		
+		function deleteBBSAdmin(bbsNo){
+			if (confirm('삭제하시겠습니까?')) {
+				location.href = "/BBS/adminDelete/" + bbsNo;
+			} else {
+				alert("삭제가 취소되었습니다.");
+			}
+			return false;
+		}
+	</script>
+	<div th:replace="home_component.html :: header"></div>
+	<h1>BBS view Page</h1>
+	게시글 클릭하면 보여주는 화면
+	<div>
+		<br />
+		<table border="1" width="800" height="100">
+			<thead>
+				<tr>
+					<th>글보기</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>작성일</td>
+					<td th:text="${Reply.reDate}"></td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td th:text="${Reply.userNick}"></td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td th:text="${Reply.reTitle}"></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td th:text="${Reply.reContent}"></td>
+				</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+
+	<div>
+
+		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
+
+		<!-- 		로그인한 사용자 닉네임과 일치 할 때만 수정/삭제버튼 보이기 , 관리자(grade:1) 이거나 운영자(grade:0)에 보이기-->
+
+
+		<div th:if="${user.userNick}==${Reply.userNick} ">
+			<button th:name="${Reply.bbsNo}"
+				th:onclick="updateBBSOk(this.getAttribute('name'))">수정하기</button>
+			<button th:name="${Reply.bbsNo}"
+				th:onclick="deleteBBSOk(this.getAttribute('name'))">삭제</button>
+		</div>
+
+
+		<!-- 		회원등급이 관리자(user_grade = 1)이상 일때만 관리자 삭제,답변 버튼 보이기  -->
+
+
+		<div th:if="${user.userGrade==1 } or ${user.userGrade}==0">
+			<button th:name="${Reply.bbsNo}"
+				th:onclick="deleteBBSAdmin(this.getAttribute('name'))">
+				관리자삭제</button>
+			
+		</div>
+	</div>
+
+
+
+
+	</div>
+
+	</div>
+
+	<div th:replace="home_component.html :: footer"></div>
+</body>
+</html>

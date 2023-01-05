@@ -502,8 +502,74 @@
 	</select>
 
 
+<!-- 답글 테이블 insert  -->
+<insert id="insertReply" parameterType="Reply">
+	insert into reply
+	(
+	re_no,
+	bbs_no,
+	user_no,
+	re_title,
+	re_content,
+	re_date,
+	re_show
+	)
+	values(
+	(NVL(((select MAX(re_no) from reply where bbs_no=#{bbsNo})+1),1)),
+	#{bbsNo},
+	#{userNo},
+	#{reTitle},
+	#{reContent},
+	sysdate,
+	0
+	)
+</insert>
+
+<!-- 글번호 bbs_no에 해당하는 답글 불러오기  -->
+<select id="listReBybbsNo" resultType="Reply">
+	select * from reply
+	where bbs_no=#{bbsNo}
+	order by re_date asc
+</select>
+
+<!-- 답글 리스트 전체 불러오기  -->
+<select id="listRe" resultType="Reply">
+<!-- 닉네임 포함 답글 전체 목록 불러오기  -->
+	select
+        b.re_no,
+		b.BBS_no,
+		b.user_no,
+		u.user_nick,
+		b.re_title,
+		b.re_content,
+		b.re_date,
+		b.re_show
+		from reply b, users u
+		where b.re_show = 0
+		and
+		u.user_no = b.user_no
+		order by re_no asc
+</select>
 
 
+<!-- 답글 상세보기 - 게시글 번호 bbsNo, 답글 번호 reNo 로 찾기  -->
+<select id="replyView" resultType="Reply">
+	  select
+        b.re_no,
+		b.BBS_no,
+		b.user_no,
+		u.user_nick,
+		b.re_title,
+		b.re_content,
+		b.re_date,
+		b.re_show
+		from reply b, users u
+		where re_no= 1
+        and bbs_no = #{bbsNo}
+		and
+		u.user_no = b.user_no
+		order by re_no asc
+</select>
 
 
 </mapper>

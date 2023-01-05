@@ -4,7 +4,6 @@
  */
 package project3.yakdo.controller;
 
-import java.util.Enumeration;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -17,19 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.BBSComment;
 import project3.yakdo.domain.BBS.Criteria;
 import project3.yakdo.domain.BBS.PageMaker;
+import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.BBSCommentRepository;
 import project3.yakdo.repository.BBSRepository;
 import project3.yakdo.service.users.LoginService;
-import project3.yakdo.session.SessionVar;
 
 @Slf4j
 @Controller
@@ -87,6 +85,7 @@ public class BBSController {
 		
 		
 		// 게시글 목록 출력 + 페이징 추가 + 검색 추가 (1번째 방법 다시 시도중) - 최종 게시판 검색+페이징 다 됨 
+		//글번호 bbs_no에 해당하는 답글 불러오기(추가 01-05-14:08)
 		@GetMapping("/listSearch")
 		public String BBSList(@ModelAttribute ("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 			// 현재 주소정보
@@ -98,15 +97,20 @@ public class BBSController {
 			model.addAttribute("user", user);
 			
 			
-//			List<BBS> list = BBSRepository.listPage(cri);
 			List<BBS> list = BBSRepository.listSearch(scri);
-			
 			model.addAttribute("list", list);
+			
+//			bbs_no에 해당하는 답글 리스트 
+//			List<Reply> reList=BBSRepository.listReBybbsNo(bbsNo);
+//			model.addAttribute("reList",reList);	
+
+			//전체 답글 리스트 불러오기 
+			List<Reply> listRe=BBSRepository.listRe();
+			model.addAttribute("listRe",listRe);	
 			
 			
 			 PageMaker pageMaker = new PageMaker();
 			 pageMaker.setCri(scri);
-//			 pageMaker.setTotalCount(BBSRepository.listCount());
 			 pageMaker.setTotalCount(BBSRepository.countSearch(scri));
 			 model.addAttribute("pageMaker", pageMaker);
 			
@@ -357,53 +361,6 @@ public class BBSController {
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
-	// 댓글 본인 삭제
-//		@PostMapping("/deleteCom/{bbsNo}/{comNo}")
-//		public String updateComShowOneBybbsNoProcess(Model model
-//					, @PathVariable("bbsNo") int bbsNo
-//					, @PathVariable("comNo") int comNo) {
-////			log.info("bbsno"+bbsNo.toString());
-////			log.info("comno"+comNo);
-//			
-//			bbsCommentRepositoy.updateComShowOneBybbsNo(bbsNo,comNo);
-//			
-//			return "redirect:/BBS/BBSlist/{bbsNo}";
-//		}
-
-//		시퀀스로 test 하던거 
-	// 댓글 본인 삭제
-	/*
-	 * @PostMapping("/deleteCom/{comSeq}") public String
-	 * updateComShowOneBybbsNoProcess(Model model , @PathVariable("comSeq") int
-	 * comSeq) { // log.info("bbsno"+bbsNo.toString()); // log.info("comno"+comNo);
-	 * bbsCommentRepositoy.updateComShowOneBybbsNo(comSeq); return
-	 * "redirect:/BBS/BBSlist/{bbsNo}"; }
-	 */
-
-	/*
-	 * 댓글 수정 나중에 보완 22-12-28-11:41 //댓글수정
-	 * 
-	 * @GetMapping("/updateCom/{bbsNo}/{comNo}") public String updateCom(Model
-	 * model, @PathVariable("bbsNo") Integer bbsNo) { BBS bbsItem =
-	 * BBSRepository.selectBybbsNo(bbsNo); List<BBSComment> commentListZero =
-	 * bbsCommentRepositoy.selectComBybbsNo(bbsNo);
-	 * 
-	 * model.addAttribute("commentListZero", commentListZero);
-	 * model.addAttribute("BBS", bbsItem);
-	 * 
-	 * model.addAttribute("BBSComment", new BBSComment());
-	 * 
-	 * return"BBS/ComUpdate";
-	 * 
-	 * }
-	 * 
-	 * //댓글 수정
-	 * 
-	 * @PostMapping("/updateCom/{bbsNo}/{comNo}") public String
-	 * updateComProcess(Model model,@PathVariable("bbsNo") int bbsNo
-	 * ,@PathVariable("comNo") int comNo ,@ModelAttribute BBSComment bbsComment) {
-	 * bbsCommentRepositoy.updateCom(bbsNo, bbsComment); return "BBS/ComUpdate"; }
-	 */
 
 	// 댓글 수정
 	@GetMapping("/updateCom/{bbsNo}/{comNo}")
@@ -481,6 +438,23 @@ public class BBSController {
 		
 		BBSRepository.updateShowZeroBybbsNo(bbsNo);
 		return "redirect:/admin/adminBBSlist";
+	}
+	
+	
+	//답변글 보기 
+	@GetMapping("/replyView/{bbsNo}/1")
+	public String replyView(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		
+		Reply re = BBSRepository.replyView(bbsNo);
+		model.addAttribute("Reply", re);
+		
+		return "BBS/replyView";	
 	}
 	
 	

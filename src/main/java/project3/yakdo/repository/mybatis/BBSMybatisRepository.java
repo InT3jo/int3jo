@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.Criteria;
+import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.repository.BBSRepository;
 
@@ -28,6 +29,7 @@ public class BBSMybatisRepository implements BBSRepository {
 		return bbs;
 	}
 
+	//게시글 상세보기 
 	@Override
 	public BBS selectBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
@@ -35,6 +37,7 @@ public class BBSMybatisRepository implements BBSRepository {
 		return bbs;
 	}
 
+	//게시글 리스트 불러오기 
 	@Override
 	public List<BBS> selectByShowZero() {
 		// TODO Auto-generated method stub
@@ -163,28 +166,64 @@ public class BBSMybatisRepository implements BBSRepository {
 		return BBSMapper.countSearch(scri);
 	}
 
+	//본인 삭제 게시글 페이징+검색
 	@Override
 	public List<BBS> adminShowOnelist(SearchCriteria scri) {
 		// TODO Auto-generated method stub
 		return BBSMapper.adminShowOnelist(scri);
 	}
 
+	//본인 삭제 게시글 검색 결과 갯수
 	@Override
 	public int countSearchShowOne(SearchCriteria scri) {
 		// TODO Auto-generated method stub
 		return BBSMapper.countSearchShowOne(scri);
 	}
 
+	//관리자 삭제 게시글 페이징+검색
 	@Override
 	public List<BBS> adminShowTwolist(SearchCriteria scri) {
 		// TODO Auto-generated method stub
 		return BBSMapper.adminShowTwolist(scri);
 	}
 
+	//관리자 삭제 게시글 검색 결과 갯수
 	@Override
 	public int countSearchShowTwo(SearchCriteria scri) {
 		// TODO Auto-generated method stub
 		return BBSMapper.countSearchShowTwo(scri);
+	}
+
+	//답글 작성
+	@Override
+	public Reply insertReply(Reply reply) {
+		// TODO Auto-generated method stub
+		Integer result = BBSMapper.insertReply(reply);
+		return reply;
+	}
+
+//	글번호 bbs_no에 해당하는 답글 불러오기
+	@Override
+	public List<Reply> listReBybbsNo(int bbsNo) {
+		// TODO Auto-generated method stub
+		List<Reply> reList = BBSMapper.listReBybbsNo(bbsNo);
+		return reList;
+	}
+
+	//전체 답글 리스트 불러오기 
+	@Override
+	public List<Reply> listRe() {
+		// TODO Auto-generated method stub
+		List<Reply> listRe = BBSMapper.listRe();
+		return listRe;
+	}
+
+	//답글 상세보기 
+	@Override
+	public Reply replyView(int bbsNo) {
+		// TODO Auto-generated method stub
+		Reply re = BBSMapper.replyView(bbsNo);
+		return re;
 	}
 
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.Criteria;
+import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
 
 public interface BBSRepository {
@@ -66,6 +67,18 @@ public interface BBSRepository {
 		
 	//관리자 삭제 검색 결과 갯수 
 	public int countSearchShowTwo(SearchCriteria scri);
+	
+	//답글 쓰기 
+	public Reply insertReply(Reply reply);
+	
+	//글번호 bbs_no에 해당하는 답글 불러오기
+	public List<Reply> listReBybbsNo(int bbsNo);
+	
+	//전체 답글 불러오기
+	public List<Reply> listRe();
+	
+	//답글 상세보기 
+	public Reply replyView(int bbsNo);
 	
 	
 	

@@ -46,11 +46,10 @@
 
 			</tbody>
 		</table>
-
 	</div>
 
 
-	<form action="" method="post" th:object="${BBS}">
+	<form action="" method="post" th:object="${Reply}">
 	
 		<label> 
 		<input type="hidden" name="userNo" th:value="${user.userNo}">
@@ -58,11 +57,10 @@
 		 <!-- 	로그인한 사용자 정보에서 user_nick 불러오기  --> 
 		 </label>
 		 </br>
-		<label>제목<input type="text" name="bbsTitle"  value="문의 답변드립니다."></label>
-		<div class="errormsg" th:errors="*{bbsTitle}"></div> 
+		<label>제목<input type="text" name="reTitle"  value="문의 답변드립니다." readonly></label>
 		</br>
-<label>내용<textarea name="bbsContent" ></textarea></label>
-			<div class="errormsg" th:errors="*{bbsContent}"></div>  
+		<label>내용<textarea name="reContent" th:field="*{reContent}"></textarea></label>
+		
 
 
 
@@ -74,3 +72,16 @@
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

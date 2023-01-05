@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.PageMaker;
+import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.repository.BBSCommentRepository;
@@ -192,7 +193,7 @@ public class AdminController {
 	}
 
 	
-	
+/*	답글 테이블 따로 만들기 전 답글 등록 시도 했던 것 01-05-11:54 주석
 	//게시판 관리자 답변 쓰기 
 		@GetMapping("/writeAnswer/{bbsNo}")
 		public String BBSwrite(Model model,@PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
@@ -227,6 +228,47 @@ public class AdminController {
 			return "redirect:/BBS/listSearch";
 
 		}
+	*/
+	
+	
+	//답글 테이블 만들고 다시 시도중 01-05-11:55~
+	//게시판 관리자 답변 쓰기 
+	@GetMapping("/writeAnswer/{bbsNo}")
+	public String BBSwrite(Model model,@PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		
+		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
+		model.addAttribute("BBS", bbsItem);
+		
+		model.addAttribute("Reply", new Reply());
+//		model.addAttribute("BBS", new BBS());
+		return "/BBS/writeAnswer";
+	}
+	
+	//게시판 관리자 답변 쓰기 
+			@PostMapping("/writeAnswer/{bbsNo}")
+			public String newBBSInsertModel(@ModelAttribute Reply reply,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
+				// 현재 주소정보
+				String uriHere = req.getRequestURI();
+				model.addAttribute("uriHere", uriHere);
+
+				// 로그인된 유저정보(로그인되어있지 않다면 null)
+				Users user = loginService.getLoginUser(req);
+				model.addAttribute("user", user);
+				
+				BBSRepository.insertReply(reply);
+
+				return "redirect:/BBS/listSearch";
+
+			}
+
+			
 	
 	
 	
