@@ -86,6 +86,15 @@ body{
 	background-color: var(--Signature-blue);
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
+.loginNav{
+	display: block;
+	margin-top: 40px;
+}
+.loginNavItem{
+	color: var(--Signature-blue);
+	margin: 40px;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
 
 /* 회원가입 */
 
@@ -108,3 +117,68 @@ body{
     margin-bottom: 150px;
 }
 /* 비밀번호 찾기 */
+.findForm{
+	display: block;
+    text-align: center;
+}
+.findEmailBox{
+	margin-top: 20px;
+}
+#findEmail{
+	width: 300px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+#findEmailConfirm{
+	width: 300px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+.findPwBox{
+	margin-top: 20px;
+}
+.findPwButton{
+	width: 90px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 16px;
+    font-weight: 600;
+	background-color: var(--Signature-blue);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+#findPw{
+	width: 400px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+#findPwConfirm{
+	width: 400px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+#changeBtn{
+	margin-top: 30px;
+	width: 440px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 20px;
+    font-weight: 700;
+	background-color: var(--Signature-blue);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}

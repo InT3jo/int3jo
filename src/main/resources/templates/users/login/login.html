@@ -7,6 +7,15 @@
 <title>약도 - 로그인</title>
 </head>
 <body>
+	<script type="text/javascript">
+		function goFindPw(){
+			location.href="/"
+		}
+		
+		function goSignUp(){
+			location.href="/signUp"
+		}
+	</script>
 	<div class="ContentBox center">
 		<div class="mainTitleBox">
 			<div class="d_CSS">
@@ -31,6 +40,10 @@
 				<button id="loginBtn" type="submit">로그인</button>
 				<button id="goHomeBtn" type="button" onclick="location.href='/'">메인화면으로</button>
 			</form>
+			<div class="loginNav">
+				<span class="loginNavItem" onclick="goFindPw()">비밀번호 찾기</span>
+				<span class="loginNavItem" onclick="goSignUp()">회원가입</span>
+			</div>
 		</div>
 	</div>
 </body>

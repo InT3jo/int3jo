@@ -14,22 +14,24 @@
 				<span class="mainTitle2" onclick="location.href='/'">藥道</span>
 			</div>
 		</div>
-		<div class="d-CSS loginForm">
-			<form action="" method="post" th:object="${loginForm}">
-				<div class="loginEmailBox">
-					<input type="email" id="loginEmail" placeholder="이메일" />
+		<div class="d-CSS findForm">
+			<form action="" method="post">
+				<div class="findEmailBox">
+					<input type="email" id="findEmail" placeholder="이메일"/>
+					<button type="button" class="findPwButton">코드 전송</button>
 				</div>
-				<div class="loginEmailBox">
-					<input type="text" id="loginEmail" placeholder="이메일" />
+				<div class="findEmailBox">
+					<input type="text" id="findEmailConfirm" placeholder="이메일 보안코드 확인" />
+					<button type="button" class="findPwButton">코드 확인</button>
 				</div>
-				<div class="loginPwBox">
-					<input type="password" id="loginPw" placeholder="비밀번호" />
+				<div class="findPwBox">
+					<input type="password" id="findPw" placeholder="비밀번호" />
 				</div>
-				<div class="loginPwBox">
-					<input type="password" id="loginPw" placeholder="비밀번호" />
+				<div class="findPwBox">
+					<input type="password" id="findPwConfirm" placeholder="비밀번호 확인" />
 				</div>
 				
-				<button id="loginBtn" type="submit">수정하기</button>
+				<button id="changeBtn" type="submit">수정하기</button>
 				<button id="goHomeBtn" type="button" onclick="location.href='/'">메인화면으로</button>
 			</form>
 		</div>
