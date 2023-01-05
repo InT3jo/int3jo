@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/user.css">
+<title>약도 - 비밀번호 찾기</title>
+</head>
+<body>
+	<div class="ContentBox center">
+		<div class="mainTitleBox">
+			<div class="d_CSS">
+				<span class="mainTitle1" onclick="location.href='/'">약도</span>
+				<span class="mainTitle2" onclick="location.href='/'">藥道</span>
+			</div>
+		</div>
+		<div class="d-CSS findForm">
+			<form action="" method="post">
+				<div class="findEmailBox">
+					<input type="email" id="findEmail" placeholder="이메일"/>
+					<button type="button" class="findPwButton">코드 전송</button>
+				</div>
+				<div class="findEmailBox">
+					<input type="text" id="findEmailConfirm" placeholder="이메일 보안코드 확인" />
+					<button type="button" class="findPwButton">코드 확인</button>
+				</div>
+				<div class="findPwBox">
+					<input type="password" id="findPw" placeholder="비밀번호" />
+				</div>
+				<div class="findPwBox">
+					<input type="password" id="findPwConfirm" placeholder="비밀번호 확인" />
+				</div>
+				
+				<button id="changeBtn" type="submit">수정하기</button>
+				<button id="goHomeBtn" type="button" onclick="location.href='/'">메인화면으로</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

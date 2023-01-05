@@ -4,18 +4,9 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/user.css">
-<title>약도 - 로그인</title>
+<title>약도 - 비밀번호 확인</title>
 </head>
 <body>
-	<script type="text/javascript">
-		function goFindPw(){
-			location.href="/"
-		}
-		
-		function goSignUp(){
-			location.href="/signUp"
-		}
-	</script>
 	<div class="ContentBox center">
 		<div class="mainTitleBox">
 			<div class="d_CSS">
@@ -29,7 +20,7 @@
 					<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
 				</div>
 				<div class="loginEmailBox">
-					<input type="email" id="loginEmail" th:field="*{loginEmail}" placeholder="이메일" />
+					<input type="email" id="loginEmail" th:field="*{loginEmail}" placeholder="이메일" disabled />
 					<div th:errors="*{loginEmail}"></div>
 				</div>
 				<div class="loginPwBox">
@@ -37,13 +28,9 @@
 					<div th:errors="*{loginPw}"></div>
 				</div>
 				
-				<button id="loginBtn" type="submit">로그인</button>
+				<button id="loginBtn" type="submit">확인</button>
 				<button id="goHomeBtn" type="button" onclick="location.href='/'">메인화면으로</button>
 			</form>
-			<div class="loginNav">
-				<span class="loginNavItem" onclick="goFindPw()">비밀번호 찾기</span>
-				<span class="loginNavItem" onclick="goSignUp()">회원가입</span>
-			</div>
 		</div>
 	</div>
 </body>

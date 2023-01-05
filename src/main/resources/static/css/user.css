@@ -1,0 +1,184 @@
+@charset "UTF-8";
+/* 공용 */
+body{
+	background-color: var(--Bg-silver);
+	cursor: url(/cursor/capsule.cur) 0 0, auto;
+}
+.d-CSS{
+	margin:0px;
+	padding:5px;
+	display:inline-block;
+	position: relative;
+	box-sizing:border-box;
+	white-space: normal;
+	font-size: 15px;
+}
+.ContentBox{
+	margin:0px auto;
+	width:800px;
+	display:block;
+}
+.mainTitleBox{
+	width: 800px;
+	text-align: center;
+	padding-top: 100px;
+}
+.mainTitle1{
+	color: var(--Signature-blue);
+	font-size: 70px;
+	font-weight: 1000;
+	font-family: var(--Font-title1);
+}
+.mainTitle2{
+	color: var(--Signature-silver);
+	font-size: 35px;
+	font-weight: 700;
+	font-family: var(--Font-title2);
+}
+#goHomeBtn{
+	margin-top: 20px;
+	width: 440px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 20px;
+    font-weight: 700;
+	background-color: var(--Signature-silver);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+/* 로그인, 비번확인 */
+.loginForm{
+	display: block;
+    text-align: center;
+}
+.loginEmailBox{
+	margin-top: 40px;
+}
+#loginEmail{
+	width: 400px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+.loginPwBox{
+	margin-top: 20px;
+}
+#loginPw{
+	width: 400px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+#loginBtn{
+	margin-top: 30px;
+	width: 440px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 20px;
+    font-weight: 700;
+	background-color: var(--Signature-blue);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+.loginNav{
+	display: block;
+	margin-top: 40px;
+}
+.loginNavItem{
+	color: var(--Signature-blue);
+	margin: 40px;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+
+/* 회원가입 */
+
+/* 회원탈퇴 */
+.goodByeMsg{
+	text-align: center;
+	display: block;
+}
+.goodByeTitle{
+	font-size: 20px;
+    font-weight: 700;
+    color: var(--Signature-blue);
+    margin-top: 30px;
+}
+.goodByeContent{
+	font-size: 18px;
+    font-weight: 600;
+    color: var(--Signature-silver);
+    margin-top: 30px;
+    margin-bottom: 150px;
+}
+/* 비밀번호 찾기 */
+.findForm{
+	display: block;
+    text-align: center;
+}
+.findEmailBox{
+	margin-top: 20px;
+}
+#findEmail{
+	width: 300px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+#findEmailConfirm{
+	width: 300px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+.findPwBox{
+	margin-top: 20px;
+}
+.findPwButton{
+	width: 90px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 16px;
+    font-weight: 600;
+	background-color: var(--Signature-blue);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+#findPw{
+	width: 400px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+#findPwConfirm{
+	width: 400px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+#changeBtn{
+	margin-top: 30px;
+	width: 440px;
+	height: 50px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 20px;
+    font-weight: 700;
+	background-color: var(--Signature-blue);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
