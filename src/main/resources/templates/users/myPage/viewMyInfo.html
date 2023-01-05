@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/user.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<title>약도 - 마이페이지</title>
+</head>
+<body>
+	<div th:replace="home_component.html :: header"></div>
+	<div class="">
+		<div class="accordion" id="accordionExample">
+		  <div class="accordion-item">
+		    <h2 class="accordion-header" id="headingOne">
+		      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		        기본 정보
+		      </button>
+		    </h2>
+		    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+		      <div class="accordion-body">
+		        <table class="table">
+				  <tbody>
+				    <tr>
+				      <th scope="row">이메일</th>
+				      <td th:text="${user.userEmail}">
+<!-- 				      	메일계정들어올자리 -->
+				      </td>
+				      <td><button>수정</button></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">닉네임</th>
+				      <td th:text="${user.userNick}">
+<!-- 				      	닉네임 들어올 자리 -->
+				      </td>
+				      <td><button>수정</button></td>
+				    </tr>
+				  </tbody>
+				</table>
+		      </div>
+		    </div>
+		  </div>
+		  
+		  <div class="accordion-item">
+		    <h2 class="accordion-header" id="headingOne">
+		      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		        가족 정보
+		      </button>
+		    </h2>
+		    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+		      <div class="accordion-body">
+		        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	<div th:replace="home_component.html :: footer"></div>
+</body>
+</html>

@@ -41,11 +41,17 @@
 		</div>
 		<div>
 			<span class="mainWelcome" th:if="${user}!=null">
-				<span class="mainWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}"></span>
+				<span class="mainWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}" onclick = "goMyPage()"></span>
 				<span class="mainWelcome2">님 환영합니다.</span>
 			</span>
 		</div>
 		<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 	</div>
+	
+	<script>
+		function goMyPage() {
+			location.href='/help/myPage';
+		}
+	</script>
 </body>
 </html>
