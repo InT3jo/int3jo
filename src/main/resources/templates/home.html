@@ -33,7 +33,8 @@
 		<div class="mainNavBox">
 			<span th:if="${user}==null" id="mainNavLogin" onclick="location.href='/login'">로그인</span>
 			<span th:if="${user}!=null" id="mainNavLogin" onclick="logout()">로그아웃</span>
-			<span id="mainNavJoin" onclick="location.href='/signUp'">회원가입</span>
+			<span th:if="${user}==null" id="mainNavJoin" onclick="location.href='/signUp'">회원가입</span>
+			<span th:if="${user}!=null" id="mainNavJoin" onclick="location.href='/help/myPage'">마이페이지</span>
 			<span id="mainNavBBS" onclick="location.href='/BBS/listSearch'">이용문의</span><br>
 		</div>
 		<div style="text-align: right; margin: 20px;">
@@ -41,17 +42,11 @@
 		</div>
 		<div>
 			<span class="mainWelcome" th:if="${user}!=null">
-				<span class="mainWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}" onclick = "goMyPage()"></span>
+				<span class="mainWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}" onclick = "location.href='/help/myPage'"></span>
 				<span class="mainWelcome2">님 환영합니다.</span>
 			</span>
 		</div>
 		<form style="display:none;" id="logoutBtn" class="d-CSS" action="/logout" th:action="@{/logout}" method="post"></form>
 	</div>
-	
-	<script>
-		function goMyPage() {
-			location.href='/help/myPage';
-		}
-	</script>
 </body>
 </html>
