@@ -87,7 +87,7 @@
 						
 					<tr th:each="Reply : ${listRe}" th:if="${BBS.bbsNo}==${Reply.bbsNo} and ${listRe}!=null">
 						<td></td>
-						<td><a th:href="@{|/BBS/replyView/${BBS.bbsNo}/${Reply.reNo}|}" th:text=${Reply.reTitle}></a></td>
+						<td><a th:href="@{|/BBS/replyView/${BBS.bbsNo}/${Reply.reNo}|}" th:text="${' └ 😎'+Reply.reTitle}"></a></td>
 						<td th:text=${Reply.reDate}></td>
 						<td th:text="${Reply.userNick}"></td>
 					</tr>

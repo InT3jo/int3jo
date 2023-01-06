@@ -47,6 +47,9 @@ body{
 	background-color: var(--Signature-silver);
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
+.cursor{
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
 /* 로그인, 비번확인 */
 .loginForm{
 	display: block;

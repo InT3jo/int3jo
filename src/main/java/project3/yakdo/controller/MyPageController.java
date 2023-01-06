@@ -72,7 +72,10 @@ public class MyPageController {
 	 * @return 
 	 */
 	@PostMapping("/modifyMyInfo")
-	public String checkModifyNick(@RequestParam("userNick") String userNick) {
+	public String checkModifyNick(@RequestParam("userNick") String userNick, HttpServletRequest req, Model model) {
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
 		log.info(userNick);
 		if(usersService.compareUserNick(userNick) == 1) {
 			return "/users/myPage/myPage";
