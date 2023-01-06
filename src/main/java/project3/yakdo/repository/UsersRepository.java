@@ -16,8 +16,6 @@ public interface UsersRepository {
 	/* INSERT 담당자 : 빙예은 */
 	public Integer insertUsers(SignUpForm signUpForm);
 	public Integer insertUsersInfo(UsersInfo usersInfo);
-	public Integer insertUsingDrugs(SignUpForm signUpForm);
-	public Integer insertAllergy(SignUpForm signUpForm);
 	
 	/* SELECT 담당자 : 빙예은 */
 	public Users selectUserByUserEmail(String userEmail);

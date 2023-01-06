@@ -25,6 +25,14 @@ public class MyPageController {
 	private final UsersService usersService;
 	private final LoginService loginService;
 	
+	
+	/**
+	 * myPage 페이지
+	 * @param model
+	 * @param req
+	 * 
+	 * 담당자 : 빙예은
+	 */
 	@GetMapping("/myPage")
 	public String myPage(Model model, HttpServletRequest req) {
 		// 현재 주소정보
@@ -37,6 +45,13 @@ public class MyPageController {
 		return "/users/myPage/myPage";
 	}
 	
+	/**
+	 * 닉네임 수정 창
+	 * @param model
+	 * @param req
+	 * 
+	 * 담당자 : 빙예은
+	 */
 	@GetMapping("/modifyMyInfo")
 	public String viewMyInfo(Model model, HttpServletRequest req) {
 		// 현재 주소정보
@@ -49,13 +64,19 @@ public class MyPageController {
 		return "/users/myPage/modifyMyInfo";
 	}
 
+	/**
+	 * 닉네임 수정 완료 창
+	 * 닉네임 수정 성공 시 myPage
+	 * 			실패 시 현재 페이지
+	 * @param userNick
+	 * @return 
+	 */
 	@PostMapping("/modifyMyInfo")
 	public String checkModifyNick(@RequestParam("userNick") String userNick) {
 		log.info(userNick);
 		if(usersService.compareUserNick(userNick) == 1) {
 			return "/users/myPage/myPage";
 		}
-		
 		return "redirect:/help/modifyMyInfo";
 	}
 }

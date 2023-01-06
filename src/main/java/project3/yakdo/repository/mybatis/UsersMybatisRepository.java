@@ -24,7 +24,7 @@ public class UsersMybatisRepository implements UsersRepository{
 /* Insert 관련 메소드 */
 	
 	/**
-	 * USERS 테이블에 파라미터의 객체 추가
+	 * USERS 테이블에 insert 하는 메소드
 	 * @param SignUpForm signUpForm
 	 * @return Integer(result)
 	 * 담당자 : 빙예은
@@ -36,82 +36,36 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 	/**
-	 * USERS_INFO 테이블에 insert 하는 메소드
+	 * USERS_INFO, USERS_INFO_USING_DRUGS, USERS_INFO_ALLERGY 테이블에 insert 하는 메소드
+	 * users_info에 insert한 후 familyNo를 구해
+	 * Map에 담아 usingDrugMap과 allergyMap에 insert한다
+	 * 
 	 * @param SignUpForm signUpForm
 	 * @return Integer(result) 
 	 * 담당자 : 빙예은
 	 */
 	@Override
 	public Integer insertUsersInfo(UsersInfo usersInfo) {
-		Integer result = usersMapper.insertUsersInfo(usersInfo);
+		usersMapper.insertUsersInfo(usersInfo);
 		Integer familyNo = usersMapper.selectUsersInfoByFamilyNick(usersInfo.getFamilyNick(),usersInfo.getUserNo()).getFamilyNo();
 		for(String usingDrug : usersInfo.getUsingDrugList()) {
 			Map<String, Object> usingDrugMap = new HashMap<>();
 			usingDrugMap.put("userNo", usersInfo.getUserNo());
 			usingDrugMap.put("familyNo", familyNo);
 			usingDrugMap.put("usingDrug", usingDrug);
-			Integer result2 = usersMapper.insertUsingDrugs(usingDrugMap);			
+			usersMapper.insertUsingDrugs(usingDrugMap);			
 		}
 		for(String allergy : usersInfo.getAllergyList()) {
 			Map<String, Object> allergyMap = new HashMap<>();
 			allergyMap.put("userNo", usersInfo.getUserNo());
 			allergyMap.put("familyNo", familyNo);
 			allergyMap.put("allergy", allergy);
-			Integer result3 = usersMapper.insertAllergy(allergyMap);			
+			usersMapper.insertAllergy(allergyMap);			
 		}
-		return result;
-	}
-
-	/**
-	 * USERS_INFO_USING_DRUGS insert 하는 메소드
-	 * SingUpForm을 파라미터로 받아서 usingDrugList List 생성
-	 * List의 약물을 Map에 저장한 후 insert 진행
-	 * 
-	 * @param SignUpForm signUpForm
-	 * @return Integer(result) 
-	 * 담당자 : 빙예은
-	 */
-	@Override
-	public Integer insertUsingDrugs(SignUpForm signUpForm) {
-//		Map<String, Object> usingDrugMap = new LinkedHashMap<>();
-//		List<String> drugList = signUpForm.getUsingDrugList();
-//		
-		int result = 0;
-//		for(int i = 0; i<drugList.size(); i++) {
-//			usingDrugMap.put("familyNo", signUpForm.getFamilyNo());
-//			usingDrugMap.put("usingDrug", drugList.get(i));
-//			result = usersMapper.insertUsingDrugs(usingDrugMap);
-//		}
-		return result;
-	}
-	
-	/**
-	 * USERS_INFO_ALLERGY insert 하는 메소드
-	 * SingUpForm을 파라미터로 받아서 allergyList List 생성
-	 * List의 알러지를 Map에 저장한 후 insert 진행
-	 * 
-	 * @param SignUpForm signUpForm
-	 * @return Integer(result) 
-	 * 담당자 : 빙예은
-	 */
-	@Override
-	public Integer insertAllergy(SignUpForm signUpForm) {
-//		Map<String, Object> allergyMap = new LinkedHashMap<>();
-//		List<String> allergyList = signUpForm.getAllergyList();
-//		
-		int result = 0;
-//		for(int i = 0; i<allergyList.size(); i++) {
-//			allergyMap.put("familyNo", signUpForm.getFamilyNo());
-//			allergyMap.put("allergy", allergyList.get(i));
-//			result = usersMapper.insertAllergy(allergyMap);
-//		}
-		return result;
+		return 0;
 	}
 
 /* SELECT 관련 메소드 */
-
-	
-
 	
 	/**
 	 * userEmail을 전달 받아 USERS select 하기

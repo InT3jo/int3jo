@@ -1,6 +1,5 @@
 package project3.yakdo.service.users;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +21,11 @@ public class LoginService {
 
 	private final UsersRepository usersRepository;
 	
+	/**
+	 * 로그인이 실행되는 메소드
+	 * @param loginForm
+	 * @return
+	 */
 	public Users login(LoginForm loginForm) {
 		log.info("loginForm{}", loginForm);
 		Users user = usersRepository.selectUserByUserEmail(loginForm.getLoginEmail());
