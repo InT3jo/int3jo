@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/admin.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -14,62 +16,50 @@ function updateUserOk(){
 		location.href = "/admin/searchUserList";
 	}
 	return false;
-	
 }
 
 
 </script>
-
-
-	<h1>회원 등급/상태(블락,복구) 변경</h1>
-
-	<p>관리자 권한 부여 USER_GRADE 운영진:0 , 관리자:1 , 일반회원:2</p>
-	<p>회원 상태 USER_STATUS 정상:0 , 블락 : 2 </p>
-
-	<form id="updateUserStatus" action="" method="post" th:object=${Users}>
-		<table border="1" width="1000" height="100">
-			<thead>
-				<tr>
-					<th>회원번호</th>
-					<th>이메일</th>
-					<th>닉네임</th>
-					<th>회원등급</th>
-					<th>회원상태</th>
-					<th>블락사유</th>
-					<th>변경</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td th:text="*{userNo}">
-<!-- 					<input type="text" name="userNo" th:field=*{userNo} readonly="readonly"> -->
-					</td>
-					<td th:text="*{userEmail}">
-<!-- 					<input type="text" name="userEmail" th:field=*{userEmail} readonly="readonly"> -->
-					</td>
-					<td th:text="*{userNick}">
-<!-- 					<input type="text" name="userNick" th:field=*{userNick} readonly="readonly"> -->
-					</td>
-<!-- 					<td><input type="text" name="userGrade" th:field="*{userGrade}"></td> -->
-					<td>
+	<div class="adminCommonContainer">
+		<span class="adminCommonTitle">회원 등급/상태(블락,복구) 변경</span>
+		<form id="updateUserStatus" action="" method="post" th:object=${Users}>
+			<div style="width:400px; display:inline-block; margin:0px auto">
+				<ul style="text-align: left;">
+					<li class="down20">
+						<span class="bText">회원번호: </span>
+						<span th:text="*{userNo}"></span>
+					</li>
+					<li class="down20">
+						<span class="bText">이메일: </span>
+						<span th:text="*{userEmail}"></span>
+					</li>
+					<li class="down20">
+						<span class="bText">닉네임: </span>
+						<span th:text="*{userNick}"></span>
+					</li>
+					<li class="down20">
+						<span class="bText">회원등급: </span>
 						<select name="userGrade">
-							<option value="1" th:selected="${Users.userGrade}=='1'">1:관리자</option>
-							<option value="2" th:selected="${Users.userGrade}=='2'">2:일반회원</option>
+							<option value="1" th:selected="${Users.userGrade}=='1'">관리자</option>
+							<option value="2" th:selected="${Users.userGrade}=='2'">일반회원</option>
 						</select>
-					</td>
-<!-- 					<td><input type="text" name="userStatus" th:field="*{userStatus}"></td> -->
-					<td>
-					<select name="userStatus">
-							<option value="0" th:selected="${Users.userStatus}=='0'">0:정상</option>
-							<option value="2" th:selected="${Users.userStatus}=='2'">2:블락</option>
+					</li>
+					<li class="down20">		
+						<span class="bText">회원상태: </span>
+						<select name="userStatus">
+							<option value="0" th:selected="${Users.userStatus}=='0'">정상</option>
+							<option value="2" th:selected="${Users.userStatus}=='2'">블락</option>
 						</select>
-						</td>
-					<td><input type="text" name="blockReason" th:field="*{blockReason}"></td>
-					<td><button type="button" onclick="updateUserOk()">변경</button></td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
-<button th:onclick="|location.href='@{/admin/searchUserList}'|">회원목록</button>
+					</li>
+					<li class="down20">
+						<span class="bText">블락사유 :<br></span>
+						<textarea name="blockReason" th:field="*{blockReason}" style="width:300px; height:100px"></textarea>
+					</li>
+				</ul>
+			</div>
+		</form>
+		<button id="changeUserBtn" type="button" onclick="updateUserOk()">변경하기</button>
+		<button id="goListBtn" onclick="location.href='/admin/searchUserList'">회원목록</button>
+	</div>
 </body>
 </html>

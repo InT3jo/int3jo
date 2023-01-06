@@ -45,11 +45,14 @@ public class LoginService {
 	 * @return: User
 	 */
 	public Users getLoginUser(HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		if(session == null) {
-			return null;
-		}
-		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
+//		HttpSession session = req.getSession(false);
+//		if(session == null) {
+//			return null;
+//		}
+//		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
+		// 개발중 1@1로 로그인한 채로 시작하도록 설계
+		Users user = usersRepository.selectUserByUserEmail("1@1");
 		return user;
 	}
 

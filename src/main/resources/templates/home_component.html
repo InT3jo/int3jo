@@ -25,12 +25,7 @@
 		<span id="headerNavBBS" onclick="location.href='/BBS/listSearch'">이용문의</span>
 		<span th:if="${user}!=null and ${user.userGrade}<2" id="headerNavAdmin" onclick="location.href='/admin'">관리자페이지</span>
 	</div>
-	<div>
-		<span class="headerWelcome" th:if="${user}!=null">
-			<span class="headerWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}"></span>
-			<span class="headerWelcome2">님 환영합니다.</span>
-		</span>
-	</div>
+	
 	<form th:if="${uriHere}!=null" style="display:none;" id="logoutBtn" class="d-CSS" th:action="@{/logout?redirectURL={uriHere}(uriHere=${uriHere})}" method="post"></form>
 	<form th:if="${uriHere}==null" style="display:none;" id="logoutBtn" class="d-CSS" th:action="@{/logout?redirectURL='/'}" method="post"></form>
 </div>
@@ -60,12 +55,7 @@
 		<span id="headerNavBBS" onclick="location.href='/BBS/listSearch'">이용문의</span>
 		<span th:if="${user}!=null and ${user.userGrade}<2" id="headerNavAdmin" onclick="location.href='/admin'">관리자페이지</span>
 	</div>
-	<div>
-		<span class="headerWelcome" th:if="${user}!=null">
-			<span class="headerWelcome1" th:text="${user.userNick+'('+user.userEmail+')'}"></span>
-			<span class="headerWelcome2">님 환영합니다.</span>
-		</span>
-	</div>
+	
 	<form th:if="${uriHere}!=null" style="display:none;" id="logoutBtn" class="d-CSS" th:action="@{/logout?redirectURL={uriHere}(uriHere=${uriHere})}" method="post"></form>
 	<form th:if="${uriHere}==null" style="display:none;" id="logoutBtn" class="d-CSS" th:action="@{/logout?redirectURL='/'}" method="post"></form>
 </div>
