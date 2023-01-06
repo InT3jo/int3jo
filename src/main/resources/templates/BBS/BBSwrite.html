@@ -48,28 +48,32 @@
 
 <p id="BBS">이용문의</p>
 
+
 	<div class="WriteBBSBox">
-		<form  action="" method="post" th:object="${BBS}">
+	<div class="ReturnList">
+	<button id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+	</div>
+		<form action="" method="post" th:object="${BBS}">
 
 			<div>
-				<label> <input class="InputNick" type="hidden" name="userNo"
-					th:value="${user.userNo}"> 작성자<input type="text"
+				<label> <input  type="hidden" name="userNo"
+					th:value="${user.userNo}"> <input class="InputNick" type="text"
 					name="userNick" th:value="${user.userNick}" readonly>
 				</label>
 			</div>
 			<div>
-				<label>제목<input class="InputBBSTitle" type="text" name="bbsTitle" 
+				<label><input class="InputBBSTitle" type="text" name="bbsTitle" 
 					th:field="*{bbsTitle}" placeholder="제목을 입력해주세요"></label>
 			</div>
 			<div>
-				<label>내용<textarea name="bbsContent" class="InputBBSContent"
+				<label><textarea name="bbsContent" class="InputBBSContent"
 						th:field="*{bbsContent}" placeholder="내용을 입력해주세요"></textarea></label>
 			</div>
 			<div id="writeBtn">
 				<button id="headerSearchBtn" type="button" onclick="writeOk()">등록하기</button>
 			</div>
 		</form>
-	<button id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+		
 		</div>
 
 

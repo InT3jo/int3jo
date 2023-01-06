@@ -24,6 +24,7 @@ li {
 }
 
 #BBS {
+	margin-top:50px;
 	text-align: center;
 	font: Font-title1;
 }
@@ -46,25 +47,44 @@ li {
 
 /* BBSwrite.html ============================================= */
 .WriteBBSBox {
-	
-	margin: 80px auto;
+	margin: 70px auto;
 	width: 800px;
 	display: block;
 }
 
 .InputNick {
-	height: 30px;
-	margin: 15px;
+	height: 20px;
+	margin: 5px;
 }
 
 .InputBBSTitle {
-	width: 600px;
+	width: 800px;
 	height: 30px;
-	margin: 15px;
+	margin: 5px;
 }
 
 .InputBBSContent {
-	width: 600px;
+	width: 800px;
 	height: 350px;
-	margin: 15px;
+	margin: 5px;
+	resize: none;
+}
+.ReturnList{
+	text-align: right;
+	margin-bottom: 20px;
+}
+
+/* BBSView.html ================================================= */
+.ViewContent{
+	width: 800px;
+	height: 350px;
+	margin: 5px;
+	border:none;
+	resize: none;
+}
+
+.BBSViewTable{
+	margin: 0px auto;
+	width: 800px;
+	display: block;
 }
