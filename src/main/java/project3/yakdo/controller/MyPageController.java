@@ -52,7 +52,7 @@ public class MyPageController {
 	 * 
 	 * 담당자 : 빙예은
 	 */
-	@GetMapping("/modifyMyInfo")
+	@GetMapping("/modifyNickName")
 	public String viewMyInfo(Model model, HttpServletRequest req) {
 		// 현재 주소정보
 		String uriHere = req.getRequestURI();
@@ -61,7 +61,7 @@ public class MyPageController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
-		return "/users/myPage/modifyMyInfo";
+		return "/users/myPage/modifyNickName";
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class MyPageController {
 	 * @param userNick
 	 * @return 
 	 */
-	@PostMapping("/modifyMyInfo")
+	@PostMapping("/modifyNickName")
 	public String checkModifyNick(@RequestParam("userNick") String userNick, HttpServletRequest req, Model model) {
 		// 업데이트 실행(실패하면 기존 정보를 가진 user 담김) 
 		Users user = usersService.compareUserNick(userNick, loginService.getLoginUser(req));
