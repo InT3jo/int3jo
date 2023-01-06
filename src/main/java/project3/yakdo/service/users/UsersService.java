@@ -10,14 +10,15 @@ import project3.yakdo.repository.UsersRepository;
 @Service
 @RequiredArgsConstructor
 public class UsersService {
+	private final UsersRepository usersRepository;
 	
 	/**
 	 * 수정된 email을 받아 update 하기 
 	 * @param userNick
 	 * @return
 	 */
-	public Integer compareUserNick(String userNick) {
-		//users 업데이트 하기위한 코드 작성해야함
+	public Integer compareUserNick(String userNick, Integer userNo) {
+		usersRepository.updateUserNickByUserNo(userNick, userNo);
 		return 1;
 	}
 

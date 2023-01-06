@@ -76,8 +76,10 @@ public class MyPageController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
-		log.info(userNick);
-		if(usersService.compareUserNick(userNick) == 1) {
+		
+		// update가 정상적으로 실행 됐을 때 myPage로 이동
+		if(usersService.compareUserNick(userNick, user.getUserNo()) == 1) {
+			user.setUserNick(userNick);
 			return "/users/myPage/myPage";
 		}
 		return "redirect:/help/modifyMyInfo";

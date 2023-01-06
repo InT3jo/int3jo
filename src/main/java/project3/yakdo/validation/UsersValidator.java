@@ -5,10 +5,9 @@ import org.springframework.validation.Errors;
 
 import project3.yakdo.validation.form.LoginForm;
 
-public class LoginValidator {
-
+public class UsersValidator {
 	/**
-	 * login시 이메일, 패스워드 검증할 메소드
+	 * userNick 변경 시, 중복 되는 내용 있는 지 검사
 	 * @param loginForm
 	 * @param errors
 	 * 
@@ -22,5 +21,4 @@ public class LoginValidator {
 			errors.rejectValue("loginPw", null, "비밀번호를 입력해주세요");
 		}
 	}
-	
 }

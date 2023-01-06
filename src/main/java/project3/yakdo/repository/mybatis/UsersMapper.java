@@ -27,15 +27,18 @@ public interface UsersMapper {
 	public Integer insertAllergy(Map<String, Object> allergyMap);
 	
 /* SELECT */
-	
 	//Users select 기준 : userEmail
 	public Users selectUserByUserEmail(String userEmail);
 
 	//Users selectAll
 	public List<Users> selectAllUsers();
 
-	//
+	//Users_info테이블에서 family_nick, user_no로 회원 정보 찾기 / 담당자 : 빙예은
 	public UsersInfo selectUsersInfoByFamilyNick(@Param("familyNick") String familyNick, @Param("userNo") Integer userNo);
+	
+/* UPDATE */
+	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo")Integer userNo);
+	
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
@@ -64,7 +67,6 @@ public interface UsersMapper {
 	
 	// Allergy 리스트 가져오기 / 담당자 : 홍준표
 	public List<String> selectAllergyByUserNoAndFamillyNo(@Param("userNo")Integer userNo, @Param("familyNo") Integer familyNo);
-
 
 
 }

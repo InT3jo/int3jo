@@ -43,6 +43,12 @@
 		leave_date, block_reason
 		FROM users
 	</select>
+	
+
+<!-- UPDATE -->
+	<update id="updateUserNickByUserNo">
+		UPDATE users SET user_nick = #{userNick} WHERE user_no = #{userNo}
+	</update>
 
 <!-- DELETE -->
 	<delete id="deleteAllUsers">

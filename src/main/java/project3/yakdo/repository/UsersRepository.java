@@ -13,13 +13,23 @@ import project3.yakdo.domain.users.UsersInfo;
 
 public interface UsersRepository {
 
-	/* INSERT 담당자 : 빙예은 */
+/* INSERT */
+	//회원 기본 정보 추가 / 담당자 : 빙예은
 	public Integer insertUsers(SignUpForm signUpForm);
+	//회원 가족 건강 정보 추가 / 담당자 : 빙예은
 	public Integer insertUsersInfo(UsersInfo usersInfo);
 	
-	/* SELECT 담당자 : 빙예은 */
+/* SELECT */
+	//Users 테이블에서 userEmail로 회원 찾기
 	public Users selectUserByUserEmail(String userEmail);
+	
+	//Users 데이터 List로 받기
 	public List<Users> selectAllUsers();
+	
+/* UPDATE */
+	//Users 테이블의 userNick Update
+	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo")Integer userNo);
+	
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
