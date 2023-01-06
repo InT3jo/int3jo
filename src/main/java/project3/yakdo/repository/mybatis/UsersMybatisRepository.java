@@ -94,20 +94,19 @@ public class UsersMybatisRepository implements UsersRepository{
 	
 /* UPDATE 관련 메소드 */
 	/**
-	 * userNick, userNo를 받아서 update 실행하여
-	 * users 닉네임 수정
+	 * 바꿀 userNick, 로그인 된 Users를 받아서 update 실행
 	 * @param String userNick
 	 * @param Integer userNo
-	 * @return 1 : update 성공 / 0 : update 실패
+	 * @return 1 : 업데이트 성공 / 0 : 업데이트 실패
 	 * 
 	 * 담당자 : 빙예은
 	 */
 	@Override
 	public Integer updateUserNickByUserNo(String userNick, Integer userNo) {
-		if(usersMapper.updateUserNickByUserNo(userNick, userNo) != 1) {
-			return 0;
+		if(usersMapper.updateUserNickByUserNo(userNick, userNo) == 1) {
+			return 1;
 		}
-		return 1;
+		return 0;
 	}
 
 

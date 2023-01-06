@@ -37,6 +37,7 @@ public interface UsersMapper {
 	public UsersInfo selectUsersInfoByFamilyNick(@Param("familyNick") String familyNick, @Param("userNo") Integer userNo);
 	
 /* UPDATE */
+	//Users 테이블의 userNick Update
 	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo")Integer userNo);
 	
 	

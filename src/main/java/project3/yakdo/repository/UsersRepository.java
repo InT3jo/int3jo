@@ -20,15 +20,15 @@ public interface UsersRepository {
 	public Integer insertUsersInfo(UsersInfo usersInfo);
 	
 /* SELECT */
-	//Users 테이블에서 userEmail로 회원 찾기
+	//Users 테이블에서 userEmail로 회원 찾기 / 담당자 : 빙예은
 	public Users selectUserByUserEmail(String userEmail);
 	
-	//Users 데이터 List로 받기
+	//Users 데이터 List로 받기 / 담당자 : 빙예은
 	public List<Users> selectAllUsers();
 	
 /* UPDATE */
-	//Users 테이블의 userNick Update
-	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo")Integer userNo);
+	//Users 테이블의 userNick Update / 담당자 : 빙예은
+	public Integer updateUserNickByUserNo(@Param("userNick") String userNick,@Param("userNo") Integer userNo);
 	
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
@@ -51,7 +51,6 @@ public interface UsersRepository {
 	
 	// UsersInfoList 가져오기 / 담당자 : 홍준표
 	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo);
-	
 	
 
 

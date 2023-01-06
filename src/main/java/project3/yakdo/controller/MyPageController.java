@@ -73,15 +73,9 @@ public class MyPageController {
 	 */
 	@PostMapping("/modifyMyInfo")
 	public String checkModifyNick(@RequestParam("userNick") String userNick, HttpServletRequest req, Model model) {
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
+		// 업데이트 실행(실패하면 기존 정보를 가진 user 담김) 
+		Users user = usersService.compareUserNick(userNick, loginService.getLoginUser(req));
 		model.addAttribute("user", user);
-		
-		// update가 정상적으로 실행 됐을 때 myPage로 이동
-		if(usersService.compareUserNick(userNick, user.getUserNo()) == 1) {
-			user.setUserNick(userNick);
-			return "/users/myPage/myPage";
-		}
-		return "redirect:/help/modifyMyInfo";
+		return "redirect:/help/myPage";
 	}
 }
