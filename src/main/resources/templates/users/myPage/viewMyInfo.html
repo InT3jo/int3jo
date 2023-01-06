@@ -6,41 +6,27 @@
 <link rel="stylesheet" type="text/css" href="/css/user.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<title>약도 - 마이페이지</title>
+<title>약도 - 개인 정보 수정</title>
 </head>
 <body>
 	<div th:replace="home_component.html :: header"></div>
-	<div class="accordionContainor">
-	
-		<div class="accordion" id="accordionExample">
-		  <div class="accordion-item">
-		    <h2 class="accordion-header" id="heading1">
-		      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-		        기본 정보
-		      </button>
-		    </h2>
-		    <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
-		      <div class="accordion-body">
-		        <table class="table">
-				  <tbody>
-				    <tr>
-				      <th scope="row">이메일</th>
-				      <td th:text="${user.userEmail}">
-				      </td>
-				    </tr>
-				    <tr>
-				      <th scope="row">닉네임</th>
-				      <td th:text="${user.userNick}">
-				      </td>
-				    </tr>
-				  </tbody>
-				</table>
-				<button type="button">기본 정보 수정</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		
+	<div class="viewMyInfoContainor">
+		<span class="vewMyInfoTitle">개인 정보 수정</span>
+		<table class="table">
+		  <tbody>
+		    <tr>
+		      <th scope="row">이메일</th>
+		      <td th:text="${user.userEmail}">
+		      </td>
+		    </tr>
+		    <tr>
+		      <th scope="row">닉네임</th>
+		      <td th:text="${user.userNick}">
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+		<button type="button">수정완료</button>
 	</div>
 	<div th:replace="home_component.html :: footer"></div>
 	

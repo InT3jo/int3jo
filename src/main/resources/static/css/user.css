@@ -189,11 +189,17 @@ body{
 	display : grid;
 	place-items: center;
 }
-.myPageTitle
-, .accordionContainor
-{
+.myPageTitle {
 	width : 800px;
-	margin : auto;
+}
+.viewMyInfoContainor {
+	width : 800px;
+	margin : 0 auto;
+	text-align: center;
+}
+.vewMyInfoTitle {
+ 	text-decoration:none;
+	margin-bottom : 40px;
 }
 .cardBtn {
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
