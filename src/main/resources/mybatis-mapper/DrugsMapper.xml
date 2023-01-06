@@ -201,6 +201,10 @@
 	<select id="selectCombiIngrNameByItemSeq" resultType="String">
 		SELECT DISTINCT MIX_INGR_NAME FROM dur_combi WHERE ITEM_SEQ = #{itemSeq}
 	</select>
+	
+	<select id="selectDrugNameAll" resultType="DrugNameForm">
+		SELECT ITEM_SEQ, ITEM_NAME FROM drug_info
+	</select>
 
 
 	

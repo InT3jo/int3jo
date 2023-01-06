@@ -3,6 +3,7 @@ package project3.yakdo.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project3.yakdo.domain.drugs.DrugsNameForm;
 import project3.yakdo.domain.users.SignUpForm;
 import project3.yakdo.domain.users.UsersInfo;
+import project3.yakdo.service.drugs.search.FindDrugService;
 import project3.yakdo.service.users.SignUpService;
 
 /**
@@ -31,6 +34,7 @@ import project3.yakdo.service.users.SignUpService;
 public class SignUpController {
 	
 	private final SignUpService signUpService;
+	private final FindDrugService findDrugService;
 	
 	/**
 	 * 회원가입 창
@@ -42,6 +46,8 @@ public class SignUpController {
 	public String signUpForm (Model model) {
 		SignUpForm signUpform = new SignUpForm();
 		model.addAttribute("signUpForm", signUpform);
+		List<DrugsNameForm> drugNameList = findDrugService.getDrugNameList();
+		model.addAttribute("drugNameList", drugNameList);
 		return "/users/signUp/signUp";
 	}
 	

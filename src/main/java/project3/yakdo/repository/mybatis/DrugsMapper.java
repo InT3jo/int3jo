@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
+import project3.yakdo.domain.drugs.DrugsNameForm;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
 import project3.yakdo.domain.drugs.FindDrug;
@@ -38,6 +39,7 @@ public interface DrugsMapper {
 			@Param("entpNames") String[] entpNames);
 	public List<String> selectTypeNameByItemSeq(String itemSeq);
 	public List<String> selectCombiIngrNameByItemSeq(String itemSeq);
+	public List<DrugsNameForm> selectDrugNameAll();
 	
 	//delete
 	public void deleteDrugInfo();

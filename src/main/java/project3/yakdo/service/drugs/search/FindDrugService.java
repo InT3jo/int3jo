@@ -3,7 +3,9 @@ package project3.yakdo.service.drugs.search;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
+import project3.yakdo.domain.drugs.DrugsNameForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.DrugsRepository;
@@ -223,5 +226,10 @@ public class FindDrugService {
 			return warningMessage;
 		}
 		return warningMessage;
+	}
+
+	public List<DrugsNameForm> getDrugNameList() {
+		List<DrugsNameForm> drugNameList = drugsRepository.getDrugNameList();
+		return drugNameList;
 	}
 }

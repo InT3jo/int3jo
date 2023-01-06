@@ -1,5 +1,6 @@
 package project3.yakdo.repository.mybatis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
+import project3.yakdo.domain.drugs.DrugsNameForm;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
 import project3.yakdo.domain.drugs.FindDrug;
@@ -317,6 +319,11 @@ public class DrugsMybatisRepository implements DrugsRepository{
 	public List<String> getDurCombiIngrNameByItemSeq(String itemSeq){
 		List<String> warningCombiList = drugsMapper.selectCombiIngrNameByItemSeq(itemSeq);
 		return warningCombiList;
+	}
+	
+	public List<DrugsNameForm> getDrugNameList(){
+		List<DrugsNameForm> drugNameFormList = drugsMapper.selectDrugNameAll();
+		return drugNameFormList;
 	}
 
 /* UPDATE 관련 메서드 */
