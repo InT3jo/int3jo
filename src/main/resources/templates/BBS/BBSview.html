@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<link rel="stylesheet" type="text/css" href="/css/BBS.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -68,35 +69,67 @@
 			return false;
 		}
 	</script>
+	
 	<div th:replace="home_component.html :: header"></div>
-	<h1>BBS view Page</h1>
-	게시글 클릭하면 보여주는 화면
+	<script type="text/javascript">
+		function moveTop(){
+			window.scrollTo({top:0, behavior:"smooth"})
+		}
+	</script>
+	<div class="moveTopBtn" onclick="moveTop()">▲</div>
+
+<p id="BBS">이용문의</p>
+	
 	<div>
 		<br />
 		<table border="1" width="800" height="100">
-			<thead>
-				<tr>
-					<th>글보기</th>
-				</tr>
-			</thead>
+		<colgroup>
+					<col width="15%"/>
+					<col width="35%"/>
+					<col width="15%"/>
+					<col width="35%"/>
+				</colgroup>
+			
 
 			<tbody>
 				<tr>
-					<td>작성일</td>
+					<th scope="row">글 번호</th>
+					<td th:text="${BBS.bbsNo}"></td>
+					<th scope="row">작성일</th>
 					<td th:text="${BBS.bbsDate}"></td>
 				</tr>
 				<tr>
-					<td>작성자</td>
-					<td th:text="${BBS.userNick}"></td>
+					<th scope="row">작성자</th>
+					<td td colspan="3" th:text="${BBS.userNick}"></td>
 				</tr>
 				<tr>
-					<td>제목</td>
-					<td th:text="${BBS.bbsTitle}"></td>
+					<th scope="row">제목</th>
+					<td colspan="3" th:text="${BBS.bbsTitle}"></td>
 				</tr>
 				<tr>
-					<td>내용</td>
-					<td th:text="${BBS.bbsContent}"></td>
+					
+					<td td colspan="4"> 
+					<textarea title="내용" th:text="${BBS.bbsContent}"></textarea>
+					</td>
 				</tr>
+
+
+<!-- 				<tr> -->
+<!-- 					<td>작성일</td> -->
+<!-- 					<td th:text="${BBS.bbsDate}"></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>작성자</td> -->
+<!-- 					<td th:text="${BBS.userNick}"></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>제목</td> -->
+<!-- 					<td th:text="${BBS.bbsTitle}"></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>내용</td> -->
+<!-- 					<td th:text="${BBS.bbsContent}"></td> -->
+<!-- 				</tr> -->
 
 			</tbody>
 		</table>

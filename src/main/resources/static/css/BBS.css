@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* listSearch.html ===================================== */
 a {
 	text-decoration-line: none;
 	color: black;
@@ -33,11 +34,37 @@ li {
 }
 
 #pageNumber {
-width: 350px;
+	width: 350px;
 	margin: 0 auto;
 }
 
+/* 글쓰기버튼 감싸고 있는 div */
 #writeBtn {
 	text-align: right;
 	margin-bottom: 20px;
+}
+
+/* BBSwrite.html ============================================= */
+.WriteBBSBox {
+	
+	margin: 80px auto;
+	width: 800px;
+	display: block;
+}
+
+.InputNick {
+	height: 30px;
+	margin: 15px;
+}
+
+.InputBBSTitle {
+	width: 600px;
+	height: 30px;
+	margin: 15px;
+}
+
+.InputBBSContent {
+	width: 600px;
+	height: 350px;
+	margin: 15px;
 }

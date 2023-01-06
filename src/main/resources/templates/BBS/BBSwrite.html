@@ -4,77 +4,75 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<link rel="stylesheet" type="text/css" href="/css/BBS.css">
 <title>Insert title here</title>
 <style>
 .errormsg {
 	color: red;
 }
+
+
+
 </style>
 </head>
 <body>
 	<div th:replace="home_component.html :: header"></div>
 <script type="text/javascript">
-function writeOk(){
-	if(confirm('등록하시겠습니까?')){
-		document.getElementById("writeBBS").submit();
-	}else{
-		alert("등록이 취소되었습니다.");
+
+	function writeOk() 
+	{
+
+		if (confirm('등록하시겠습니까?')) {
+
+			if (document.getElementById("bbsTitle").value == "") {
+				alert("제목을 입력하세요.");
+			}
+
+			if (document.getElementById("bbsContent").value == "") {
+				alert("내용을 입력하세요.");
+			}
+			document.getElementById("writeBBSForm").submit();
+		} else {
+			alert("등록이 취소되었습니다.");
+		}
+		return false;
 	}
-	return false;
 	
-}
 </script>
+<script type="text/javascript">
+		function moveTop(){
+			window.scrollTo({top:0, behavior:"smooth"})
+		}
+	</script>
+	<div class="moveTopBtn" onclick="moveTop()">▲</div>
 
-	<h1>BBS write Page</h1>
-	글쓰는페이지
+<p id="BBS">이용문의</p>
 
-<!-- 원래 있던거 유효성 시도 중 주석처리함 01-05 20:37 -->
-<!-- 	<form id="writeBBS" action="" method="post" th:object="${BBS}"> -->
-	
-<!-- 		<label>  -->
-<!-- 		<input type="hidden" name="userNo" th:value="${user.userNo}"> -->
-<!-- 		작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly> -->
-<!-- 		 </label> -->
-<!-- 		 </br> -->
-<!-- 		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label> -->
-<!-- 		<div class="errormsg" th:errors="*{bbsTitle}"></div>  -->
-<!-- 		</br> -->
-<!-- <label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label> -->
-<!-- 			<div class="errormsg" th:errors="*{bbsContent}"></div>   -->
+	<div class="WriteBBSBox">
+		<form  action="" method="post" th:object="${BBS}">
 
-
-
-<!-- 		<div> -->
-<!-- 			<button type="button" onclick="writeOk()">등록하기</button> -->
-<!-- 		</div> -->
-<!-- 	</form> -->
-
-
-	<form id="writeBBS" action="" method="post" th:object="${WriteBBSForm}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+			<div>
+				<label> <input class="InputNick" type="hidden" name="userNo"
+					th:value="${user.userNo}"> 작성자<input type="text"
+					name="userNick" th:value="${user.userNick}" readonly>
+				</label>
+			</div>
+			<div>
+				<label>제목<input class="InputBBSTitle" type="text" name="bbsTitle" 
+					th:field="*{bbsTitle}" placeholder="제목을 입력해주세요"></label>
+			</div>
+			<div>
+				<label>내용<textarea name="bbsContent" class="InputBBSContent"
+						th:field="*{bbsContent}" placeholder="내용을 입력해주세요"></textarea></label>
+			</div>
+			<div id="writeBtn">
+				<button id="headerSearchBtn" type="button" onclick="writeOk()">등록하기</button>
+			</div>
+		</form>
+	<button id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
 		</div>
 
-		<label> 
-		<input type="hidden" name="userNo" th:value="${user.userNo}">
-		작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly>
-		 </label>
-		 
-		 </br>
-		 
-		<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
-		<div class="errormsg" th:errors="*{bbsTitle}"></div> 
-		</br>
-<label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label>
-			<div class="errormsg" th:errors="*{bbsContent}"></div>  
 
-		<div>
-			<button type="button" onclick="writeOk()">등록하기</button>
-		</div>
-	</form>
-
-
-	<button th:onclick="|location.href='@{/BBS/BBSlist}'|">목록</button>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

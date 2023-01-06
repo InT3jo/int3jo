@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,6 @@ import project3.yakdo.repository.BBSCommentRepository;
 import project3.yakdo.repository.BBSRepository;
 import project3.yakdo.service.users.LoginService;
 import project3.yakdo.validation.BBSValidator;
-import project3.yakdo.validation.form.WriteBBSForm;
 
 @Slf4j
 @Controller
@@ -120,35 +120,6 @@ public class BBSController {
 			return "BBS/listSearch";
 		}
 		
-		
-		/*
-		// 게시글 목록 출력 + 페이징 추가 + 검색 2번째 방법 (1번째 방법 다시 시도중 01-03 10:07 주석)
-				@GetMapping("/listPageSearch")
-				public String BBSListSearch(Criteria cri, Model model, HttpServletRequest req,@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword) {
-					// 현재 주소정보
-					String uriHere = req.getRequestURI();
-					model.addAttribute("uriHere", uriHere);
-
-					// 로그인된 유저정보(로그인되어있지 않다면 null)
-					Users user = loginService.getLoginUser(req);
-					model.addAttribute("user", user);
-					
-					
-					List<BBS> list = BBSRepository.listPageSearch(cri,searchType,keyword);
-					
-					model.addAttribute("list", list);
-					
-					
-					 PageMaker pageMaker = new PageMaker();
-					 pageMaker.setCri(cri);
-					 pageMaker.setTotalCount(BBSRepository.listCount());
-					 model.addAttribute("pageMaker", pageMaker);
-					
-					return "BBS/listPageSearch";
-				}
-	*/
-	
-	
 	
 	
 	
@@ -164,18 +135,25 @@ public class BBSController {
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 		
-		WriteBBSForm writeBBSform = new WriteBBSForm();
-		model.addAttribute("writeBBSform", writeBBSform);
+		//다시 수업 방법으로 해보려고 주석 처리 01-06 10:50	
+//		WriteBBSForm writeBBSform = new WriteBBSForm();
+//		model.addAttribute("writeBBSform", writeBBSform);
 		
-//      test 중 주석처리함 01-05 20:39 		
-//		model.addAttribute("BBS", new BBS()); 
+//      test 중 주석처리함 01-05 20:39 - 다시 수업 방법으로 해보려고 주석 해제 01-06 10:50	
+		model.addAttribute("BBS", new BBS()); 
 		
 		return "BBS/BBSwrite";
 	}
 
+	
 	// 게시글쓰기 insert
 	@PostMapping("/BBSwrite")
-	public String newBBSInsertModel(@ModelAttribute WriteBBSForm writeBBSform, BindingResult bindingResult,@ModelAttribute BBS bbs, Model model, HttpServletRequest req) {
+	public String newBBSInsertModel(
+									@Validated @ModelAttribute BBS bbs
+									, BindingResult bindingResult
+									, Model model
+									, HttpServletRequest req) 
+	{
 		// 현재 주소정보
 		String uriHere = req.getRequestURI();
 		model.addAttribute("uriHere", uriHere);
@@ -184,22 +162,29 @@ public class BBSController {
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 		
-		// 에러검증
+		// 에러검증 다시 수업 방법으로 해보려고 주석 처리 01-06 10:52
+//		BBSValidator bbsValidator = new BBSValidator();
+//		bbsValidator.validateWriteBBSFrom(writeBBSform, bindingResult);
+
 		BBSValidator bbsValidator = new BBSValidator();
-		bbsValidator.validateWriteBBSFrom(writeBBSform, bindingResult);
+		bbsValidator.validate(bbs, bindingResult);
 
 		// 에러 있는 경우 글쓰는 페이지에서 못넘어가게
 		if (bindingResult.hasErrors()) {
 			return "BBS/BBSwrite";
 		}
 
-		// 에러 없으면
-//		BBSRepository.insertBBS(bbs);
-		BBSRepository.insertBBS(writeBBSform);
+		// 에러 없으면 다시 수업 방법으로 해보려고 주석 해제 01-06 10:53
+		BBSRepository.insertBBS(bbs);
+//		다시 수업 방법으로 해보려고 주석 처리 01-06 10:52
+//		BBSRepository.insertBBS(writeBBSform);
 
 		return "redirect:/BBS/listSearch";
 
 	}
+	
+	
+	
 
 	// 게시글 상세보기 selectBybbsNo
 	@PostMapping("/BBSview")

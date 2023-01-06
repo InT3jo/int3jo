@@ -16,6 +16,14 @@
  <script>
  
  function clickSearchBtn(){
+	 
+
+
+			if (document.getElementById("keywordInput").value == "") {
+				alert("검색어를 입력하세요.");
+			
+			}
+ 
 	 location.href = "/BBS/listSearch?page=1&perPageNum=10&searchType=" 
 					 + $("select option:selected").val()
 					 + "&keyword=" + encodeURIComponent($('#keywordInput').val());

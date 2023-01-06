@@ -10,7 +10,7 @@
 <body>
 	<script th:inline="javascript" th:if="${warningMessage}!=null and ${!warningMessage.equals('')}" type="text/javascript">
 	/*<![CDATA[*/
-		var msg = /*[[${warningMessage}]]*/; 
+		var msg = /*[[${warningMessage}]]*/
 		alert(msg);
 	/*]]>*/
 	</script>
