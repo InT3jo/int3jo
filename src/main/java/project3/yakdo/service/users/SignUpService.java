@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.SignUpForm;
-import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
 
@@ -81,19 +80,18 @@ public class SignUpService {
 	}
 	
 	/**
-	 * 
+	 * 회원 가입 실행
 	 * @param signUpForm
 	 * @param usersInfoList
 	 */
 	@Transactional
 	public void signUpUsersAndUsersInfo(SignUpForm signUpForm, List<UsersInfo> usersInfoList) {
-		Integer result1 = usersRepository.insertUsers(signUpForm);
+		usersRepository.insertUsers(signUpForm);
 		Integer userNo = usersRepository.selectUserByUserEmail(signUpForm.getUserEmail()).getUserNo();
 		for(UsersInfo userInfo : usersInfoList) {
 			userInfo.setUserNo(userNo);
 			usersRepository.insertUsersInfo(userInfo);
 		}
-		
 	}
 
 	

@@ -182,3 +182,25 @@ body{
 	background-color: var(--Signature-blue);
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
+
+ /* myPage */
+.myPageContainor {
+	margin-top : 100px;
+	display : grid;
+	place-items: center;
+}
+.myPageTitle {
+	width : 800px;
+}
+.viewMyInfoContainor {
+	width : 800px;
+	margin : 0 auto;
+	text-align: center;
+}
+.vewMyInfoTitle {
+ 	text-decoration:none;
+	margin-bottom : 40px;
+}
+.cardBtn {
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}

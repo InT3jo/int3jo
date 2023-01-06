@@ -47,11 +47,9 @@ public class SignUpController {
 	
 	/**
 	 * 회원가입 진행
-	 * .getParameter으로 넘어온 값을
-	 * usersInfo에 저장한 후, signUpForm에 담는다
 	 * 
 	 * @param SignUpForm signUpForm, HttpServletRequest req
-	 * @return 회원가입 성공하면 login, 아니면 그대로
+	 * @return 회원가입 성공하면 login페이지로 이동
 	 * 
 	 * 담당자 : 빙예은
 	 */
@@ -59,7 +57,7 @@ public class SignUpController {
 	public String signUp(@ModelAttribute SignUpForm signUpForm
 			, HttpServletRequest req) {
 		List<UsersInfo> usersInfoList = signUpService.getUsersInfoList(req);
-		signUpService.signUpUsersAndUsersInfo(signUpForm,usersInfoList);
+		signUpService.signUpUsersAndUsersInfo(signUpForm, usersInfoList);
 		return "redirect:/login";
 	}
 
