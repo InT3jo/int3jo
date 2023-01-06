@@ -8,113 +8,80 @@
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 </head>
 <body>
-
 <script type="text/javascript">
-function showBBSAdmin(bbsNo) {
-	if (confirm('복구하시겠습니까?')) {
-	location.href = "/admin/recover/" + bbsNo;
-	}else{
-		alert("복구가 취소되었습니다.")
+	function showBBSAdmin(bbsNo) {
+		if (confirm('복구하시겠습니까?')) {
+		location.href = "/admin/recover/" + bbsNo;
+		}else{
+			alert("복구가 취소되었습니다.")
+		}
 	}
-}
-
-function clickSearchBtn(){
-
-
-	 location.href = "/admin/adminShowOneList?page=1&perPageNum=10&searchType=" 
-					 + $("select option:selected").val()
-					 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-}
-
-
-
-
+	
+	function clickSearchBtn(){
+		 location.href = "/admin/adminShowOneList?page=1&perPageNum=10&searchType=" 
+						 + $("select option:selected").val()
+						 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+	}
 </script>
-
-	<h1>게시판 관리 페이지</h1>
-	
-	
-	게시글 관리페이지에서는 복구 기능만?
-	
-	게시글 답변, 삭제는 게시판에서 게시글 들어가면 할 수 있음.  
-	
-	<br/>
-	댓글  삭제는 게시글 들어가서 밑에 댓글 뜨면 그 페이지에서 지울 수 있음
-	
-	
-	<h2>본인삭제 게시글</h2>
-	<table border="1" width="800" height="100">
-		<thead>
-			<tr>
-				<th>게시글번호</th>
-				<th>제목</th>
-				<th>게시일</th>
-				<th>작성자</th>
-				
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="BBS : ${bbsListOne}">
-				<td th:text=${BBS.bbsNo}></td>
-				<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
-				<td th:text=${BBS.bbsDate}></td>
-				<td th:text="${BBS.userNick}"></td>
-				
-			</tr>			
-		</tbody>
+	<div class="adminCommonContainer">
+		<span class="adminCommonTitle">게시판 관리 페이지</span>
+		<span class="adminCommonSubTitle">-본인삭제 게시글-</span>
+		<table class="adminCommonTable">
+			<thead>
+				<tr>
+					<th class="adminCommonTableItem wd85">게시글번호</th>
+					<th class="adminCommonTableItem wd412">제목</th>
+					<th class="adminCommonTableItem wd85">게시일</th>
+					<th class="adminCommonTableItem wd100">작성자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="BBS : ${bbsListOne}">
+					<td class="adminCommonTableItem wd85" th:text=${BBS.bbsNo}></td>
+					<td class="adminCommonTableItem wd412"><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
+					<td class="adminCommonTableItem wd85" th:text=${BBS.bbsDate}></td>
+					<td class="adminCommonTableItem wd100" th:text="${BBS.userNick}"></td>
+				</tr>			
+			</tbody>
 		</table>
-<!-- 		본인 삭제 게시글 페이징  -->
-		<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
-		<ul>
-			<div>
-				<li><a
-					th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
-			</div>
-
-
-			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
-			<div th:each="num : ${#numbers.sequence(start,end)}">
-				<li><code th:if="${pageMaker.cri.getPage() == num}"
-						th:text="${num}"></code> <a
-					th:unless="${pageMaker.cri.getPage()==num}"
-					th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(num)}|}"> <code
-							th:text="${num}"></code></a></li>
-			</div>
-
-			<div>
-				<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
-				<li>
-					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
-					<a
-					th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
-				</li>
-			</div>
-		</ul>
-	</div>
-	
-	<!-- 본인삭제 게시글 검색 -->
+		<!-- 페이징 -->
+		<div class="pageNumberBox" id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
+			<ul style="list-style: none">
+				<div style="display:inline-block;">
+					<li class="pageNumberItem">
+						<a th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.startPage-1)}|}">
+							이전
+						</a>
+					</li>
+				</div>
+				<div style="display:inline-block;" th:each="num : ${#numbers.sequence(start,end)}">
+					<li class="pageNumberItem">
+						<code th:if="${pageMaker.cri.getPage() == num}" th:text="${num}"></code>
+						<a th:unless="${pageMaker.cri.getPage() == num}" th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(num)}|}">
+							<code th:text="${num}"></code>
+						</a>
+					</li>
+				</div>
+				<div style="display:inline-block;">
+					<li class="pageNumberItem">
+						<a th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.endPage+1)}|}">
+							다음
+						</a>
+					</li>
+				</div>
+			</ul>
+		</div>
+		<!-- 검색 -->
 		<div id="searchBBS">
-
 			<select name="searchType">
-				<!-- 				<option value="n" th:selected="${scri.searchType==null}"></option> -->
 				<option value="title" th:selected="${scri.searchType=='title'}">제목</option>
 				<option value="content" th:selected="${scri.searchType=='content'}">내용</option>
 				<option value="writer" th:selected="${scri.searchType=='writer'}">작성자</option>
 			</select>
-			 <input type="text" name="keyword" id="keywordInput" th:value="${scri.keyword}" />
-
+			<input type="text" name="keyword" id="keywordInput" th:value="${scri.keyword}" />
 			<button id="headerSearchBtn" onclick="clickSearchBtn()">검색</button>
 		</div>
-		
-		
-
-		
-	
-
-		
-		
-		<button th:onclick="|location.href='@{/BBS/BBSlist}'|">사용자 게시판</button>
-		<button th:onclick="|location.href='@{/admin}'|">관리자 홈</button>
-		
+		<button style="margin:20px;" onclick="window.parent.location.href='/BBS/BBSlist'">사용자 게시판</button>
+	</div>
 </body>
 </html>

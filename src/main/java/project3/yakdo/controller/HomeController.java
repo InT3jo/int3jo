@@ -13,13 +13,14 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.service.users.LoginService;
 import project3.yakdo.session.SessionVar;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-	
+	private final LoginService loginService;
 	/**
 	 * session과 cookie로 유효성 검사 후
 	 * 로그인한 상태가 아니면 return home
@@ -33,19 +34,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model
 					, HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		//쿠키를 통해 넘어온 userEmail이 없는 경우
-		if(session == null) {
-			return "/home";
-		}
-		
-		//session 정보 출력해보기
-		Enumeration<String> sessionNames = session.getAttributeNames();
-		while(sessionNames.hasMoreElements()) {
-			String name = sessionNames.nextElement();
-			log.info("session {}, {}", name, session.getAttribute(name));
-		}
-		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 		
 		return "/home";
