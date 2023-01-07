@@ -112,6 +112,8 @@
 	+ '					<ol class="addDrug" id="addAllergys'+i+'">'
 	+ '					</ol>'
 	+ '				</div>'
+// 	+ '				<span class="familyBoxTitle">-테스트-</span>'
+	+ '				'
 	+ '			</div>';
 			i++;
 		}
@@ -167,12 +169,12 @@
 						cnt=forI;
 						break;
 					}
+				}
 				addAllergy.innerHTML += '<li id="allergyBox' + i + 'and' + cnt + '">'
 						+ 					'<label for="allergy' + i + 'and' + cnt + '">'+ selected.options[selected.selectedIndex].text + '</lable>'
 						+ 					'<input name="allergy' + i + 'and' + cnt + '" id="allergy' + i + 'and' + cnt + '" type="hidden" value="' + selected.value + '"/>'
 						+					'<button class="addDrugBtn" type="button" onclick="deleteTarget(\'allergyBox' + i + 'and' + cnt + '\')">X</button>'
 						+				'</li>'
-				}
 				document.querySelector('#allergys'+i).value = "";
 				document.querySelector("#selectAllergyName"+i).options.length=0;
 				var option = document.createElement("option");

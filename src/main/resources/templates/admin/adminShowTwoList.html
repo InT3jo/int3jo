@@ -39,7 +39,7 @@
 			<tbody>
 				<tr th:each="BBS : ${bbsListTwo}">
 					<td class="adminCommonTableItem wd85" th:text=${BBS.bbsNo}></td>
-					<td class="adminCommonTableItem wd338"><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
+					<td class="adminCommonTableItem wd338"><a target="_parent" th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
 					<td class="adminCommonTableItem wd85" th:text=${BBS.bbsDate}></td>
 					<td class="adminCommonTableItem wd100" th:text="${BBS.userNick}"></td>
 					<td class="adminCommonTableItem wd70">
@@ -87,7 +87,7 @@
 			<input type="text" name="keyword" id="keywordInput" th:value="${scri.keyword}" />
 			<button id="headerSearchBtn" onclick="clickSearchBtn()">검색</button>
 		</div>
-		<button style="margin:20px;" onclick="window.parent.location.href='/BBS/BBSlist'">사용자 게시판</button>
+		<button style="margin:20px;" onclick="window.parent.location.href='/BBS/listSearch'">사용자 게시판</button>
 	</div>
 </body>
 </html>
