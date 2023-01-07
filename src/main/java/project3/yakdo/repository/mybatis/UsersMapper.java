@@ -28,7 +28,7 @@ public interface UsersMapper {
 	
 /* SELECT */
 	//Users select 기준 : userEmail
-	public Users selectUserByUserEmail(String userEmail);
+	public Users selectUserByUserEmail(@Param("userEmail") String userEmail);
 
 	//Users selectAll
 	public List<Users> selectAllUsers();
@@ -40,6 +40,8 @@ public interface UsersMapper {
 	//Users 테이블의 userNick Update
 	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo")Integer userNo);
 	
+	//Users 테이블의 userPw Update
+	public Integer updateUserPwByUserNo(@Param("userPwNew") String userPwNew, @Param("userNo") Integer userNo);
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
@@ -68,6 +70,7 @@ public interface UsersMapper {
 	
 	// Allergy 리스트 가져오기 / 담당자 : 홍준표
 	public List<String> selectAllergyByUserNoAndFamillyNo(@Param("userNo")Integer userNo, @Param("familyNo") Integer familyNo);
+
 
 
 }

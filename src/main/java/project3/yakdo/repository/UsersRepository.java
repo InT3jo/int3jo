@@ -30,6 +30,8 @@ public interface UsersRepository {
 	//Users 테이블의 userNick Update / 담당자 : 빙예은
 	public Integer updateUserNickByUserNo(@Param("userNick") String userNick,@Param("userNo") Integer userNo);
 	
+	//Users 테이블의 userPw Update / 담당자 : 빙예은
+	public Integer updateUserPwByUserNo(@Param("userPwNew") String userPwNew, @Param("userNo") Integer userNo);
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	

@@ -49,6 +49,12 @@
 	<update id="updateUserNickByUserNo">
 		UPDATE users SET user_nick = #{userNick} WHERE user_no = #{userNo}
 	</update>
+	
+	<update id="updateUserPwByUserNo">
+		UPDATE users SET user_pw = #{userPwNew} WHERE user_no = #{userNo}
+	</update>
+	
+	
 
 <!-- DELETE -->
 	<delete id="deleteAllUsers">

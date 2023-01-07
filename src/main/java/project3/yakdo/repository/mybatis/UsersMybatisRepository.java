@@ -94,7 +94,7 @@ public class UsersMybatisRepository implements UsersRepository{
 	
 /* UPDATE 관련 메소드 */
 	/**
-	 * 바꿀 userNick, 로그인 된 Users를 받아서 update 실행
+	 * 바꿀 userNick, 로그인 된 Users의 userNo를 받아서 update 실행
 	 * @param String userNick
 	 * @param Integer userNo
 	 * @return 1 : 업데이트 성공 / 0 : 업데이트 실패
@@ -109,6 +109,22 @@ public class UsersMybatisRepository implements UsersRepository{
 		return 0;
 	}
 
+
+	/**
+	 * 바꿀 userPwNew, 로그인 된 Users의 userNo를 받아서 update 실행
+	 * @param String userPwNew
+	 * @param Integer userNo
+	 * @return 1 : 업데이트 성공 / 0 : 업데이트 실패
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@Override
+	public Integer updateUserPwByUserNo(String userPwNew, Integer userNo) {
+		if(usersMapper.updateUserPwByUserNo(userPwNew, userNo) == 1) {
+			return 1;
+		}
+		return 0;
+	}
 
 	
 	//관리자 페이지 회원관리 관련 - 작성자: 배고운 
@@ -173,6 +189,7 @@ public class UsersMybatisRepository implements UsersRepository{
 		}
 		return usersInfoList;
 	}
+
 
 
 }
