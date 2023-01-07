@@ -292,11 +292,10 @@
 			<if test="searchType == 'writer'">
 			AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-		and b.user_no = u.user_no
+		and b.user_no = u.user_no and BBS_show=0
 		</where>
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
-		and BBS_show=0
 		order by BBS_no desc
 	</select>
 
