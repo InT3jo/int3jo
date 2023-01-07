@@ -100,6 +100,97 @@ body{
 }
 
 /* 회원가입 */
+.signUpTitleBox{
+	width: 800px;
+	text-align: center;
+	padding-top: 50px;
+}
+.signUpTitle1{
+	color: var(--Signature-blue);
+	font-size: 50px;
+	font-weight: 1000;
+	font-family: var(--Font-title1);
+}
+.signUpTitle2{
+	color: var(--Signature-silver);
+	font-size: 25px;
+	font-weight: 700;
+	font-family: var(--Font-title2);
+}
+.signUpContent{
+	text-align: center;
+	padding
+}
+.signUpInputBox{
+	text-align: left;
+	margin: 10px;
+	padding-left: 33px;
+}
+.signUpLabel{
+	width: 130px;
+	display: inline-block;
+	text-align: center;
+}
+.signUpInput{
+	width: 400px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+.signUpSelect{
+	width: 442px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	padding-left: 40px;
+	font-size: 17px;
+}
+.signUpButton{
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 20px;
+    font-weight: 700;
+	background-color: var(--Signature-blue);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+.familyBox{
+	border: 2px solid var(--Bg-gray);
+    border-radius: 10px;
+    display: block;
+    margin-top: 30px;
+}
+.familyBoxTitle{
+	display: block;
+	margin: 10px auto;
+	color: var(--Signature-silver);
+	font-size: 20px;
+	font-weight: 700;
+}
+.addDrug{
+	margin-top: 10px;
+	padding-left: 140px;
+}
+.addDrugBtn{
+	border: none;
+	border-radius: 5px;
+	background-color: #a50004;
+	color: white;
+	font-weight: 1000;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+	text-align: center;
+	margin-left: 5px;
+}
+.signUpSubmitBtn{
+	width: 200px;
+    height: 50px;
+    font-size: 27px;
+    margin: 20px;
+}
 
 /* 회원탈퇴 */
 .goodByeMsg{
