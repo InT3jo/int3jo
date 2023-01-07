@@ -158,9 +158,7 @@ public class AdminController {
 		model.addAttribute("searchUserList", searchUserList);
 
 		PageMaker pageMaker = new PageMaker();
-
 		pageMaker.setCri(scri);
-
 		pageMaker.setTotalCount(usersRepository.countSearchUsers(scri));
 		model.addAttribute("pageMaker", pageMaker);
 		return "admin/searchUserList";

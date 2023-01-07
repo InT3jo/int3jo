@@ -53,25 +53,25 @@
 		<!-- 페이징 -->
 		<div class="pageNumberBox" id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
 			<ul style="list-style: none">
-				<div style="display:inline-block;">
+				<div th:unless="${pageMaker.cri.getPage()}<=${pageMaker.startPage}" style="display:inline-block;">
 					<li class="pageNumberItem">
 						<a th:href="@{|/admin/adminShowTwoList${pageMaker.makeSearch(pageMaker.startPage-1)}|}">
-							이전
+							첫페이지
 						</a>
 					</li>
 				</div>
-				<div style="display:inline-block;" th:each="num : ${#numbers.sequence(start,end)}">
+				<div th:unless="${pageMaker.startPage}==${pageMaker.endPage} or ${pageMaker.endPage}==0" style="display:inline-block;" th:each="num : ${#numbers.sequence(start,end)}">
 					<li class="pageNumberItem">
-					<code th:if="${pageMaker.cri.getPage() == num}" th:text="${num}"></code>
-					<a th:unless="${pageMaker.cri.getPage()==num}" th:href="@{|/admin/adminShowTwoList${pageMaker.makeSearch(num)}|}">
-						<code th:text="${num}"></code>
-					</a>
+						<code th:if="${pageMaker.cri.getPage() == num}" th:text="${num}"></code>
+						<a th:unless="${pageMaker.cri.getPage() == num}" th:href="@{|/admin/adminShowTwoList${pageMaker.makeSearch(num)}|}">
+							<code th:text="${num}"></code>
+						</a>
 					</li>
 				</div>
-				<div style="display:inline-block;">
+				<div th:unless="${pageMaker.cri.getPage()}>=${pageMaker.endPage}" style="display:inline-block;">
 					<li class="pageNumberItem">
-						<a th:href="@{|/admin/adminShowTwoList${pageMaker.makeSearch(pageMaker.endPage+1)}|}">
-							다음
+						<a th:href="@{|/admin/adminShowTwoList${pageMaker.makeSearch(pageMaker.endPage)}|}">
+							마지막페이지
 						</a>
 					</li>
 				</div>
