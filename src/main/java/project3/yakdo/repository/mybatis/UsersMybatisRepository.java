@@ -123,7 +123,7 @@ public class UsersMybatisRepository implements UsersRepository{
 		if(usersMapper.updateUserPwByUserNo(userPwNew, userNo) == 1) {
 			return 1;
 		}
-		return 0;
+		return null;
 	}
 
 	

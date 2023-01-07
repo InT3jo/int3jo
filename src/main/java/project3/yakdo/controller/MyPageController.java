@@ -83,7 +83,7 @@ public class MyPageController {
 		return "redirect:/help/myPage";
 	}
 	
-	
+
 	/**
 	 * 비밀번호 변경 창
 	 * @param req
@@ -118,7 +118,41 @@ public class MyPageController {
 								) {
 		// 비밀번호 업데이트 실행(실패하면 기존 정보를 가진 user 담김) 
 		Users user = usersService.checkModifyPw(passwordForm, loginService.getLoginUser(req));
+		if(user == null) {
+			return "redirect:/login";
+		}
 		model.addAttribute("user", user);
+		return "redirect:/help/modifyPassword";
+	}
+
+	/**
+	 * 정보 변경 창
+	 * @param req
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/modifyMyInfo")
+	public String modifyMyInfo(HttpServletRequest req, Model model) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		return "/users/myPage/modifyMyInfo";
+	}
+
+	/**
+	 * 정보 변경 실행 창
+	 * @param req
+	 * @param model
+	 * @param PasswordForm passwordForm
+	 * @return
+	 */
+	@PostMapping("/modifyMyInfo")
+	public String checkModifyInfo(HttpServletRequest req, Model model) {
+		// 비밀번호 업데이트 실행(실패하면 기존 정보를 가진 user 담김) 
 		return "redirect:/help/myPage";
 	}
 }

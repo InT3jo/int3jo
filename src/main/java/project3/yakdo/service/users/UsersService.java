@@ -45,14 +45,15 @@ public class UsersService {
 		 * 새 비밀번호, 비밀번호 확인 맞는지 확인
 		 * 셋 다 확인 하고 하나라도 맞지 않을 시
 		 * 다시 한 번 확인해주세요 띄우기
+		 * 조건 안 걸어서 무조건 null로 반환된다
 		 */
-		//업데이트 성공 했을 시 loginUser의 비밀번호 변경
+		//업데이트 성공 했을 시 loginUser의 비밀번호 변경 후 로그인 하기 위해 null로 반환
 		if(usersRepository.updateUserPwByUserNo(passwordForm.getUserPwNew(), loginUser.getUserNo()) == 1) {
 			loginUser.setUserPw(passwordForm.getUserPwNew());
-			return loginUser;
+			return null;
 		}
 		
-		//비밀번호 수정 안 된 loginUser
+		//비밀번호 수정 안 됐으면 기존 loginUser return
 		return loginUser;
 	}
 
