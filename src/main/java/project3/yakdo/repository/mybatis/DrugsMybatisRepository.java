@@ -321,8 +321,8 @@ public class DrugsMybatisRepository implements DrugsRepository{
 		return warningCombiList;
 	}
 	
-	public List<DrugsNameForm> getDrugNameList(){
-		List<DrugsNameForm> drugNameFormList = drugsMapper.selectDrugNameAll();
+	public List<DrugsNameForm> getDrugsNameFormList(){
+		List<DrugsNameForm> drugNameFormList = drugsMapper.selectDrugsNameAll();
 		return drugNameFormList;
 	}
 

@@ -46,8 +46,10 @@ public class SignUpController {
 	public String signUpForm (Model model) {
 		SignUpForm signUpform = new SignUpForm();
 		model.addAttribute("signUpForm", signUpform);
-		List<DrugsNameForm> drugNameList = findDrugService.getDrugNameList();
-		model.addAttribute("drugNameList", drugNameList);
+		
+		//약 목록 넘겨주기
+		List<DrugsNameForm> drugsNameFormList = findDrugService.getDrugsNameFormList();
+		model.addAttribute("drugsNameFormList", drugsNameFormList);
 		return "/users/signUp/signUp";
 	}
 	

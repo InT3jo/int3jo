@@ -228,8 +228,8 @@ public class FindDrugService {
 		return warningMessage;
 	}
 
-	public List<DrugsNameForm> getDrugNameList() {
-		List<DrugsNameForm> drugNameList = drugsRepository.getDrugNameList();
+	public List<DrugsNameForm> getDrugsNameFormList() {
+		List<DrugsNameForm> drugNameList = drugsRepository.getDrugsNameFormList();
 		return drugNameList;
 	}
 }

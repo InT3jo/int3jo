@@ -25,7 +25,7 @@ public interface DrugsRepository {
 	public List<DrugMark> getDrugMarkAll();
 	public List<String> getDurWarningByItemSeq(String itemSeq);
 	public List<String> getDurCombiIngrNameByItemSeq(String itemSeq);
-	public List<DrugsNameForm> getDrugNameList();
+	public List<DrugsNameForm> getDrugsNameFormList();
 	
 	/* UPDATE 메서드 */
 	 public Integer updateDrugInfoImage(DrugInfo drugInfo);

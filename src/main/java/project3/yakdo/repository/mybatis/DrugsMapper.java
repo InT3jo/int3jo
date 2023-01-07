@@ -39,7 +39,7 @@ public interface DrugsMapper {
 			@Param("entpNames") String[] entpNames);
 	public List<String> selectTypeNameByItemSeq(String itemSeq);
 	public List<String> selectCombiIngrNameByItemSeq(String itemSeq);
-	public List<DrugsNameForm> selectDrugNameAll();
+	public List<DrugsNameForm> selectDrugsNameAll();
 	
 	//delete
 	public void deleteDrugInfo();
