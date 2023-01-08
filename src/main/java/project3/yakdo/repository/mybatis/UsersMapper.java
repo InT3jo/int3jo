@@ -43,6 +43,20 @@ public interface UsersMapper {
 	//Users 테이블의 userPw Update
 	public Integer updateUserPwByUserNo(@Param("userPwNew") String userPwNew, @Param("userNo") Integer userNo);
 	
+	//Users 테이블의 user_status 상태 1(탈퇴)로 변경
+	public Integer updateUserStatusLeaveByUserNo(@Param("userNo") Integer userNo);
+	
+/* DELETE */
+	//Users_info 테이블 데이터 삭제
+	public void deleteUsersInfoByUsersNo(@Param("userNo") Integer userNo);
+	
+	//Users_info_using_drugs 테이블 데이터 삭제
+	public void deleteUsersInfoUsingDrugsByUsersNo(@Param("userNo") Integer userNo);
+
+	//Users_info_allergy 테이블 데이터 삭제
+	public void deleteUsersInfoAllergyByUsersNo(@Param("userNo") Integer userNo);
+	
+	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
 	//Users테이블에서 userNo로 회원찾기 / 작성자: 배고운 
@@ -70,7 +84,6 @@ public interface UsersMapper {
 	
 	// Allergy 리스트 가져오기 / 담당자 : 홍준표
 	public List<String> selectAllergyByUserNoAndFamillyNo(@Param("userNo")Integer userNo, @Param("familyNo") Integer familyNo);
-
 
 
 }

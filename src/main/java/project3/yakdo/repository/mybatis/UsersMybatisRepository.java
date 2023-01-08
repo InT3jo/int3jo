@@ -126,6 +126,22 @@ public class UsersMybatisRepository implements UsersRepository{
 		return null;
 	}
 
+	/**
+	 * userNo 기준으로 users 테이블의 users_status를 1(탈퇴)로 변경
+	 * users_info, users_info_using_drugs, users_info_allergy 테이블에서 데이터 삭제
+	 */
+	@Override
+	public Integer updateUserStatusLeaveByUserNo(Integer userNo) {
+		Integer result = usersMapper.updateUserStatusLeaveByUserNo(userNo);
+		if(result == 1) {
+			usersMapper.deleteUsersInfoByUsersNo(userNo);
+			usersMapper.deleteUsersInfoUsingDrugsByUsersNo(userNo);
+			usersMapper.deleteUsersInfoAllergyByUsersNo(userNo);
+			
+			return result;
+		}
+		return result;
+	}
 	
 	//관리자 페이지 회원관리 관련 - 작성자: 배고운 
 	
@@ -189,6 +205,7 @@ public class UsersMybatisRepository implements UsersRepository{
 		}
 		return usersInfoList;
 	}
+
 
 
 

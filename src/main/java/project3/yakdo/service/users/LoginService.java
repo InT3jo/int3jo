@@ -52,7 +52,8 @@ public class LoginService {
 //		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
 		// 개발중 1@1로 로그인한 채로 시작하도록 설계
-		Users user = usersRepository.selectUserByUserEmail("1@1");
+//		Users user = usersRepository.selectUserByUserEmail("1@1");
+		Users user = usersRepository.selectUserByUserEmail("3@3");
 		return user;
 	}
 

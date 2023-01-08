@@ -54,6 +54,9 @@
 		UPDATE users SET user_pw = #{userPwNew} WHERE user_no = #{userNo}
 	</update>
 	
+	<update id="updateUserStatusLeaveByUserNo">
+		UPDATE users SET user_status = 1 WHERE user_no = #{userNo}
+	</update>
 	
 
 <!-- DELETE -->
@@ -61,7 +64,20 @@
 		DELETE FROM users
 	</delete>
 
-
+	<delete id="deleteUsersInfoByUsersNo">
+		DELETE FROM users_info WHERE user_no = #{userNo}
+	</delete>
+	
+	<delete id="deleteUsersInfoUsingDrugsByUsersNo">
+		DELETE FROM users_info_using_drugs WHERE user_no = #{userNo}
+	</delete>
+	
+	<delete id="deleteUsersInfoAllergyByUsersNo">
+		DELETE FROM users_info_allergy WHERE user_no = #{userNo}
+	</delete>
+	
+	
+	
 	<!-- 관리자 페이지 회원관리 관련 / 작성자: 배고운 -->
 
 

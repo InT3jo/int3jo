@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.service.users.LoginService;
 import project3.yakdo.service.users.UsersService;
+import project3.yakdo.session.SessionVar;
 import project3.yakdo.validation.form.PasswordForm;
 
 @Slf4j
@@ -54,8 +56,6 @@ public class MyPageController {
 	 * 회원 탈퇴 후 완료 창
 	 * 로그인 정보를 없애야 하는데 어떻게 할건지?????????????
 	 * 
-	 * 
-	 * 
 	 * @param model
 	 * @param req
 	 * 
@@ -63,14 +63,12 @@ public class MyPageController {
 	 */
 	@PostMapping("/withdraw")
 	public String leaveUser(Model model, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		Users user = loginService.getLoginUser(req);
+		usersService.leaveUser(user.getUserNo(), user);
+		
 		model.addAttribute("user", user);
-		return "/users/myPage/leaveUser ";
+		return "/users/myPage/leaveUser";
 	}
 	
 	/**
