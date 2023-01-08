@@ -70,17 +70,11 @@ public class UsersService {
 	
 	/**
 	 * 회원 탈퇴 실행하는 서비스
-	 * 탈퇴 성공 시 return null
-	 * 탈퇴 실패 시 return users
 	 * @param userNo
 	 * @param user 
-	 * @return
 	 */
-	public Users leaveUser(Integer userNo, Users user) {
-		if(usersRepository.updateUserStatusLeaveByUserNo(userNo) == 1) {
-			return null;
-		}
-		return user;
+	public void leaveUser(Integer userNo) {
+		usersRepository.updateUserStatusLeaveByUserNo(userNo);
 	}
 
 	

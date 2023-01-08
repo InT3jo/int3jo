@@ -131,16 +131,12 @@ public class UsersMybatisRepository implements UsersRepository{
 	 * users_info, users_info_using_drugs, users_info_allergy 테이블에서 데이터 삭제
 	 */
 	@Override
-	public Integer updateUserStatusLeaveByUserNo(Integer userNo) {
-		Integer result = usersMapper.updateUserStatusLeaveByUserNo(userNo);
-		if(result == 1) {
+	public void updateUserStatusLeaveByUserNo(Integer userNo) {
+		if(usersMapper.updateUserStatusLeaveByUserNo(userNo) == 1) {
 			usersMapper.deleteUsersInfoByUsersNo(userNo);
 			usersMapper.deleteUsersInfoUsingDrugsByUsersNo(userNo);
 			usersMapper.deleteUsersInfoAllergyByUsersNo(userNo);
-			
-			return result;
 		}
-		return result;
 	}
 	
 	//관리자 페이지 회원관리 관련 - 작성자: 배고운 

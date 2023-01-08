@@ -2,7 +2,6 @@ package project3.yakdo.repository;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -34,7 +33,7 @@ public interface UsersRepository {
 	public Integer updateUserPwByUserNo(@Param("userPwNew") String userPwNew, @Param("userNo") Integer userNo);
 	
 	//Users 테이블의 userStatus Update / 담당자 : 빙예은
-	public Integer updateUserStatusLeaveByUserNo(@Param("userNo") Integer userNo);
+	public void updateUserStatusLeaveByUserNo(@Param("userNo") Integer userNo);
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
