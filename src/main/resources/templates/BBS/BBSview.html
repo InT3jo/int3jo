@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
@@ -15,7 +16,7 @@ table {
 }
 
 th, td {
-	border: 1px solid #444444;
+	border: 1px solid rgb(192, 192, 192);
 	padding: 10px;
 }
 </style>
@@ -95,18 +96,16 @@ th, td {
 	
 	<div class="BBSViewTable">
 		<br />
-		<div id="ReturnList">
+		<div class="ReturnList">
 		<button  id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
 		</div>
-		<table class="" border="1" width="800" height="100">
-		<colgroup>
-					<col width="15%"/>
-					<col width="35%"/>
-					<col width="15%"/>
-					<col width="35%"/>
-				</colgroup>
-			
-
+		<table>
+			<colgroup>
+				<col width="15%" />
+				<col width="35%" />
+				<col width="15%" />
+				<col width="35%" />
+			</colgroup>
 			<tbody>
 				<tr>
 					<th scope="row">글 번호</th>
@@ -123,17 +122,14 @@ th, td {
 					<td colspan="3" th:text="${BBS.bbsTitle}"></td>
 				</tr>
 				<tr>
-					
-					<td td colspan="4"> 
-					<textarea class="ViewContent" title="내용" th:text="${BBS.bbsContent}" readonly="readonly"></textarea>
+					<td td colspan="4">
+						<textarea class="ViewContent" title="내용" th:text="${BBS.bbsContent}" readonly="readonly"></textarea>
 					</td>
 				</tr>
-
-
 			</tbody>
 		</table>
 
-	</div>
+
 
 	<div>
 
@@ -152,14 +148,15 @@ th, td {
 
 		<!-- 		회원등급이 관리자(user_grade = 1)이상 일때만 관리자 삭제,답변 버튼 보이기  -->
 
-
-		<div th:if="${user.userGrade==1 } or ${user.userGrade}==0">
-			<button th:name="${BBS.bbsNo}"
+	
+		<div  class="ManagerBtn" th:if="${user.userGrade==1 } or ${user.userGrade}==0">
+			<button th:name="${BBS.bbsNo}" id="headerSearchBtn" 
 				th:onclick="deleteBBSAdmin(this.getAttribute('name'))">
-				관리자삭제</button>
+				관리삭제</button>
 			<button  id="headerSearchBtn" 
 				th:onclick="|location.href='@{/admin/writeAnswer/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">답변등록</button>
 		</div>
+		
 	</div>
 
 
@@ -170,7 +167,7 @@ th, td {
 
 
 
-
+<div class="WriteCom">
 	<form id="writeCom"
 		th:action="@{/BBS/BBSlist/{bbsNo}(bbsNo=${BBS.bbsNo})}" method="post"
 		th:object=${BBSComment}>
@@ -179,17 +176,18 @@ th, td {
 			<label>댓글작성자<input type="text" name="userNick"
 				th:value="${user.userNick}" readonly></label>
 			<!-- 				로그인한 사람의 닉네임 불러오기 -->
-		</p>
+		</p> 
 		<p>
 			<!-- 				<textarea name="comContent" th:field="*{comContent}" rows="5" cols="50"></textarea> -->
-			<label>댓글입력: <input type="text" name="comContent"
-				th:field="*{comContent}"></label> <input type="hidden" name="userNo"
-				th:value="${user.userNo}">
+			<label>댓글 입력: <textarea class="WriteComContent" name="comContent"
+				th:field="*{comContent}"></textarea></label> 
+				<input type="hidden" name="userNo" th:value="${user.userNo}">
 		</p>
-		<p>
+		<div class="WriteComBtn">
 			<button  id="headerSearchBtn" type="button" onclick="writeComOk()">댓글 작성</button>
-		</p>
+		</div>
 	</form>
+	</div>
 
 <!-- 댓글 없으면 댓글 테이블 숨기기 -->
 <div th:if="${commentListZero.size()}==0 or ${commentListZero}==null">
@@ -199,56 +197,57 @@ th, td {
 <!-- 댓글테이블 -->
 <div class="BBSViewTable">
 <div th:if="${commentListZero}!=null and ${commentListZero.size()}!=0">
-	<table border="1" width="800" height="100">
-		<thead>
-			<tr>
-				<th>작성자</th>
-				<th>내용</th>
-				<th>작성일</th>
-				<th colspan="3">관리</th>
-<!-- 				<div th:if="${user.userNick}==${BBS.userNick} "> -->
-<!-- 					<th>삭제</th> -->
-<!-- 					<th>수정</th> -->
-<!-- 				</div> -->
-<!-- 				<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0"> -->
-<!-- 					<th>관리자삭제</th> -->
-<!-- 				</div> -->
-			</tr>
-
-		</thead>
-		<tbody>
-			<tr th:each="BBSComment : ${commentListZero}">
-				<td th:text="${BBSComment.userNick}"></td>
-				<td th:text="${BBSComment.comContent}"></td>
-				<td th:text="${BBSComment.comDate}"></td>
-
-				<div th:if="${user.userNick}==${BBSComment.userNick}">
-					<td>
-						<button  id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-							th:onclick="deleteCom(this.getAttribute('name'),this.getAttribute('src'))">삭제</button>
-						<!--  <button
+<table>
+	<colgroup>
+		<col width="15%" />
+		<col width="35%" />
+		<col width="15%" />
+		<col width="35%" />
+	</colgroup>
+	<tbody th:each="BBSComment : ${commentListZero}">
+		<tr>
+			<th scope="row">작성자</th>
+			<td th:text="${BBSComment.userNick}"></td>
+			<th scope="row">관리</th>
+			<div th:if="${user.userNick}==${BBSComment.userNick}">
+				<td>
+					<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
+						th:onclick="deleteCom(this.getAttribute('name'),this.getAttribute('src'))">삭제</button>
+					<!--  <button
 						th:onclick="|location.href='@{/BBS/deleteCom/{comSeq}(comSeq=${BBSComment.comSeq})}'|">삭제</button>-->
-					</td>
-					<td>
-						<button  id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-							th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">
-							수정</button>
-					</td>
-				</div>
+				
+			
+					<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
+						th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">
+						수정</button>
+				</td>
+			</div>
 
 
-				<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
-					<td>
-						<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-							th:onclick="deleteComAdmin(this.getAttribute('name'),this.getAttribute('src'))">
-							관리자삭제</button>
-					</td>
-				</div>
+			<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
+				<td>
+					<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
+						th:onclick="deleteComAdmin(this.getAttribute('name'),this.getAttribute('src'))">
+						관리삭제</button>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<th scope="row">작성일</th>
+			<td th:text="${BBSComment.comDate}"></td>
+		</tr>
+
+		<tr>
+			<td td colspan="4">
+				<textarea class="ComContent" title="내용" th:text="${BBSComment.comContent}"
+					readonly="readonly"></textarea>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 
-			</tr>
-		</tbody>
-	</table>
+	
 </div>
 </div>
 
@@ -257,6 +256,7 @@ th, td {
 	</div>
 
 	</div>
+		</div>
 
 	<div th:replace="home_component.html :: footer"></div>
 </body>

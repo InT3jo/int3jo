@@ -6,6 +6,19 @@
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
 <title>Insert title here</title>
+<style>
+/* 일단 테이블 태그로 했다가 나중에 class 이름 만들어서 css파일로 옮기기  */
+table {
+	width: 100%;
+	border: 1px solid #d3d3d3;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid rgb(192, 192, 192);
+	padding: 10px;
+}
+</style>
 </head>
 <body>
 	<script type="text/javascript">
@@ -74,7 +87,10 @@
 	
 	<div class="BBSViewTable">
 		<br/>
-		<table border="1" width="800" height="100">
+		<div class="ReturnList">
+				<button  id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+		</div>
+		<table >
 		<colgroup>
 					<col width="15%"/>
 					<col width="35%"/>
@@ -106,12 +122,12 @@
 			</tbody>
 		</table>
 
-	</div>
+	
 
 
 	<div>
 
-		<button  id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+
 
 		<!-- 		로그인한 사용자 닉네임과 일치 할 때만 수정/삭제버튼 보이기 , 관리자(grade:1) 이거나 운영자(grade:0)에 보이기-->
 
@@ -136,7 +152,7 @@
 	</div>
 
 
-
+</div>
 
 	</div>
 

@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
-/* listSearch.html ===================================== */
+/* listSearch.html ===================================== */ 
+
+.BBSlist{
+	width:800px;
+	margin: 100px auto;
+	
+}
 a {
 	text-decoration-line: none;
 	color: black;
@@ -19,9 +25,7 @@ li {
 	margin-left: 10px;
 }
 
-#BBSlist {
-	margin: 100px;
-}
+
 
 #BBS {
 	margin-top:50px;
@@ -84,7 +88,35 @@ li {
 }
 
 .BBSViewTable{
-	margin: 0px auto;
+	margin: 100px auto;
 	width: 800px;
 	display: block;
 }
+
+.ManagerBtn{
+	margin-top: 20px;
+	text-align: right;
+}
+.WriteComBtn{
+	margin-top: 20px;
+	text-align: right;
+}
+.ComContent{
+	width: 700px;
+	resize: none;
+	border:none;
+	height:50px;
+	
+}
+
+.WriteCom{
+	margin:50px auto;
+}
+
+.WriteComContent{
+		width: 700px;
+	resize: none;
+	height:100px;
+	
+}
+	
