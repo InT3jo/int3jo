@@ -30,6 +30,50 @@ public class MyPageController {
 	
 	
 	/**
+	 * 회원 탈퇴 진행을 위한 비밀번호 재확인 페이지
+	 * 탈퇴 진행하는 service 만들어야함!!!!!!!!!!!!!!!!!!
+	 * 
+	 * @param model
+	 * @param req
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@GetMapping("/withdraw")
+	public String confirmPw(Model model, HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		return "/users/myPage/confirmPw";
+	}
+	
+	/**
+	 * 회원 탈퇴 후 완료 창
+	 * 로그인 정보를 없애야 하는데 어떻게 할건지?????????????
+	 * 
+	 * 
+	 * 
+	 * @param model
+	 * @param req
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@PostMapping("/withdraw")
+	public String leaveUser(Model model, HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		return "/users/myPage/leaveUser ";
+	}
+	
+	/**
 	 * myPage 페이지
 	 * @param model
 	 * @param req
