@@ -119,7 +119,6 @@ body{
 }
 .signUpContent{
 	text-align: center;
-	padding
 }
 .signUpInputBox{
 	text-align: left;
@@ -279,22 +278,40 @@ body{
 
  /* myPage */
 .myPageContainor {
+	width:800px;
+	margin : 0 auto;
 	margin-top : 100px;
 	display : grid;
 	place-items: center;
+	grid-template-columns: repeat(auto-fill, 1fr);
+	gap: 20px 20px;
+	
 }
-/* .myPageTitle { */
-/* 	width : 800px; */
-/* } */
-/* .viewMyInfoContainor { */
-/* 	width : 800px; */
-/* 	margin : 0 auto; */
-/* 	text-align: center; */
-/* } */
-/* .vewMyInfoTitle { */
-/*  	text-decoration:none; */
-/* 	margin-bottom : 40px; */
-/* } */
-.cardBtn {
-	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+.myPageTitle {
+	grid-column: 1 / 4;
+	margin-bottom : 50px;
 }
+.nickameColor {
+    color: var(--Signature-blue);
+}
+.card {
+	margin-bottom : 50px;
+}
+.card-body {
+	height:251.34px;
+}
+.card-link:hover {
+    color: var(--Signature-blue);
+}
+.withrawBox {
+	margin-bottom : 100px;
+	grid-column: 1 / 4;
+}
+.withrawBtn {
+    color: var(--Signature-silver);
+}
+.withrawBtn:hover {
+    color: black;
+}
+
+/* modifyNickName */
