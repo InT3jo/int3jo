@@ -2,7 +2,6 @@ package project3.yakdo.repository;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -13,13 +12,28 @@ import project3.yakdo.domain.users.UsersInfo;
 
 public interface UsersRepository {
 
-	/* INSERT 담당자 : 빙예은 */
+/* INSERT */
+	//회원 기본 정보 추가 / 담당자 : 빙예은
 	public Integer insertUsers(SignUpForm signUpForm);
+	//회원 가족 건강 정보 추가 / 담당자 : 빙예은
 	public Integer insertUsersInfo(UsersInfo usersInfo);
 	
-	/* SELECT 담당자 : 빙예은 */
+/* SELECT */
+	//Users 테이블에서 userEmail로 회원 찾기 / 담당자 : 빙예은
 	public Users selectUserByUserEmail(String userEmail);
+	
+	//Users 데이터 List로 받기 / 담당자 : 빙예은
 	public List<Users> selectAllUsers();
+	
+/* UPDATE */
+	//Users 테이블의 userNick Update / 담당자 : 빙예은
+	public Integer updateUserNickByUserNo(@Param("userNick") String userNick,@Param("userNo") Integer userNo);
+	
+	//Users 테이블의 userPw Update / 담당자 : 빙예은
+	public Integer updateUserPwByUserNo(@Param("userPwNew") String userPwNew, @Param("userNo") Integer userNo);
+	
+	//Users 테이블의 userStatus Update / 담당자 : 빙예은
+	public void updateUserStatusLeaveByUserNo(@Param("userNo") Integer userNo);
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
@@ -41,7 +55,6 @@ public interface UsersRepository {
 	
 	// UsersInfoList 가져오기 / 담당자 : 홍준표
 	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo);
-	
 	
 
 

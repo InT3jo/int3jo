@@ -11,6 +11,8 @@ public class LoginValidator {
 	 * login시 이메일, 패스워드 검증할 메소드
 	 * @param loginForm
 	 * @param errors
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	public void validateLoginForm(LoginForm loginForm, Errors errors) {
 		if(!StringUtils.hasText(loginForm.getLoginEmail())) {

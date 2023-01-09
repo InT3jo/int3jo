@@ -91,8 +91,53 @@ public class UsersMybatisRepository implements UsersRepository{
 		
 		return userList;
 	}
+	
+/* UPDATE 관련 메소드 */
+	/**
+	 * 바꿀 userNick, 로그인 된 Users의 userNo를 받아서 update 실행
+	 * @param String userNick
+	 * @param Integer userNo
+	 * @return 1 : 업데이트 성공 / 0 : 업데이트 실패
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@Override
+	public Integer updateUserNickByUserNo(String userNick, Integer userNo) {
+		if(usersMapper.updateUserNickByUserNo(userNick, userNo) == 1) {
+			return 1;
+		}
+		return 0;
+	}
 
 
+	/**
+	 * 바꿀 userPwNew, 로그인 된 Users의 userNo를 받아서 update 실행
+	 * @param String userPwNew
+	 * @param Integer userNo
+	 * @return 1 : 업데이트 성공 / 0 : 업데이트 실패
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@Override
+	public Integer updateUserPwByUserNo(String userPwNew, Integer userNo) {
+		if(usersMapper.updateUserPwByUserNo(userPwNew, userNo) == 1) {
+			return 1;
+		}
+		return null;
+	}
+
+	/**
+	 * userNo 기준으로 users 테이블의 users_status를 1(탈퇴)로 변경
+	 * users_info, users_info_using_drugs, users_info_allergy 테이블에서 데이터 삭제
+	 */
+	@Override
+	public void updateUserStatusLeaveByUserNo(Integer userNo) {
+		if(usersMapper.updateUserStatusLeaveByUserNo(userNo) == 1) {
+			usersMapper.deleteUsersInfoByUsersNo(userNo);
+			usersMapper.deleteUsersInfoUsingDrugsByUsersNo(userNo);
+			usersMapper.deleteUsersInfoAllergyByUsersNo(userNo);
+		}
+	}
 	
 	//관리자 페이지 회원관리 관련 - 작성자: 배고운 
 	
@@ -156,5 +201,8 @@ public class UsersMybatisRepository implements UsersRepository{
 		}
 		return usersInfoList;
 	}
+
+
+
 
 }

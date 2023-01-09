@@ -15,17 +15,12 @@
 			</div>
 		</div>
 		<div class="d-CSS loginForm">
-			<form action="" method="post" th:object="${loginForm}">
-				<div th:if="${#fields.hasGlobalErrors()}">
-					<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
-				</div>
+			<form action="/help/withdraw" method="post" th:object="${user}">
 				<div class="loginEmailBox">
-					<input type="email" id="loginEmail" th:field="*{loginEmail}" placeholder="이메일" disabled />
-					<div th:errors="*{loginEmail}"></div>
+					<input type="email" id="loginEmail" th:placeholder="*{userEmail}" disabled />
 				</div>
 				<div class="loginPwBox">
-					<input type="password" id="loginPw" th:field="*{loginPw}" placeholder="비밀번호" />
-					<div th:errors="*{loginPw}"></div>
+					<input type="password" id="loginPw" th:field="*{userPw}" placeholder="비밀번호" />
 				</div>
 				
 				<button id="loginBtn" type="submit">확인</button>

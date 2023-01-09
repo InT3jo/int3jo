@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>약도 - 닉네임 변경</title>
+</head>
+<body>
+	<div class="modifyNickContainor">
+		<h2>닉네임 변경</h2>
+		
+		<div>
+			<span>이메일</span>
+			<span th:text="${user.userEmail}"></span>
+		</div>
+		<div>
+			<form action="/help/modifyNickName" method="Post">
+				<span>닉네임</span>
+				<div><input type="text" name="userNick" th:value="${user.userNick}"/></div>
+				<div><button type="submit">수정</button></div>
+				<div><button type="button" onClick="location.href='/help/myPage'">취소</button></div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
