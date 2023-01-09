@@ -64,12 +64,20 @@
 				</label>
 			</div>
 			<div>
-				<label><input class="InputBBSTitle" type="text" name="bbsTitle" 
+				<label><input class="InputBBSTitle" type="text" name="bbsTitle" maxlength="40"
 					th:field="*{bbsTitle}" placeholder="제목을 입력해주세요"></label>
 			</div>
 			<div>
-				<label><textarea name="bbsContent" class="InputBBSContent"
-						th:field="*{bbsContent}" placeholder="내용을 입력해주세요"></textarea></label>
+				<label>
+				
+				
+				
+				<textarea name="bbsContent" class="InputBBSContent" maxlength="1000" placeholder="1000자까지 입력가능합니다."
+						th:field="*{bbsContent}"></textarea>
+						
+						
+						
+						</label>
 			</div>
 			<div id="writeBtn">
 				<button id="headerSearchBtn" type="button" onclick="writeBBSOk()">등록하기</button>

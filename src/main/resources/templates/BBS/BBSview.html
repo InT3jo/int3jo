@@ -179,7 +179,7 @@ th, td {
 		</p> 
 		<p>
 			<!-- 				<textarea name="comContent" th:field="*{comContent}" rows="5" cols="50"></textarea> -->
-			<label>댓글 입력: <textarea class="WriteComContent" name="comContent"
+			<label>댓글 입력: <textarea class="WriteComContent" name="comContent" maxlength="150" placeholder="댓글을 입력해주세요(170자까지 입력 가능합니다.)"
 				th:field="*{comContent}"></textarea></label> 
 				<input type="hidden" name="userNo" th:value="${user.userNo}">
 		</p>
