@@ -92,6 +92,23 @@ public class UsersMybatisRepository implements UsersRepository{
 		return userList;
 	}
 	
+	/**
+	 * userNo를 받아서 UsersInfo를 List방식으로 반환
+	 * @param: Integer(userNo)
+	 * @return: List<UsersInfo>
+	 * 담당자 : 홍준표
+	 */
+	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo){
+		List<UsersInfo> usersInfoList = usersMapper.selectUsersInfoByUserNo(userNo);
+		for(UsersInfo usersInfo : usersInfoList) {
+			List<String> usingDrugList = usersMapper.selectUsingDrugByUserNoAndFamilyNo(usersInfo.getUserNo(),usersInfo.getFamilyNo());
+			usersInfo.setUsingDrugList(usingDrugList);
+			List<String> allergyList = usersMapper.selectAllergyByUserNoAndFamillyNo(usersInfo.getUserNo(),usersInfo.getFamilyNo());
+			usersInfo.setAllergyList(allergyList);
+		}
+		return usersInfoList;
+	}
+	
 /* UPDATE 관련 메소드 */
 	/**
 	 * 바꿀 userNick, 로그인 된 Users의 userNo를 받아서 update 실행
@@ -139,6 +156,18 @@ public class UsersMybatisRepository implements UsersRepository{
 		}
 	}
 	
+	/**
+	 * UsersInfo 테이블의 PK값을 제외하고 내용 변경
+	 * FamilyNo가 빈값이 있으면 FamilyNo가 변경되지만,
+	 * 이용에 영향을 미치지 못해서 그냥 이대로 사용하기로 함. 
+	 * @param: UsersInfo
+	 * 담당자 : 홍준표
+	 */
+	public void updateUsersInfo(UsersInfo usersInfo) {
+		deleteUsersInfo(usersInfo);
+		insertUsersInfo(usersInfo);
+	}
+	
 	//관리자 페이지 회원관리 관련 - 작성자: 배고운 
 	
 	//Users테이블에서 userNo로 회원찾기 / 작성자: 배고운 
@@ -184,25 +213,18 @@ public class UsersMybatisRepository implements UsersRepository{
 		return usersMapper.countSearchUsers(scri);
 	}
 	
-
 	/**
-	 * userNo를 받아서 UsersInfo를 List방식으로 반환
-	 * @param: Integer(userNo)
-	 * @return: List<UsersInfo>
-	 * 담당자 : 홍준표
+	 * UsersInfo 테이블에서 UserNo의 FamilyNo 정보 삭제
+	 * @param UsersInfo 
 	 */
-	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo){
-		List<UsersInfo> usersInfoList = usersMapper.selectUsersInfoByUserNo(userNo);
-		for(UsersInfo usersInfo : usersInfoList) {
-			List<String> usingDrugList = usersMapper.selectUsingDrugByUserNoAndFamilyNo(usersInfo.getUserNo(),usersInfo.getFamilyNo());
-			usersInfo.setUsingDrugList(usingDrugList);
-			List<String> allergyList = usersMapper.selectAllergyByUserNoAndFamillyNo(usersInfo.getUserNo(),usersInfo.getFamilyNo());
-			usersInfo.setAllergyList(allergyList);
-		}
-		return usersInfoList;
+	public void deleteUsersInfo(UsersInfo usersInfo) {
+		usersMapper.deleteFamilyInfoByUsersNoAndFamilyNo(usersInfo);
+		usersMapper.deleteFamilyUsingDrugsByUsersNoAndFamilyNo(usersInfo);
+		usersMapper.deleteFamilyAllergyByUsersNoAndFamilyNo(usersInfo);
 	}
+	
 
-
+	
 
 
 }

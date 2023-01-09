@@ -25,6 +25,9 @@ public interface UsersRepository {
 	//Users 데이터 List로 받기 / 담당자 : 빙예은
 	public List<Users> selectAllUsers();
 	
+	// UsersInfoList 가져오기 / 담당자 : 홍준표
+	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo);
+	
 /* UPDATE */
 	//Users 테이블의 userNick Update / 담당자 : 빙예은
 	public Integer updateUserNickByUserNo(@Param("userNick") String userNick,@Param("userNo") Integer userNo);
@@ -34,6 +37,9 @@ public interface UsersRepository {
 	
 	//Users 테이블의 userStatus Update / 담당자 : 빙예은
 	public void updateUserStatusLeaveByUserNo(@Param("userNo") Integer userNo);
+
+	//UsersInfo 테이블의 PK값을 제외하고 내용 변경 / 담당자 : 홍준표
+	public void updateUsersInfo(UsersInfo usersInfo);
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
@@ -53,8 +59,10 @@ public interface UsersRepository {
 	//검색 결과 갯수 / 작성자 : 배고운 
 	public int countSearchUsers(SearchCriteria scri);
 	
-	// UsersInfoList 가져오기 / 담당자 : 홍준표
-	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo);
+	//UsersInfo 테이블에서 UserNo의 FamilyNo 정보 삭제 
+	public void deleteUsersInfo(UsersInfo usersInfo);
+	
+	
 	
 
 

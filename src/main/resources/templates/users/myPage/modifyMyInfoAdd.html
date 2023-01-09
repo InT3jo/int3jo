@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/user.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<title>약도 - 건강 정보 추가</title>
+</head>
+<body>
+	<script th:inline="javascript" type="text/javascript">
+		function searchDrugName(input){
+			var target = document.querySelector("#selectDrugName");
+			target.options.length=0;
+			if(input.value == ""){
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				target.appendChild(option);
+				return;
+			}
+			/*[# th:each="drugsNameForm : ${drugsNameFormList}"]*/
+				var itemName = /*[[${drugsNameForm.itemName}]]*/;
+				var itemSeq = /*[[${drugsNameForm.itemSeq}]]*/;
+				if(itemName.indexOf(input.value)>-1){
+						var option = document.createElement("option");
+						option.value = itemSeq;
+						option.innerHTML = itemName;
+						target.appendChild(option)
+				}
+			/*[/]*/
+		}
+		function searchAllergyName(input){
+			var target = document.querySelector("#selectAllergyName");
+			target.options.length=0;
+			if(input.value == ""){
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				target.appendChild(option);
+				return;
+			}
+			/*[# th:each="drugsNameForm : ${drugsNameFormList}"]*/
+				var itemName = /*[[${drugsNameForm.itemName}]]*/;
+				var itemSeq = /*[[${drugsNameForm.itemSeq}]]*/;
+				if(itemName.indexOf(input.value)>-1){
+						var option = document.createElement("option");
+						option.value = itemSeq;
+						option.innerHTML = itemName;
+						target.appendChild(option)
+				}
+			/*[/]*/
+		}
+	</script>
+	<script type="text/javascript">
+		//약품 추가
+		function addDrug(buttonId) {
+			var i = buttonId.slice(13);
+			//input 추가할 div 찾기
+			const addDrugs = document.getElementById('addDrugs');
+			//입력된 약물 가져오기
+			let selected = document.getElementById('selectDrugName');
+			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
+			if (selected.value != null && selected.value.trim() != "") {
+				var cnt = 1;
+				for(var forI=1;true;forI++){
+					var tempId = '#usingDrug' +forI;
+					if(document.querySelector(tempId)==null){
+						cnt=forI;
+						break;
+					}
+				}
+				addDrugs.innerHTML += '<li id="usingDrugBox' + cnt + '">'
+						+				'<label for="usingDrug' + cnt + '">' + selected.options[selected.selectedIndex].text + '</lable>'
+						+				'<input name="usingDrug' + cnt + '" id="usingDrug' + cnt + '" value="' + selected.value + '" type="hidden" />'
+						+				'<button class="addDrugBtn" type="button" onclick="deleteTarget(\'usingDrugBox' + cnt + '\')">X</button>'
+						+			'</li>'
+				document.querySelector('#usingDrugs').value = "";
+				document.querySelector("#selectDrugName").options.length=0;
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				document.querySelector("#selectDrugName").appendChild(option);
+			}else{
+				alert("약품이 선택되지 않았습니다.");
+			}
+			document.querySelector('#usingDrugs').focus();
+		}
+		
+		//알레르기 약물 추가
+		function addAllergy(buttonId) {
+			var i = buttonId.slice(16);
+			//input 추가할 div 찾기
+			const addAllergy = document.getElementById('addAllergys');
+			//입력된 알러지 가져오기
+			let selected = document.getElementById('selectAllergyName');
+			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
+			if (selected.value != null && selected.value.trim() != "") {
+				var cnt = 1;
+				for(var forI=1;true;forI++){
+					var tempId = '#allergy' +forI;
+					if(document.querySelector(tempId)==null){
+						cnt=forI;
+						break;
+					}
+				}
+				addAllergy.innerHTML += '<li id="allergyBox' + cnt + '">'
+						+ 					'<label for="allergy' + cnt + '">'+ selected.options[selected.selectedIndex].text + '</lable>'
+						+ 					'<input name="allergy' + cnt + '" id="allergy' + cnt + '" type="hidden" value="' + selected.value + '"/>'
+						+					'<button class="addDrugBtn" type="button" onclick="deleteTarget(\'allergyBox' + cnt + '\')">X</button>'
+						+				'</li>'
+				document.querySelector('#allergys').value = "";
+				document.querySelector("#selectAllergyName").options.length=0;
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				document.querySelector("#selectAllergyName").appendChild(option);
+			}else{
+				alert("약품이 선택되지 않았습니다.");
+			}
+			document.querySelector('#allergys').focus();
+		}
+		
+		//파라미터에 맞는 태그 삭제
+		function deleteTarget(target) {
+			document.getElementById(target).remove();
+		}
+	</script>
+	<div th:replace="home_component.html :: header"></div>
+	<div class="ContentBox">
+		<div class="addFormBox">
+			<form action="" method="post">
+				<div class="familyBox" id="familyBox">
+					<span class="familyBoxTitle">-건강정보 추가하기-</span>
+					<div class="signUpInputBox">
+						<label class="signUpLabel" for="familyNick">관계</label>
+						<input class= "signUpInput" type="text" name="familyNick" id="familyNick" placeholder="ex.본인, 배우자, 자녀 등"/>
+					</div>
+					<div class="signUpInputBox">
+						<label class="signUpLabel" for="gender">성별</label>
+						<select class= "signUpSelect" id="gender" name="gender" required>
+							<option value="">성별을 선택해주세요</option>
+							<option value="남자">남자</option>
+							<option value="여자">여자</option>
+						</select>
+					</div>
+					<div class="signUpInputBox">
+						<label class="signUpLabel" for="birth">생년월일</label>
+						<input class= "signUpInput" type="date" name="birth" id="birth" required/>
+					</div>
+					<div class="signUpInputBox">
+						<label class="signUpLabel" for="weight">몸무게(kg)</label>
+						<input class= "signUpInput" type="text" name="weight" id="weight" required/>
+					</div>
+					<div class="signUpInputBox">
+						<label class="signUpLabel" for="usingDrugs">복용 중인 약품</label>
+						<input class= "signUpInput" id="usingDrugs"/>
+		                <button class="signUpButton" type="button" onclick="searchDrugName(document.querySelector('#usingDrugs'),)">찾기</button>
+					</div>
+					<div class="signUpInputBox">
+		                <label class="signUpLabel"></label>
+		                <select class= "signUpSelect" id="selectDrugName" name="usingDrugs">
+		                	<option value="">약품을 검색해주세요</option>
+		            	</select>
+						<button class="signUpButton" id="addDrugButton" type="button" onclick="addDrug(this.getAttribute('id'))">추가</button>
+						<ol class="addDrug" id="addDrugs"></ol>
+					</div>
+					
+					<div class="signUpInputBox">
+						<label class="signUpLabel" for="allergys">알러지 있는 약품</label>
+						<input class= "signUpInput" id="allergys"/>
+						<button class="signUpButton" type="button" onclick="searchAllergyName(document.querySelector('#allergys'),)">찾기</button>
+					</div>
+					<div class="signUpInputBox">
+			               <label class="signUpLabel"></label>
+			               <select class= "signUpSelect" id="selectAllergyName" name="allergys">
+			               	<option value="">약품을 검색해주세요</option>
+			               </select>
+						<button class="signUpButton" id="addAllergyButton" type="button" onclick="addAllergy(this.getAttribute('id'))">추가</button>
+						<ol class="addDrug" id="addAllergys">
+						</ol>
+					</div>
+				</div>
+				<button class="signUpButton signUpSubmitBtn" type="submit">추가하기</button>
+			</form>
+		</div>
+	</div>
+	<div th:replace="home_component.html :: footer"></div>
+</body>
+</html>

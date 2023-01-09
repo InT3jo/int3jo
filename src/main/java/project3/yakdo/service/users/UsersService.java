@@ -1,10 +1,16 @@
 package project3.yakdo.service.users;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
+import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
 import project3.yakdo.validation.form.PasswordForm;
 
@@ -77,6 +83,79 @@ public class UsersService {
 		usersRepository.updateUserStatusLeaveByUserNo(userNo);
 	}
 
+	/**
+	 * HttpServletRequest로 받아온 정보를 UsersInfo 테이블에 추가
+	 * @param Users
+	 * @param HttpServletRequest
+	 */
+	public void addUsersInfo(Users user, HttpServletRequest req) {
+		UsersInfo usersInfo = makeUsersInfo(user, req);
+		usersRepository.insertUsersInfo(usersInfo);	
+	}
+
+	private UsersInfo makeUsersInfo(Users user, HttpServletRequest req) {
+		UsersInfo usersInfo = new UsersInfo();
+		usersInfo.setUserNo(user.getUserNo());
+		usersInfo.setBirth(Date.valueOf(req.getParameter("birth")));
+		usersInfo.setGender(req.getParameter("gender"));
+		usersInfo.setWeight(Double.parseDouble(req.getParameter("weight")));
+		usersInfo.setFamilyNick(req.getParameter("familyNick"));
+		usersInfo.setUsingDrugList(getUsingDrugList(req));
+		usersInfo.setAllergyList(getAllergyList(req));
+		return usersInfo;
+	}
+	private List<String> getAllergyList(HttpServletRequest req) {
+		List<String> allergyList = new ArrayList<String>();
+		int allergyDrugNo = 1;
+		while(true) {
+			String allergy = req.getParameter("allergy" + allergyDrugNo);
+			if(allergy == null) {
+				break;
+			}
+			allergyList.add(allergy);
+			allergyDrugNo++;
+		}
+		return allergyList;
+	}
+
+	private List<String> getUsingDrugList(HttpServletRequest req) {
+		List<String> usingDrugList = new ArrayList<String>();
+		int usingDrugNo = 1;
+		while(true) {
+			String usingDrug = req.getParameter("usingDrug" + usingDrugNo);
+			if(usingDrug == null) {
+				break;
+			}
+			usingDrugList.add(usingDrug);
+			usingDrugNo++;
+		}
+		return usingDrugList;
+	}
+
+	/**
+	 * HttpServletRequest로 받아온 정보로 UsersInfo 테이블 수정
+	 * @param Users
+	 * @param HttpServletRequest
+	 */
+	public void updateUsersInfo(Users user, HttpServletRequest req, Integer familyNo) {
+		// TODO Auto-generated method stub
+		UsersInfo usersInfo = makeUsersInfo(user, req);
+		usersInfo.setFamilyNo(familyNo);
+		usersRepository.updateUsersInfo(usersInfo);	
+	}
+
+	/**
+	 * HttpServletRequest로 받아온 정보로 UsersInfo 테이블 삭제
+	 * @param Users
+	 * @param HttpServletRequest
+	 */
+	public void deleteUsersInfo(Users user, HttpServletRequest req, Integer familyNo) {
+		// TODO Auto-generated method stub
+		UsersInfo usersInfo = new UsersInfo();
+		usersInfo.setUserNo(user.getUserNo());
+		usersInfo.setFamilyNo(familyNo);
+		usersRepository.deleteUsersInfo(usersInfo);	
+	}
 	
 	
 

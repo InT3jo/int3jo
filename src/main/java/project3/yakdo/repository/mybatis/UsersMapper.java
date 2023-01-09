@@ -85,5 +85,14 @@ public interface UsersMapper {
 	// Allergy 리스트 가져오기 / 담당자 : 홍준표
 	public List<String> selectAllergyByUserNoAndFamillyNo(@Param("userNo")Integer userNo, @Param("familyNo") Integer familyNo);
 
+	// UsersInfo에서 특정 UserNo의 FamilyNo 정보만 삭제 / 담당자 : 홍준표
+	public void deleteFamilyInfoByUsersNoAndFamilyNo(UsersInfo usersInfo);
+
+	// UsersInfo_UsingDrug에서 특정 UserNo의 FamilyNo 정보만 삭제 / 담당자 : 홍준표
+	public void deleteFamilyUsingDrugsByUsersNoAndFamilyNo(UsersInfo usersInfo);
+
+	// UsersInfo_Allergy에서 특정 UserNo의 FamilyNo 정보만 삭제 / 담당자 : 홍준표
+	public void deleteFamilyAllergyByUsersNoAndFamilyNo(UsersInfo usersInfo);
+
 
 }
