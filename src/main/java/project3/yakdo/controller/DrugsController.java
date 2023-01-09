@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,7 @@ import project3.yakdo.service.drugs.search.FindDrugForm;
 import project3.yakdo.service.drugs.search.FindDrugService;
 import project3.yakdo.service.users.LoginService;
 import project3.yakdo.session.SessionVar;
+import project3.yakdo.validation.FindDrugValidator;
 
 @Slf4j // 마무리작업단계에서 제거예정
 @Controller
@@ -44,16 +47,11 @@ public class DrugsController {
 	@GetMapping("")
 	public String findDrug(Model model, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
+		model.addAttribute("uriHere", req.getRequestURI());
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-
+		model.addAttribute("user", loginService.getLoginUser(req));
 		// 검색할 내용(폼)
-		FindDrugForm findDrugForm = new FindDrugForm();
-		model.addAttribute("findDrugForm", findDrugForm);
+		model.addAttribute("findDrugForm",new FindDrugForm());
 
 		// 검색할 마크정보
 		List<List<DrugMark>> drugMarkList = new ArrayList<>();
@@ -71,26 +69,34 @@ public class DrugsController {
 	 * 약품 검색결과창 담당자 : 홍준표
 	 */
 	@PostMapping("")
-	public String findDrugResult(Model model, @ModelAttribute FindDrugForm findDrugForm, HttpServletRequest req) {
-
+	public String findDrugResult(Model model, @Validated @ModelAttribute FindDrugForm findDrugForm, BindingResult bindingResult, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
+		model.addAttribute("uriHere", req.getRequestURI());
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		// 폼에 따른 검사결과를 리스트방식으로 받아옴
 		List<DrugInfo> findDrugInfoList = findDrugService.setFindDrugInfoList(findDrugForm, req);
 		model.addAttribute("findDrugInfoList", findDrugInfoList);
 
+		// 유효성 검사(모든 검색조건이 없을경우)
+		FindDrugValidator findDrugValidator = new FindDrugValidator();
+		findDrugValidator.validate(findDrugForm, bindingResult);
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("error",bindingResult.getGlobalError().getCode());
+			// 상세검색 창 보임
+			model.addAttribute("findMoreStyle", "display:inline-block;");
+			return "drugs/finddrug";
+		}
+
+		
+		
 		// 검색할 마크정보
 		List<List<DrugMark>> drugMarkList = new ArrayList<>();
 		List<Integer> drugMarkPage = new ArrayList<>();
 		findDrugService.setMarkListAndMarkPage(drugMarkList, drugMarkPage);
 		model.addAttribute("drugMarkList", drugMarkList);
-
+		
 		// PostMapping이면 상세검색 창 안보임
 		model.addAttribute("findMoreStyle", "display:none;");
 		return "drugs/finddrug";

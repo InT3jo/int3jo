@@ -140,7 +140,7 @@
 #findMore{
 	width: 800px;
 }
-#findSearchMoreBtn{
+.findSearchMoreBtn{
 	margin-left: 10px;
 	width: 80px;
 	height: 30px;
