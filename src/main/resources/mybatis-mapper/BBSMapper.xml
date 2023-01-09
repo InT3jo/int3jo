@@ -488,6 +488,26 @@
 		u.user_no = b.user_no
 		order by re_no asc
 	</select>
+	
+	
+<!-- 	replyView2  -->
+	<select id="replyView2" resultType="Reply" >
+		select
+		b.re_no,
+		b.BBS_no,
+		b.user_no,
+		u.user_nick,
+		b.re_title,
+		b.re_content,
+		b.re_date,
+		b.re_show
+		from reply b, users u
+		where re_no= #{reNo}
+		and bbs_no = #{bbsNo}
+		and
+		u.user_no = b.user_no
+		order by re_no asc
+	</select>
 
 <!-- 답변 수정  -->
 <update id="updateRe" parameterType="Reply">
@@ -496,6 +516,15 @@
 		re_content=#{updateRe.reContent}
 		where BBS_no=#{bbsNo}
 	</update>
+	
+	<update id="updateRe2" parameterType="Reply">
+		update Reply
+		set
+		re_content=#{replyItem.reContent}
+		where BBS_no=#{bbsNo} 
+		and re_no=#{reNo}
+	</update>
+
 
 	
 

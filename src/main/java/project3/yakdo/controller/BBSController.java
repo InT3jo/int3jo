@@ -406,6 +406,7 @@ public class BBSController {
 		return "redirect:/admin/adminBBSlist";
 	}
 	
+	/*
 	
 	//답변글 보기 
 	@GetMapping("/replyView/{bbsNo}/1")
@@ -422,10 +423,6 @@ public class BBSController {
 		
 		return "BBS/replyView";	
 	}
-	
-	
-	
-	
 	
 	//답변 수정
 	@GetMapping("/updateRe/{bbsNo}")
@@ -462,5 +459,62 @@ public class BBSController {
 
 		return "BBS/replyView/{bbsNo}/1";
 	}
+	*/
+	
+	
+	//답변 상세보기 2
+	
+	@GetMapping("/replyView2/{bbsNo}/{reNo}")
+	public String replyView2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+
+		Reply reply = BBSRepository.replyView2(bbsNo, reNo);
+		model.addAttribute("Reply",reply);
+
+		return "BBS/replyView2";
+	}
+	
+	//답변 수정 2
+	@GetMapping("/updateRe2/{bbsNo}/{reNo}")
+	public String updateRe2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		
+		Reply replyItem = BBSRepository.replyView2(bbsNo, reNo);
+		model.addAttribute("Reply", replyItem);
+		
+		return "BBS/updateReply2";
+	}
+	
+	//답변 수정 2
+	@PostMapping("/updateRe2/{bbsNo}/{reNo}")
+	public String updateRe2Process(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,@ModelAttribute Reply reply,HttpServletRequest req) {
+		// 현재 주소정보
+				String uriHere = req.getRequestURI();
+				model.addAttribute("uriHere", uriHere);
+
+				// 로그인된 유저정보(로그인되어있지 않다면 null)
+				Users user = loginService.getLoginUser(req);
+				model.addAttribute("user", user);
+				
+				BBSRepository.updateRe2(bbsNo, reNo, reply);
+				
+				return "redirect:/BBS/listSearch";
+	}
+	
+	
+	
+	
 
 }

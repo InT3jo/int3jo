@@ -91,7 +91,13 @@ public interface BBSMapper {
 		public Reply replyView( @Param("bbsNo")  int bbsNo);
 		
 		//답변 수정 
-		public boolean updateRe(@Param("bbsNo") int reNo, @Param("updateRe") Reply reply); 
+		public boolean updateRe(@Param("bbsNo") int bbsNo, @Param("updateRe") Reply reply); 
+		
+		//답변 상세보기 2 (테스트 중 되면 이걸로 변경할 예정 01-09-18:54)
+		public Reply replyView2(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo);
+		
+		//답변 수정 2
+		public boolean updateRe2(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo, @Param("replyItem") Reply reply);
 		
 		
 }

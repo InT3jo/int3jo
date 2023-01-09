@@ -87,6 +87,12 @@ public interface BBSRepository {
 	//답변 수정 
 	public boolean updateRe(int bbsNo, Reply reply); 
 	
+	//답변 상세보기 2 (테스트 중 되면 이걸로 변경할 예정 01-09-18:54)
+	public Reply replyView2(int bbsNo, int reNo);
+	
+	//답변 수정 2
+	public boolean updateRe2(int bbsNo,int reNo, Reply reply); 
+	
 	
 	
 	

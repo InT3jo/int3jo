@@ -254,6 +254,24 @@ public class BBSMybatisRepository implements BBSRepository {
 	}
 
 
+	//답변 상세보기 2 
+	@Override
+	public Reply replyView2(int bbsNo, int reNo) {
+		// TODO Auto-generated method stub
+		Reply reply = BBSMapper.replyView2(bbsNo, reNo);
+		return reply;
+	}
+
+	//답변 수정 2
+	@Override
+	public boolean updateRe2(int bbsNo, int reNo, Reply reply) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		BBSMapper.updateRe2(bbsNo, reNo, reply);
+		return result;
+	}
+
+
 
 
 
