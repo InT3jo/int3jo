@@ -23,6 +23,15 @@ input{
 select{
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
+.d-CSS{
+	margin:0px;
+	padding:5px;
+	display:inline-block;
+	position: relative;
+	box-sizing:border-box;
+	white-space: normal;
+	font-size: 15px;
+}
 
 /* 변수 */
 :root{

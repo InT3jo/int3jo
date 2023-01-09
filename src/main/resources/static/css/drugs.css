@@ -3,15 +3,6 @@
 
 /* 공용 */
 
-.d-CSS{
-	margin:0px;
-	padding:5px;
-	display:inline-block;
-	position: relative;
-	box-sizing:border-box;
-	white-space: normal;
-	font-size: 15px;
-}
 .border{
 	border:1px solid black;
 }

@@ -37,8 +37,8 @@ body{
 }
 
 #headerSearchInput{
-	width: 250px;
-	height: 13px;
+	width: 300px;
+	height: 30px;
 	font-size: 16px;
 	color: var(--Signature-blue);
 	border: none;
@@ -74,9 +74,10 @@ body{
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
 .headerSearchBox{
-	margin: 10px -20px;
+	margin: 0px -20px;
+	margin-top: 10px;
 	text-align: center;
-	height: 30px;
+	height: 40px;
 	padding-top: 10px;
 	background-color: var(--Signature-blue);
 	color: var(--Bg-gray);
