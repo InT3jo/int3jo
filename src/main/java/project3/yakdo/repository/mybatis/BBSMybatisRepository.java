@@ -271,6 +271,18 @@ public class BBSMybatisRepository implements BBSRepository {
 		return result;
 	}
 
+	//답변 삭제 
+	@Override
+	public boolean updateReShow1(int bbsNo, int reNo) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		BBSMapper.updateReShow1(bbsNo, reNo);
+		return result;
+	}
+
+
+	
+
 
 
 

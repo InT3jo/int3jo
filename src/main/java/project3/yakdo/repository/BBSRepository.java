@@ -93,6 +93,9 @@ public interface BBSRepository {
 	//답변 수정 2
 	public boolean updateRe2(int bbsNo,int reNo, Reply reply); 
 	
+	//답변 삭제 
+	public boolean updateReShow1(int bbsNo,int reNo);
+	
 	
 	
 	

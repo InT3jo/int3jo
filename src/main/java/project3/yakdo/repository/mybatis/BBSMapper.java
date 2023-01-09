@@ -99,5 +99,6 @@ public interface BBSMapper {
 		//답변 수정 2
 		public boolean updateRe2(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo, @Param("replyItem") Reply reply);
 		
-		
+		//답변 삭제 
+		public boolean updateReShow1(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo);
 }

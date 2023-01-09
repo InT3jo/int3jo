@@ -524,6 +524,15 @@
 		where BBS_no=#{bbsNo} 
 		and re_no=#{reNo}
 	</update>
+	
+<!-- 	답변 삭제 -->
+	<update id="updateReShow1" parameterType="Reply">
+		update Reply
+		set
+		re_show=1
+		where BBS_no=#{bbsNo} 
+		and re_no=#{reNo}
+	</update>
 
 
 	

@@ -31,23 +31,16 @@ th, td {
 			return false;
 		}
 
-		function deleteBBSOk(bbsNo) {
+		function deleteReOk(bbsNo,reNo) {
 			if (confirm('삭제하시겠습니까?')) {
-				location.href = "/BBS/delete/" + bbsNo;
+				location.href = "/BBS/deleteRe/" + bbsNo +"/" + reNo;
 			} else {
 				alert("삭제가 취소되었습니다.");
 			}
 			return false;
 		}
 
-		function deleteBBSAdmin(bbsNo) {
-			if (confirm('삭제하시겠습니까?')) {
-				location.href = "/BBS/adminDelete/" + bbsNo;
-			} else {
-				alert("삭제가 취소되었습니다.");
-			}
-			return false;
-		}
+		
 	</script>
 	<script type="text/javascript">
 		function moveTop() {
@@ -102,8 +95,8 @@ th, td {
 				<div th:if="${user.userGrade==1 } or ${user.userGrade}==0">
 					<button id="headerSearchBtn" th:name="${Reply.bbsNo}" th:src="${Reply.reNo}"
 						th:onclick="updateReOk(this.getAttribute('name'),this.getAttribute('src'))">수정하기</button>
-					<button id="headerSearchBtn" th:name="${Reply.bbsNo}"
-						th:onclick="deleteBBSAdmin(this.getAttribute('name'))">
+					<button id="headerSearchBtn" th:name="${Reply.bbsNo}" th:src="${Reply.reNo}"
+						th:onclick="deleteReOk(this.getAttribute('name'),this.getAttribute('src'))">
 						관리삭제</button>
 				</div>
 			</div>

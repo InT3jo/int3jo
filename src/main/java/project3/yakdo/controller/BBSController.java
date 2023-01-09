@@ -513,8 +513,22 @@ public class BBSController {
 				return "redirect:/BBS/listSearch";
 	}
 	
-	
-	
-	
+	//답변 삭제
+	@RequestMapping("/deleteRe/{bbsNo}/{reNo}")
+	public String deleteRe(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		
+		BBSRepository.updateReShow1(bbsNo, reNo);
+		
+		return "redirect:/BBS/listSearch";
+		
+	}
+
 
 }
