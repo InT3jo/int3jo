@@ -1,5 +1,7 @@
 package project3.yakdo.service.users;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -75,6 +77,57 @@ public class UsersService {
 	 */
 	public void leaveUser(Integer userNo) {
 		usersRepository.updateUserStatusLeaveByUserNo(userNo);
+	}
+	
+	
+	/**
+	 * UserEmail의 활동 상태 찾기
+	 * @param userEmail
+	 * @return
+	 */
+	public Integer searchUserStatus(String userEmail) {
+		List<Users> userList = usersRepository.selectUserAllByUserEmail(userEmail);
+		/**
+		 * 유효성 검사 해야함
+		 */
+		Integer result = 0;
+		for(Users user : userList) {
+			if(user.getUserStatus() == 2) {
+				/* 블락된 계정입니다 */
+				result = 2;
+			}
+			if(user.getUserStatus() == 1) {
+				/* 존재하지 않는 계정입니다 */
+				result = 1;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 
+	 * @param userEmail 
+	 * @param passwordForm
+	 * @return
+	 */
+	public Integer changePassword(String userEmail, PasswordForm passwordForm) {
+		Users user = usersRepository.selectUserByUserEmail(userEmail);
+		Integer result = usersRepository.updateUserPwByUserNo(passwordForm.getUserPwNew(), user.getUserNo());
+		if(result == 1) {
+			user.setUserPw(passwordForm.getUserPwNew());
+			return result;
+		}
+		return result;
+	}
+
+	
+	/**
+	 * user 찾기
+	 * @param userEmail
+	 */
+	public Users searchUser(String userEmail) {
+		Users user = usersRepository.selectUserByUserEmail(userEmail);
+		return user;
 	}
 
 	

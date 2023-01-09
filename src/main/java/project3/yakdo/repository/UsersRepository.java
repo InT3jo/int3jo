@@ -19,21 +19,25 @@ public interface UsersRepository {
 	public Integer insertUsersInfo(UsersInfo usersInfo);
 	
 /* SELECT */
-	//Users 테이블에서 userEmail로 회원 찾기 / 담당자 : 빙예은
-	public Users selectUserByUserEmail(String userEmail);
+	//Users 테이블에서 userEmail로 회원 찾기 기준 : userEmail, userStatus = 0(활동중) / 담당자 : 빙예은
+	public Users selectUserByUserEmail(@Param("userEmail") String userEmail);
 	
 	//Users 데이터 List로 받기 / 담당자 : 빙예은
 	public List<Users> selectAllUsers();
 	
+	//UserEmail에 맞는 회원 전체 찾기 / 담당자 : 빙예은
+	public List<Users> selectUserAllByUserEmail(String userEmail);
+	
 /* UPDATE */
 	//Users 테이블의 userNick Update / 담당자 : 빙예은
-	public Integer updateUserNickByUserNo(@Param("userNick") String userNick,@Param("userNo") Integer userNo);
+	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo") Integer userNo);
 	
 	//Users 테이블의 userPw Update / 담당자 : 빙예은
 	public Integer updateUserPwByUserNo(@Param("userPwNew") String userPwNew, @Param("userNo") Integer userNo);
 	
 	//Users 테이블의 userStatus Update / 담당자 : 빙예은
 	public void updateUserStatusLeaveByUserNo(@Param("userNo") Integer userNo);
+	
 	
 	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	

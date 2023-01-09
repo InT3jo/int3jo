@@ -28,6 +28,14 @@
 		SELECT * FROM users_info WHERE family_nick = '${familyNick}' AND user_no = ${userNo}
 	</select>
 	
+	<select id="selectUserAllByUserEmail" parameterType="String" resultType="Users">
+		SELECT user_no, user_email, user_pw, user_nick, join_date
+			, user_grade, user_status, leave_date, block_reason
+		FROM users
+		WHERE
+		user_email = #{userEmail}
+	</select>
+	
 	<select id="selectUserByUserEmail" parameterType="String" resultType="Users">
 		SELECT user_no, user_email, user_pw, user_nick, join_date
 			, user_grade, user_status, leave_date, block_reason

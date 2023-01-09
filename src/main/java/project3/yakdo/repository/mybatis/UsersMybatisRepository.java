@@ -1,5 +1,6 @@
 package project3.yakdo.repository.mybatis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +140,15 @@ public class UsersMybatisRepository implements UsersRepository{
 		}
 	}
 	
+	/**
+	 * UserEmail에 맞는 회원 전체 찾기
+	 */
+	@Override
+	public List<Users> selectUserAllByUserEmail(String userEmail) {
+		List<Users> userList = usersMapper.selectUserAllByUserEmail(userEmail);
+		return userList;
+	}
+	
 	//관리자 페이지 회원관리 관련 - 작성자: 배고운 
 	
 	//Users테이블에서 userNo로 회원찾기 / 작성자: 배고운 
@@ -201,6 +211,7 @@ public class UsersMybatisRepository implements UsersRepository{
 		}
 		return usersInfoList;
 	}
+
 
 
 

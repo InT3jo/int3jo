@@ -14,23 +14,26 @@ import project3.yakdo.domain.users.UsersInfo;
 @Mapper
 public interface UsersMapper {
 /* INSERT */
-	//Users insert
+	//Users insert / 담당자 : 빙예은
 	public Integer insertUsers(SignUpForm signUpForm);
 	
-	//Users_info insert
+	//Users_info insert / 담당자 : 빙예은
 	public Integer insertUsersInfo(UsersInfo usersInfo);
 
-	//Users_Info_UsingDrugs insert
+	//Users_Info_UsingDrugs insert / 담당자 : 빙예은
 	public Integer insertUsingDrugs(Map<String, Object> usingDrugMap);
 	
-	//Users_Info_Allergy insert
+	//Users_Info_Allergy insert / 담당자 : 빙예은
 	public Integer insertAllergy(Map<String, Object> allergyMap);
 	
 /* SELECT */
-	//Users select 기준 : userEmail
+	//Users select 기준 : userEmail, userStatus = 0(활동중) / 담당자 : 빙예은
 	public Users selectUserByUserEmail(@Param("userEmail") String userEmail);
 
-	//Users selectAll
+	//UserEmail에 맞는 회원 전체 찾기 / 담당자 : 빙예은
+	public List<Users> selectUserAllByUserEmail(String userEmail);
+	
+	//Users selectAll / 담당자 : 빙예은
 	public List<Users> selectAllUsers();
 
 	//Users_info테이블에서 family_nick, user_no로 회원 정보 찾기 / 담당자 : 빙예은
