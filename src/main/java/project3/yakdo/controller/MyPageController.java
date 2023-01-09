@@ -28,6 +28,62 @@ public class MyPageController {
 	
 	
 	/**
+	 * myPage 페이지
+	 * @param model
+	 * @param req
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@GetMapping("/myPage")
+	public String myPage(Model model, HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		return "/users/myPage/myPage";
+	}
+	
+	/**
+	 * 닉네임 수정 창
+	 * @param model
+	 * @param req
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@GetMapping("/modifyNickName")
+	public String viewMyInfo(Model model, HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		return "/users/myPage/modifyNickName";
+	}
+
+	/**
+	 * 닉네임 수정 완료 창
+	 * 닉네임 수정 성공 시 myPage
+	 * 			실패 시 현재 페이지
+	 * @param userNick
+	 * @return 
+	 */
+	@PostMapping("/modifyNickName")
+	public String checkModifyNick(HttpServletRequest req, Model model
+								, @RequestParam("userNick") String userNick) {
+		// 업데이트 실행(실패하면 기존 정보를 가진 user 담김) 
+		Users user = usersService.checkModifyNick(userNick, loginService.getLoginUser(req));
+		model.addAttribute("user", user);
+		return "redirect:/help/myPage";
+	}
+	
+	
+
+	/**
 	 * 비밀번호 재설정을 위한 이메일 확인 창
 	 * @param model
 	 * @param req
@@ -120,59 +176,8 @@ public class MyPageController {
 		}
 		return "/users/myPage/newPassword";
 	}
+
 	
-	/**
-	 * myPage 페이지
-	 * @param model
-	 * @param req
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@GetMapping("/myPage")
-	public String myPage(Model model, HttpServletRequest req) {
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		return "/users/myPage/myPage";
-	}
-	
-	/**
-	 * 닉네임 수정 창
-	 * @param model
-	 * @param req
-	 * 
-	 * 담당자 : 빙예은
-	 */
-	@GetMapping("/modifyNickName")
-	public String viewMyInfo(Model model, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		return "/users/myPage/modifyNickName";
-	}
-
-	/**
-	 * 닉네임 수정 완료 창
-	 * 닉네임 수정 성공 시 myPage
-	 * 			실패 시 현재 페이지
-	 * @param userNick
-	 * @return 
-	 */
-	@PostMapping("/modifyNickName")
-	public String checkModifyNick(HttpServletRequest req, Model model
-								, @RequestParam("userNick") String userNick) {
-		// 업데이트 실행(실패하면 기존 정보를 가진 user 담김) 
-		Users user = usersService.checkModifyNick(userNick, loginService.getLoginUser(req));
-		model.addAttribute("user", user);
-		return "redirect:/help/myPage";
-	}
-	
-
 	/**
 	 * 비밀번호 변경 창
 	 * @param req
@@ -245,7 +250,6 @@ public class MyPageController {
 		return "redirect:/help/myPage";
 	}
 
-	
 	/**
 	 * 회원 탈퇴 진행을 위한 비밀번호 재확인 페이지
 	 * 

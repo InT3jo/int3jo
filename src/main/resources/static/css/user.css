@@ -50,6 +50,7 @@ body{
 .cursor{
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
 }
+
 /* 로그인, 비번확인 */
 .loginForm{
 	display: block;
@@ -217,7 +218,7 @@ body{
 .findEmailBox{
 	margin-top: 20px;
 }
-#findEmail{
+#findEmail {
 	width: 300px;
 	height: 50px;
 	border: none;
@@ -288,6 +289,7 @@ body{
 	
 }
 .myPageTitle {
+	text-align : center;
 	grid-column: 1 / 4;
 	margin-bottom : 50px;
 }
@@ -315,3 +317,28 @@ body{
 }
 
 /* modifyNickName */
+.modifyNickContainor {
+	width:800px;
+	margin : 0 auto;
+	margin-top : 100px;
+	display : grid;
+	place-items: center;
+	grid-template-columns: repeat(auto-fill, 1fr);
+	gap: 20px 20px;
+}
+.userNickInput {
+	width: 300px;
+	height: 35px;
+	border: none;
+	border-radius: 10px;
+	padding-left: 30px;
+	font-size: 17px;
+}
+.userNickInputBtn {
+	border: none;
+	width: 70px;
+	height: 35px;
+	border-radius: 10px;
+	color:white;
+	background-color: var(--Signature-blue);
+}
