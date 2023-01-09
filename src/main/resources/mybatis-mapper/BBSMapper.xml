@@ -7,7 +7,8 @@
 	<insert id="insertBBS" parameterType="BBS">
 		<selectKey keyProperty="bbsNo"
 			resultType="java.lang.Integer" order="BEFORE">
-			select BBSPK.nextVal as BBS_no from dual
+			select BBSPK.nextVal as BBS_no
+			from dual
 		</selectKey>
 		insert into BBS
 		(
@@ -136,142 +137,48 @@
 		where BBS_no=#{bbsNo}
 	</update>
 
-	
-	
-	<!-- rNum의 제한값을 임의로 바꾸는 것으로 페이징 구현-->
-	 <!--닉네임도 불러오면서 bbs_show 상태 0 인 게시물들 10개씩 잘라서 출력하는걸로 수정-->
+
+
+	<!-- rNum의 제한값을 임의로 바꾸는 것으로 페이징 구현 -->
+	<!--닉네임도 불러오면서 bbs_show 상태 0 인 게시물들 10개씩 잘라서 출력하는걸로 수정 -->
 	<select id="listPage" resultType="BBS">
-	 select BBS_no, user_no,
+		select BBS_no, user_no,
 		BBS_title, BBS_content, BBS_date, BBS_show, user_nick
 		from (
-          select 
-        b.BBS_no, 
-        b.user_no, 
-        b.BBS_title, 
-        b.BBS_content, 
-        b.BBS_date, 
-        b.BBS_show,
+		select
+		b.BBS_no,
+		b.user_no,
+		b.BBS_title,
+		b.BBS_content,
+		b.BBS_date,
+		b.BBS_show,
 		row_number() over(order by BBS_no desc) as rNum,
-        u.user_nick       
+		u.user_nick
 		from bbs b, users u
-        where b.user_no = u.user_no) b
+		where b.user_no = u.user_no) b
 		where rNum between #{rowStart} and #{rowEnd}
 		and BBS_show=0
 		order by BBS_no desc
 	</select>
-	
-	
-	
-<!-- 	게시물의 총 갯수를 구하는 쿼리 -->
+
+
+
+	<!-- 게시물의 총 갯수를 구하는 쿼리 -->
 	<select id="listCount" resultType="int">
 		select count(bbs_no)
 		from bbs
 		where bbs_no > 0
 	</select>
 	
-	
-<!-- 	검색 -->
-<!-- 
-	<select id="listSearch" resultType="BBS" parameterType="SearchCriteria">
-		 select BBS_no,
-		user_no,
-		BBS_title,
-		BBS_content,
-		BBS_date,
-		BBS_show
-    from (
-        select BBS_no,
-		user_no,
-		BBS_title,
-		BBS_content,
-		BBS_date,
-		BBS_show,
-            row_number() over(order by bbs_no desc) as rNum
-        from bbs
-           
-           <include refid="search"></include>
-        ) b
-   where rNum between #{rowStart} and #{rowEnd}
-        order by BBS_no desc
-	</select> -->
-	
-	
-<!-- 	검색+페이징 쿼리  -->
-<!-- 	<select id="listSearch" resultType="BBS" parameterType="SearchCriteria"> -->
-<!-- 	   select BBS_no, user_no, -->
-<!-- 		BBS_title, BBS_content, BBS_date, BBS_show, user_nick -->
-<!-- 		from ( -->
-<!--           select  -->
-<!--         b.BBS_no,  -->
-<!--         b.user_no,  -->
-<!--         b.BBS_title,  -->
-<!--         b.BBS_content,  -->
-<!--         b.BBS_date,  -->
-<!--         b.BBS_show, -->
-<!-- 		row_number() over(order by BBS_no desc) as rNum, -->
-<!--         u.user_nick        -->
-<!-- 		from bbs b, users u -->
-<!-- <if test='searchType.equals("bbsTitle")'> -->
-<!-- 	where  BBS_TITLE like '%' || #{keyword} || '%'  -->
-<!-- </if> -->
 
-<!-- <if test='searchType.equals("bbsContent")'> -->
-<!-- 	where  BBS_CONTENT like '%' || #{keyword} || '%' -->
-<!-- </if> -->
-<!--         and b.user_no = u.user_no  -->
-<!--         ) -->
-<!--          b -->
-<!-- 		where rNum between #{rowStart} and #{rowEnd} -->
-<!-- 		and BBS_show=0 -->
-<!-- 		order by BBS_no desc -->
-<!-- 		</select> -->
-		
-		
-		<!-- 	검색+페이징 쿼리 2번째 방법 -->
-<!-- 	<select id="listPageSearch" resultType="BBS" parameterType="SearchCriteria"> -->
-<!-- 	   select BBS_no, user_no, -->
-<!-- 		BBS_title, BBS_content, BBS_date, BBS_show, user_nick -->
-<!-- 		from ( -->
-<!--           select  -->
-<!--         b.BBS_no,  -->
-<!--         b.user_no,  -->
-<!--         b.BBS_title,  -->
-<!--         b.BBS_content,  -->
-<!--         b.BBS_date,  -->
-<!--         b.BBS_show, -->
-<!-- 		row_number() over(order by BBS_no desc) as rNum, -->
-<!--         u.user_nick        -->
-<!-- 		from bbs b, users u -->
-<!-- <if test='searchType.equals("bbsTitle")'> -->
-<!-- 	where  BBS_TITLE like '%' || #{keyword} || '%'  -->
-<!-- </if> -->
-
-<!-- <if test='searchType.equals("bbsContent")'> -->
-<!-- 	where  BBS_CONTENT like '%' || #{keyword} || '%' -->
-<!-- </if> -->
-<!--         and b.user_no = u.user_no  -->
-<!--         ) -->
-<!--          b -->
-<!-- 		where rNum between #{rowStart} and #{rowEnd} -->
-<!-- 		and BBS_show=0 -->
-<!-- 		order by BBS_no desc -->
-<!-- 		</select>  -->
-		
- <!-- 검색 조건문 (이것도 다시 살림)  01-03 9:39--> 
-  
-<!-- <sql id="search"> -->
-<!-- 	<if test="searchType != null"> -->
-<!-- 		<if test="searchType == 'title'.toString()"> where  BBS_TITLE like '%' || #{keyword} || '%' </if> -->
-<!-- 		<if test="searchType == 'content'.toString()"> where  BBS_CONTENT like '%' || #{keyword} || '%' </if> -->
-<!-- 	</if> -->
-<!-- </sql> -->
-
-	<!-- 닉네임 같이 불러오면서 제목,내용,작성자 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 이걸로 성공-->
+	<!-- 닉네임 같이 불러오면서 제목,내용,작성자 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 이걸로 성공 -->
 	<select id="listSearch" resultType="BBS"
 		parameterType="SearchCriteria">
 		select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date, BBS_show,user_nick
-		from (
+		BBS_title, BBS_content, BBS_date,
+		BBS_show,user_nick
+		from
+		(
 		select
 		b.BBS_no,
 		b.user_no,
@@ -283,16 +190,16 @@
 		u.user_nick
 		from bbs b, users u
 		<where>
+			b.user_no = u.user_no and BBS_show=0
 			<if test="searchType == 'title'">
-			AND BBS_TITLE like '%' || #{keyword} || '%'
+				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'content'">
-			AND BBS_CONTENT like '%' || #{keyword} || '%'
+				AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND USER_NICK like '%' || #{keyword} || '%'
+				AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
-		and b.user_no = u.user_no and BBS_show=0
 		</where>
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
@@ -302,28 +209,29 @@
 
 	<!-- 검색조건에 맞는 게시물 갯수 구하는 쿼리 -->
 	<select id="countSearch" resultType="int">
-	
-		select count(bbs_no)
-		from bbs
-	<where>
-			<if test="searchType == 'title'"> 
-			AND BBS_TITLE like '%' || #{keyword} || '%' 
+
+		select count(b.bbs_no)
+		from bbs b, users u
+		<where>
+			<if test="searchType == 'title'">
+				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
-			<if test="searchType == 'content'"> 
-			AND BBS_CONTENT like '%' || #{keyword} || '%' 
+			<if test="searchType == 'content'">
+				AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND USER_NICK like '%' || #{keyword} || '%'
+				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-		and bbs_no > 0
+			and bbs_no > 0
 		</where>
 	</select>
 
-<!-- 방법 3 제목  -->
-<select id="listSearchByTitle" resultType="BBS"
+	<!-- 방법 3 제목 -->
+	<select id="listSearchByTitle" resultType="BBS"
 		parameterType="SearchCriteria">
 		select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date, BBS_show,
+		BBS_title, BBS_content, BBS_date,
+		BBS_show,
 		user_nick
 		from (
 		select
@@ -333,35 +241,39 @@
 		b.BBS_content,
 		b.BBS_date,
 		b.BBS_show,
-		(row_number() over(order by BBS_no desc)) as rNum,
+		(row_number() over(order by BBS_no
+		desc)) as rNum,
 		u.user_nick
 		from bbs b, users u
-		where BBS_TITLE like '%' || #{keyword} || '%'
+		where BBS_TITLE like '%'
+		|| #{keyword} || '%'
 		and b.user_no = u.user_no
 		) b
-		where rNum between #{rowStart} and #{rowEnd}
+		where rNum between
+		#{rowStart} and #{rowEnd}
 		and BBS_show=0
 		order by
 		BBS_no desc
 	</select>
-	
-	
-		<!-- 방법 3 제목 - 검색조건에 맞는 게시물 갯수 구하는 쿼리 (여기서 계속 sql에러 났었음) -->
+
+
+	<!-- 방법 3 제목 - 검색조건에 맞는 게시물 갯수 구하는 쿼리 (여기서 계속 sql에러 났었음) -->
 	<select id="countSearchTitle" resultType="int">
 		select count(bbs_no)
 		from bbs
-	    where BBS_TITLE like '%' || #{keyword} || '%' 
+		where BBS_TITLE like '%' || #{keyword} || '%'
 		and bbs_no > 0
 	</select>
-	
-	
-	
-	
-	<!-- 방법 3 내용  -->
-<select id="listSearchByContent" resultType="BBS"
+
+
+
+
+	<!-- 방법 3 내용 -->
+	<select id="listSearchByContent" resultType="BBS"
 		parameterType="SearchCriteria">
 		select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date, BBS_show,
+		BBS_title, BBS_content, BBS_date,
+		BBS_show,
 		user_nick
 		from (
 		select
@@ -371,31 +283,35 @@
 		b.BBS_content,
 		b.BBS_date,
 		b.BBS_show,
-		(row_number() over(order by BBS_no desc)) as rNum,
+		(row_number() over(order by BBS_no
+		desc)) as rNum,
 		u.user_nick
 		from bbs b, users u
-		where BBS_CONTENT like '%' || #{keyword} || '%'
+		where BBS_CONTENT like
+		'%' || #{keyword} || '%'
 		and b.user_no = u.user_no
 		) b
-		where rNum between #{rowStart} and #{rowEnd}
+		where rNum between
+		#{rowStart} and #{rowEnd}
 		and BBS_show=0
 		order by
 		BBS_no desc
 	</select>
-	
-			<!-- 방법 3 내용 - 검색조건에 맞는 게시물 갯수 구하는 쿼리 (여기서 계속 sql에러 났었음) -->
+
+	<!-- 방법 3 내용 - 검색조건에 맞는 게시물 갯수 구하는 쿼리 (여기서 계속 sql에러 났었음) -->
 	<select id="countSearchContent" resultType="int">
 		select count(bbs_no)
 		from bbs
-	    where BBS_CONTENT like '%' || #{keyword} || '%' 
+		where BBS_CONTENT like '%' || #{keyword} || '%'
 		and bbs_no > 0
 	</select>
-	
-<!-- 	 본인 삭제 글 리스트 페이징  -->
-<select id="adminShowOnelist" resultType="BBS"
+
+	<!-- 본인 삭제 글 리스트 페이징 -->
+	<select id="adminShowOnelist" resultType="BBS"
 		parameterType="SearchCriteria">
- select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date, BBS_show,user_nick
+		select BBS_no, user_no,
+		BBS_title, BBS_content, BBS_date,
+		BBS_show,user_nick
 		from (
 		select
 		b.BBS_no,
@@ -404,52 +320,54 @@
 		b.BBS_content,
 		b.BBS_date,
 		b.BBS_show,
-		(row_number() over(order by BBS_no desc)) as rNum,
+		(row_number() over(order by BBS_no
+		desc)) as rNum,
 		u.user_nick
 		from bbs b, users u
 		<where>
 			<if test="searchType == 'title'">
-			AND BBS_TITLE like '%' || #{keyword} || '%'
+				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'content'">
-			AND BBS_CONTENT like '%' || #{keyword} || '%'
+				AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND u.USER_NICK like '%' || #{keyword} || '%'
+				AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
-		and b.user_no = u.user_no and BBS_show=1
+			and b.user_no = u.user_no and BBS_show=1
 		</where>
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
 		order by BBS_no desc
-		</select>
-		
-		
-<!-- 	 본인 삭제 글 검색 결과 갯수  -->
-<select id="countSearchShowOne" resultType="int">
-	
+	</select>
+
+
+	<!-- 본인 삭제 글 검색 결과 갯수 -->
+	<select id="countSearchShowOne" resultType="int">
+
 		select count(bbs_no)
 		from bbs
-	<where>
-			<if test="searchType == 'title'"> 
-			AND BBS_TITLE like '%' || #{keyword} || '%' 
+		<where>
+			<if test="searchType == 'title'">
+				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
-			<if test="searchType == 'content'"> 
-			AND BBS_CONTENT like '%' || #{keyword} || '%' 
+			<if test="searchType == 'content'">
+				AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND USER_NICK like '%' || #{keyword} || '%'
+				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-		and bbs_show=1
+			and bbs_show=1
 		</where>
 	</select>
-		
-		
-		<!-- 	관리자 페이지 관리자 삭제 글 리스트 페이징  -->
-<select id="adminShowTwolist" resultType="BBS"
+
+
+	<!-- 관리자 페이지 관리자 삭제 글 리스트 페이징 -->
+	<select id="adminShowTwolist" resultType="BBS"
 		parameterType="SearchCriteria">
- select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date, BBS_show,user_nick
+		select BBS_no, user_no,
+		BBS_title, BBS_content, BBS_date,
+		BBS_show,user_nick
 		from (
 		select
 		b.BBS_no,
@@ -458,82 +376,83 @@
 		b.BBS_content,
 		b.BBS_date,
 		b.BBS_show,
-		(row_number() over(order by BBS_no desc)) as rNum,
+		(row_number() over(order by BBS_no
+		desc)) as rNum,
 		u.user_nick
 		from bbs b, users u
 		<where>
 			<if test="searchType == 'title'">
-			AND BBS_TITLE like '%' || #{keyword} || '%'
+				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'content'">
-			AND BBS_CONTENT like '%' || #{keyword} || '%'
+				AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND u.USER_NICK like '%' || #{keyword} || '%'
+				AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
-		and b.user_no = u.user_no and BBS_show=2 
+			and b.user_no = u.user_no and BBS_show=2
 		</where>
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
 		order by BBS_no desc
-		</select>
-		
-		
-<!-- 	관리자 삭제 글 검색 결과 갯수  -->
-<select id="countSearchShowTwo" resultType="int">
-	
+	</select>
+
+
+	<!-- 관리자 삭제 글 검색 결과 갯수 -->
+	<select id="countSearchShowTwo" resultType="int">
+
 		select count(bbs_no)
 		from bbs
-	<where>
-			<if test="searchType == 'title'"> 
-			AND BBS_TITLE like '%' || #{keyword} || '%' 
+		<where>
+			<if test="searchType == 'title'">
+				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
-			<if test="searchType == 'content'"> 
-			AND BBS_CONTENT like '%' || #{keyword} || '%' 
+			<if test="searchType == 'content'">
+				AND BBS_CONTENT like '%' || #{keyword} || '%'
 			</if>
 			<if test="searchType == 'writer'">
-			AND USER_NICK like '%' || #{keyword} || '%'
+				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-		and bbs_show=2
+			and bbs_show=2
 		</where>
 	</select>
 
 
-<!-- 답글 테이블 insert  -->
-<insert id="insertReply" parameterType="Reply">
-	insert into reply
-	(
-	re_no,
-	bbs_no,
-	user_no,
-	re_title,
-	re_content,
-	re_date,
-	re_show
-	)
-	values(
-	(NVL(((select MAX(re_no) from reply where bbs_no=#{bbsNo})+1),1)),
-	#{bbsNo},
-	#{userNo},
-	#{reTitle},
-	#{reContent},
-	sysdate,
-	0
-	)
-</insert>
+	<!-- 답글 테이블 insert -->
+	<insert id="insertReply" parameterType="Reply">
+		insert into reply
+		(
+		re_no,
+		bbs_no,
+		user_no,
+		re_title,
+		re_content,
+		re_date,
+		re_show
+		)
+		values(
+		(NVL(((select MAX(re_no) from reply where bbs_no=#{bbsNo})+1),1)),
+		#{bbsNo},
+		#{userNo},
+		#{reTitle},
+		#{reContent},
+		sysdate,
+		0
+		)
+	</insert>
 
-<!-- 글번호 bbs_no에 해당하는 답글 불러오기  -->
-<select id="listReBybbsNo" resultType="Reply">
-	select * from reply
-	where bbs_no=#{bbsNo}
-	order by re_date asc
-</select>
+	<!-- 글번호 bbs_no에 해당하는 답글 불러오기 -->
+	<select id="listReBybbsNo" resultType="Reply">
+		select * from reply
+		where bbs_no=#{bbsNo}
+		order by re_date asc
+	</select>
 
-<!-- 답글 리스트 전체 불러오기  -->
-<select id="listRe" resultType="Reply">
-<!-- 닉네임 포함 답글 전체 목록 불러오기  -->
-	select
-        b.re_no,
+	<!-- 답글 리스트 전체 불러오기 -->
+	<select id="listRe" resultType="Reply">
+		<!-- 닉네임 포함 답글 전체 목록 불러오기 -->
+		select
+		b.re_no,
 		b.BBS_no,
 		b.user_no,
 		u.user_nick,
@@ -544,15 +463,17 @@
 		from reply b, users u
 		where b.re_show = 0
 		and
-		u.user_no = b.user_no
+		u.user_no =
+		b.user_no
 		order by re_no asc
-</select>
+	</select>
 
 
-<!-- 답글 상세보기 - 게시글 번호 bbsNo, 답글 번호 reNo 로 찾기  -->
-<select id="replyView" resultType="Reply">
-	  select
-        b.re_no,
+	<!-- 답글 상세보기 - 게시글 번호 bbsNo, 답글 번호 reNo 로 찾기 -->
+<!-- 	각 글에 답변 하나만 달고 수정하는 식으로 하려고 re_no 1로 고정해서 select  -->
+	<select id="replyView" resultType="Reply">
+		select
+		b.re_no,
 		b.BBS_no,
 		b.user_no,
 		u.user_nick,
@@ -562,11 +483,20 @@
 		b.re_show
 		from reply b, users u
 		where re_no= 1
-        and bbs_no = #{bbsNo}
+		and bbs_no = #{bbsNo}
 		and
 		u.user_no = b.user_no
 		order by re_no asc
-</select>
+	</select>
 
+<!-- 답변 수정  -->
+<update id="updateRe" parameterType="Reply">
+		update Reply
+		set
+		re_content=#{updateRe.reContent}
+		where BBS_no=#{bbsNo}
+	</update>
+
+	
 
 </mapper>

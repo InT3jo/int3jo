@@ -346,19 +346,12 @@ public class BBSController {
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 
-		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
-		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
-
-		model.addAttribute("commentListZero", commentListZero);
-		model.addAttribute("BBS", bbsItem);
-
-		model.addAttribute("BBSComment", new BBSComment());
-
+		
 		BBSComment comItem = bbsCommentRepositoy.selectOneCom(bbsNo, comNo);
 		model.addAttribute("bbsComment", comItem);
+		log.info("콤아이템 {}",comItem);
 
 		return "BBS/updateCom";
-
 	}
 
 	// 댓글 수정
@@ -374,6 +367,7 @@ public class BBSController {
 		model.addAttribute("user", user);
 		
 		bbsCommentRepositoy.updateCom(bbsNo, comNo, bbsComment);
+		
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 	
@@ -430,9 +424,43 @@ public class BBSController {
 	}
 	
 	
+	
+	
+	
+	//답변 수정
+	@GetMapping("/updateRe/{bbsNo}")
+	public String updateReply(Model model, @PathVariable("bbsNo") int bbsNo,HttpServletRequest req) {
+		// 현재 주소정보
+				String uriHere = req.getRequestURI();
+				model.addAttribute("uriHere", uriHere);
+
+				// 로그인된 유저정보(로그인되어있지 않다면 null)
+				Users user = loginService.getLoginUser(req);
+				model.addAttribute("user", user);
+				
+				Reply re = BBSRepository.replyView(bbsNo);
+				model.addAttribute("Reply",re);
+				
+				return "BBS/updateReply";
+	}
+	
+	
 
 	
 	
-	
-	
+	@PostMapping("/updateRe/{bbsNo}")
+	public String updateReplyProcess(Model model, @PathVariable("bbsNo") int bbsNo, @ModelAttribute Reply reply, HttpServletRequest req) {
+		// 현재 주소정보
+		String uriHere = req.getRequestURI();
+		model.addAttribute("uriHere", uriHere);
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+
+		BBSRepository.updateRe(bbsNo, reply);
+
+		return "BBS/replyView/{bbsNo}/1";
+	}
+
 }

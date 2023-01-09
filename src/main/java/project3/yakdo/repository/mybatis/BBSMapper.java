@@ -90,4 +90,8 @@ public interface BBSMapper {
 		//답글 상세보기 
 		public Reply replyView( @Param("bbsNo")  int bbsNo);
 		
+		//답변 수정 
+		public boolean updateRe(@Param("bbsNo") int reNo, @Param("updateRe") Reply reply); 
+		
+		
 }

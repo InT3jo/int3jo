@@ -237,12 +237,24 @@ public class BBSMybatisRepository implements BBSRepository {
 		return re;
 	}
 
-
+//나중에 validation 할 때 
 	@Override
 	public Integer insertBBS(WriteBBSForm writeBBSform) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	//답변 수정
+	@Override
+	public boolean updateRe(int bbsNo, Reply reply) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+			BBSMapper.updateRe(bbsNo, reply);
+		return result;
+	}
+
+
+
 
 
 

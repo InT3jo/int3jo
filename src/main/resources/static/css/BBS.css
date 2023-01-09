@@ -46,7 +46,7 @@ li {
 /* 글쓰기버튼 감싸고 있는 div */
 #writeBtn {
 	text-align: right;
-	margin-bottom: 20px;
+	margin: 20px;
 }
 
 /* BBSwrite.html ============================================= */
@@ -119,4 +119,9 @@ li {
 	height:100px;
 	
 }
-	
+
+/* writeAnswer.html */
+
+.WriteRe{
+	margin-top:50px;
+}

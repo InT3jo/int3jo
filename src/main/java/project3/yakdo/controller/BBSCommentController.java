@@ -33,8 +33,6 @@ public class BBSCommentController {
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
-	
-
 	// 댓글 쓰기
 	@PostMapping("/writecom")
 	public String insertBBSCom(@ModelAttribute BBSComment bbsCom, Model model) {
@@ -42,8 +40,7 @@ public class BBSCommentController {
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
-	// 댓글 수정
-	@GetMapping()
+
 
 	// 댓글 수정
 	@PostMapping("/updatecom")

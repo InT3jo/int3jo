@@ -138,10 +138,10 @@ th, td {
 		<!-- 		로그인한 사용자 닉네임과 일치 할 때만 수정/삭제버튼 보이기 , 관리자(grade:1) 이거나 운영자(grade:0)에 보이기-->
 
 
-		<div th:if="${user.userNick}==${BBS.userNick} ">
-			<button th:name="${BBS.bbsNo}"
+		<div  class="ManagerBtn" th:if="${user.userNick}==${BBS.userNick} ">
+			<button  id="headerSearchBtn"  th:name="${BBS.bbsNo}"
 				th:onclick="updateBBSOk(this.getAttribute('name'))">수정하기</button>
-			<button th:name="${BBS.bbsNo}"
+			<button  id="headerSearchBtn"  th:name="${BBS.bbsNo}"
 				th:onclick="deleteBBSOk(this.getAttribute('name'))">삭제</button>
 		</div>
 

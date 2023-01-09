@@ -84,6 +84,8 @@ public interface BBSRepository {
 	//답글 상세보기 
 	public Reply replyView(int bbsNo);
 	
+	//답변 수정 
+	public boolean updateRe(int bbsNo, Reply reply); 
 	
 	
 	
