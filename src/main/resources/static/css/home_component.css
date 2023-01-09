@@ -45,6 +45,7 @@ body{
 	border-radius: 30px;
 	padding: 10px;
 	padding-left: 30px;
+	box-sizing: border-box;
 }
 #headerSearchInput::placeholder{
 	color: var(--Signature-silver);
@@ -83,6 +84,7 @@ body{
 	color: var(--Bg-gray);
 	font-size: 16px;
 	font-family: var(--Font-title1);
+	box-sizing: border-box;
 }
 #headerNavLogin{
 	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
