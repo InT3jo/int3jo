@@ -131,7 +131,7 @@ public class AdminController {
 		model.addAttribute("user", user);
 		
 		BBSRepository.updateShowZeroBybbsNo(bbsNo);
-		return "redirect:/admin/adminBBSlist";
+		return "redirect:/admin/adminShowTwoList";
 	}
 
 	// 관리할 회원 리스트 불러오기 - 원래 있던 userlist 페이지로 보내주는것 주석 0104 00:47
@@ -158,9 +158,7 @@ public class AdminController {
 		model.addAttribute("searchUserList", searchUserList);
 
 		PageMaker pageMaker = new PageMaker();
-
 		pageMaker.setCri(scri);
-
 		pageMaker.setTotalCount(usersRepository.countSearchUsers(scri));
 		model.addAttribute("pageMaker", pageMaker);
 		return "admin/searchUserList";

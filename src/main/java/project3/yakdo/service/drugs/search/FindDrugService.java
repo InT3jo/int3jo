@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
+import project3.yakdo.domain.drugs.DrugsNameForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.DrugsRepository;
@@ -149,7 +150,7 @@ public class FindDrugService {
 			for(String combiIngrName : warningCombiIngrNameList) {
 				for(String ingrName : usingDrugInfo.getIngrNameList()) {
 					if(ingrName.indexOf(combiIngrName) > 0) {
-						warningMessage += usersInfo.getFamilyNo() + "님이 복용중인 "+ usingDrugInfo.getItemName() +"과(와) 함께 복용할 수 없는 약입니다.\n";
+						warningMessage += usersInfo.getFamilyNick() + "님이 복용중인 "+ usingDrugInfo.getItemName() +"과(와) 함께 복용할 수 없는 약입니다.\n";
 					}
 				}
 			}
@@ -163,7 +164,7 @@ public class FindDrugService {
 			for(String allergyIngrName : allergyDrugInfo.getIngrNameList()) {
 				for(String ingrName : drugInfo.getIngrNameList()) {
 					if(ingrName.equals(allergyIngrName)) {
-						warningMessage += usersInfo.getFamilyNo() + "님은 " + drugInfo.getItemName() +"에 알러지가 있을 수 있습니다.\n";
+						warningMessage += usersInfo.getFamilyNick() + "님은 " + drugInfo.getItemName() +"에 알러지가 있을 수 있습니다.\n";
 					}
 				}					
 			}
@@ -184,7 +185,7 @@ public class FindDrugService {
 	private String setAgeWarnningMessage(String warningMessage, UsersInfo usersInfo, int userAge, String warning) {
 		if(warning.equals("특정연령대금기")) {
 			if(userAge < 12 || userAge >= 65) {
-				warningMessage += usersInfo.getFamilyNo() + "님은 복용가능연령에 주의가 필요합니다.\n";
+				warningMessage += usersInfo.getFamilyNick() + "님은 복용가능연령에 주의가 필요합니다.\n";
 				return warningMessage;
 			}
 		}
@@ -194,7 +195,7 @@ public class FindDrugService {
 	private String setPregnantWarningMessage(String warningMessage, UsersInfo usersInfo, int userAge, String warning) {
 		if(warning.equals("임부금기")) {
 			if(userAge > 19 && userAge < 51 && usersInfo.getGender().equals("여자")) {
-				warningMessage += usersInfo.getFamilyNo() + "님은 임신 가능성에 주의가 필요합니다.\n";
+				warningMessage += usersInfo.getFamilyNick() + "님은 임신 가능성에 주의가 필요합니다.\n";
 				return warningMessage;
 			}
 		}
@@ -223,5 +224,10 @@ public class FindDrugService {
 			return warningMessage;
 		}
 		return warningMessage;
+	}
+
+	public List<DrugsNameForm> getDrugsNameFormList() {
+		List<DrugsNameForm> drugNameList = drugsRepository.getDrugsNameFormList();
+		return drugNameList;
 	}
 }

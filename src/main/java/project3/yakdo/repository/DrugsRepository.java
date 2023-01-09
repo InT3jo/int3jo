@@ -2,12 +2,13 @@ package project3.yakdo.repository;
 
 import java.util.List;
 
-import project3.yakdo.domain.drugs.FindDrug;
-import project3.yakdo.service.drugs.search.FindDrugForm;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
+import project3.yakdo.domain.drugs.DrugsNameForm;
 import project3.yakdo.domain.drugs.Dur;
 import project3.yakdo.domain.drugs.DurCombi;
+import project3.yakdo.domain.drugs.FindDrug;
+import project3.yakdo.service.drugs.search.FindDrugForm;
 
 public interface DrugsRepository {
 	/* INSERT 메서드 */
@@ -23,6 +24,7 @@ public interface DrugsRepository {
 	public List<DrugMark> getDrugMarkAll();
 	public List<String> getDurWarningByItemSeq(String itemSeq);
 	public List<String> getDurCombiIngrNameByItemSeq(String itemSeq);
+	public List<DrugsNameForm> getDrugsNameFormList();
 	
 	/* UPDATE 메서드 */
 	 public Integer updateDrugInfoImage(DrugInfo drugInfo);

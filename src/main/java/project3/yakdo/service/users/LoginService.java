@@ -5,13 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
-import project3.yakdo.session.SessionVar;
 import project3.yakdo.validation.form.LoginForm;
 
 @Slf4j

@@ -282,14 +282,6 @@ public class BBSController {
 	// 게시글 본인삭제
 	@GetMapping("/delete/{bbsNo}")
 	public String updateShowOneBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
 		BBSRepository.updateShowOneBybbsNo(bbsNo);
 		return "redirect:/BBS/listSearch";
 
@@ -298,14 +290,6 @@ public class BBSController {
 	// 게시글 본인삭제
 	@PostMapping("/delete/{bbsNo}")
 	public String updateShowOneBybbsNoProcess(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
 		BBSRepository.updateShowOneBybbsNo(bbsNo);
 		return "redirect:/BBS/listSearch";
 
@@ -314,14 +298,6 @@ public class BBSController {
 	// 게시글 관리자 삭제
 	@GetMapping("/adminDelete/{bbsNo}")
 	public String updateShowTwoBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
 		BBSRepository.updateShowTwoBybbsNo(bbsNo);
 		return "redirect:/BBS/listSearch";
 
@@ -330,14 +306,6 @@ public class BBSController {
 	// 게시글 관리자 삭제
 	@PostMapping("/adminDelete/{bbsNo}")
 	public String updateShowTwoBybbsNoProcess(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
 		BBSRepository.updateShowTwoBybbsNo(bbsNo);
 		return "redirect:/BBS/listSearch";
 

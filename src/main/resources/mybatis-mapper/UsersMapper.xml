@@ -98,7 +98,13 @@
 		set
 		user_grade = #{updateUser.userGrade},
 		user_status = #{updateUser.userStatus},
-		block_reason = #{updateUser.blockReason}
+		block_reason = #{updateUser.blockReason},
+		<if test="updateUser.userStatus == 0">
+		leave_date = null
+		</if>
+		<if test="updateUser.userStatus != 0">
+		leave_date = sysdate
+		</if>
 		where user_no = #{userNo}
 	</update>
 

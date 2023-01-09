@@ -2,50 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/user.css">
 <title>약도 - 회원가입</title>
 </head>
 <body>
-	<h1>로고 들어갈 자리</h1>
-	<div>
-		<form action="/signUp" method="post" th:object="${signUpForm}">
-			<div>
-				<label for="userEmail">이메일</label>
-				<input type="email" name="userEmail" id="userEmail" th:field="*{userEmail}" required />
-				<button type="button">인증코드 받기</button>
+
+	<div class="ContentBox">
+		<div class="signUpTitleBox">
+			<div class="d_CSS">
+				<span class="signUpTitle1" onclick="location.href='/'">약도</span>
+				<span class="signUpTitle2" onclick="location.href='/'">藥道</span>
 			</div>
-			
-			<div>
-				<label for="emailCodeCheck">인증코드</label>
-				<input type="text" name="emailCodeCheck" id="emailCodeCheck" th:field="*{emailCodeCheck}" required />
-				<button type="button">인증</button>
-			</div>
-			
-			<div>
-				<label for="userPw">비밀번호</label>
-				<input type="password" name="userPw" id="userPw" th:field="*{userPw}" required />
-			</div>
-			<div>
-				<label for="reJoinPw">비밀번호 확인</label>
-				<input type="password" name="reJoinPw" id="reJoinPw" th:field="*{reJoinPw}" required />
-			</div>
-			
-			<div>
-				<label for="userNick">닉네임</label>
-				<input type="text" name="userNick" id="userNick" th:field="*{userNick}" required />
-			</div>
-			
-			<div id="familyContainor">
-			</div>
-			
-			<div>
-				가족 건강 정보 추가
-				<button type="button" onclick="addFamily()">추가</button>
-			</div>
-			
-			<div>
-				<button type="submit">가입하기</button>
-			</div>
-		</form>
+		</div>
+		<div class="signUpContent">
+			<form action="/signUp" method="post" th:object="${signUpForm}" onkeydown="return event.key != 'Enter';">
+				<div class="signUpInputBox">
+					<label class="signUpLabel" for="userEmail">이메일</label>
+					<input class= "signUpInput" type="email" name="userEmail" id="userEmail" th:field="*{userEmail}" required />
+					<button class="signUpButton" type="button">코드전송</button>
+				</div>
+				<div class="signUpInputBox">
+					<label class="signUpLabel" for="emailCodeCheck">코드확인</label>
+					<input class= "signUpInput" type="text" name="emailCodeCheck" id="emailCodeCheck" th:field="*{emailCodeCheck}" required />
+					<button class="signUpButton" type="button">인증하기</button>
+				</div>
+				<div class="signUpInputBox">
+					<label class="signUpLabel" for="userPw">비밀번호</label>
+					<input class= "signUpInput" type="password" name="userPw" id="userPw" th:field="*{userPw}" required />
+				</div>
+				<div class="signUpInputBox">
+					<label class="signUpLabel" for="reJoinPw">비밀번호 확인</label>
+					<input class= "signUpInput" type="password" name="reJoinPw" id="reJoinPw" th:field="*{reJoinPw}" required />
+				</div>
+				<div class="signUpInputBox">
+					<label class="signUpLabel" for="userNick">닉네임</label>
+					<input class= "signUpInput" type="text" name="userNick" id="userNick" th:field="*{userNick}" required />
+				</div>
+				<div id="familyContainor">
+				</div>
+				
+				<div style="margin:20px;">
+					<button class="signUpButton signUpSubmitBtn" style="width: 200px; height: 50px; font-size: 27px; " type="button" onclick="addFamily()">건강정보추가</button>
+					<button class="signUpButton signUpSubmitBtn" style="width: 200px; height: 50px; font-size: 27px;" type="submit">가입하기</button>
+				</div>
+			</form>
+		</div>
 	</div>
 	
 	<script>
@@ -54,49 +56,64 @@
 			//input 추가할 div 찾기familyList
 			const addFamily = document.getElementById('familyContainor');
 			addFamily.innerHTML += 
-				'<div id="familyBox'+i+'">'
-	+ '				<div>'
-	+ '					<label for="familyNick'+i+'">가족 관계</label>'
-	+ '					<input type="text" name="familyNick'+i+'" id="familyNick'+i+'" placeholder="ex.본인, 배우자, 자녀 등"/>'
-	+ '					<button type="button" onclick="deleteTarget(\'familyBox'+i+'\')">삭제</button>'
+				'<div class="familyBox" id="familyBox'+i+'">'
+	+ '				<span class="familyBoxTitle">-건강정보 추가하기-</span>'
+	+ '				<div class="signUpInputBox">'
+	+ '					<label class="signUpLabel" for="familyNick'+i+'">관계</label>'
+	+ '					<input class= "signUpInput" type="text" name="familyNick'+i+'" id="familyNick'+i+'" placeholder="ex.본인, 배우자, 자녀 등"/>'
+	+ '					<button class="signUpButton" type="button" onclick="deleteTarget(\'familyBox'+i+'\')">삭제</button>'
 	+ '				</div>'
 	+ '				'
-	+ '				<div>'
-	+ '					<label for="gender'+i+'">성별</label>'
-	+ '					<select id="gender'+i+'" name="gender'+i+'" required>'
-	+ '						<option value="">성별</option>'
+	+ '				<div class="signUpInputBox">'
+	+ '					<label class="signUpLabel" for="gender'+i+'">성별</label>'
+	+ '					<select class= "signUpSelect" id="gender'+i+'" name="gender'+i+'" required>'
+	+ '						<option value="">성별을 선택해주세요</option>'
 	+ '						<option value="남자">남자</option>'
 	+ '						<option value="여자">여자</option>'
 	+ '					</select>'
 	+ '				</div>'
 	+ '				'
-	+ '				<div>'
-	+ '					<label for="birth'+i+'">생년월일</label>'
-	+ '					<input type="date" name="birth'+i+'" id="birth'+i+'" required/>'
+	+ '				<div class="signUpInputBox">'
+	+ '					<label class="signUpLabel" for="birth'+i+'">생년월일</label>'
+	+ '					<input class= "signUpInput" type="date" name="birth'+i+'" id="birth'+i+'" required/>'
 	+ '				</div>'
 	+ '				'
-	+ '				<div>'
-	+ '					<label for="weight'+i+'">몸무게(kg)</label>'
-	+ '					<input type="text" name="weight'+i+'" id="weight'+i+'" required/>'
+	+ '				<div class="signUpInputBox">'
+	+ '					<label class="signUpLabel" for="weight'+i+'">몸무게(kg)</label>'
+	+ '					<input class= "signUpInput" type="text" name="weight'+i+'" id="weight'+i+'" required/>'
 	+ '				</div>'
 	+ '				'
-	+ '				<div>'
-	+ '					<label for="usingDrugs'+i+'">복용 중인 약</label>'
-	+ '					<input id="usingDrugs'+i+'" name="usingDrugs'+i+'" />'
-	+ '					<button type="button">검색</button>'
-	+ '					<button id="addDrugButton'+i+'" type="button" onclick="addDrug(this.getAttribute(\'id\'))">추가</button>'
-	+ '					<div id="addDrugs'+i+'">'
-	+ '					</div>'
+	+ '				<div class="signUpInputBox">'
+	+ '					<label class="signUpLabel" for="usingDrugs'+i+'">복용 중인 약품</label>'
+	+ '					<input class= "signUpInput" id="usingDrugs'+i+'"/>'
+	+ '                 <button class="signUpButton" type="button" onclick="searchDrugName(document.querySelector(\'#usingDrugs'+i+'\'),'+i+')">찾기</button>'
+	+ '				</div>'
+	+ '				<div class="signUpInputBox">'
+	+ '                 <label class="signUpLabel"></label>'
+	+ '                 <select class= "signUpSelect" id="selectDrugName'+i+'" name="usingDrugs'+i+'">'
+	+ '                 	<option value="">약품을 검색해주세요</option>'
+	+ '                 </select>'
+	+ '					<button class="signUpButton" id="addDrugButton'+i+'" type="button" onclick="addDrug(this.getAttribute(\'id\'))">추가</button>'
+	+ '					'
+	+ '					<ol class="addDrug" id="addDrugs'+i+'">'
+	+ '					</ol>'
 	+ '				</div>'
 	+ '				'
-	+ '				<div>'
-	+ '					<label for="allergys'+i+'">알레르기</label>'
-	+ '					<input id="allergys'+i+'" name="allergys'+i+'" />'
-	+ '					<button type="button">검색</button>'
-	+ '					<button id="addAllergyButton'+i+'" type="button" onclick="addAllergy(this.getAttribute(\'id\'))">추가</button>'
-	+ '					<div id="addAllergys'+i+'">'
-	+ '					</div>'
-	+ '				</div>';
+	+ '				<div class="signUpInputBox">'
+	+ '					<label class="signUpLabel" for="allergys'+i+'">알러지 있는 약품</label>'
+	+ '					<input class= "signUpInput" id="allergys'+i+'"/>'
+	+ '					<button class="signUpButton" type="button" onclick="searchAllergyName(document.querySelector(\'#allergys'+i+'\'),'+i+')">찾기</button>'
+	+ '				</div>'
+	+ '				<div class="signUpInputBox">'
+	+ '                 <label class="signUpLabel"></label>'
+	+ '                 <select class= "signUpSelect" id="selectAllergyName'+i+'" name="allergys'+i+'">'
+	+ '                 	<option value="">약품을 검색해주세요</option>'
+	+ '                 </select>'
+	+ '					<button class="signUpButton" id="addAllergyButton'+i+'" type="button" onclick="addAllergy(this.getAttribute(\'id\'))">추가</button>'
+	+ '					<ol class="addDrug" id="addAllergys'+i+'">'
+	+ '					</ol>'
+	+ '				</div>'
+	+ '				'
 	+ '			</div>';
 			i++;
 		}
@@ -108,9 +125,9 @@
 			//input 추가할 div 찾기
 			const addDrugs = document.getElementById('addDrugs'+i);
 			//입력된 약물 가져오기
-			let inputValue = document.getElementById('usingDrugs'+i).value;
+			let selected = document.getElementById('selectDrugName'+i);
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
-			if (inputValue != null && inputValue.trim() != "") {
+			if (selected.value != null && selected.value.trim() != "") {
 				var cnt = 1;
 				for(var forI=1;true;forI++){
 					var tempId = '#usingDrug' + i + 'and' +forI;
@@ -119,12 +136,21 @@
 						break;
 					}
 				}
-				addDrugs.innerHTML += '<div id="usingDrugBox' + i + 'and' + cnt + '">'
-						+				'<label for="usingDrug' + i + 'and' + cnt + '">' + inputValue + '</lable>'
-						+				'<input name="usingDrug' + i + 'and' + cnt + '" id="usingDrug' + i + 'and' + cnt + '" value="' + inputValue + '" type="hidden" />'
-						+				'<button type="button" onclick="deleteTarget(\'usingDrugBox' + i + 'and' + cnt + '\')">삭제</button>'
-						+			'</div>'
+				addDrugs.innerHTML += '<li id="usingDrugBox' + i + 'and' + cnt + '">'
+						+				'<label for="usingDrug' + i + 'and' + cnt + '">' + selected.options[selected.selectedIndex].text + '</lable>'
+						+				'<input name="usingDrug' + i + 'and' + cnt + '" id="usingDrug' + i + 'and' + cnt + '" value="' + selected.value + '" type="hidden" />'
+						+				'<button class="addDrugBtn" type="button" onclick="deleteTarget(\'usingDrugBox' + i + 'and' + cnt + '\')">X</button>'
+						+			'</li>'
+				document.querySelector('#usingDrugs'+i).value = "";
+				document.querySelector("#selectDrugName"+i).options.length=0;
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				document.querySelector("#selectDrugName"+i).appendChild(option);
+			}else{
+				alert("약품이 선택되지 않았습니다.");
 			}
+			document.querySelector('#usingDrugs'+i).focus();
 		}
 		
 		//알레르기 약물 추가
@@ -133,9 +159,9 @@
 			//input 추가할 div 찾기
 			const addAllergy = document.getElementById('addAllergys'+i);
 			//입력된 알러지 가져오기
-			let inputValue = document.getElementById('allergys'+i).value;
+			let selected = document.getElementById('selectAllergyName'+i);
 			//추가 기능(inputvalue 값이 있을 때만 추가되도록)
-			if (inputValue != null && inputValue.trim() != "") {
+			if (selected.value != null && selected.value.trim() != "") {
 				var cnt = 1;
 				for(var forI=1;true;forI++){
 					var tempId = '#allergy' + i + 'and' +forI;
@@ -144,12 +170,21 @@
 						break;
 					}
 				}
-				addAllergy.innerHTML += '<div id="allergyBox' + i + 'and' + cnt + '">'
-						+ 					'<label for="allergy' + i + 'and' + cnt + '">'+ inputValue + '</lable>'
-						+ 					'<input name="allergy' + i + 'and' + cnt + '" id="allergy' + i + 'and' + cnt + '" type="hidden" value="' + inputValue + '"/>'
-						+					'<button type="button" onclick="deleteTarget(\'allergyBox' + i + 'and' + cnt + '\')">삭제</button>'
-						+				'</div>'
+				addAllergy.innerHTML += '<li id="allergyBox' + i + 'and' + cnt + '">'
+						+ 					'<label for="allergy' + i + 'and' + cnt + '">'+ selected.options[selected.selectedIndex].text + '</lable>'
+						+ 					'<input name="allergy' + i + 'and' + cnt + '" id="allergy' + i + 'and' + cnt + '" type="hidden" value="' + selected.value + '"/>'
+						+					'<button class="addDrugBtn" type="button" onclick="deleteTarget(\'allergyBox' + i + 'and' + cnt + '\')">X</button>'
+						+				'</li>'
+				document.querySelector('#allergys'+i).value = "";
+				document.querySelector("#selectAllergyName"+i).options.length=0;
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				document.querySelector("#selectAllergyName"+i).appendChild(option);
+			}else{
+				alert("약품이 선택되지 않았습니다.");
 			}
+			document.querySelector('#allergys'+i).focus();
 		}
 		
 		//파라미터에 맞는 태그 삭제
@@ -157,6 +192,50 @@
 			document.getElementById(target).remove();
 		}
 		
+	</script>
+	<script th:inline="javascript" type="text/javascript">
+		function searchDrugName(input,i){
+			var target = document.querySelector("#selectDrugName"+i);
+			target.options.length=0;
+			if(input.value == ""){
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				target.appendChild(option);
+				return;
+			}
+			/*[# th:each="drugsNameForm : ${drugsNameFormList}"]*/
+				var itemName = /*[[${drugsNameForm.itemName}]]*/;
+				var itemSeq = /*[[${drugsNameForm.itemSeq}]]*/
+				if(itemName.indexOf(input.value)>-1){
+						var option = document.createElement("option");
+						option.value = itemSeq;
+						option.innerHTML = itemName;
+						target.appendChild(option)
+				}
+			/*[/]*/
+		}
+		function searchAllergyName(input,i){
+			var target = document.querySelector("#selectAllergyName"+i);
+			target.options.length=0;
+			if(input.value == ""){
+				var option = document.createElement("option");
+				option.value = "";
+				option.innerHTML = "약품을 검색해주세요";
+				target.appendChild(option);
+				return;
+			}
+			/*[# th:each="drugsNameForm : ${drugsNameFormList}"]*/
+				var itemName = /*[[${drugsNameForm.itemName}]]*/;
+				var itemSeq = /*[[${drugsNameForm.itemSeq}]]*/
+				if(itemName.indexOf(input.value)>-1){
+						var option = document.createElement("option");
+						option.value = itemSeq;
+						option.innerHTML = itemName;
+						target.appendChild(option)
+				}
+			/*[/]*/
+		}
 	</script>
 </body>
 </html>

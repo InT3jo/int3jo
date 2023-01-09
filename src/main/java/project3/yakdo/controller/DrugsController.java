@@ -1,10 +1,8 @@
 package project3.yakdo.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -22,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugInfo;
 import project3.yakdo.domain.drugs.DrugMark;
 import project3.yakdo.domain.users.Users;
-import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.DrugsRepository;
 import project3.yakdo.service.drugs.api.DrugAPIService;
 import project3.yakdo.service.drugs.search.FindDrugForm;
