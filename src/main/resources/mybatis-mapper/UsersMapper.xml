@@ -63,7 +63,7 @@
 	</update>
 	
 	<update id="updateUserStatusLeaveByUserNo">
-		UPDATE users SET user_status = 1 WHERE user_no = #{userNo}
+		UPDATE users SET user_status = 1, leave_date = sysdate WHERE user_no = #{userNo}
 	</update>
 	
 

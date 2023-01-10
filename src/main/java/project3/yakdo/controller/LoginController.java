@@ -74,10 +74,10 @@ public class LoginController {
 		Users user = loginService.login(loginForm);
 		loginForm.setUser(user);
 		
-		if(bindingResult.hasFieldErrors("user")) {
-			model.addAttribute("userError", bindingResult.getFieldError("user").getCode());
-			return "/users/login/login";
-		}
+//		if(bindingResult.hasFieldErrors("user")) {
+//			model.addAttribute("userError", bindingResult.getFieldError("user").getCode());
+//			return "/users/login/login";
+//		}
 		
 ////		일치하는 정보 없으면 login 화면으로
 //		if(user == null) {
