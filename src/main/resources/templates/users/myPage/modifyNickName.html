@@ -10,20 +10,25 @@
 	<div class="modifyNickContainor">
 		<h2>닉네임 변경</h2>
 		
-		<div>
-			<span>이메일</span>
-			<span th:text="${user.userEmail}"></span>
+		<div class="myInfoUserEmail">
+			<div>이메일</div>
+			<div>
+				<input type="text" name="userEmail" class="userEmailInput" th:placeholder="${user.userEmail}" readonly/>
+			</div>
 		</div>
-		<div>
+		<div class="modifyNickname">
+			<div>닉네임</div>
 			<form action="/help/modifyNickName" method="post">
-				<span>닉네임</span>
 				<div>
 					<input type="text" name="userNick" class="userNickInput" th:value="${user.userNick}"/>
+				</div>
+				<div>
 					<button type="submit" class="userNickInputBtn">수정</button>
 				</div>
-				
-				<div><button type="button" onClick="location.href='/help/myPage'">취소</button></div>
 			</form>
+		</div>
+		<div>
+			<button type="button" class="userNickCancelBtn" onClick="location.href='/help/myPage'">취소</button>
 		</div>
 	</div>
 </body>
