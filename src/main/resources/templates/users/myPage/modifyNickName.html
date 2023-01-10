@@ -8,7 +8,16 @@
 </head>
 <body>
 	<div class="modifyNickContainor">
-		<h2>닉네임 변경</h2>
+		<div class="signUpTitleBox">
+			<div class="d_CSS">
+				<span class="mainTitle1" onclick="location.href='/'">약도</span>
+				<span class="mainTitle2" onclick="location.href='/'">藥道<br></span>
+				<hr>
+				<div class="mainTitle3">
+					<span>변경할 닉네임을 입력해 주세요</span>
+				</div>
+			</div>
+		</div>
 		
 		<div class="myInfoUserEmail">
 			<div>이메일</div>
@@ -20,16 +29,22 @@
 			<div>닉네임</div>
 			<form action="/help/modifyNickName" method="post">
 				<div>
-					<input type="text" name="userNick" class="userNickInput" th:value="${user.userNick}"/>
+					<input type="text" id="userNick" name="userNick" class="userNickInput" autofocus/>
 				</div>
 				<div>
-					<button type="submit" class="userNickInputBtn">수정</button>
+					<button type="submit" class="userNickInputBtn cursor">수정</button>
+				</div>
+				<div>
+					<button type="button" class="userNickCancelBtn cursor" onClick="location.href='/help/myPage'">취소</button>
 				</div>
 			</form>
 		</div>
-		<div>
-			<button type="button" class="userNickCancelBtn" onClick="location.href='/help/myPage'">취소</button>
-		</div>
 	</div>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		const userNick = document.getElementById('userNick');
+		userNick.value = /*[[${user.userNick}]]*/;S
+		/*]]>*/
+	</script>
 </body>
 </html>
