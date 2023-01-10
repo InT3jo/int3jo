@@ -38,8 +38,9 @@ public class LoginValidator implements Validator {
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loginEmail", "이메일을 입력해 주세요");
 		LoginForm loginForm = (LoginForm)target;
 		if(loginForm.getLoginEmail() == null || loginForm.getLoginEmail().trim().equals("")) {
-			errors.rejectValue("loginEmail", "emailError", "이메일을 입력해 주세요", null);
-			errors.rejectValue("loginPw", "pwError", "비밀번호를 입력해 주세요", null);
+//			errors.rejectValue("loginEmail", "emailError", "이메일을 입력해 주세요", null);
+//			errors.rejectValue("loginPw", "pwError", "비밀번호를 입력해 주세요", null);
+			errors.rejectValue(null, null, null, null);
 		}
 		if(loginForm.getLoginPw() == null || loginForm.getLoginPw().trim().equals("")) {
 		}
