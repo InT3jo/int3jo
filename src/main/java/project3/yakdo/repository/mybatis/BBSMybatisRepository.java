@@ -21,7 +21,12 @@ public class BBSMybatisRepository implements BBSRepository {
 
 	private final BBSMapper BBSMapper;
 
-	
+	/**
+	 * BBS 테이블에 insert 하는 메소드
+	 * @param BBS bbs
+	 * 담당자 : 배고운 
+	 */
+	//게시글 쓰기
 	@Override
 	public BBS insertBBS(BBS bbs) {
 		// TODO Auto-generated method stub
@@ -30,17 +35,12 @@ public class BBSMybatisRepository implements BBSRepository {
 	}
 	
 	
-	/*
-	// 게시판 글쓰기 
-		@Override
-		public BBS insertBBS(WriteBBSForm writeBBSfrom) {
-			// TODO Auto-generated method stub
-			Integer result = BBSMapper.insertBBS(writeBBSfrom);
-			return writeBBSfrom;
-		}
-		*/
-
-	//게시글 상세보기 
+	/**
+	 * bbsNo(글번호)에 해당하는 게시글 select 하는 메소드
+	 * @param
+	 * @return
+	 */
+	//게시글 상세보기
 	@Override
 	public BBS selectBybbsNo(int bbsNo) {
 		// TODO Auto-generated method stub
