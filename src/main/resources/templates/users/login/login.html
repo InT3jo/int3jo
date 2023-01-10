@@ -22,20 +22,17 @@
 				<span class="mainTitle1" onclick="location.href='/'">약도</span>
 				<span class="mainTitle2" onclick="location.href='/'">藥道</span>
 			</div>
-<!-- 			<div th:if="${#fields.hasGlobalErrors()}"> -->
-<!-- 				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p> -->
-<!-- 			</div> -->
+			<div th:if="${userError}!=null" th:text="${userError}" class="errorMessage"></div>
 		</div>
 		<div class="d-CSS loginForm">
 			<form action="" method="post" th:object="${loginForm}">
-
 				<div class="loginEmailBox">
-					<input type="email" id="loginEmail" th:field="*{loginEmail}" placeholder="이메일" />
+					<input type="email" id="loginEmail" th:field="*{loginEmail}" placeholder="이메일" autofocus />
 					<div th:if="${emailError}!=null" th:text="${emailError}" class="errorMessage"></div>
 				</div>
 				<div class="loginPwBox">
 					<input type="password" id="loginPw" th:field="*{loginPw}" placeholder="비밀번호" />
-					<div th:if="${pwError}!=null" th:text="${pwError}" class="errorMessage"></div>
+					<div th:if="${passwordError}!=null" th:text="${passwordError}" class="errorMessage"></div>
 				</div>
 				
 				<button id="loginBtn" type="submit">로그인</button>

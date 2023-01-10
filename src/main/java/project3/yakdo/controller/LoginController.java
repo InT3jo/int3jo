@@ -60,20 +60,26 @@ public class LoginController {
 		//login 관련 유효성 검사
 		loginValidator.validate(loginForm, bindingResult);
 		//에러가 있는 경우 다시 login 화면으로
-		if(bindingResult.hasErrors()) {
-//				model.addAttribute("error", bindingResult);
-//			log.info("에러?????? {}", bindingResult.getFieldValue("loginEmail"));
-//			log.info("에러?????? {}", bindingResult.getFieldError("loginEmail"));
-//			log.info("에러?????? {}", bindingResult.getFieldValue("loginPw"));
-//			log.info("에러?????? {}", bindingResult.getFieldError("loginPw").getDefaultMessage());
-			model.addAttribute("emailError", bindingResult.getFieldError("loginEmail").getDefaultMessage());
-			model.addAttribute("pwError", bindingResult.getFieldError("loginPw").getDefaultMessage());
+		if(bindingResult.hasFieldErrors("loginEmail")) {
+			model.addAttribute("emailError", bindingResult.getFieldError("loginEmail").getCode());
 			return "/users/login/login";
 		}
+		
+		if(bindingResult.hasFieldErrors("loginPw"))	{
+			model.addAttribute("passwordError", bindingResult.getFieldError("loginPw").getCode());
+			return "/users/login/login";
+		}
+
 		//위 에러 없을 시 (공백이 아닐 시) 로그인 실행
 		Users user = loginService.login(loginForm);
+		loginForm.setUser(user);
 		
-		//일치하는 정보 없으면 login 화면으로
+		if(bindingResult.hasFieldErrors("user")) {
+			model.addAttribute("userError", bindingResult.getFieldError("user").getCode());
+			return "/users/login/login";
+		}
+		
+////		일치하는 정보 없으면 login 화면으로
 //		if(user == null) {
 //			bindingResult.reject("loginForm", "이메일 또는 비밀번호를 다시 확인해 주세요.");
 //			return "/users/login/login";
