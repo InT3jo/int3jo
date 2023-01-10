@@ -2,30 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>약도 - 이용문의</title>
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<link rel="stylesheet" type="text/css" href="/css/BBS.css">
 </head>
 <body>
+<script>
+function updateBBSOk(bbsNo) {
+	if (confirm('수정하시겠습니까?')) {
+		location.href = "/BBS/BBSlist/" + bbsNo;
+	} else {
+		alert("등록이 취소되었습니다.");
+	}
+	return false;
+}
+</script>
+
 	<div th:replace="home_component.html :: header"></div>
-	<h1>BBS update Page</h1>
-	
-	<form action="" method="post" th:object="${BBS}">
-		<div>
-<!-- 			<label>작성일<input type="date" name="bbsDate" readonly="readonly" th:field="*{bbsDate}"></label> -->
-			<br>
-			<label>작성자<input type="text" name="userNick" readonly="readonly" th:field="*{userNick}"></label>
-			<br>
-			<label>제목<input type="text" name="bbsTitle" th:field="*{bbsTitle}"></label>
-			<br>
-			<label>내용<textarea name="bbsContent" th:field="*{bbsContent}"></textarea></label>
+
+	<p id="BBS">이용문의</p>
+
+
+	<div class="BBSViewTable">
+		<div class="ReturnList">
+			<button id="headerSearchBtn" type="button"
+				th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
 		</div>
-		<div>
-		 <button type="submit">수정하기</button>
-		 <button type="button" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
-		 </div>
-		
-	</form>
+		<form action="" method="post" th:object="${BBS}">
+			<div>
+				<br> <label><input class="InputNick" type="text"
+					name="userNick" readonly="readonly" th:field="*{userNick}"></label>
+				<br> <label><input class="InputBBSTitle" type="text"
+					name="bbsTitle" th:field="*{bbsTitle}"></label> <br> <label><textarea
+						class="InputBBSContent" name="bbsContent" th:field="*{bbsContent}"></textarea></label>
+			</div>
+			<div>
+				<div id="writeBtn">
+					<button id="headerSearchBtn" th:name="${BBS.bbsNo}"
+				th:onclick="updateBBSOk(this.getAttribute('name'))">수정하기</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

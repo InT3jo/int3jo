@@ -4,71 +4,109 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/BBS.css">
+<title>약도 - 이용문의</title>
 <style>
-.errormsg {
-	color: red;
+/* 일단 테이블 태그로 했다가 나중에 class 이름 만들어서 css파일로 옮기기  */
+table {
+	width: 100%;
+	border: 1px solid #d3d3d3;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid rgb(192, 192, 192);
+	padding: 10px;
 }
 </style>
+
 </head>
 <body>
+<script>
+function writeReOk() {
+	if (confirm('등록하시겠습니까?')) {
+		
+
+		if (document.getElementById("reContent").value == "") {
+			alert("내용을 입력하세요.");
+		}
+		
+		
+		document.getElementById("writeRe").submit();
+		
+	} else {
+		alert("등록이 취소되었습니다.");
+	}
+	return false;
+}
+</script>
 	<div th:replace="home_component.html :: header"></div>
-	<h1>BBS writeAnswer Page 관리자가 답변 쓰는페이지</h1>
+	<p id="BBS">이용문의</p>
 
 
 <!-- 답변 등록할 글  -->
+<div class="BBSViewTable">
+ <div class="ReturnList">
+		 <button id="headerSearchBtn" type="button" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+		 </div>
 <div>
 		<br />
-		<table border="1" width="800" height="100">
-			<thead>
-				<tr>
-					<th>글보기</th>
-				</tr>
-			</thead>
-
+		
+			<table>
+			<colgroup>
+				<col width="15%" />
+				<col width="35%" />
+				<col width="15%" />
+				<col width="35%" />
+			</colgroup>
 			<tbody>
 				<tr>
-					<td>작성일</td>
+				
+					<th scope="row">작성일</th>
 					<td th:text="${BBS.bbsDate}"></td>
 				</tr>
 				<tr>
-					<td>작성자</td>
-					<td th:text="${BBS.userNick}"></td>
+					<th scope="row">작성자</th>
+					<td td colspan="3" th:text="${BBS.userNick}"></td>
 				</tr>
 				<tr>
-					<td>제목</td>
-					<td th:text="${BBS.bbsTitle}"></td>
+					<th scope="row">제목</th>
+					<td colspan="3" th:text="${BBS.bbsTitle}"></td>
 				</tr>
 				<tr>
-					<td>내용</td>
-					<td th:text="${BBS.bbsContent}"></td>
+					<td td colspan="4">
+						<textarea class="ViewContent" title="내용" th:text="${BBS.bbsContent}" readonly="readonly"></textarea>
+					</td>
 				</tr>
-
 			</tbody>
 		</table>
+		
+		
 	</div>
-
-
-	<form action="" method="post" th:object="${Reply}">
+<div class="WriteRe">
+<!-- 관리자가 답글 쓰는 부분  -->
+	<form id="writeRe" action="" method="post" th:object="${Reply}">
 	
 		<label> 
-		<input type="hidden" name="userNo" th:value="${user.userNo}">
-		작성자<input type="text" name="userNick" th:value="${user.userNick}" readonly>
+		<input class="InputNick" type="hidden" name="userNo" th:value="${user.userNo}">
+		<input type="text" name="userNick" th:value="${user.userNick}" readonly>
 		 <!-- 	로그인한 사용자 정보에서 user_nick 불러오기  --> 
 		 </label>
 		 </br>
-		<label>제목<input type="text" name="reTitle"  value="문의 답변드립니다." readonly></label>
+		<label><input class="InputBBSTitle" type="text" name="reTitle"  value="문의 답변드립니다." readonly></label>
 		</br>
-		<label>내용<textarea name="reContent" th:field="*{reContent}"></textarea></label>
+		<label><textarea id="reContent" class="InputBBSContent" name="reContent" th:field="*{reContent}" maxlength="1000" placeholder="답변을 입력해주세요(1000자까지 입력 가능합니다.)"></textarea></label>
 		
 
 
 
-		<div>
-			<button type="submit">등록하기</button>
+		<div id="writeBtn">
+			<button id="headerSearchBtn" onclick="writeReOk()">등록하기</button>
 		</div>
 	</form>
-			<button th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+	</div>
+			
+			</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

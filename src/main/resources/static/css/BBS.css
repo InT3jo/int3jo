@@ -46,7 +46,7 @@ li {
 /* 글쓰기버튼 감싸고 있는 div */
 #writeBtn {
 	text-align: right;
-	margin-bottom: 20px;
+	margin: 20px;
 }
 
 /* BBSwrite.html ============================================= */
@@ -114,9 +114,28 @@ li {
 }
 
 .WriteComContent{
-		width: 700px;
+		width: 800px;
 	resize: none;
 	height:100px;
 	
 }
-	
+
+#comManageBtn{
+/* 	margin-left: 10px; */
+	margin:2px;
+	width: 80px;
+	height: 25px;
+	background-color: light-gray;
+	border: none;
+	border-radius: 30px;
+	color: gray;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+
+/* writeAnswer.html */
+
+.WriteRe{
+	margin-top:50px;
+}

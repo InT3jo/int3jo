@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
-<title>Insert title here</title>
+<title>약도 - 이용문의</title>
 <style>
 .errormsg {
 	color: red;
@@ -19,7 +19,7 @@
 	<div th:replace="home_component.html :: header"></div>
 <script type="text/javascript">
 
-	function writeOk() 
+	function writeBBSOk() 
 	{
 
 		if (confirm('등록하시겠습니까?')) {
@@ -32,7 +32,8 @@
 				alert("내용을 입력하세요.");
 			}
 			
-			document.getElementById("writeBBSForm").submit();
+			document.getElementById("writeBBS").submit();
+			
 		} else {
 			alert("등록이 취소되었습니다.");
 		}
@@ -54,7 +55,7 @@
 	<div class="ReturnList">
 	<button id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
 	</div>
-		<form action="" method="post" th:object="${BBS}">
+		<form id="writeBBS" action="" method="post" th:object="${BBS}">
 
 			<div>
 				<label> <input  type="hidden" name="userNo"
@@ -63,15 +64,23 @@
 				</label>
 			</div>
 			<div>
-				<label><input class="InputBBSTitle" type="text" name="bbsTitle" 
+				<label><input class="InputBBSTitle" type="text" name="bbsTitle" maxlength="40"
 					th:field="*{bbsTitle}" placeholder="제목을 입력해주세요"></label>
 			</div>
 			<div>
-				<label><textarea name="bbsContent" class="InputBBSContent"
-						th:field="*{bbsContent}" placeholder="내용을 입력해주세요"></textarea></label>
+				<label>
+				
+				
+				
+				<textarea name="bbsContent" class="InputBBSContent" maxlength="1000" placeholder="1000자까지 입력가능합니다."
+						th:field="*{bbsContent}"></textarea>
+						
+						
+						
+						</label>
 			</div>
 			<div id="writeBtn">
-				<button id="headerSearchBtn" type="button" onclick="writeOk()">등록하기</button>
+				<button id="headerSearchBtn" type="button" onclick="writeBBSOk()">등록하기</button>
 			</div>
 		</form>
 		

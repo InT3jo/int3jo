@@ -62,16 +62,15 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 		boolean result = false;
 		
 			bbsCommentMapper.updateComShowTwoBybbsNo(bbsNo, comNo);
-			
-			
-		
 		return result;
 	}
 
+	//특정 댓글 불러오기 
 	@Override
 	public BBSComment selectOneCom(int bbsNo, int comNo) {
 		// TODO Auto-generated method stub
-		return null;
+		BBSComment bbsComment = bbsCommentMapper.selectOneCom(bbsNo, comNo);
+		return bbsComment;
 	}
 
 	

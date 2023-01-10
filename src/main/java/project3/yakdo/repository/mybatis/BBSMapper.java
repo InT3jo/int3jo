@@ -32,19 +32,6 @@ public interface BBSMapper {
 	public List<BBS> selectByShowTwo(); // 관리자용 관리자삭제 게시글 목록 출력
 
 	public void updateShowZeroBybbsNo(int bbsNo); // 관리자 삭제 게시글 복구
-	/*
-	 * //페이징 public int count(); //게시물 총 갯수
-	 * 
-	 * public List<BBS> BBSlistPage(@Param("rowStart") int
-	 * rowStart, @Param("rowEnd") int rowEnd); //게시물 목록 + 페이징
-	 */
-
-	// 페이징2
-	// 목록 + 페이징
-	public List<BBS> listPage(Criteria cri);
-	
-	//게시물 총 갯수
-	public int listCount();
 	
 	
 	//목록 + 페이징 + 검색 1번째 방법에 필요
@@ -52,17 +39,6 @@ public interface BBSMapper {
 		
 		//검색 결과 갯수
 		public int countSearch(SearchCriteria scri);
-		
-		//목록 + 페이징 + 검색 두번째방법시도중 두번째방법시도중 (첫번째 방법으로 다시시도중 일단 주석처리 01-03-09:53)
-		//public List<BBS> listPageSearch(@Param("cri") Criteria cri,@Param("searchType") String searchType,@Param("keyword") String keyword);
-		
-		
-		//검색 페이징 3번째 방법- 제목 내용 나눠서 
-		
-		//제목 결과 리스트 
-		public List<BBS> listSearchByTitle(SearchCriteria scri);
-		//내용 결과 리스트 
-		public List<BBS> listSearchByContent(SearchCriteria scri);
 		
 		
 		//본인 삭제 글 리스트 + 페이징 + 검색 
@@ -87,7 +63,13 @@ public interface BBSMapper {
 		//전체 답글 불러오기
 		public List<Reply> listRe();
 		
-		//답글 상세보기 
-		public Reply replyView( @Param("bbsNo")  int bbsNo);
 		
+		//답변 상세보기 2 (테스트 중 되면 이걸로 변경할 예정 01-09-18:54)
+		public Reply replyView2(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo);
+		
+		//답변 수정 2
+		public boolean updateRe2(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo, @Param("replyItem") Reply reply);
+		
+		//답변 삭제 
+		public boolean updateReShow1(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo);
 }

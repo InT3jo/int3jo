@@ -9,15 +9,14 @@
 </head>
 <body>
 <script type="text/javascript">
-function updateComOk(bbsNo,comNo) {
+function updateReOk(bbsNo,reNo) {
 	if (confirm('수정하시겠습니까?')) {
 		
-
-		if (document.getElementById("comContent").value == "") {
+		if (document.getElementById("reContent").value == "") {
 			alert("내용을 입력하세요.");
 		}
 		
-		location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo ;
+		location.href = "/BBS/updateRe2/" + bbsNo + "/" + reNo ;
 	} else {
 		alert("수정이 취소되었습니다.")
 	}
@@ -28,21 +27,22 @@ function updateComOk(bbsNo,comNo) {
 	
 	<div class="WriteBBSBox">
 	<div class="ReturnList">
-	 <button id="headerSearchBtn" type="button" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+	 <button id="headerSearchBtn" type="button" th:onclick="|location.href='@{/BBS/BBSlist/{bbsNo}}'|">뒤로가기</button>
 	</div>
-	<form action="" method="post" th:object="${bbsComment}">
+	<form action="" method="post" th:object="${Reply}">
 		<div>
-<!-- 			<label>작성일<input type="date" name="comDate" readonly="readonly" th:field="*{comDate}"></label> -->
+
 			<br>
 			<label>작성자<input class="InputNick" type="text" name="userNick" readonly="readonly" th:value="${user.userNick}"></label>
 			
 			<br>
-			<label>댓글 수정<textarea id="comContent" class="InputBBSContent" name="comContent" th:field="*{comContent}" ></textarea></label>
+			<label><textarea class="InputBBSContent" name="reContent" th:field="*{reContent}"></textarea></label>
 		</div>
 		<div id="writeBtn">
-		 <button id="headerSearchBtn"  th:name="${bbsComment.bbsNo}"
-									th:src="${bbsComment.comNo}"
-									th:onclick="updateComOk(this.getAttribute('name'),this.getAttribute('src'))">수정완료</button>
+
+ <button id="headerSearchBtn" th:name="${Reply.bbsNo}"
+									th:src="${Reply.reNo}"
+									th:onclick="updateReOk(this.getAttribute('name'),this.getAttribute('src'))">수정완료</button>
 		
 		 </div>
 		
