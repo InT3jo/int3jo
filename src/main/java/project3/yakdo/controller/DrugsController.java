@@ -77,8 +77,6 @@ public class DrugsController {
 
 		// 폼에 따른 검사결과를 리스트방식으로 받아옴
 		List<DrugInfo> findDrugInfoList = findDrugService.setFindDrugInfoList(findDrugForm, req);
-		model.addAttribute("findDrugInfoList", findDrugInfoList);
-
 		// 유효성 검사(모든 검색조건이 없을경우)
 		FindDrugValidator findDrugValidator = new FindDrugValidator();
 		findDrugValidator.validate(findDrugForm, bindingResult);
@@ -88,6 +86,7 @@ public class DrugsController {
 			model.addAttribute("findMoreStyle", "display:inline-block;");
 			return "drugs/finddrug";
 		}
+		model.addAttribute("findDrugInfoList", findDrugInfoList);
 
 		
 		

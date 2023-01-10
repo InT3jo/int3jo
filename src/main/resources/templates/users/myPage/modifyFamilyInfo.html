@@ -135,7 +135,7 @@
 	<div th:replace="home_component.html :: header"></div>
 	<div class="ContentBox">
 		<div class="addFormBox">
-			<form action="" method="post">
+			<form action="" method="post" onkeydown="return event.key != 'Enter';">
 				<div class="familyBox" id="familyBox">
 					<span class="familyBoxTitle">-건강정보 변경하기-</span>
 					<div class="signUpInputBox">
