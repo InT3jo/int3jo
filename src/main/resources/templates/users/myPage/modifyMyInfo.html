@@ -9,25 +9,26 @@
 <title>약도 - 건강 정보 변경</title>
 </head>
 <body>
-	<h1>건강 정보 변경</h1>
-	<div>
-		<div id="familyContainor">
-		</div>
-		
-		<div>
-			<form action="/help/selectTarget">
-				<select>
-					<option>가족 닉네임</option>
-				</select>
-				<button type="submit">선택</button>
-			</form>
-		</div>
-			
-		<div>
-			<form action="/help/modifyMyInfo" method="post">
-				<button type="submit">회원 탈퇴</button>
-			</form>
+	<div th:replace="home_component.html :: header"></div>
+	<div class="ContentBox">
+		<div class="infoList" th:if="${usersInfoList}==null or ${usersInfoList.size()}==0">건강정보가 없습니다.</div>
+		<div class="infoListBox">
+			<ul th:if="${usersInfoList}!=null and ${usersInfoList.size()}!=0">
+				<li th:each="usersInfo : ${usersInfoList}">
+					<div class="infoList">
+						<span th:text="${usersInfo.familyNick}"></span>
+						<span>(</span>
+						<span th:text="${usersInfo.birth}"></span>
+						<span>,</span>
+						<span th:text="${usersInfo.gender}"></span>
+						<span>)</span>
+						<button class="signUpButton cursor" type="button" th:onclick="|location.href='@{/help/modifyMyInfo/{familyNo}(familyNo = ${usersInfo.familyNo})}'|">수정</button>
+					</div>
+				</li>
+			</ul>
+			<button class="infoButton cursor" type="button" onclick="location.href='/help/addFamilyInfo'">건강정보 추가하기</button>
 		</div>
 	</div>
+	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

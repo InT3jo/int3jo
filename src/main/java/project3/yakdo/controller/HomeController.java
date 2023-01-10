@@ -30,8 +30,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model
 					, HttpServletRequest req) {
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		
 		return "/home";
 	}
@@ -44,23 +43,5 @@ public class HomeController {
 	public String inspection() {
 		return "error/inspection";
 	}
-	
-	/**
-	 * 회원가입 후 넘어오는 home 화면
-	 * 회원가입 완료 시에 자동으로 로그인 될 예정
-	 * 그래서 바로 loginHome으로 return 해둠
-	 * @param model
-	 * @return
-	 */
-	@PostMapping("/")
-	public String home() {
-		return "/loginHome";
-	}
-	
-	
-	// 임시사용
-	@RequestMapping("/test")
-	public String test() {
-		return "users/login/findPw";
-	}
+
 }

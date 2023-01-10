@@ -43,13 +43,10 @@ public class DrugAPIService {
 	 */
 	public void getAPI(HttpServletRequest req) {
 		// TODO Auto-generated method stub
-		log.info("이거 실제로 업데이트 하려면 5시간정도가 소요되기 때문에,");
-		log.info("일단 테스트중이니까 DB는 중간에 종료해도 상관없는 업데이트만 진행");
-		
 		log.info("API 데이터 DB 최신화 작업 시작");
-		trustUrl("https://apis.data.go.kr"); // 신뢰하는 URL에 추가
+		trustUrl("https://apis.data.go.kr");
 		
-		/*
+
 		List<DrugInfo> drugInfoList = new ArrayList<>();
 		List<FindDrug> findDrugList = new ArrayList<>();
 		List<Dur> durList = new ArrayList<>();
@@ -93,8 +90,6 @@ public class DrugAPIService {
 		setDomainByDurCombiAPI(durCombiList);
 		setDurCombiByAPI(durCombiList);
 		
-		
-		*/
 		setDrugImage("drugOpenData.csv", req);
 		
 	}

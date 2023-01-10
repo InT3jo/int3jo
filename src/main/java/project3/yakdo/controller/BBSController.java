@@ -48,19 +48,15 @@ public class BBSController {
 	@GetMapping("/listSearch")
 	public String BBSList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		List<BBS> list = BBSRepository.listSearch(scri);
-		model.addAttribute("list", list);
+		model.addAttribute("list", BBSRepository.listSearch(scri));
 
 		// 전체 답글 리스트 불러오기
-		List<Reply> listRe = BBSRepository.listRe();
-		model.addAttribute("listRe", listRe);
+		model.addAttribute("listRe", BBSRepository.listRe());
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -74,12 +70,10 @@ public class BBSController {
 	@GetMapping("/BBSwrite")
 	public String BBSwrite(Model model, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		model.addAttribute("BBS", new BBS());
 
@@ -91,12 +85,10 @@ public class BBSController {
 	public String newBBSInsertModel(@Validated @ModelAttribute BBS bbs, BindingResult bindingResult, Model model,
 			HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		// 제목내용 입력안하면 다시 글쓰는 페이지로 돌아감
 		BBSValidator bbsValidator = new BBSValidator();
@@ -116,15 +108,12 @@ public class BBSController {
 	@PostMapping("/BBSview")
 	public String BBSview2(Model model, @RequestParam("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
-		model.addAttribute("BBS", bbsItem);
+		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
 		return "BBS/BBSview";
 	}
 
@@ -133,17 +122,13 @@ public class BBSController {
 	@GetMapping("/BBSlist/{bbsNo}")
 	public String BBSview(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
-		model.addAttribute("BBS", bbsItem);
-		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
-		model.addAttribute("commentListZero", commentListZero);
+		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
+		model.addAttribute("commentListZero", bbsCommentRepositoy.selectComBybbsNo(bbsNo));
 		model.addAttribute("BBSComment", new BBSComment());
 
 		return "BBS/BBSview";
@@ -154,18 +139,13 @@ public class BBSController {
 	public String insertBBSCom(Model model, @PathVariable("bbsNo") Integer bbsNo, @ModelAttribute BBSComment bbsComment,
 			BindingResult bindingResult, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
-		List<BBSComment> commentListZero = bbsCommentRepositoy.selectComBybbsNo(bbsNo);
-
-		model.addAttribute("commentListZero", commentListZero);
-		model.addAttribute("BBS", bbsItem);
+		model.addAttribute("commentListZero", bbsCommentRepositoy.selectComBybbsNo(bbsNo));
+		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
 
 		// 댓글 내용 입력안하면 다시 댓글쓰는 페이지로 돌아감
 		BBSComValidator bbsComValidator = new BBSComValidator();
@@ -185,15 +165,12 @@ public class BBSController {
 	@GetMapping("/update/{bbsNo}") // 어떤 bbsNo에 대한 업데이트를 할거냐
 	public String updateBBS(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
-		model.addAttribute("BBS", bbsItem);
+		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
 		return "BBS/BBSupdate.html";
 	}
 
@@ -202,12 +179,10 @@ public class BBSController {
 	public String updateBBSprocess(Model model, @PathVariable("bbsNo") int bbsNo, @ModelAttribute BBS bbs,
 			HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		BBSRepository.updateBBS(bbsNo, bbs);
 
@@ -251,18 +226,10 @@ public class BBSController {
 	public String updateComShowOneBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo,
 			@PathVariable("comNo") Integer comNo, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-
-		if (bbsCommentRepositoy.updateComShowOneByBbsNo(bbsNo, comNo)) {
-
-		} else {
-
-		}
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
@@ -272,17 +239,13 @@ public class BBSController {
 	public String updateCom(Model model, @PathVariable("bbsNo") Integer bbsNo, @PathVariable("comNo") int comNo,
 			HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBSComment comItem = bbsCommentRepositoy.selectOneCom(bbsNo, comNo);
-		model.addAttribute("bbsComment", comItem);
-		log.info("콤아이템 {}", comItem);
-
+		model.addAttribute("bbsComment", bbsCommentRepositoy.selectOneCom(bbsNo, comNo));
+		
 		return "BBS/updateCom";
 	}
 
@@ -291,12 +254,10 @@ public class BBSController {
 	public String updateComProcess(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("comNo") int comNo,
 			@ModelAttribute BBSComment bbsComment, BindingResult bindingResult, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		// 댓글 내용 입력안하면 다시 댓글쓰는 페이지로 돌아감
 		BBSComValidator bbsComValidator = new BBSComValidator();
@@ -315,14 +276,8 @@ public class BBSController {
 	@RequestMapping("/deleteComAdmin/{bbsNo}/{comNo}")
 	public String deleteComAdmin(Model model, @PathVariable("bbsNo") Integer bbsNo,
 			@PathVariable("comNo") Integer comNo, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-
+		model.addAttribute("user", loginService.getLoginUser(req));
 		bbsCommentRepositoy.updateComShowTwoBybbsNo(bbsNo, comNo);
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
@@ -332,13 +287,8 @@ public class BBSController {
 	// 게시글 복구
 	@RequestMapping("/recover/{bbsNo}")
 	public String updateShowZeroBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		BBSRepository.updateShowZeroBybbsNo(bbsNo);
 		return "redirect:/admin/adminBBSlist";
@@ -349,16 +299,10 @@ public class BBSController {
 	@GetMapping("/replyView2/{bbsNo}/{reNo}")
 	public String replyView2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		Reply reply = BBSRepository.replyView2(bbsNo, reNo);
-		model.addAttribute("Reply", reply);
+		model.addAttribute("Reply", BBSRepository.replyView2(bbsNo, reNo));
 
 		return "BBS/replyView2";
 	}
@@ -368,15 +312,12 @@ public class BBSController {
 	public String updateRe2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
-		Reply replyItem = BBSRepository.replyView2(bbsNo, reNo);
-		model.addAttribute("Reply", replyItem);
+		model.addAttribute("Reply", BBSRepository.replyView2(bbsNo, reNo));
 
 		return "BBS/updateReply2";
 	}
@@ -385,13 +326,8 @@ public class BBSController {
 	@PostMapping("/updateRe2/{bbsNo}/{reNo}")
 	public String updateRe2Process(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			@ModelAttribute Reply reply, BindingResult bindingResult, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		// 내용 입력안하면 다시 글쓰는 페이지로 돌아감
 		ReplyValidator bbsValidator = new ReplyValidator();
@@ -410,13 +346,8 @@ public class BBSController {
 	@RequestMapping("/deleteRe/{bbsNo}/{reNo}")
 	public String deleteRe(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 
 		BBSRepository.updateReShow1(bbsNo, reNo);
 

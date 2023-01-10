@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/var.css">
-<link rel="stylesheet" type="text/css" href="/css/drugs.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<link rel="stylesheet" type="text/css" href="/css/drugs.css">
 <title>약도-의약품 검색</title>
 </head>
 <body>
@@ -38,8 +38,6 @@
 			document.querySelector('.selectDrugMark').src=src;
 			document.querySelector('.selectDrugMarkInput').value=code;
 		}
-	</script>
-	<script type="text/javascript">
 		function moveTop(){
 			window.scrollTo({top:0, behavior:"smooth"})
 		}
@@ -54,7 +52,7 @@
 				◈ 띄어쓰기를 이용하여 여러 항목을 동시에 입력하여 검색하실 수 있습니다.
 			</div>
 			<div style="width:700px;display:block;margin:0px auto;">
-				<form action="" method="post">
+				<form action="" method="post" th:object="${findDrugForm}">
 					<div class="d-CSS findGrid">
 						<div class="findGridLabel">
 							<div class="innerGrid">
@@ -62,7 +60,7 @@
 							</div>
 						</div>
 						<div class="findGridContent">
-							<input class="innerGrid" id="itemNameInput" type="text" name="itemName" th:value="${findDrugForm.getItemName()}==null?'':${findDrugForm.getItemName()}" placeholder="제품명"/>
+							<input class="innerGrid" id="itemNameInput" type="text" name="itemName" th:field="*{itemName}" placeholder="제품명"/>
 						</div>
 						
 						<div class="findGridLabel">
@@ -71,7 +69,7 @@
 							</div>
 						</div>
 						<div class="findGridContent">
-							<input class="innerGrid" id="ingrNameInput" type="text" name="ingrName" th:value="${findDrugForm.getIngrName()}==null?'':${findDrugForm.getIngrName()}" placeholder="성분명"/>
+							<input class="innerGrid" id="ingrNameInput" type="text" name="ingrName" th:field="*{ingrName}" placeholder="성분명"/>
 						</div>
 						
 						<div class="findGridLabel">
@@ -80,7 +78,7 @@
 							</div>
 						</div>
 						<div class="findGridContent">
-							<input class="innerGrid" id="entpNameInput" type="text" name="entpName" th:value="${findDrugForm.getEntpName()}==null?'':${findDrugForm.getEntpName()}" placeholder="회사명"/>
+							<input class="innerGrid" id="entpNameInput" type="text" name="entpName" th:field="*{entpName}" placeholder="회사명"/>
 						</div>
 						
 						<div class="findGridLabel">
@@ -89,7 +87,7 @@
 							</div>
 						</div>
 						<div class="findGridContent">
-							<input class="innerGrid" id="drugPringInput" type="text" name="drugPrint" th:value="${findDrugForm.getDrugPrint()}==null?'':${findDrugForm.getDrugPrint()}" placeholder="약품에 적힌 글자"/>
+							<input class="innerGrid" id="drugPringInput" type="text" name="drugPrint" th:field="*{drugPrint}" placeholder="약품에 적힌 글자"/>
 						</div>
 						
 						<div class="findGridLabel">
@@ -171,12 +169,14 @@
 							<span class="innerGrid" th:unless="${findDrugForm.getDrugMark()}==null">
 								<span th:each="innerDrugMarkList : ${drugMarkList}">
 									<span th:each="drugMark : ${innerDrugMarkList}">
-										<image class="selectDrugMark" th:if="${drugMark.getMarkCode()}==${findDrugForm.getDrugMark()}" th:src="${drugMark.getMarkImg()}" width="50" height="50" onclick="openDrugMarkModal()" alt="클릭하여 마크 선택"/>
+										<image class="selectDrugMark" th:if="${drugMark.getMarkCode()}==${findDrugForm.getDrugMark()}" th:src="${drugMark.getMarkImg()}" width="50" height="50" style="margin: 2px; display: inline-block;"/>
+										<button class="findSearchMoreBtn" th:if="${drugMark.getMarkCode()}==${findDrugForm.getDrugMark()}" type="button" onclick="openDrugMarkModal()" style="display: inline-block; position: relative; top: -20px;">마크 선택</button>
 									</span>
 								</span>
 							</span>
-							<span class="innerGrid" th:if="${findDrugForm.getDrugMark()}==null">
-								<image class="selectDrugMark" src="" width="50" height="50" onclick="openDrugMarkModal()" alt="클릭하여 마크 선택"/>
+							<span class="innerGrid" th:if="${findDrugForm.getDrugMark()}==null or ${findDrugForm.getDrugMark()}==''">
+								<image class="selectDrugMark" src="" width="50" height="50" style="margin: 2px; display: inline-block;"/>
+								<button class="findSearchMoreBtn" type="button" onclick="openDrugMarkModal()" style="display: inline-block; position: relative; top: -20px;">마크 선택</button>
 							</span>
 							<input class="selectDrugMarkInput" type="hidden" name="drugMark" th:value="${findDrugForm.getDrugMark()}==null?'':${findDrugForm.getDrugMark()}"/>
 						</div>
@@ -199,8 +199,9 @@
 							</div>
 						</div>						
 					</div>
+					<div th:if="${error}!=null" th:text="${error}" style="text-align: center;color:red; margin: 20px"></div>
 					<div style="margin:10px;text-align: center">
-						<button id="findSearchMoreBtn" type="submit" onclick="closeFindMore()">검색하기</button>
+						<button class="findSearchMoreBtn" id="findSearchMoreBtn" type="submit" onclick="closeFindMore()">검색하기</button>
 						<button id="findSearchMoreCloseBtn" type="button" onclick="closeFindMore()">닫기</button>
 					</div>
 				</form>
@@ -219,5 +220,6 @@
 		</div>
 	</div>
 	<div th:replace="home_component.html :: footer"></div>
+	<script type="text/javascript">document.querySelector('#headerSearchMoreBtn').onclick=openFindMore</script>
 </body>
 </html>

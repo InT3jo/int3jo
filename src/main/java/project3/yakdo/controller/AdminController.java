@@ -42,8 +42,7 @@ public class AdminController {
 	@GetMapping
 	public String admin(Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		return "admin/admin";
 	}
 
@@ -53,12 +52,10 @@ public class AdminController {
 	@GetMapping("/adminShowOneList")
 	public String adminShowOneList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		
 		// 본인삭제 게시글 리스트 불러오기
-		List<BBS> bbsListOne = BBSRepository.adminShowOnelist(scri);
-		model.addAttribute("bbsListOne", bbsListOne);
+		model.addAttribute("bbsListOne", BBSRepository.adminShowOnelist(scri));
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -72,12 +69,10 @@ public class AdminController {
 	@GetMapping("/adminShowTwoList")
 	public String adminShowTwoList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		
 		// 관리자 삭제 게시글 리스트 불러오기
-		List<BBS> bbsListTwo = BBSRepository.adminShowTwolist(scri);
-		model.addAttribute("bbsListTwo", bbsListTwo);
+		model.addAttribute("bbsListTwo", BBSRepository.adminShowTwolist(scri));
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -91,9 +86,7 @@ public class AdminController {
 	@RequestMapping("/recover/{bbsNo}")
 	public String updateShowZeroBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
+		model.addAttribute("user", loginService.getLoginUser(req));
 		BBSRepository.updateShowZeroBybbsNo(bbsNo);
 		return "redirect:/admin/adminShowTwoList";
 	}
@@ -105,11 +98,9 @@ public class AdminController {
 	@GetMapping("/searchUserList")
 	public String searchUserList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		
-		List<Users> searchUserList = usersRepository.searchUserList(scri);
-		model.addAttribute("searchUserList", searchUserList);
+		model.addAttribute("searchUserList", usersRepository.searchUserList(scri));
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -121,8 +112,7 @@ public class AdminController {
 	// 회원 등급 관리
 	@GetMapping("/updateGrade/{userNo}") // 어떤 userNo에 대해서 처리할거냐
 	public String updateGrade(Model model, @PathVariable("userNo") int userNo) {
-		Users user = usersRepository.selectByUserNoInUsersT(userNo);
-		model.addAttribute("Users", user);
+		model.addAttribute("Users", usersRepository.selectByUserNoInUsersT(userNo));
 		return "admin/updateGrade";
 	}
 
@@ -136,8 +126,7 @@ public class AdminController {
 	// 회원 블락
 	@GetMapping("/updateUserStatus/{userNo}")
 	public String updateUserStatus(Model model, @PathVariable("userNo") int userNo) {
-		Users user = usersRepository.selectByUserNoInUsersT(userNo);
-		model.addAttribute("Users", user);
+		model.addAttribute("Users", usersRepository.selectByUserNoInUsersT(userNo));
 		return "admin/updateUserStatus";
 	}
 
@@ -152,8 +141,7 @@ public class AdminController {
 	@RequestMapping("/writeAnswer/{bbsNo}")
 	public String writeAnswer(@ModelAttribute BBS bbs, Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		
 		BBSRepository.insertBBS(bbs);
 		return "/BBS/writeAnswer";
@@ -165,15 +153,12 @@ public class AdminController {
 	@GetMapping("/writeAnswer/{bbsNo}")
 	public String BBSwrite(Model model,@PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		
-		BBS bbsItem = BBSRepository.selectBybbsNo(bbsNo);
-		model.addAttribute("BBS", bbsItem);
+		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
 		
 		model.addAttribute("Reply", new Reply());
 //		model.addAttribute("BBS", new BBS());
@@ -184,12 +169,10 @@ public class AdminController {
 	@PostMapping("/writeAnswer/{bbsNo}")
 	public String newBBSInsertModel(@ModelAttribute Reply reply,BindingResult bindingResult,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
 		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
+		model.addAttribute("uriHere", req.getRequestURI());
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
+		model.addAttribute("user", loginService.getLoginUser(req));
 		
 		//내용 입력안하면 다시 글쓰는 페이지로 돌아감 
 				ReplyValidator bbsValidator = new ReplyValidator();

@@ -41,12 +41,10 @@ public class SignUpController {
 	 */
 	@GetMapping
 	public String signUpForm (Model model) {
-		SignUpForm signUpform = new SignUpForm();
-		model.addAttribute("signUpForm", signUpform);
+		model.addAttribute("signUpForm", new SignUpForm());
 		
 		//약 목록 넘겨주기
-		List<DrugsNameForm> drugsNameFormList = findDrugService.getDrugsNameFormList();
-		model.addAttribute("drugsNameFormList", drugsNameFormList);
+		model.addAttribute("drugsNameFormList", findDrugService.getDrugsNameFormList());
 		return "/users/signUp/signUp";
 	}
 	
@@ -61,8 +59,7 @@ public class SignUpController {
 	@PostMapping
 	public String signUp(@ModelAttribute SignUpForm signUpForm
 			, HttpServletRequest req) {
-		List<UsersInfo> usersInfoList = signUpService.getUsersInfoList(req);
-		signUpService.signUpUsersAndUsersInfo(signUpForm, usersInfoList);
+		signUpService.signUpUsersAndUsersInfo(signUpForm, signUpService.getUsersInfoList(req));
 		return "redirect:/login";
 	}
 

@@ -163,6 +163,7 @@ body{
     border-radius: 10px;
     display: block;
     margin-top: 30px;
+    text-align: center;
 }
 .familyBoxTitle{
 	display: block;
@@ -430,4 +431,41 @@ body{
 }
 .modifyPwPoint {
 	color : var(--Signature-blue);
+}
+
+.cardBtn {
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+
+/* 정보 추가 */
+.addFormBox{
+	display: block;
+	margin: 0px auto;
+	text-align: center;
+}
+.infoList{
+	margin: 10px;
+	font-size: 20px;
+	font-weight: 600;
+}
+.infoButton{
+	display: block;
+	margin: 10px auto;
+	margin-top: 30px;
+	width: 230px;
+	height: 30px;
+	border: none;
+	border-radius: 20px;
+	color: var(--Lowtone-silver);
+	font-size: 20px;
+    font-weight: 700;
+	background-color: var(--Signature-blue);
+	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=155020),auto;
+}
+.infoListBox{
+    display: block;
+	padding: 10px;
+    margin: 20px auto;
+    border: 3px solid var(--Signature-silver);
+    border-radius: 20px;
 }

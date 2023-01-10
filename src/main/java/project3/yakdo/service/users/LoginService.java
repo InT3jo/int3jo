@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
+import project3.yakdo.session.SessionVar;
 import project3.yakdo.validation.form.LoginForm;
 
 @Slf4j
@@ -43,15 +45,12 @@ public class LoginService {
 	 * @return: User
 	 */
 	public Users getLoginUser(HttpServletRequest req) {
-//		HttpSession session = req.getSession(false);
-//		if(session == null) {
-//			return null;
-//		}
-//		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			return null;
+		}
+		Users user = (Users)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
-		// 개발중 1@1로 로그인한 채로 시작하도록 설계
-		Users user = usersRepository.selectUserByUserEmail("1@1");
-//		Users user = usersRepository.selectUserByUserEmail("3@3");
 		return user;
 	}
 
