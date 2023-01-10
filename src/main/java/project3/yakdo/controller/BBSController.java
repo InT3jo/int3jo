@@ -44,7 +44,7 @@ public class BBSController {
 	private final LoginService loginService;
 
 	// 게시글 목록 출력 + 페이징 추가 + 검색 추가 - 최종 게시판 검색+페이징 다 됨
-	// 글번호 bbs_no에 해당하는 답글 불러오기(추가 01-05-14:08)
+	// 글번호 bbs_no에 해당하는 답글 불러오기
 	@GetMapping("/listSearch")
 	public String BBSList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 현재 주소정보
@@ -230,6 +230,8 @@ public class BBSController {
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
+		
+		bbsCommentRepositoy.updateComShowOneByBbsNo(bbsNo, comNo);
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
@@ -334,7 +336,7 @@ public class BBSController {
 		bbsValidator.validate(reply, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			return "redirect:/BBS/listSearch";
+			return "BBS/updateReply2";
 		}
 
 		BBSRepository.updateRe2(bbsNo, reNo, reply);
@@ -350,6 +352,47 @@ public class BBSController {
 		model.addAttribute("user", loginService.getLoginUser(req));
 
 		BBSRepository.updateReShow1(bbsNo, reNo);
+
+		return "redirect:/BBS/listSearch";
+
+	}
+	
+	//게시판 관리자 답변 쓰기 
+	@GetMapping("/writeAnswer/{bbsNo}")
+	public String BBSwrite(Model model,@PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
+		// 현재 주소정보
+		model.addAttribute("uriHere", req.getRequestURI());
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		model.addAttribute("user", loginService.getLoginUser(req));
+		
+		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
+		
+		model.addAttribute("Reply", new Reply());
+//		model.addAttribute("BBS", new BBS());
+		return "BBS/writeAnswer";
+	}
+	
+	//게시판 관리자 답변 쓰기 
+	@PostMapping("/writeAnswer/{bbsNo}")
+	public String newBBSInsertModel(@ModelAttribute Reply reply,BindingResult bindingResult,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
+		// 현재 주소정보
+		model.addAttribute("uriHere", req.getRequestURI());
+
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		model.addAttribute("user", loginService.getLoginUser(req));
+		
+		//내용 입력안하면 다시 글쓰는 페이지로 돌아감 
+				ReplyValidator bbsValidator = new ReplyValidator();
+				bbsValidator.validate(reply, bindingResult);
+
+				if (bindingResult.hasErrors()) {
+//					return "redirect:/BBS/listSearch";
+//					return "admin/writeAnswer/{bbsNo}";
+					return "BBS/writeAnswer/"+bbsNo;
+				}
+	
+		BBSRepository.insertReply(reply);
 
 		return "redirect:/BBS/listSearch";
 

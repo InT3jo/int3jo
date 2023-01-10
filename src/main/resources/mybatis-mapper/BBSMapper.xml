@@ -130,7 +130,10 @@
 
 
 
-	<!-- 닉네임 같이 불러오면서 제목,내용,작성자 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 이걸로 성공 -->
+	<!-- 게시글 페이징+검색 -->
+<!-- 	최근 게시물 기준으로 내림차순으로 rNum(row_number)부여 -->
+<!-- 	그 후 전체 목록에서 rNum의 값이 1부터 10까지의 데이터 출력  -->
+	 
 	<select id="listSearch" resultType="BBS"
 		parameterType="SearchCriteria">
 		select BBS_no, user_no,

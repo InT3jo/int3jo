@@ -1,7 +1,8 @@
 package project3.yakdo.domain.BBS;
 
+//시작값과 끝값을 다루는 클래스 
 public class Criteria {
-	private int page; // 현재페이지 번호
+	private int page; 		// 현재페이지 번호
 	private int perPageNum; // 페이지당 출력할 갯수
 	private int rowStart;
 	private int rowEnd;
@@ -19,20 +20,8 @@ public class Criteria {
 		this.page = page;
 	}
 
-	public void setPerPageNum(int perPageNum) {
-		if (perPageNum <= 0 || perPageNum > 100) {
-			this.perPageNum = 10;
-			return;
-		}
-		this.perPageNum = perPageNum;
-	}
-
 	public int getPage() {
 		return page;
-	}
-
-	public int getPageStart() {
-		return (this.page - 1) * perPageNum;
 	}
 
 	public int getPerPageNum() {

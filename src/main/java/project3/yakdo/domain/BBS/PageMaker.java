@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+//페이지 번호를 만들고 출력해주기 위해 필요 
 public class PageMaker {
 
 	/*

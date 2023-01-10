@@ -25,19 +25,18 @@ th, td {
 <script>
 function writeReOk() {
 	if (confirm('등록하시겠습니까?')) {
-		
 
 		if (document.getElementById("reContent").value == "") {
 			alert("내용을 입력하세요.");
+			return;
 		}
-		
-		
 		document.getElementById("writeRe").submit();
 		
 	} else {
 		alert("등록이 취소되었습니다.");
+		return;
 	}
-	return false;
+
 }
 </script>
 	<div th:replace="home_component.html :: header"></div>
@@ -101,7 +100,7 @@ function writeReOk() {
 
 
 		<div id="writeBtn">
-			<button id="headerSearchBtn" onclick="writeReOk()">등록하기</button>
+			<button id="headerSearchBtn" onclick="writeReOk()" type="button">등록하기</button>
 		</div>
 	</form>
 	</div>

@@ -136,56 +136,49 @@ public class AdminController {
 		usersRepository.updateUserGrade(userNo, users);
 		return "redirect:/admin/userlist";
 	}
-
-	// 게시판 관리자 답변 쓰기
-	@RequestMapping("/writeAnswer/{bbsNo}")
-	public String writeAnswer(@ModelAttribute BBS bbs, Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		model.addAttribute("user", loginService.getLoginUser(req));
-		
-		BBSRepository.insertBBS(bbs);
-		return "/BBS/writeAnswer";
-	}
-
-
-	//답글 테이블 만들고 다시 시도중 01-05-11:55~
-	//게시판 관리자 답변 쓰기 
-	@GetMapping("/writeAnswer/{bbsNo}")
-	public String BBSwrite(Model model,@PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		// 현재 주소정보
-		model.addAttribute("uriHere", req.getRequestURI());
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		model.addAttribute("user", loginService.getLoginUser(req));
-		
-		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
-		
-		model.addAttribute("Reply", new Reply());
-//		model.addAttribute("BBS", new BBS());
-		return "/BBS/writeAnswer";
-	}
 	
-	//게시판 관리자 답변 쓰기 
-	@PostMapping("/writeAnswer/{bbsNo}")
-	public String newBBSInsertModel(@ModelAttribute Reply reply,BindingResult bindingResult,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
-		// 현재 주소정보
-		model.addAttribute("uriHere", req.getRequestURI());
 
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		model.addAttribute("user", loginService.getLoginUser(req));
-		
-		//내용 입력안하면 다시 글쓰는 페이지로 돌아감 
-				ReplyValidator bbsValidator = new ReplyValidator();
-				bbsValidator.validate(reply, bindingResult);
 
-				if (bindingResult.hasErrors()) {
-					return "redirect:/BBS/listSearch";
-				}
-		
-		
-		BBSRepository.insertReply(reply);
 
-		return "redirect:/BBS/listSearch";
-
-	}
+//	//게시판 관리자 답변 쓰기 
+//	@GetMapping("/writeAnswer/{bbsNo}")
+//	public String BBSwrite(Model model,@PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
+//		// 현재 주소정보
+//		model.addAttribute("uriHere", req.getRequestURI());
+//
+//		// 로그인된 유저정보(로그인되어있지 않다면 null)
+//		model.addAttribute("user", loginService.getLoginUser(req));
+//		
+//		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
+//		
+//		model.addAttribute("Reply", new Reply());
+////		model.addAttribute("BBS", new BBS());
+//		return "BBS/writeAnswer";
+//	}
+//	
+//	//게시판 관리자 답변 쓰기 
+//	@PostMapping("/writeAnswer/{bbsNo}")
+//	public String newBBSInsertModel(@ModelAttribute Reply reply,BindingResult bindingResult,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
+//		// 현재 주소정보
+//		model.addAttribute("uriHere", req.getRequestURI());
+//
+//		// 로그인된 유저정보(로그인되어있지 않다면 null)
+//		model.addAttribute("user", loginService.getLoginUser(req));
+//		
+//		//내용 입력안하면 다시 글쓰는 페이지로 돌아감 
+//				ReplyValidator bbsValidator = new ReplyValidator();
+//				bbsValidator.validate(reply, bindingResult);
+//
+//				if (bindingResult.hasErrors()) {
+////					return "redirect:/BBS/listSearch";
+////					return "admin/writeAnswer/{bbsNo}";
+//					return "BBS/writeAnswer";
+//				}
+//		
+//		
+//		BBSRepository.insertReply(reply);
+//
+//		return "redirect:/BBS/listSearch";
+//
+//	}
 }

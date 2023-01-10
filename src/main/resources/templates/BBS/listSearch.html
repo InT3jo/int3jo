@@ -2,53 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>약도 - 이용문의</title>
-	<link rel="stylesheet" href="/css/bootstrap.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="/css/var.css">
-	<link rel="stylesheet" type="text/css" href="/css/home_component.css">
-	<link rel="stylesheet" type="text/css" href="/css/BBS.css">
-	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script><!-- 안쓰면 나중에 삭제 --> 
+<meta charset="UTF-8">
+<title>약도 - 이용문의</title>
+<link rel="stylesheet" href="/css/bootstrap.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/home_component.css">
+<link rel="stylesheet" type="text/css" href="/css/BBS.css">
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<!-- 안쓰면 나중에 삭제 -->
 </head>
 
 <body>
- <script>
- 
- function clickSearchBtn(){
-	 
+	<script>
+		function clickSearchBtn() {
 
-
-// 			if (document.getElementById("keywordInput").value == "") {
-// 				alert("검색어를 입력하세요.");
-			
-// 			}
- 
-	 location.href = "/BBS/listSearch?page=1&perPageNum=10&searchType=" 
-					 + $("select option:selected").val()
-					 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
- }
- 
- 
- </script>
- <script type="text/javascript">
-		function moveTop(){
-			window.scrollTo({top:0, behavior:"smooth"})
+			location.href = "/BBS/listSearch?page=1&perPageNum=10&searchType="
+					+ $("select option:selected").val() + "&keyword="
+					+ encodeURIComponent($('#keywordInput').val());
+		}
+	</script>
+	<script type="text/javascript">
+		function moveTop() {
+			window.scrollTo({
+				top : 0,
+				behavior : "smooth"
+			})
 		}
 	</script>
 	<div class="moveTopBtn" onclick="moveTop()">▲</div>
- 
+
 	<div th:replace="home_component.html :: header"></div>
 	<div class="BBSlist">
-	<p id="BBS">이용문의</p>
-	<div id="writeBtn">
-	<!-- 	<div th:if="${user}!=null"> -->
-			<button id="headerSearchBtn" th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>
-	<!-- 	</div> -->
-</div>
+		<p id="BBS">이용문의</p>
+		<div id="writeBtn">
+			<!-- 	<div th:if="${user}!=null"> -->
+			<button id="headerSearchBtn"
+				th:onclick="|location.href='@{/BBS/BBSwrite}'|">글쓰기</button>
+			<!-- 	</div> -->
+		</div>
 
-<!-- 	게시글 리스트 불러오는 부분  -->
-	<div class="col-md-12">
+		<!-- 	게시글 리스트 불러오는 부분  -->
+		<div class="col-md-12">
 			<table class="table table-hover">
 				<colgroup>
 					<col width="50">
@@ -64,91 +63,84 @@
 						<th>Name</th>
 					</tr>
 				</thead>
-				
-				
-				
+
+
+
 				<tbody>
-				<div th:each="BBS : ${list}" >
-					<tr>
-						<td th:text=${BBS.bbsNo}></td>
-						<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
-						<td th:text=${BBS.bbsDate}></td>
-						<td th:text="${BBS.userNick}"></td>
-					</tr>
-						
-					<tr th:each="Reply : ${listRe}" th:if="${BBS.bbsNo}==${Reply.bbsNo} and ${listRe}!=null">
-						<td></td>
-						<td><a th:href="@{|/BBS/replyView2/${BBS.bbsNo}/${Reply.reNo}|}" th:text="${' └ 😎'+Reply.reTitle}"></a></td>
-						<td th:text=${Reply.reDate}></td>
-						<td th:text="${Reply.userNick}"></td>
-					</tr>
-				</div>
+					<div th:each="BBS : ${list}">
+						<tr>
+							<td th:text=${BBS.bbsNo}></td>
+							<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}"
+								th:text=${BBS.bbsTitle}></a></td>
+							<td th:text=${BBS.bbsDate}></td>
+							<td th:text="${BBS.userNick}"></td>
+						</tr>
+
+						<tr th:each="Reply : ${listRe}"
+							th:if="${BBS.bbsNo}==${Reply.bbsNo} and ${listRe}!=null">
+							<td></td>
+							<td><a
+								th:href="@{|/BBS/replyView2/${BBS.bbsNo}/${Reply.reNo}|}"
+								th:text="${' └ 😎'+Reply.reTitle}"></a></td>
+							<td th:text=${Reply.reDate}></td>
+							<td th:text="${Reply.userNick}"></td>
+						</tr>
+					</div>
 				</tbody>
-				
+
 			</table>
 		</div>
 
+		<div id="pageNumber"
+			th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
+			<ul>
+				<div>
+					<li><a
+						th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
+				</div>
+
+
+
+				<div th:each="num : ${#numbers.sequence(start,end)}">
+					<li><code th:if="${pageMaker.cri.getPage() == num}"
+							th:text="${num}"></code> <a
+						th:unless="${pageMaker.cri.getPage()==num}"
+						th:href="@{|/BBS/listSearch${pageMaker.makeSearch(num)}|}"> <code
+								th:text="${num}"></code></a></li>
+				</div>
+
+				<div>
+
+					<li><a
+						th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
+					</li>
+				</div>
+			</ul>
+		</div>
+		<br /> <br />
 
 
 
 
 
 
-<!-- makeQuery 넣어서 다시 시도  -->
-<!-- makeQuery 사용해도 페이징 잘 되는거 확인 01-03-11:12 -->
-<!-- 검색 기능 하면서 listPage.html복붙해와서 makeQuery -> makeSearch로 변경 -->
-<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
-		<ul>
-			<div>
-				<li><a
-					th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
-			</div>
-
-
-			<!--			3페이지 까지 필요할때는 쩜 3개 찍힘 page 숫자 표시만 되면 되는데 -->
-			<div th:each="num : ${#numbers.sequence(start,end)}">
-				<li><code th:if="${pageMaker.cri.getPage() == num}"
-						th:text="${num}"></code> <a
-					th:unless="${pageMaker.cri.getPage()==num}"
-					th:href="@{|/BBS/listSearch${pageMaker.makeSearch(num)}|}"> <code
-							th:text="${num}"></code></a></li>
-			</div>
-
-			<div>
-				<!--			<div th:if="${pageMaker.next} and ${pageMaker.endPage} > 0">-->
-				<li>
-					<!-- 				<a th:href="@{|/BBS/listPage?page=${pageMaker.endPage + 1}&perPageNum=10|}">끝</a> -->
-					<a
-					th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
-				</li>
-			</div>
-		</ul>
-	</div>
-<br/>
-<br/>
-
-	
-		
-	
-
-
-<!-- 검색 -->
+		<!-- 검색 -->
 		<div id="searchBBS">
 
 			<select name="searchType">
-				<!-- 				<option value="n" th:selected="${scri.searchType==null}"></option> -->
+
 				<option value="title" th:selected="${scri.searchType=='title'}">제목</option>
 				<option value="content" th:selected="${scri.searchType=='content'}">내용</option>
 				<option value="writer" th:selected="${scri.searchType=='writer'}">작성자</option>
-			</select>
-			 <input type="text" name="keyword" id="keywordInput" th:value="${scri.keyword}" />
+			</select> <input type="text" name="keyword" id="keywordInput"
+				th:value="${scri.keyword}" />
 
 			<button id="headerSearchBtn" onclick="clickSearchBtn()">검색</button>
 		</div>
-		
-		
-	
-			
+
+
+
+
 	</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
