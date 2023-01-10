@@ -22,15 +22,10 @@
 		values
 		(
 		#{bbsNo},
-		<!-- #{user_no}, 일단 Test로 3 넣어보기, 추후 수정 필요 - 로그인한 사람 아이디에 맞는 user_no 를 
-			insert -->
 		#{userNo},
 		#{bbsTitle},
 		#{bbsContent},
-		<!-- #{BBS_date} 는 #{sysdate} -->
 		sysdate,
-		<!-- to_char(sysdate.'YYYY-MM-DD HH24:MI:SS'), -->
-		<!-- #{BBS_show} 는 일단 글 등록하면 게시해야하니까 값을 0으로 넣어줌 -->
 		0
 		)
 	</insert>
@@ -54,8 +49,6 @@
 	<!-- 게시글 전체 목록 보기 -->
 	<select id="selectByShowZero" resultType="BBS">
 		<!-- BBS_show 값이 0(게시) 1(본인삭제) 2(관리자삭제) 이기 때문에 0인것만 목록에 출력 -->
-		<!-- 데이터 안넘어와서 테스트용 쿼리로 변경함 / 추후 수정 예정 -->
-		<!-- 쿼리 수정 완료 -->
 		select
 		b.BBS_no,
 		b.user_no,
@@ -69,8 +62,6 @@
 		and
 		u.user_no = b.user_no
 		order by BBS_no desc
-		<!-- 위의 쿼리로 실행하면 SQL state [99999]; error code [17132]; 부적합한 변환이 요청됨 에러 -->
-		<!-- 실제로 필요한 결과 데이터를 불러오려면 위의 쿼리가 필요한것같은데...일단 주석 12-21-09:47 -->
 	</select>
 
 

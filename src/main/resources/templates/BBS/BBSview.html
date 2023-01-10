@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
-<title>Insert title here</title>
+<title>약도 - 이용문의</title>
 <style>
 /* 일단 테이블 태그로 했다가 나중에 class 이름 만들어서 css파일로 옮기기  */
 table {
@@ -49,7 +49,15 @@ th, td {
 
 		function writeComOk() {
 			if (confirm('등록하시겠습니까?')) {
+				
+
+				if (document.getElementById("comContent").value == "") {
+					alert("내용을 입력하세요.");
+				}
+				
+				
 				document.getElementById("writeCom").submit();
+				
 			} else {
 				alert("등록이 취소되었습니다.");
 			}
@@ -173,16 +181,16 @@ th, td {
 		th:object=${BBSComment}>
 		<p>
 
-			<label>댓글작성자<input type="text" name="userNick"
+			<label>작성자 : <input type="text" name="userNick"
 				th:value="${user.userNick}" readonly></label>
 			<!-- 				로그인한 사람의 닉네임 불러오기 -->
 		</p> 
-		<p>
-			<!-- 				<textarea name="comContent" th:field="*{comContent}" rows="5" cols="50"></textarea> -->
-			<label>댓글 입력: <textarea class="WriteComContent" name="comContent" maxlength="150" placeholder="댓글을 입력해주세요(170자까지 입력 가능합니다.)"
+	
+			
+			<label> <textarea id="comContent" class="WriteComContent" name="comContent" maxlength="150" placeholder="댓글을 입력해주세요(170자까지 입력 가능합니다.)"
 				th:field="*{comContent}"></textarea></label> 
 				<input type="hidden" name="userNo" th:value="${user.userNo}">
-		</p>
+		
 		<div class="WriteComBtn">
 			<button  id="headerSearchBtn" type="button" onclick="writeComOk()">댓글 작성</button>
 		</div>
@@ -205,45 +213,45 @@ th, td {
 		<col width="35%" />
 	</colgroup>
 	<tbody th:each="BBSComment : ${commentListZero}">
-		<tr>
-			<th scope="row">작성자</th>
-			<td th:text="${BBSComment.userNick}"></td>
-			<th scope="row">관리</th>
-			<div th:if="${user.userNick}==${BBSComment.userNick}">
-				<td>
-					<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-						th:onclick="deleteCom(this.getAttribute('name'),this.getAttribute('src'))">삭제</button>
-					<!--  <button
-						th:onclick="|location.href='@{/BBS/deleteCom/{comSeq}(comSeq=${BBSComment.comSeq})}'|">삭제</button>-->
-				
-			
-					<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-						th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">
-						수정</button>
-				</td>
-			</div>
+						<tr>
+							<th scope="row">작성자</th>
+							<td th:text="${BBSComment.userNick}"></td>
+							<th scope="row">작성일</th>
+							<td th:text="${BBSComment.comDate}"></td>
 
+							<div th:if="${user.userNick}==${BBSComment.userNick}">
+								<th scope="row">관리</th>
+							
+							<td>
+								<button id="comManageBtn" th:name="${BBSComment.bbsNo}"
+									th:src="${BBSComment.comNo}"
+									th:onclick="deleteCom(this.getAttribute('name'),this.getAttribute('src'))">삭제</button>
 
-			<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
-				<td>
-					<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
-						th:onclick="deleteComAdmin(this.getAttribute('name'),this.getAttribute('src'))">
-						관리삭제</button>
-				</td>
-			</div>
-		</tr>
-		<tr>
-			<th scope="row">작성일</th>
-			<td th:text="${BBSComment.comDate}"></td>
-		</tr>
+								<button id="comManageBtn" th:name="${BBSComment.bbsNo}"
+									th:src="${BBSComment.comNo}"
+									th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">
+									수정</button>
+							</td>
+							</div>
+						</tr>
+						<div th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
+							<tr>
+								<th scope="row"></th>
+								<td>
+									<button id="headerSearchBtn" th:name="${BBSComment.bbsNo}"
+										th:src="${BBSComment.comNo}"
+										th:onclick="deleteComAdmin(this.getAttribute('name'),this.getAttribute('src'))">
+										관리삭제</button>
+								</td>
+							</tr>
+						</div>
 
-		<tr>
-			<td td colspan="4">
-				<textarea class="ComContent" title="내용" th:text="${BBSComment.comContent}"
-					readonly="readonly"></textarea>
-			</td>
-		</tr>
-	</tbody>
+						<tr>
+							<td td colspan="4"><textarea class="ComContent" title="내용"
+									th:text="${BBSComment.comContent}" readonly="readonly"></textarea>
+							</td>
+						</tr>
+					</tbody>
 </table>
 
 

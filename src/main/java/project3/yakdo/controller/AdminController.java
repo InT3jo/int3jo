@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,8 @@ import project3.yakdo.repository.BBSCommentRepository;
 import project3.yakdo.repository.BBSRepository;
 import project3.yakdo.repository.UsersRepository;
 import project3.yakdo.service.users.LoginService;
+import project3.yakdo.validation.BBSValidator;
+import project3.yakdo.validation.ReplyValidator;
 
 @Controller
 @RequestMapping("/admin")
@@ -179,7 +182,7 @@ public class AdminController {
 	
 	//게시판 관리자 답변 쓰기 
 	@PostMapping("/writeAnswer/{bbsNo}")
-	public String newBBSInsertModel(@ModelAttribute Reply reply,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
+	public String newBBSInsertModel(@ModelAttribute Reply reply,BindingResult bindingResult,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
 		// 현재 주소정보
 		String uriHere = req.getRequestURI();
 		model.addAttribute("uriHere", uriHere);
@@ -187,6 +190,15 @@ public class AdminController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
+		
+		//내용 입력안하면 다시 글쓰는 페이지로 돌아감 
+				ReplyValidator bbsValidator = new ReplyValidator();
+				bbsValidator.validate(reply, bindingResult);
+
+				if (bindingResult.hasErrors()) {
+					return "redirect:/BBS/listSearch";
+				}
+		
 		
 		BBSRepository.insertReply(reply);
 

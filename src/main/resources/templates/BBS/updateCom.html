@@ -5,9 +5,24 @@
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
-<title>Insert title here</title>
+<title>약도 - 이용문의</title>
 </head>
 <body>
+<script type="text/javascript">
+function updateComOk(bbsNo,comNo) {
+	if (confirm('수정하시겠습니까?')) {
+		
+
+		if (document.getElementById("comContent").value == "") {
+			alert("내용을 입력하세요.");
+		}
+		
+		location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo ;
+	} else {
+		alert("수정이 취소되었습니다.")
+	}
+}
+</script>
 	<div th:replace="home_component.html :: header"></div>
 <p id="BBS">이용문의</p>
 	
@@ -22,10 +37,12 @@
 			<label>작성자<input class="InputNick" type="text" name="userNick" readonly="readonly" th:value="${user.userNick}"></label>
 			
 			<br>
-			<label>댓글 수정<textarea class="InputBBSContent" name="comContent" th:field="*{comContent}" ></textarea></label>
+			<label>댓글 수정<textarea id="comContent" class="InputBBSContent" name="comContent" th:field="*{comContent}" ></textarea></label>
 		</div>
 		<div id="writeBtn">
-		 <button id="headerSearchBtn" type="submit">수정완료</button>
+		 <button id="headerSearchBtn"  th:name="${bbsComment.bbsNo}"
+									th:src="${bbsComment.comNo}"
+									th:onclick="updateComOk(this.getAttribute('name'),this.getAttribute('src'))">수정완료</button>
 		
 		 </div>
 		

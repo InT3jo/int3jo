@@ -2,12 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>약도 - 이용문의</title>
 <link rel="stylesheet" type="text/css" href="/css/var.css">
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
 </head>
 <body>
+<script>
+function updateBBSOk(bbsNo) {
+	if (confirm('수정하시겠습니까?')) {
+		location.href = "/BBS/BBSlist/" + bbsNo;
+	} else {
+		alert("등록이 취소되었습니다.");
+	}
+	return false;
+}
+</script>
 
 	<div th:replace="home_component.html :: header"></div>
 
@@ -29,7 +39,8 @@
 			</div>
 			<div>
 				<div id="writeBtn">
-					<button id="headerSearchBtn" type="submit">수정하기</button>
+					<button id="headerSearchBtn" th:name="${BBS.bbsNo}"
+				th:onclick="updateBBSOk(this.getAttribute('name'))">수정하기</button>
 				</div>
 			</div>
 
