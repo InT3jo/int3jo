@@ -44,46 +44,7 @@ public class AdminController {
 		return "admin/admin";
 	}
 
-	@GetMapping("/adminBBSlist")
-	public String adminBBSlist(Model model, HttpServletRequest req) {
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
-		// 본인삭제 게시글 리스트 불러오기
-		List<BBS> bbsListOne = BBSRepository.selectByShowOne();
-		model.addAttribute("bbsListOne", bbsListOne);
-
-		// 관리자 삭제 게시글 리스트 불러오기
-		List<BBS> bbsListTwo = BBSRepository.selectByShowTwo();
-		model.addAttribute("bbsListTwo", bbsListTwo);
-
-		return "admin/adminBBSlist";
-	}
-
-	// 게시물 관리 + 페이징 + 검색 - 한페이지에 페이징 검색 둘 다 불러오는 것 보다 나누는걸로 아래에서 다시 시도 ..
-	@GetMapping("/adminBBSlistPage")
-	public String adminBBSlistPage(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
-		// 본인삭제 게시글 리스트 불러오기
-		List<BBS> bbsListOne = BBSRepository.adminShowOnelist(scri);
-		model.addAttribute("bbsListOne", bbsListOne);
-
-		// 관리자 삭제 게시글 리스트 불러오기
-		List<BBS> bbsListTwo = BBSRepository.adminShowTwolist(scri);
-		model.addAttribute("bbsListTwo", bbsListTwo);
-
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-
-		pageMaker.setTotalCount(BBSRepository.countSearchShowOne(scri));
-		model.addAttribute("pageMaker", pageMaker);
-
-		return "admin/adminBBSlistPage";
-	}
+	
 
 	// 본인삭제 게시물 관리 + 페이징 + 검색
 	@GetMapping("/adminShowOneList")
@@ -134,17 +95,7 @@ public class AdminController {
 		return "redirect:/admin/adminShowTwoList";
 	}
 
-	// 관리할 회원 리스트 불러오기 - 원래 있던 userlist 페이지로 보내주는것 주석 0104 00:47
-	@GetMapping("/userlist")
-	public String userlist(Model model, HttpServletRequest req) {
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
-		List<Users> userList = usersRepository.selectAllUsers();
-		model.addAttribute("userList", userList);
-		return "admin/userlist";
-	}
+
 
 	// 관리할 회원 리스트 + 페이징 + 검색 01-04 10:24 userlist.html수정하다가 search~~ 새로 만들어서 나눔
 

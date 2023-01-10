@@ -57,22 +57,6 @@ public class BBSMybatisRepository implements BBSRepository {
 		return bbsListZero;
 	}
 
-//	@Override
-//	@Transactional
-//	public boolean updateBBS(int bbsNo, BBS bbs) {
-//		// TODO Auto-generated method stub
-//		boolean result = false;
-//		try {
-//		BBSMapper.updateBBS(bbsNo, bbs);
-//		result = true;
-//		}catch (Exception e){
-//			log.error("BBSMapper update error {} {} ", bbsNo, bbs);
-//		}
-//		
-//		
-//		return result;
-//
-//	}
 
 	@Override
 	@Transactional
@@ -148,19 +132,7 @@ public class BBSMybatisRepository implements BBSRepository {
 
 	}
 
-	//목록 + 페이징
-	@Override
-	public List<BBS> listPage(Criteria cri) {
-		// TODO Auto-generated method stub
-		return BBSMapper.listPage(cri);
-	}
 
-	//게시물 총 갯수
-	@Override
-	public int listCount() {
-		// TODO Auto-generated method stub
-		return BBSMapper.listCount();
-	}
 
 	//목록 + 페이징 + 검색 1번째 방법에 필요
 	@Override
@@ -229,30 +201,6 @@ public class BBSMybatisRepository implements BBSRepository {
 		return listRe;
 	}
 
-	//답글 상세보기 
-	@Override
-	public Reply replyView(int bbsNo) {
-		// TODO Auto-generated method stub
-		Reply re = BBSMapper.replyView(bbsNo);
-		return re;
-	}
-
-//나중에 validation 할 때 
-	@Override
-	public Integer insertBBS(WriteBBSForm writeBBSform) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	//답변 수정
-	@Override
-	public boolean updateRe(int bbsNo, Reply reply) {
-		// TODO Auto-generated method stub
-		boolean result = false;
-			BBSMapper.updateRe(bbsNo, reply);
-		return result;
-	}
-
 
 	//답변 상세보기 2 
 	@Override
@@ -281,45 +229,5 @@ public class BBSMybatisRepository implements BBSRepository {
 	}
 
 
-	
-
-
-
-
-
-
-	/*
-	@Override (첫번째 방법으로 다시시도중 일단 주석처리 01-03-09:53)
-	public List<BBS> listPageSearch(Criteria cri, String searchType, String keyword) {
-		// TODO Auto-generated method stub
-		return BBSMapper.listPageSearch(cri, searchType, keyword);
-	}
-	 */
-
-	
-
-
-	/*
-	// 게시물 총 갯수
-	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return BBSMapper.count();
-	}
-
-	// 게시물 목록 + 페이징
-	@Override
-	public List<BBS> BBSlistPage(int rowStart, int rowEnd) {
-		// TODO Auto-generated method stub
-
-//		HashMap<String, Integer> data = new HashMap<String, Integer>();
-//
-//		data.put("rowStart", rowStart);
-//		data.put("rowEnd", rowEnd);
-
-		return BBSMapper.BBSlistPage(rowStart, rowEnd);
-	}
-*/
-	
 	
 }

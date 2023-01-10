@@ -4,18 +4,10 @@
 <mapper
 	namespace="project3.yakdo.repository.mybatis.BBSCommentMapper">
 
-
-
-
-
 	<!-- 댓글쓰기 -->
 
 	<insert id="insertBBSCom" parameterType="bbsComment">
-	<!--글번호 댓글번호 조합으로 특정가능 시퀀스 컬럼 삭제, insert 수정 12/30 21:40--> 
-	<!--<selectKey keyProperty="comSeq" resultType="java.lang.Integer"
-		order="BEFORE">
-		select COMPK.nextVal as com_seq from dual
-		</selectKey>-->
+
 	insert into bbs_comment
 		(
 		bbs_no,
@@ -24,29 +16,21 @@
 		com_content,
 		com_date,
 		com_show
-<!--		com_seq-->
 		)
 		values
 		(
 		#{bbsNo},
 		NVL(((select MAX(com_no) from bbs_comment where bbs_no=#{bbsNo} )+1) , 1),
 		#{userNo},
-<!-- 		userNo 일단 테스트로 1넣고 나중에 로그인 정보에서 가져와야함  -->
 		#{comContent},
 		sysdate,
 		0
-	<!--	#{comSeq}-->
 		)
 	</insert>
 
 
 	<!-- 해당 글의 댓글 모두 불러오기 -->
 	<select id="selectComBybbsNo" resultType="BBSComment">
-		<!-- select * from bbs_comment -->
-		<!-- where bbs_no = #{bbsNo} -->
-		<!-- order by com_date desc -->
-		<!-- user_nick 까지 불러오는것으로 수정 12-26-20:02 -->
-<!-- 		게시상태 0(게시)인것만 불러오는것으로 수정 12-27-14:56 -->
 	  select
 		a.BBS_NO,
 		a.COM_NO,

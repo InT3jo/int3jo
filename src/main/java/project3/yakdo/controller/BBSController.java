@@ -42,52 +42,13 @@ public class BBSController {
 	private final BBSCommentRepository bbsCommentRepositoy;
 	private final LoginService loginService;
 
-	// 게시글 목록 출력
-	@GetMapping("/BBSlist")
-	public String BBSList(Model model, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
 
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
-		List<BBS> bbsListZero = BBSRepository.selectByShowZero();
-		log.info("bbsListZero {}", bbsListZero);
-		model.addAttribute("bbsListZero", bbsListZero);
-		return "BBS/BBSlist";
-	}
 	
-	
-	
-	// 게시글 목록 출력 + 페이징 추가 
-		@GetMapping("/listPage")
-		public String BBSList(Criteria cri, Model model, HttpServletRequest req) {
-			// 현재 주소정보
-			String uriHere = req.getRequestURI();
-			model.addAttribute("uriHere", uriHere);
 
-			// 로그인된 유저정보(로그인되어있지 않다면 null)
-			Users user = loginService.getLoginUser(req);
-			model.addAttribute("user", user);
-			
-			List<BBS> list = BBSRepository.listPage(cri);
-			
-			model.addAttribute("list", list);
-			
-			
-			 PageMaker pageMaker = new PageMaker();
-			 pageMaker.setCri(cri);
-			 pageMaker.setTotalCount(BBSRepository.listCount());
-			 model.addAttribute("pageMaker", pageMaker);
-			
-			return "BBS/listPage";
-		}
 		
 		
 		
-		// 게시글 목록 출력 + 페이징 추가 + 검색 추가 (1번째 방법 다시 시도중) - 최종 게시판 검색+페이징 다 됨 
+		// 게시글 목록 출력 + 페이징 추가 + 검색 추가  - 최종 게시판 검색+페이징 다 됨 
 		//글번호 bbs_no에 해당하는 답글 불러오기(추가 01-05-14:08)
 		@GetMapping("/listSearch")
 		public String BBSList(@ModelAttribute ("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
@@ -103,9 +64,6 @@ public class BBSController {
 			List<BBS> list = BBSRepository.listSearch(scri);
 			model.addAttribute("list", list);
 			
-//			bbs_no에 해당하는 답글 리스트 
-//			List<Reply> reList=BBSRepository.listReBybbsNo(bbsNo);
-//			model.addAttribute("reList",reList);	
 
 			//전체 답글 리스트 불러오기 
 			List<Reply> listRe=BBSRepository.listRe();
@@ -135,11 +93,7 @@ public class BBSController {
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 		
-		//다시 수업 방법으로 해보려고 주석 처리 01-06 10:50	
-//		WriteBBSForm writeBBSform = new WriteBBSForm();
-//		model.addAttribute("writeBBSform", writeBBSform);
-		
-//      test 중 주석처리함 01-05 20:39 - 다시 수업 방법으로 해보려고 주석 해제 01-06 10:50	
+
 		model.addAttribute("BBS", new BBS()); 
 		
 		return "BBS/BBSwrite";
@@ -162,22 +116,16 @@ public class BBSController {
 		Users user = loginService.getLoginUser(req);
 		model.addAttribute("user", user);
 		
-		// 에러검증 다시 수업 방법으로 해보려고 주석 처리 01-06 10:52
-//		BBSValidator bbsValidator = new BBSValidator();
-//		bbsValidator.validateWriteBBSFrom(writeBBSform, bindingResult);
-
+		//제목내용 입력안하면 다시 글쓰는 페이지로 돌아감 
 		BBSValidator bbsValidator = new BBSValidator();
 		bbsValidator.validate(bbs, bindingResult);
 
-		// 에러 있는 경우 글쓰는 페이지에서 못넘어가게
 		if (bindingResult.hasErrors()) {
 			return "BBS/BBSwrite";
 		}
-
-		// 에러 없으면 다시 수업 방법으로 해보려고 주석 해제 01-06 10:53
+	
 		BBSRepository.insertBBS(bbs);
-//		다시 수업 방법으로 해보려고 주석 처리 01-06 10:52
-//		BBSRepository.insertBBS(writeBBSform);
+
 
 		return "redirect:/BBS/listSearch";
 
@@ -311,7 +259,7 @@ public class BBSController {
 
 	}
 
-// 	주석처리하고 comSeq넣어서 Test 중  
+
 	// 댓글 본인 삭제
 	@RequestMapping("/deleteCom/{bbsNo}/{comNo}")
 	public String updateComShowOneBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo,
@@ -406,60 +354,6 @@ public class BBSController {
 		return "redirect:/admin/adminBBSlist";
 	}
 	
-	/*
-	
-	//답변글 보기 
-	@GetMapping("/replyView/{bbsNo}/1")
-	public String replyView(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-		
-		Reply re = BBSRepository.replyView(bbsNo);
-		model.addAttribute("Reply", re);
-		
-		return "BBS/replyView";	
-	}
-	
-	//답변 수정
-	@GetMapping("/updateRe/{bbsNo}")
-	public String updateReply(Model model, @PathVariable("bbsNo") int bbsNo,HttpServletRequest req) {
-		// 현재 주소정보
-				String uriHere = req.getRequestURI();
-				model.addAttribute("uriHere", uriHere);
-
-				// 로그인된 유저정보(로그인되어있지 않다면 null)
-				Users user = loginService.getLoginUser(req);
-				model.addAttribute("user", user);
-				
-				Reply re = BBSRepository.replyView(bbsNo);
-				model.addAttribute("Reply",re);
-				
-				return "BBS/updateReply";
-	}
-	
-	
-
-	
-	
-	@PostMapping("/updateRe/{bbsNo}")
-	public String updateReplyProcess(Model model, @PathVariable("bbsNo") int bbsNo, @ModelAttribute Reply reply, HttpServletRequest req) {
-		// 현재 주소정보
-		String uriHere = req.getRequestURI();
-		model.addAttribute("uriHere", uriHere);
-
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		Users user = loginService.getLoginUser(req);
-		model.addAttribute("user", user);
-
-		BBSRepository.updateRe(bbsNo, reply);
-
-		return "BBS/replyView/{bbsNo}/1";
-	}
-	*/
 	
 	
 	//답변 상세보기 2

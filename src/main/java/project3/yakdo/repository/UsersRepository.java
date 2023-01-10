@@ -35,22 +35,21 @@ public interface UsersRepository {
 	//Users 테이블의 userStatus Update / 담당자 : 빙예은
 	public void updateUserStatusLeaveByUserNo(@Param("userNo") Integer userNo);
 	
-	//관리자 페이지 회원관리 관련 / 작성자: 배고운 
 	
-	//Users테이블에서 userNo로 회원찾기 / 작성자: 배고운 
+	//Users테이블에서 userNo로 회원찾기 / 담당자: 배고운 
 	public Users selectByUserNoInUsersT(Integer userNo);
 	
-	//회원등급수정 / 작성자: 배고운 
+	//회원등급수정 / 담당자: 배고운 
 	public boolean updateUserGrade(@Param("userNo")Integer userNo, @Param("users")Users users);
 	
-	//회원블락처리 / 작성자 : 배고운
+	//회원블락처리 / 담당자 : 배고운
 	public boolean updateUserStatus(@Param("userNo")Integer userNo, @Param("users")Users users);
 
 	
-	//회원 목록 + 페이징 + 검색 / 작성자: 배고운 
+	//회원 목록 + 페이징 + 검색 / 담당자: 배고운 
 	public List<Users> searchUserList(SearchCriteria scri);
 	
-	//검색 결과 갯수 / 작성자 : 배고운 
+	//검색 결과 갯수 / 담당자 : 배고운 
 	public int countSearchUsers(SearchCriteria scri);
 	
 	// UsersInfoList 가져오기 / 담당자 : 홍준표

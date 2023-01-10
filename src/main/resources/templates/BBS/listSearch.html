@@ -19,30 +19,15 @@
 	 
 
 
-			if (document.getElementById("keywordInput").value == "") {
-				alert("검색어를 입력하세요.");
+// 			if (document.getElementById("keywordInput").value == "") {
+// 				alert("검색어를 입력하세요.");
 			
-			}
+// 			}
  
 	 location.href = "/BBS/listSearch?page=1&perPageNum=10&searchType=" 
 					 + $("select option:selected").val()
 					 + "&keyword=" + encodeURIComponent($('#keywordInput').val());
  }
- 
-
- 
- 
- // 삭제 예정 
- $(function(){
-  $('#searchBtn').click(function() {
-   self.location = "listSearch"
-     + '${pageMaker.makeQuery(1)}'
-     + "&searchType="
-     + $("select option:selected").val()
-     + "&keyword="
-     + encodeURIComponent($('#keywordInput').val());
-    });
- });   
  
  
  </script>

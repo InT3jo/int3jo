@@ -139,38 +139,6 @@
 
 
 
-	<!-- rNum의 제한값을 임의로 바꾸는 것으로 페이징 구현 -->
-	<!--닉네임도 불러오면서 bbs_show 상태 0 인 게시물들 10개씩 잘라서 출력하는걸로 수정 -->
-	<select id="listPage" resultType="BBS">
-		select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date, BBS_show, user_nick
-		from (
-		select
-		b.BBS_no,
-		b.user_no,
-		b.BBS_title,
-		b.BBS_content,
-		b.BBS_date,
-		b.BBS_show,
-		row_number() over(order by BBS_no desc) as rNum,
-		u.user_nick
-		from bbs b, users u
-		where b.user_no = u.user_no) b
-		where rNum between #{rowStart} and #{rowEnd}
-		and BBS_show=0
-		order by BBS_no desc
-	</select>
-
-
-
-	<!-- 게시물의 총 갯수를 구하는 쿼리 -->
-	<select id="listCount" resultType="int">
-		select count(bbs_no)
-		from bbs
-		where bbs_no > 0
-	</select>
-	
-
 	<!-- 닉네임 같이 불러오면서 제목,내용,작성자 검색 결과 출력(다시 처음 방법으로 시도) 01-03 9:39 이걸로 성공 -->
 	<select id="listSearch" resultType="BBS"
 		parameterType="SearchCriteria">
@@ -226,85 +194,6 @@
 		</where>
 	</select>
 
-	<!-- 방법 3 제목 -->
-	<select id="listSearchByTitle" resultType="BBS"
-		parameterType="SearchCriteria">
-		select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date,
-		BBS_show,
-		user_nick
-		from (
-		select
-		b.BBS_no,
-		b.user_no,
-		b.BBS_title,
-		b.BBS_content,
-		b.BBS_date,
-		b.BBS_show,
-		(row_number() over(order by BBS_no
-		desc)) as rNum,
-		u.user_nick
-		from bbs b, users u
-		where BBS_TITLE like '%'
-		|| #{keyword} || '%'
-		and b.user_no = u.user_no
-		) b
-		where rNum between
-		#{rowStart} and #{rowEnd}
-		and BBS_show=0
-		order by
-		BBS_no desc
-	</select>
-
-
-	<!-- 방법 3 제목 - 검색조건에 맞는 게시물 갯수 구하는 쿼리 (여기서 계속 sql에러 났었음) -->
-	<select id="countSearchTitle" resultType="int">
-		select count(bbs_no)
-		from bbs
-		where BBS_TITLE like '%' || #{keyword} || '%'
-		and bbs_no > 0
-	</select>
-
-
-
-
-	<!-- 방법 3 내용 -->
-	<select id="listSearchByContent" resultType="BBS"
-		parameterType="SearchCriteria">
-		select BBS_no, user_no,
-		BBS_title, BBS_content, BBS_date,
-		BBS_show,
-		user_nick
-		from (
-		select
-		b.BBS_no,
-		b.user_no,
-		b.BBS_title,
-		b.BBS_content,
-		b.BBS_date,
-		b.BBS_show,
-		(row_number() over(order by BBS_no
-		desc)) as rNum,
-		u.user_nick
-		from bbs b, users u
-		where BBS_CONTENT like
-		'%' || #{keyword} || '%'
-		and b.user_no = u.user_no
-		) b
-		where rNum between
-		#{rowStart} and #{rowEnd}
-		and BBS_show=0
-		order by
-		BBS_no desc
-	</select>
-
-	<!-- 방법 3 내용 - 검색조건에 맞는 게시물 갯수 구하는 쿼리 (여기서 계속 sql에러 났었음) -->
-	<select id="countSearchContent" resultType="int">
-		select count(bbs_no)
-		from bbs
-		where BBS_CONTENT like '%' || #{keyword} || '%'
-		and bbs_no > 0
-	</select>
 
 	<!-- 본인 삭제 글 리스트 페이징 -->
 	<select id="adminShowOnelist" resultType="BBS"
@@ -345,8 +234,8 @@
 	<!-- 본인 삭제 글 검색 결과 갯수 -->
 	<select id="countSearchShowOne" resultType="int">
 
-		select count(bbs_no)
-		from bbs
+		select count(b.bbs_no)
+		from bbs b, users u
 		<where>
 			<if test="searchType == 'title'">
 				AND BBS_TITLE like '%' || #{keyword} || '%'
@@ -401,8 +290,8 @@
 	<!-- 관리자 삭제 글 검색 결과 갯수 -->
 	<select id="countSearchShowTwo" resultType="int">
 
-		select count(bbs_no)
-		from bbs
+			select count(b.bbs_no)
+		from bbs b, users u
 		<where>
 			<if test="searchType == 'title'">
 				AND BBS_TITLE like '%' || #{keyword} || '%'
@@ -469,26 +358,7 @@
 	</select>
 
 
-	<!-- 답글 상세보기 - 게시글 번호 bbsNo, 답글 번호 reNo 로 찾기 -->
-<!-- 	각 글에 답변 하나만 달고 수정하는 식으로 하려고 re_no 1로 고정해서 select  -->
-	<select id="replyView" resultType="Reply">
-		select
-		b.re_no,
-		b.BBS_no,
-		b.user_no,
-		u.user_nick,
-		b.re_title,
-		b.re_content,
-		b.re_date,
-		b.re_show
-		from reply b, users u
-		where re_no= 1
-		and bbs_no = #{bbsNo}
-		and
-		u.user_no = b.user_no
-		order by re_no asc
-	</select>
-	
+
 	
 <!-- 	replyView2  -->
 	<select id="replyView2" resultType="Reply" >
@@ -510,12 +380,6 @@
 	</select>
 
 <!-- 답변 수정  -->
-<update id="updateRe" parameterType="Reply">
-		update Reply
-		set
-		re_content=#{updateRe.reContent}
-		where BBS_no=#{bbsNo}
-	</update>
 	
 	<update id="updateRe2" parameterType="Reply">
 		update Reply
