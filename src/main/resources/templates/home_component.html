@@ -20,7 +20,7 @@
 		<span th:if="${user}==null and ${uriHere}==null" id="headerNavLogin" onclick="location.href='/login'">로그인</span>
 		<span th:if="${user}==null and ${uriHere}!=null" id="headerNavLogin" th:onclick="|location.href='@{/login?redirectURL={uriHere}(uriHere=${uriHere})}'|">로그인</span>
 		<span th:if="${user}!=null" id="headerNavLogin" onclick="logout()">로그아웃</span>
-		<span th:if="${user}==null" id="headerNavJoin" onclick="location.href='/signUp'">회원가입</span>
+		<span th:if="${user}==null" id="headerNavJoin" onclick="location.href='/signUp/emailConfirm'">회원가입</span>
 		<span th:if="${user}!=null" id="headerNavMyPage" onclick="location.href='/help/myPage'">마이페이지</span>
 		<span id="headerNavBBS" onclick="location.href='/BBS/listSearch'">이용문의</span>
 		<span th:if="${user}!=null and ${user.userGrade}<2" id="headerNavAdmin" onclick="location.href='/admin'">관리자페이지</span>

@@ -20,7 +20,7 @@
 		<div class="d-CSS findForm">
 			<form action="/help/confirmEmail" method="post">
 				<div class="findEmailBox">
-					<input th:if="${userEmail} == null" type="email" id="findEmail" name="userEmail" placeholder="이메일"/>
+					<input th:if="${userEmail} == null" type="email" id="findEmail" name="userEmail" placeholder="이메일" required="required"/>
 					<input th:unless="${userEmail} == null" type="email" id="findEmail" name="userEmail" th:placeholder="${userEmail}" readonly/>
 					<button th:if="${userEmail} == null" type="submit" class="findPwButton">코드 전송</button>
 				</div>
@@ -29,8 +29,9 @@
 				<div th:if="${userEmail} != null" class="findEmailBox">
 					<input type="hidden" name="userEmail" th:value="${userEmail}" />
 					<input type="text" id="findEmailConfirm" name="findEmailConfirm" placeholder="이메일 보안코드 확인" />
+					<button th:if="${userEmail} != null" type="submit" class="findPwButton">코드 확인</button>
+					<input type="hidden" name="code" th:value="${code}"/>
 				</div>
-				<button th:if="${userEmail} != null" type="submit" class="findPwButton">코드 확인</button>
 				<button id="goHomeBtn" type="button" onclick="location.href='/'">메인화면으로</button>
 			</form>
 		</div>

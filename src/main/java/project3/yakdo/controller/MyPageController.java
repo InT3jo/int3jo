@@ -15,9 +15,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.drugs.DrugsNameForm;
+import project3.yakdo.domain.users.SignUpForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.service.drugs.search.FindDrugService;
+import project3.yakdo.service.users.EmailService;
 import project3.yakdo.service.users.LoginService;
 import project3.yakdo.service.users.UsersService;
 import project3.yakdo.validation.form.PasswordForm;
@@ -31,6 +33,7 @@ public class MyPageController {
 	private final UsersService usersService;
 	private final LoginService loginService;
 	private final FindDrugService findDrugService;
+	private final EmailService emailService;
 
 	
 	/**
@@ -106,6 +109,12 @@ public class MyPageController {
 		if(status == 2 && status == 1) {
 			return "redirect:/help/confirmEmail";
 		}
+		try {
+			String code = emailService.sendSimpleMessage(userEmail);
+			model.addAttribute("code",code);
+		} catch (Exception e) {
+			return "redirect:/help/confirmEmail";
+		}
 		return "/users/myPage/confirmEmail";
 	}
 
@@ -119,20 +128,20 @@ public class MyPageController {
 	@PostMapping("/checkSecurityCode")
 	public String checkSecurityCode(Model model
 								, @RequestParam("userEmail") String userEmail
-								, @RequestParam("findEmailConfirm") String findEmailConfirm){
+								, @RequestParam("findEmailConfirm") String findEmailConfirm
+								, @RequestParam("code") String code){
 		model.addAttribute("userEmail", userEmail);
 		
-		/**
-		 * 인증코드 준비해야함
-		 * 
-		if(!준비된 인증 코드.equals(findEmailConfirm)){
-			return "redirect:/help/confirmEmail";
+		if(code.equals(String.valueOf((((Integer.parseInt(findEmailConfirm)*2)+2)*2)+2))) {
+			SignUpForm signUpForm = new SignUpForm();
+			signUpForm.setUserEmail(userEmail);
+			model.addAttribute("signUpForm", signUpForm);
+			model.addAttribute("drugsNameFormList", findDrugService.getDrugsNameFormList());
+			return "/users/myPage/newPassword";
+		}else {
+			model.addAttribute("error","인증번호가 다릅니다.");
+			return "redirect:/help/confirmEmail";		
 		}
-		*/
-		if(findEmailConfirm.trim().equals("")) {
-			return "redirect:/help/confirmEmail";
-		}
-		return "/users/myPage/newPassword";
 	}
 	
 
@@ -295,8 +304,7 @@ public class MyPageController {
 	 */
 	@PostMapping("/modifyMyInfo/{familyNo}")
 	public String modifyFamilyInfo(HttpServletRequest req, Model model, @PathVariable("familyNo") Integer familyNo) {
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		model.addAttribute("user", loginService.getLoginUser(req));
+		usersService.updateUsersInfo(loginService.getLoginUser(req), req, familyNo);
 		return "redirect:/help/modifyMyInfo";
 	}
 	
@@ -309,8 +317,7 @@ public class MyPageController {
 	 */
 	@PostMapping("/deleteMyInfo/{familyNo}")
 	public String deleteFamilyInfo(HttpServletRequest req, Model model, @PathVariable("familyNo") Integer familyNo) {
-		// 로그인된 유저정보(로그인되어있지 않다면 null)
-		model.addAttribute("user", loginService.getLoginUser(req));
+		usersService.deleteUsersInfo(loginService.getLoginUser(req), req, familyNo);
 		return "redirect:/help/modifyMyInfo";
 	}
 

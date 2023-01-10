@@ -27,7 +27,7 @@ public class LoginFilter implements Filter{
 
 	//로그인 하지 않아도 접속 가능한 페이지 리스트
 
-	private static final String[] whiteList = {"/", "/login", "/logout", "/signUp", "/drugs", "/drugs/*", "/help/modifyPassword", "/help/newPassword", "/help/checkSecurityCode", "/help/confirmEmail", "/css/*", "/font/*", "/cursor/*" , "/error/*"};
+	private static final String[] whiteList = {"/", "/login", "/logout", "/signUp", "/signUp/emailConfirm", "/drugs", "/drugs/*", "/help/modifyPassword", "/help/newPassword", "/help/checkSecurityCode", "/help/confirmEmail", "/css/*", "/font/*", "/cursor/*" , "/error/*"};
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
