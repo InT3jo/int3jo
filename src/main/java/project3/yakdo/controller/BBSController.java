@@ -40,8 +40,16 @@ public class BBSController {
 	private final BBSComService bbsComService;
 	private final LoginService loginService;
 
-	// 게시글 목록 출력 + 페이징 추가 + 검색 추가 - 최종 게시판 검색+페이징 다 됨
-	// 글번호 bbs_no에 해당하는 답글 불러오기
+
+	/**
+	 * 게시글 목록 출력 + 페이징 + 검색 
+	 * 글번호 bbs_no에 해당하는 답글리스트 불러오기
+	 * @param scri
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/listSearch")
 	public String BBSList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 현재 주소정보
@@ -60,7 +68,14 @@ public class BBSController {
 		return "BBS/listSearch";
 	}
 
-	// 게시글쓰기 insert
+
+	/**
+	 * 게시글쓰기 insert
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/BBSwrite")
 	public String BBSwrite(Model model, HttpServletRequest req) {
 		// 현재 주소정보
@@ -74,7 +89,16 @@ public class BBSController {
 		return "BBS/BBSwrite";
 	}
 
-	// 게시글쓰기 insert
+	
+	/**
+	 * 게시글쓰기 insert
+	 * @param bbs
+	 * @param bindingResult
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/BBSwrite")
 	public String newBBSInsertModel(@Validated @ModelAttribute BBS bbs, BindingResult bindingResult, Model model,
 			HttpServletRequest req) {
@@ -98,7 +122,15 @@ public class BBSController {
 
 	}
 
-	// 게시글 상세보기 selectBybbsNo
+	
+	/**
+	 * 글번호에 해당하는 게시글 상세보기 
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/BBSview")
 	public String BBSview2(Model model, @RequestParam("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
@@ -111,8 +143,16 @@ public class BBSController {
 		return "BBS/BBSview";
 	}
 
-	// 게시글 상세보기 selectBybbsNo
-	// 글번호(bbsNo)에 해당하는 댓글 불러오기
+	
+	/**
+	 * 글번호에 해당하는 게시글 상세보기 
+	 * 글번호(bbsNo)에 해당하는 댓글 불러오기
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/BBSlist/{bbsNo}")
 	public String BBSview(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
@@ -128,7 +168,17 @@ public class BBSController {
 		return "BBS/BBSview";
 	}
 
-	// 댓글 쓰기
+
+	/**
+	 * 댓글 작성
+	 * @param model
+	 * @param bbsNo
+	 * @param bbsComment
+	 * @param bindingResult
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/BBSlist/{bbsNo}")
 	public String insertBBSCom(Model model, @PathVariable("bbsNo") Integer bbsNo, @ModelAttribute BBSComment bbsComment,
 			BindingResult bindingResult, HttpServletRequest req) {
@@ -155,7 +205,15 @@ public class BBSController {
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
-	// 게시글 수정
+
+	/**
+	 * 게시글 수정 
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/update/{bbsNo}") // 어떤 bbsNo에 대한 업데이트를 할거냐
 	public String updateBBS(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
@@ -168,7 +226,16 @@ public class BBSController {
 		return "BBS/BBSupdate.html";
 	}
 
-	// 게시글 수정
+
+	/**
+	 * 게시글 수정 
+	 * @param model
+	 * @param bbsNo
+	 * @param bbs
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/update/{bbsNo}")
 	public String updateBBSprocess(Model model, @PathVariable("bbsNo") int bbsNo, @ModelAttribute BBS bbs,
 			HttpServletRequest req) {
@@ -183,7 +250,14 @@ public class BBSController {
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
-	// 게시글 본인삭제
+	/**
+	 * 게시글 본인 삭제 
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@RequestMapping("/delete/{bbsNo}")
 	public String updateShowOneBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
 		bbsService.updateShowOneBybbsNo(bbsNo);
@@ -192,7 +266,14 @@ public class BBSController {
 	}
 
 
-	// 게시글 관리자 삭제
+
+	/**
+	 * 게시글 관리자 삭제 
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/adminDelete/{bbsNo}")
 	public String updateShowTwoBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
 		bbsService.updateShowTwoBybbsNo(bbsNo);
@@ -202,7 +283,16 @@ public class BBSController {
 
 	
 
-	// 댓글 본인 삭제
+	
+	/**
+	 * 댓글 본인 삭제 
+	 * @param model
+	 * @param bbsNo
+	 * @param comNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@RequestMapping("/deleteCom/{bbsNo}/{comNo}")
 	public String updateComShowOneBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo,
 			@PathVariable("comNo") Integer comNo, HttpServletRequest req) {
@@ -218,7 +308,16 @@ public class BBSController {
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
-	// 댓글 수정
+	
+	/**
+	 * 댓글 수정 
+	 * @param model
+	 * @param bbsNo
+	 * @param comNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/updateCom/{bbsNo}/{comNo}")
 	public String updateCom(Model model, @PathVariable("bbsNo") Integer bbsNo, @PathVariable("comNo") int comNo,
 			HttpServletRequest req) {
@@ -233,7 +332,18 @@ public class BBSController {
 		return "BBS/updateCom";
 	}
 
-	// 댓글 수정
+
+	/**
+	 * 댓글 수정 
+	 * @param model
+	 * @param bbsNo
+	 * @param comNo
+	 * @param bbsComment
+	 * @param bindingResult
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/updateCom/{bbsNo}/{comNo}")
 	public String updateComProcess(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("comNo") int comNo,
 			@ModelAttribute BBSComment bbsComment, BindingResult bindingResult, HttpServletRequest req) {
@@ -256,7 +366,16 @@ public class BBSController {
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
-	// 댓글 관리자 삭제
+
+	/**
+	 * 댓글 관리자 삭제 
+	 * @param model
+	 * @param bbsNo
+	 * @param comNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@RequestMapping("/deleteComAdmin/{bbsNo}/{comNo}")
 	public String deleteComAdmin(Model model, @PathVariable("bbsNo") Integer bbsNo,
 			@PathVariable("comNo") Integer comNo, HttpServletRequest req) {
@@ -268,7 +387,15 @@ public class BBSController {
 
 	}
 
-	// 게시글 복구
+	
+	/**
+	 * 게시글 복구
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@RequestMapping("/recover/{bbsNo}")
 	public String updateShowZeroBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
@@ -278,8 +405,16 @@ public class BBSController {
 		return "redirect:/admin/adminBBSlist";
 	}
 
-	// 답변 상세보기 
 
+	/**
+	 * 답변 상세보기 
+	 * @param model
+	 * @param bbsNo
+	 * @param reNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/replyView2/{bbsNo}/{reNo}")
 	public String replyView2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
@@ -291,7 +426,16 @@ public class BBSController {
 		return "BBS/replyView2";
 	}
 
-	// 답변 수정 
+
+	/**
+	 * 답변 수정 
+	 * @param model
+	 * @param bbsNo
+	 * @param reNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/updateRe2/{bbsNo}/{reNo}")
 	public String updateRe2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
@@ -306,7 +450,18 @@ public class BBSController {
 		return "BBS/updateReply2";
 	}
 
-	// 답변 수정 
+	
+	/**
+	 * 답변 수정 
+	 * @param model
+	 * @param bbsNo
+	 * @param reNo
+	 * @param reply
+	 * @param bindingResult
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/updateRe2/{bbsNo}/{reNo}")
 	public String updateRe2Process(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			@ModelAttribute Reply reply, BindingResult bindingResult, HttpServletRequest req) {
@@ -326,7 +481,15 @@ public class BBSController {
 		return "redirect:/BBS/replyView2/{bbsNo}/{reNo}";
 	}
 
-	// 답변 삭제
+
+	/**
+	 * 답변 삭제 
+	 * @param model
+	 * @param bbsNo
+	 * @param reNo
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/deleteRe/{bbsNo}/{reNo}")
 	public String deleteRe(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
@@ -339,7 +502,15 @@ public class BBSController {
 
 	}
 	
-	//게시판 관리자 답변 쓰기 
+
+	/**
+	 * 게시판 관리자 답변 쓰기 
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/writeAnswer/{bbsNo}")
 	public String BBSwrite(Model model,@PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
 		// 현재 주소정보
@@ -351,11 +522,22 @@ public class BBSController {
 		model.addAttribute("BBS", bbsService.getBBSbybbsNo(bbsNo));
 		
 		model.addAttribute("Reply", new Reply());
-//		model.addAttribute("BBS", new BBS());
+		
 		return "BBS/writeAnswer";
 	}
 	
-	//게시판 관리자 답변 쓰기 
+	 
+	/**
+	 * 게시판 관리자 답변 쓰기 
+	 * @param reply
+	 * @param bindingResult
+	 * @param bbs
+	 * @param bbsNo
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/writeAnswer/{bbsNo}")
 	public String newBBSInsertModel(@ModelAttribute Reply reply,BindingResult bindingResult,@ModelAttribute BBS bbs, @PathVariable("bbsNo") int bbsNo,Model model, HttpServletRequest req) {
 		// 현재 주소정보
@@ -363,16 +545,15 @@ public class BBSController {
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
-		
-		//내용 입력안하면 다시 글쓰는 페이지로 돌아감 
-				ReplyValidator bbsValidator = new ReplyValidator();
-				bbsValidator.validate(reply, bindingResult);
 
-				if (bindingResult.hasErrors()) {
-					return "BBS/writeAnswer/"+bbsNo;
-				}
-	
-		
+		// 내용 입력안하면 다시 글쓰는 페이지로 돌아감
+		ReplyValidator bbsValidator = new ReplyValidator();
+		bbsValidator.validate(reply, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			return "BBS/writeAnswer/" + bbsNo;
+		}
+
 		bbsService.insertReply(reply);
 
 		return "redirect:/BBS/listSearch";

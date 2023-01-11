@@ -40,7 +40,13 @@ public class AdminController {
 	private final LoginService loginService;
 	private final UsersService usersService;
 	
-
+	/**
+	 * 관리자 페이지 기본 화면 
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping
 	public String admin(Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
@@ -50,7 +56,15 @@ public class AdminController {
 
 	
 
-	// 본인삭제 게시물 관리 + 페이징 + 검색
+	
+	/**
+	 * 본인삭제 게시물 관리 + 페이징 + 검색
+	 * @param scri
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/adminShowOneList")
 	public String adminShowOneList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
@@ -68,7 +82,15 @@ public class AdminController {
 
 	
 
-	// 관리자삭제 게시물 관리 + 페이징 + 검색
+	
+	/**
+	 * 관리자삭제 게시물 관리 + 페이징 + 검색
+	 * @param scri
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자: 배고운 
+	 */
 	@GetMapping("/adminShowTwoList")
 	public String adminShowTwoList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
@@ -82,7 +104,15 @@ public class AdminController {
 		return "admin/adminShowTwoList";
 	}
 
-	// 게시글 복구
+	
+	/**
+	 * 게시글 복구
+	 * @param model
+	 * @param bbsNo
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@RequestMapping("/recover/{bbsNo}")
 	public String updateShowZeroBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
@@ -93,8 +123,15 @@ public class AdminController {
 
 
 
-	// 관리할 회원 리스트 + 페이징 + 검색 01-04 10:24 userlist.html수정하다가 search~~ 새로 만들어서 나눔
-
+	
+	/**
+	 * 관리할 회원 리스트 + 페이징 + 검색
+	 * @param scri
+	 * @param model
+	 * @param req
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/searchUserList")
 	public String searchUserList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
@@ -106,14 +143,29 @@ public class AdminController {
 		return "admin/searchUserList";
 	}
 
-	// 회원 등급,블락 관리
+	
+	/**
+	 * 회원 등급,블락 관리
+	 * @param model
+	 * @param userNo
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@GetMapping("/updateGrade/{userNo}") // 어떤 userNo에 대해서 처리할거냐
 	public String updateGrade(Model model, @PathVariable("userNo") Integer userNo) {
 		model.addAttribute("Users", usersService.getUsersByUserNo(userNo));
 		return "admin/updateGrade";
 	}
 
-	// 회원 등급,블락 관리 처리
+	
+	/**
+	 * 회원 등급,블락 관리 처리
+	 * @param model
+	 * @param userNo
+	 * @param users
+	 * @return
+	 * 담당자 : 배고운 
+	 */
 	@PostMapping("/updateGrade/{userNo}")
 	public String updateGradeProcess(Model model, @PathVariable("userNo") Integer userNo, @ModelAttribute Users users) {
 		usersService.updateUserGrade(userNo, users);
