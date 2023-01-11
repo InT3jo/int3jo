@@ -3,6 +3,7 @@ package project3.yakdo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,35 +51,23 @@ public class LoginController {
 	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/login")
-	public String doLogin(@ModelAttribute LoginForm loginForm
+	public String doLogin(Model model
+					, @Validated @ModelAttribute LoginForm loginForm
 					, BindingResult bindingResult
 					, HttpServletRequest req
 					, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
-		
-		//에러 검증
-		LoginValidator loginValidator = new LoginValidator();
-		loginValidator.validateLoginForm(loginForm, bindingResult);
-		
-		//에러가 있는 경우 다시 login 화면으로
-		if(bindingResult.hasErrors()) {
-			return "login/login";
-		}
-		
-		//위 에러 없을 시 (공백이 아닐 시) 로그인 실행
-		Users user = loginService.login(loginForm);
-		
-		//일치하는 정보 없으면 login 화면으로
+		//로그인 실행
+		Users user = loginService.login(model, loginForm, bindingResult);
 		if(user == null) {
-			bindingResult.reject("loginForm", "이메일 또는 비밀번호를 다시 확인해 주세요.");
 			return "/users/login/login";
 		}
-		
 		//로그인 했을 때 들어오는 회원 정보
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_MEMBER, user);
 		
 		return "redirect:"+redirectURL;
 	}
+
 	
 	/**
 	 * 로그아웃 실행되는 메소드
