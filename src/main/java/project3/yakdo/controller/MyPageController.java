@@ -194,6 +194,8 @@ public class MyPageController {
 	 * @param req
 	 * @param userEmail
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@GetMapping("/newPassword")
 	public String changePassword() {
@@ -206,6 +208,8 @@ public class MyPageController {
 	 * @param req
 	 * @param userEmail
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/newPassword")
 	public String changePasswordCheck(Model model
@@ -235,6 +239,8 @@ public class MyPageController {
 	 * @param req
 	 * @param model
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@GetMapping("/modifyPassword")
 	public String modifyPassword(HttpServletRequest req, Model model) {
@@ -253,6 +259,8 @@ public class MyPageController {
 	 * @param model
 	 * @param PasswordForm passwordForm
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/modifyPassword")
 	public String checkModifyPw(HttpServletRequest req, Model model, @ModelAttribute PasswordForm passwordForm) {

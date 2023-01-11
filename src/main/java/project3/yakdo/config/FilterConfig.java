@@ -19,7 +19,7 @@ public class FilterConfig {
 	
 	/**
 	 * 로그인 관련 필터
-	 * 
+	 * 담당자 : 빙예은
 	 * @return
 	 */
 	@Bean

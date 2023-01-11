@@ -28,8 +28,7 @@ public class HomeController {
 	 * 담당자 : 빙예은
 	 */
 	@GetMapping("/")
-	public String home(Model model
-					, HttpServletRequest req) {
+	public String home(Model model, HttpServletRequest req) {
 		model.addAttribute("user", loginService.getLoginUser(req));
 		
 		return "/home";
