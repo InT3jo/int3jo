@@ -53,8 +53,17 @@ public class LoginValidator implements Validator {
 		 */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user", "아이디 또는 비밀번호를 다시 확인해 주세요");
 		
-		
-
+//		//탈퇴 회원일 때
+//		//삭제 금지
+//		if(loginForm.getUser().getUserStatus() == 1) {
+//			
+//		}
+//		
+//		//블락 회원일 때
+//		//삭제 금지
+//		if(loginForm.getUser().getUserStatus() == 1) {
+//			
+//		}
 		
 	}
 	
