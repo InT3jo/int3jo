@@ -39,6 +39,9 @@ public interface UsersMapper {
 	//Users_info테이블에서 family_nick, user_no로 회원 정보 찾기 / 담당자 : 빙예은
 	public UsersInfo selectUsersInfoByFamilyNick(@Param("familyNick") String familyNick, @Param("userNo") Integer userNo);
 	
+	// Users 테이블에서 활동중인 회원의 userNick 가져오기 / 담당자 : 빙예은
+	public String selectUserNickByUserStatusAndUsesrNick(String userNick);
+	
 /* UPDATE */
 	//Users 테이블의 userNick Update
 	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo")Integer userNo);

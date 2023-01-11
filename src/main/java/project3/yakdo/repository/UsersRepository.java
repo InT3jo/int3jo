@@ -31,6 +31,9 @@ public interface UsersRepository {
 	// UsersInfoList 가져오기 / 담당자 : 홍준표
 	public List<UsersInfo> selectUsersInfoByUsersNo(Integer userNo);
 	
+	// Users 테이블에서 활동중인 회원의 userNick 가져오기 / 담당자 : 빙예은
+	public String selectUserNickByUserStatusAndUsesrNick(String userNick);
+	
 /* UPDATE */
 	//Users 테이블의 userNick Update / 담당자 : 빙예은
 	public Integer updateUserNickByUserNo(@Param("userNick") String userNick, @Param("userNo") Integer userNo);

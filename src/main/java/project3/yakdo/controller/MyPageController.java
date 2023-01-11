@@ -79,9 +79,15 @@ public class MyPageController {
 	 */
 	@PostMapping("/modifyNickName")
 	public String checkModifyNick(HttpServletRequest req, Model model, @RequestParam("userNick") String userNick) {
-		// 업데이트 실행(실패하면 기존 정보를 가진 user 담김)
-		model.addAttribute("user", usersService.checkModifyNick(userNick, loginService.getLoginUser(req)));
-		return "redirect:/help/myPage";
+		// 로그인된 유저정보(로그인되어있지 않다면 null)
+		Users user = loginService.getLoginUser(req);
+		model.addAttribute("user", user);
+		if (usersService.modifyNickValidate(model, userNick, user) == true) {
+			// 업데이트 실행(실패하면 기존 정보를 가진 user 담김)
+			model.addAttribute("user", usersService.checkModifyNick(userNick, loginService.getLoginUser(req)));
+			return "redirect:/help/myPage";
+		}
+		return "/users/myPage/modifyNickName";
 	}
 
 	/**

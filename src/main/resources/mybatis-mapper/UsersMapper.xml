@@ -52,14 +52,19 @@
 		FROM users
 	</select>
 	
+	<select id="selectUserNickByUserStatusAndUsesrNick" parameterType="String" resultType="String">
+		SELECT user_nick, user_status
+		FROM users
+		WHERE user_status = 0 AND user_nick = '${usesrNick}'
+	</select>
 
 <!-- UPDATE -->
 	<update id="updateUserNickByUserNo">
-		UPDATE users SET user_nick = #{userNick} WHERE user_no = #{userNo}
+		UPDATE users SET user_nick = #{userNick} WHERE user_no = #{userNo} AND user_status=0
 	</update>
 	
 	<update id="updateUserPwByUserNo">
-		UPDATE users SET user_pw = #{userPwNew} WHERE user_no = #{userNo}
+		UPDATE users SET user_pw = #{userPwNew} WHERE user_no = #{userNo} AND user_status=0
 	</update>
 	
 	<update id="updateUserStatusLeaveByUserNo">

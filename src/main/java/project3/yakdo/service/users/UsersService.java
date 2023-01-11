@@ -227,12 +227,27 @@ public class UsersService {
 	 * @param userEmail
 	 * @param newPw
 	 * @param newPwConfirm
-	 * @return true
+	 * @return true : 유효성 검사 통과
 	 */
 	public boolean passwordValidate(Model model, String userEmail, String newPw, String newPwConfirm) {
-		boolean result = usersValidator.passwordValidate(model, userEmail, newPw, newPwConfirm);
+		return usersValidator.passwordValidate(model, userEmail, newPw, newPwConfirm);
+	}
+
+	/**
+	 * 닉네임 변경 관련 validation
+	 * 
+	 * @param model
+	 * @param userNick
+	 * @param user
+	 * @return true : 유효성 검사 통과
+	 */
+	public boolean modifyNickValidate(Model model, String userNick, Users user) {
+		boolean result = usersValidator.modifyNickValidate(model, userNick, user);
+		if(result) {
+			String sameNick = usersRepository.selectUserNickByUserStatusAndUsesrNick(userNick);
+			result = usersValidator.isSameNick(model, userNick, sameNick);
+		}
 		return result;
 	}
-	
 
 }

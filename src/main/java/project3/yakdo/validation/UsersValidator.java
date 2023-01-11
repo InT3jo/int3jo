@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import project3.yakdo.domain.users.Users;
+
 @Component
 public class UsersValidator{
 	/**
@@ -28,7 +30,7 @@ public class UsersValidator{
 		}
 		// 앞뒤 공백 여부 확인
 		if(newPw.equals(newPw.trim()) == false) {
-			model.addAttribute("errorMsg", "비밀번호에 공백은 들어갈 수 없습니다");
+			model.addAttribute("errorMsg", "비밀번호 앞뒤로 공백이 들어갈 수 없습니다");
 			return false;
 		}
 		// 새 비밀번호, 새 비밀번호 같은지 비교
@@ -55,4 +57,36 @@ public class UsersValidator{
 		}
 		return true;
 	}
+	
+	/**
+	 * 닉네임 변경에 관련된 validator
+	 * @param model
+	 * @param userNick
+	 * @param user
+	 * @return
+	 */
+	public boolean modifyNickValidate(Model model, String userNick, Users user) {
+		if(userNick.isEmpty() && userNick.isBlank()) {
+			model.addAttribute("errorMsg", "닉네임을 입력해 주세요");
+			return false;
+		}
+		if(userNick.equals(userNick.trim()) == false) {
+			model.addAttribute("errorMsg", "닉네임 앞뒤로 공백이 들어갈 수 없습니다");
+			return false;
+		}
+		if(userNick.equals(user.getUserNick())) {
+			model.addAttribute("errorMsg", "현재 사용 중인 이메일 입니다");
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isSameNick(Model model, String userNick, String sameUserNick) {
+		if(userNick.equals(sameUserNick)) {
+			model.addAttribute("errorMsg", "다른 회원과 중복되는 닉네임입니다");
+			return false;
+		}
+		return true;
+	}
+
 }

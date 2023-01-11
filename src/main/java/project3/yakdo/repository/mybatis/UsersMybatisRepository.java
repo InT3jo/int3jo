@@ -225,11 +225,28 @@ public class UsersMybatisRepository implements UsersRepository{
 	/**
 	 * UsersInfo 테이블에서 UserNo의 FamilyNo 정보 삭제
 	 * @param UsersInfo 
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	public void deleteUsersInfo(UsersInfo usersInfo) {
 		usersMapper.deleteFamilyInfoByUsersNoAndFamilyNo(usersInfo);
 		usersMapper.deleteFamilyUsingDrugsByUsersNoAndFamilyNo(usersInfo);
 		usersMapper.deleteFamilyAllergyByUsersNoAndFamilyNo(usersInfo);
+	}
+
+	/**
+	 * Users 테이블에서 userNick 가져오기
+	 * @param String userNick
+	 * @return db가 없을 경우 null, 있을 경우 users테이블의 userNick
+	 */
+	@Override
+	public String selectUserNickByUserStatusAndUsesrNick(String userNick) {
+		log.info(userNick);
+		if(usersMapper.selectUserNickByUserStatusAndUsesrNick(userNick) == null
+				|| usersMapper.selectUserNickByUserStatusAndUsesrNick(userNick).isBlank()) {
+			return null;
+		}
+		return usersMapper.selectUserNickByUserStatusAndUsesrNick(userNick);
 	}
 	
 

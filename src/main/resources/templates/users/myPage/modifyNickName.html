@@ -15,6 +15,10 @@
 				<hr class="perforatedLine" />
 				<div class="mainTitle3">
 					<span>변경할 닉네임을 입력해 주세요</span>
+					<br>
+					<br>
+					<br>
+					<span th:if="${errorMsg}!=null" th:text="${errorMsg}" class="errorMessage"></span>
 				</div>
 			</div>
 		</div>
