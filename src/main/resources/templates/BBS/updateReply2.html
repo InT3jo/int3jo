@@ -23,6 +23,10 @@ function updateReOk(bbsNo,reNo) {
 		return;
 	}
 }
+
+function back(bbsNo){
+	location.href = "/BBS/BBSlist/" + bbsNo;
+}
 </script>
 	<div th:replace="home_component.html :: header"></div>
 	<div class="BBSlist">
@@ -30,7 +34,7 @@ function updateReOk(bbsNo,reNo) {
 	
 	<div class="WriteBBSBox">
 	<div class="ReturnList">
-	 <button id="headerSearchBtn" type="button" th:onclick="|location.href='@{/BBS/BBSlist/{bbsNo}}'|">뒤로가기</button>
+	 <button id="headerSearchBtn" type="button" th:name="${Reply.bbsNo}" th:onclick="back(this.getAttribute('name'))" >뒤로가기</button>
 	</div>
 	<form id="updateRe" action="" method="post" th:object="${Reply}">
 		<div>
