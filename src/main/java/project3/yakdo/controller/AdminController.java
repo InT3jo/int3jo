@@ -106,32 +106,20 @@ public class AdminController {
 		return "admin/searchUserList";
 	}
 
-	// 회원 등급 관리
+	// 회원 등급,블락 관리
 	@GetMapping("/updateGrade/{userNo}") // 어떤 userNo에 대해서 처리할거냐
 	public String updateGrade(Model model, @PathVariable("userNo") Integer userNo) {
 		model.addAttribute("Users", usersService.getUsersByUserNo(userNo));
 		return "admin/updateGrade";
 	}
 
-	// 회원 등급 관리 처리
+	// 회원 등급,블락 관리 처리
 	@PostMapping("/updateGrade/{userNo}")
 	public String updateGradeProcess(Model model, @PathVariable("userNo") Integer userNo, @ModelAttribute Users users) {
 		usersService.updateUserGrade(userNo, users);
 		return "redirect:/admin/searchUserList";
 	}
 
-	// 회원 블락
-	@GetMapping("/updateUserStatus/{userNo}")
-	public String updateUserStatus(Model model, @PathVariable("userNo") Integer userNo) {
-		model.addAttribute("Users", usersService.getUsersByUserNo(userNo));
-		return "admin/updateUserStatus";
-	}
-
-	// 회원 블락 처리
-	@PostMapping("/updateUserStatus/{userNo}")
-	public String updateUserStatus(Model model, @PathVariable("userNo") Integer userNo, @ModelAttribute Users users) {
-		usersService.updateUserGrade(userNo, users);
-		return "redirect:/admin/userlist";
-	}
+	
 	
 }

@@ -179,7 +179,12 @@ public class UsersMybatisRepository implements UsersRepository{
 		insertUsersInfo(usersInfo);
 	}
 	
-	//Users테이블에서 userNo로 회원찾기 / 담당자: 배고운 
+	
+	/**
+	 * Users테이블에서 userNo로 회원찾기
+	 * @Param Integer userNo
+	 * 담당자: 배고운 
+	 */
 	@Override
 	public Users selectByUserNoInUsersT(Integer userNo) {
 		// TODO Auto-generated method stub
@@ -188,7 +193,12 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 	
 	
-	//회원등급수정 / 담당자: 배고운 
+	
+	/**
+	 * 회원 등급,상태 관리
+	 * @param Integer userNo, Users users
+	 * 담당자: 배고운 
+	 */
 	@Override
 	public boolean updateUserGrade(Integer userNo, Users users) {
 		// TODO Auto-generated method stub
@@ -197,18 +207,13 @@ public class UsersMybatisRepository implements UsersRepository{
 		return result;
 	}
 
+
 	
-	//회원블락처리 / 담당자 : 배고운
-	@Override
-	public boolean updateUserStatus(Integer userNo, Users users) {
-		// TODO Auto-generated method stub
-		boolean result = false;
-		usersMapper.updateUserStatus(userNo, users);
-		return result;
-	}
-
-
-	//회원목록+페이징+검색 / 담당자:배고운
+	/**
+	 * 회원 목록 검색 
+	 * @Param SearchCriteria 
+	 * 담당자:배고운
+	 */
 	@Override
 	public List<Users> searchUserList(SearchCriteria scri) {
 		// TODO Auto-generated method stub
@@ -216,6 +221,11 @@ public class UsersMybatisRepository implements UsersRepository{
 	}
 
 	//검색결과갯수 / 담당자:배고운
+	/**
+	 * 회원 검색 결과 총 갯수 
+	 * @Param SearchCriteria 
+	 * 담당자:배고운
+	 */
 	@Override
 	public int countSearchUsers(SearchCriteria scri) {
 		// TODO Auto-generated method stub

@@ -87,10 +87,17 @@
 <!-- 페이징 -->
 		<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
 			<ul>
+				<div th:unless="${pageMaker.cri.getPage()}<=${pageMaker.startPage}">
+					<li class="pageNumberItem">
+						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.startPage)}|}">
+							처음 ||
+						</a>
+					</li>
+				</div>
 				<div th:unless="${pageMaker.cri.getPage()}<=${pageMaker.startPage}" >
 					<li>
-						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.startPage-1)}|}">
-						이전
+						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.cri.page-1)}|}">
+						이전 |
 						</a>
 					</li>
 				</div>
@@ -104,8 +111,15 @@
 				</div>
 				<div th:unless="${pageMaker.cri.getPage()}>=${pageMaker.endPage}">
 					<li>
-						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.endPage+1)}|}">
-						다음
+						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.cri.page+1)}|}">
+						| 다음
+						</a>
+					</li>
+				</div>
+				<div th:unless="${pageMaker.cri.getPage()}>=${pageMaker.endPage}" style="display:inline-block;">
+					<li class="pageNumberItem">
+						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.endPage)}|}">
+							|| 끝
 						</a>
 					</li>
 				</div>

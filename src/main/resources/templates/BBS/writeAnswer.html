@@ -39,6 +39,15 @@ function writeReOk() {
 
 }
 </script>
+<script type="text/javascript">
+		function moveTop() {
+			window.scrollTo({
+				top : 0,
+				behavior : "smooth"
+			})
+		}
+	</script>
+	<div class="moveTopBtn" onclick="moveTop()">▲</div>
 	<div th:replace="home_component.html :: header"></div>
 	<div class="BBSlist">
 <div class="BBSheadTitle">이용 문의</div>
