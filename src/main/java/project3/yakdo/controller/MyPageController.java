@@ -137,6 +137,20 @@ public class MyPageController {
 	}
 
 	/**
+	 * 보안 코드 확인 창
+	 * @param model
+	 * @param req
+	 * @param userEmail
+	 * @return
+	 * 
+	 * 담당자 : 빙예은
+	 */
+	@GetMapping("/checkSecurityCode")
+	public String securityCode(@RequestParam(name="redirectURL", defaultValue="/") String redirectURL){
+		return "redirect:"+redirectURL;
+	}
+	
+	/**
 	 * 보안 코드 확인
 	 * @param model
 	 * @param req
@@ -156,7 +170,6 @@ public class MyPageController {
 			return "/users/myPage/confirmEmail";
 		}
 		if(code.equals(String.valueOf((((Integer.parseInt(findEmailConfirm)*2)+2)*2)+2))) {
-			log.info("code {}, findEmailConfirm {}", code, findEmailConfirm);
 			SignUpForm signUpForm = new SignUpForm();
 			signUpForm.setUserEmail(userEmail);
 			model.addAttribute("signUpForm", signUpForm);
@@ -182,7 +195,7 @@ public class MyPageController {
 	}
 	
 	/**
-	 * 비밀번호 재설정이 이루어지는 메소드
+	 * 이메일 인증 성공 후 비밀번호 재설정이 이루어지는 메소드
 	 * @param model
 	 * @param req
 	 * @param userEmail
@@ -193,16 +206,21 @@ public class MyPageController {
 									, @RequestParam("userEmail") String userEmail
 									, @RequestParam("newPw") String newPw
 									, @RequestParam("newPwConfirm") String newPwConfirm) {
-		PasswordForm passwordForm = new PasswordForm();
-		passwordForm.setUserPwNew(newPw);
-		passwordForm.setUserPwNewCheck(newPwConfirm);
+		model.addAttribute("userEmail", userEmail);
 		
-		if(usersService.changePassword(userEmail, passwordForm) == 1){
-			model.addAttribute("user", usersService.searchUser(userEmail));
-			return "redirect:/login";
+		if(usersService.passwordValidate(model, userEmail, newPw, newPwConfirm)) {
+			PasswordForm passwordForm = new PasswordForm();
+			passwordForm.setUserPwNew(newPw);
+			passwordForm.setUserPwNewCheck(newPwConfirm);
+			
+			if(usersService.changePassword(userEmail, passwordForm) == 1){
+				model.addAttribute("user", usersService.searchUser(userEmail));
+				return "redirect:/login";
+			}
 		}
 		return "/users/myPage/newPassword";
 	}
+
 
 	
 	/**

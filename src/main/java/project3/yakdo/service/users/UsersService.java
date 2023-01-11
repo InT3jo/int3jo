@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
+import project3.yakdo.validation.UsersValidator;
 import project3.yakdo.validation.form.PasswordForm;
 
 @Slf4j
@@ -21,7 +22,7 @@ import project3.yakdo.validation.form.PasswordForm;
 @RequiredArgsConstructor
 public class UsersService {
 	private final UsersRepository usersRepository;
-//	private final UsersValidator usersValidator;
+	private final UsersValidator usersValidator;
 	/**
 	 * 입력받은 userNick과 기존 loginUser의 userNick이 같은지 확인
 	 * 같으면 닉네임 수정 된 loginUser return
@@ -196,9 +197,10 @@ public class UsersService {
 	 * HttpServletRequest로 받아온 정보로 UsersInfo 테이블 수정
 	 * @param Users
 	 * @param HttpServletRequest
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	public void updateUsersInfo(Users user, HttpServletRequest req, Integer familyNo) {
-		// TODO Auto-generated method stub
 		UsersInfo usersInfo = makeUsersInfo(user, req);
 		usersInfo.setFamilyNo(familyNo);
 		usersRepository.updateUsersInfo(usersInfo);	
@@ -208,15 +210,29 @@ public class UsersService {
 	 * HttpServletRequest로 받아온 정보로 UsersInfo 테이블 삭제
 	 * @param Users
 	 * @param HttpServletRequest
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	public void deleteUsersInfo(Users user, HttpServletRequest req, Integer familyNo) {
-		// TODO Auto-generated method stub
 		UsersInfo usersInfo = new UsersInfo();
 		usersInfo.setUserNo(user.getUserNo());
 		usersInfo.setFamilyNo(familyNo);
 		usersRepository.deleteUsersInfo(usersInfo);	
 	}
 	
+	/**
+	 * 비밀번호 변경 관련 validation
+	 * 
+	 * @param model
+	 * @param userEmail
+	 * @param newPw
+	 * @param newPwConfirm
+	 * @return true
+	 */
+	public boolean passwordValidate(Model model, String userEmail, String newPw, String newPwConfirm) {
+		boolean result = usersValidator.passwordValidate(model, userEmail, newPw, newPwConfirm);
+		return result;
+	}
 	
 
 }
