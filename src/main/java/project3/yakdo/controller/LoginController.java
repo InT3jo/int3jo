@@ -26,7 +26,6 @@ import project3.yakdo.validation.LoginValidator;
 public class LoginController {
 	
 	private final LoginService loginService;
-	private final LoginValidator loginValidator;
 	
 	/**
 	 * login
@@ -57,35 +56,18 @@ public class LoginController {
 					, BindingResult bindingResult
 					, HttpServletRequest req
 					, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
-		//login 관련 유효성 검사
-		loginValidator.validate(loginForm, bindingResult);
-		
-		if(bindingResult.hasFieldErrors("loginEmail")) {
-			model.addAttribute("emailError", bindingResult.getFieldError("loginEmail").getCode());
-			return "/users/login/login";
-		}
-		
-		if(bindingResult.hasFieldErrors("loginPw"))	{
-			model.addAttribute("passwordError", bindingResult.getFieldError("loginPw").getCode());
-			return "/users/login/login";
-		}
-
-		//위 에러 없을 시 (공백이 아닐 시) 로그인 실행
-		Users user = loginService.login(loginForm);
-		loginForm.setUser(user);
-		
-		//일치하는 정보 없으면 login 화면으로
+		//로그인 실행
+		Users user = loginService.login(model, loginForm, bindingResult);
 		if(user == null) {
-			model.addAttribute("userError", bindingResult.getFieldError("user").getCode());
 			return "/users/login/login";
 		}
-		
 		//로그인 했을 때 들어오는 회원 정보
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_MEMBER, user);
 		
 		return "redirect:"+redirectURL;
 	}
+
 	
 	/**
 	 * 로그아웃 실행되는 메소드
