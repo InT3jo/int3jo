@@ -252,13 +252,19 @@ public class MyPageController {
 	public String checkModifyPw(HttpServletRequest req, Model model, @ModelAttribute PasswordForm passwordForm) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		Users user = loginService.getLoginUser(req);
+		if(passwordForm.getUserPw().isEmpty() || passwordForm.getUserPw().isBlank()) {
+			model.addAttribute("errorMsg", "현재 비밀번호를 입력해 주세요");
+		}
+		if(user.getUserPw().equals(passwordForm.getUserPw())==false) {
+			model.addAttribute("errorMsg", "현재 비밀번호가 일치하지 않습니다");
+			return "/users/myPage/modifyPassword";
+		}
 		if(usersService.passwordValidate(model, user.getUserEmail(), passwordForm.getUserPwNew(), passwordForm.getUserPwNewCheck())) {
 			// 비밀번호 업데이트 실행(실패하면 기존 정보를 가진 user 담김)
 			user = usersService.checkModifyPw(passwordForm, loginService.getLoginUser(req));
-			model.addAttribute("user", user);
-			return "redirect:/help/modifyPassword";
+			return "redirect:/login";
 		}
-		return "redirect:/login";
+		return "/users/myPage/modifyPassword";
 	}
 
 	/**
