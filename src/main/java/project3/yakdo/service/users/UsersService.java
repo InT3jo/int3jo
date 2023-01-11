@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project3.yakdo.domain.BBS.PageMaker;
+import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
 import project3.yakdo.repository.UsersRepository;
@@ -209,6 +211,48 @@ public class UsersService {
 		usersRepository.deleteUsersInfo(usersInfo);	
 	}
 	
+	/**
+	 * 총 페이지수를 만들어주는 메서드
+	 * @param SearchCriteria
+	 * @return PageMaker
+	 * 담당자: 배고운
+	 */
+	public PageMaker makePage(SearchCriteria scri) {
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(usersRepository.countSearchUsers(scri));
+		return pageMaker;
+	}
+	
+	/**
+	 * 회원목록 검색
+	 * @param scri
+	 * @return
+	 * 담당자: 배고운
+	 */
+	public List<Users> getUsersList(SearchCriteria scri){
+		return usersRepository.searchUserList(scri);
+	}
+	
+	/**
+	 * 회원번호로 회원 select 하는 메서드 
+	 * @param userNo
+	 * @return Users
+	 * 담당자: 배고운
+	 */
+	public Users getUsersByUserNo(Integer userNo){
+		return usersRepository.selectByUserNoInUsersT(userNo);
+	}
+	
+	/**
+	 * 회원 등급, 상태 update 하는 메서드 
+	 * @param userNo
+	 * @param users
+	 * 담당자: 배고운
+	 */
+	public void updateUserGrade(Integer userNo, Users users) {
+		usersRepository.updateUserGrade(userNo, users);		
+	}
 	
 
 }

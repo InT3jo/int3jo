@@ -58,7 +58,6 @@ public class BBSMybatisRepository implements BBSRepository {
 
 
 	@Override
-	@Transactional
 	// 게시글 수정
 	public boolean updateBBS(int bbsNo, BBS bbs) {
 		// TODO Auto-generated method stub
@@ -67,7 +66,7 @@ public class BBSMybatisRepository implements BBSRepository {
 			BBSMapper.updateBBS(bbsNo, bbs);
 			result = true;
 		} catch (Exception e) {
-			log.error("BBSMapper update error {} {} ", bbsNo, bbs);
+			
 		}
 		return result;
 	}

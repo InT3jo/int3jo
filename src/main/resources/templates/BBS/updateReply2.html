@@ -17,7 +17,7 @@ function updateReOk(bbsNo,reNo) {
 			return false;
 		}
 		
-		location.href = "/BBS/updateRe2/" + bbsNo + "/" + reNo ;
+		document.getElementById("updateRe").submit();
 	} else {
 		alert("수정이 취소되었습니다.")
 		return;
@@ -32,7 +32,7 @@ function updateReOk(bbsNo,reNo) {
 	<div class="ReturnList">
 	 <button id="headerSearchBtn" type="button" th:onclick="|location.href='@{/BBS/BBSlist/{bbsNo}}'|">뒤로가기</button>
 	</div>
-	<form action="" method="post" th:object="${Reply}">
+	<form id="updateRe" action="" method="post" th:object="${Reply}">
 		<div>
 
 			<br>

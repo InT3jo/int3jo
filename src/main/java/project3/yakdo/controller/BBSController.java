@@ -4,8 +4,6 @@
  */
 package project3.yakdo.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,12 +20,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project3.yakdo.domain.BBS.BBS;
 import project3.yakdo.domain.BBS.BBSComment;
-import project3.yakdo.domain.BBS.PageMaker;
 import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
-import project3.yakdo.domain.users.Users;
-import project3.yakdo.repository.BBSCommentRepository;
-import project3.yakdo.repository.BBSRepository;
+import project3.yakdo.service.BBS.BBSComService;
+import project3.yakdo.service.BBS.BBSService;
 import project3.yakdo.service.users.LoginService;
 import project3.yakdo.validation.BBSComValidator;
 import project3.yakdo.validation.BBSValidator;
@@ -39,8 +35,9 @@ import project3.yakdo.validation.ReplyValidator;
 @RequestMapping("/BBS")
 public class BBSController {
 
-	private final BBSRepository BBSRepository;
-	private final BBSCommentRepository bbsCommentRepositoy;
+
+	private final BBSService bbsService;
+	private final BBSComService bbsComService;
 	private final LoginService loginService;
 
 	// 게시글 목록 출력 + 페이징 추가 + 검색 추가 - 최종 게시판 검색+페이징 다 됨
@@ -52,16 +49,13 @@ public class BBSController {
 
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
-
-		model.addAttribute("list", BBSRepository.listSearch(scri));
-
+		// 전체 게시글 리스트 불러오기 
+		model.addAttribute("list", bbsService.getBBSList(scri));
 		// 전체 답글 리스트 불러오기
-		model.addAttribute("listRe", BBSRepository.listRe());
+		model.addAttribute("listRe", bbsService.getReList());
 
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(BBSRepository.countSearch(scri));
-		model.addAttribute("pageMaker", pageMaker);
+		int count = bbsService.countSearch(scri);
+		model.addAttribute("pageMaker", bbsService.makePage(scri,count));
 
 		return "BBS/listSearch";
 	}
@@ -98,7 +92,7 @@ public class BBSController {
 			return "BBS/BBSwrite";
 		}
 
-		BBSRepository.insertBBS(bbs);
+		bbsService.insertBBS(bbs);
 
 		return "redirect:/BBS/listSearch";
 
@@ -113,7 +107,7 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
+		model.addAttribute("BBS", bbsService.getBBSbybbsNo(bbsNo));
 		return "BBS/BBSview";
 	}
 
@@ -127,8 +121,8 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
-		model.addAttribute("commentListZero", bbsCommentRepositoy.selectComBybbsNo(bbsNo));
+		model.addAttribute("BBS", bbsService.getBBSbybbsNo(bbsNo));
+		model.addAttribute("commentListZero", bbsComService.BBSComListbybbsNo(bbsNo));
 		model.addAttribute("BBSComment", new BBSComment());
 
 		return "BBS/BBSview";
@@ -144,8 +138,8 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		model.addAttribute("commentListZero", bbsCommentRepositoy.selectComBybbsNo(bbsNo));
-		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
+		model.addAttribute("commentListZero", bbsComService.BBSComListbybbsNo(bbsNo));
+		model.addAttribute("BBS", bbsService.getBBSbybbsNo(bbsNo));
 
 		// 댓글 내용 입력안하면 다시 댓글쓰는 페이지로 돌아감
 		BBSComValidator bbsComValidator = new BBSComValidator();
@@ -155,7 +149,7 @@ public class BBSController {
 			return "redirect:/BBS/BBSlist/{bbsNo}";
 		}
 
-		bbsCommentRepositoy.insertBBSCom(bbsComment);
+		bbsComService.insertBBSCom(bbsComment);
 //		model.addAttribute("BBSCom", new BBSComment());
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
@@ -170,7 +164,7 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
+		model.addAttribute("BBS", bbsService.getBBSbybbsNo(bbsNo));
 		return "BBS/BBSupdate.html";
 	}
 
@@ -184,42 +178,29 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBSRepository.updateBBS(bbsNo, bbs);
+		bbsService.updateBBS(bbsNo, bbs);
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
 
 	// 게시글 본인삭제
-	@GetMapping("/delete/{bbsNo}")
+	@RequestMapping("/delete/{bbsNo}")
 	public String updateShowOneBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		BBSRepository.updateShowOneBybbsNo(bbsNo);
+		bbsService.updateShowOneBybbsNo(bbsNo);
 		return "redirect:/BBS/listSearch";
 
 	}
 
-	// 게시글 본인삭제
-	@PostMapping("/delete/{bbsNo}")
-	public String updateShowOneBybbsNoProcess(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		BBSRepository.updateShowOneBybbsNo(bbsNo);
-		return "redirect:/BBS/listSearch";
-
-	}
 
 	// 게시글 관리자 삭제
-	@GetMapping("/adminDelete/{bbsNo}")
+	@RequestMapping("/adminDelete/{bbsNo}")
 	public String updateShowTwoBybbsNo(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		BBSRepository.updateShowTwoBybbsNo(bbsNo);
+		bbsService.updateShowTwoBybbsNo(bbsNo);
 		return "redirect:/BBS/listSearch";
 
 	}
 
-	// 게시글 관리자 삭제
-	@PostMapping("/adminDelete/{bbsNo}")
-	public String updateShowTwoBybbsNoProcess(Model model, @PathVariable("bbsNo") int bbsNo, HttpServletRequest req) {
-		BBSRepository.updateShowTwoBybbsNo(bbsNo);
-		return "redirect:/BBS/listSearch";
-
-	}
+	
 
 	// 댓글 본인 삭제
 	@RequestMapping("/deleteCom/{bbsNo}/{comNo}")
@@ -231,7 +212,8 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 		
-		bbsCommentRepositoy.updateComShowOneByBbsNo(bbsNo, comNo);
+		bbsComService.deleteCom(bbsNo, comNo);
+		
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
@@ -246,7 +228,7 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		model.addAttribute("bbsComment", bbsCommentRepositoy.selectOneCom(bbsNo, comNo));
+		model.addAttribute("bbsComment", bbsComService.getComment(bbsNo, comNo));
 		
 		return "BBS/updateCom";
 	}
@@ -269,7 +251,7 @@ public class BBSController {
 			return "redirect:/BBS/BBSlist/{bbsNo}";
 		}
 
-		bbsCommentRepositoy.updateCom(bbsNo, comNo, bbsComment);
+		bbsComService.updateCom(bbsNo, comNo, bbsComment);
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 	}
@@ -280,7 +262,7 @@ public class BBSController {
 			@PathVariable("comNo") Integer comNo, HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
-		bbsCommentRepositoy.updateComShowTwoBybbsNo(bbsNo, comNo);
+		bbsComService.deleteComByAdmin(bbsNo, comNo);
 
 		return "redirect:/BBS/BBSlist/{bbsNo}";
 
@@ -292,24 +274,24 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBSRepository.updateShowZeroBybbsNo(bbsNo);
+		bbsService.recoverBBSBybbsNo(bbsNo);
 		return "redirect:/admin/adminBBSlist";
 	}
 
-	// 답변 상세보기 2
+	// 답변 상세보기 
 
 	@GetMapping("/replyView2/{bbsNo}/{reNo}")
 	public String replyView2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
-
-		model.addAttribute("Reply", BBSRepository.replyView2(bbsNo, reNo));
+		
+		model.addAttribute("Reply", bbsService.viewReply(bbsNo, reNo));
 
 		return "BBS/replyView2";
 	}
 
-	// 답변 수정 2
+	// 답변 수정 
 	@GetMapping("/updateRe2/{bbsNo}/{reNo}")
 	public String updateRe2(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			HttpServletRequest req) {
@@ -319,12 +301,12 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		model.addAttribute("Reply", BBSRepository.replyView2(bbsNo, reNo));
+		model.addAttribute("Reply", bbsService.viewReply(bbsNo, reNo));
 
 		return "BBS/updateReply2";
 	}
 
-	// 답변 수정 2
+	// 답변 수정 
 	@PostMapping("/updateRe2/{bbsNo}/{reNo}")
 	public String updateRe2Process(Model model, @PathVariable("bbsNo") int bbsNo, @PathVariable("reNo") int reNo,
 			@ModelAttribute Reply reply, BindingResult bindingResult, HttpServletRequest req) {
@@ -339,9 +321,9 @@ public class BBSController {
 			return "BBS/updateReply2";
 		}
 
-		BBSRepository.updateRe2(bbsNo, reNo, reply);
+		bbsService.updateReply(bbsNo, reNo, reply);
 
-		return "redirect:/BBS/listSearch";
+		return "redirect:/BBS/replyView2/{bbsNo}/{reNo}";
 	}
 
 	// 답변 삭제
@@ -351,7 +333,7 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 
-		BBSRepository.updateReShow1(bbsNo, reNo);
+		bbsService.deleteReply(bbsNo, reNo);
 
 		return "redirect:/BBS/listSearch";
 
@@ -366,7 +348,7 @@ public class BBSController {
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 		
-		model.addAttribute("BBS", BBSRepository.selectBybbsNo(bbsNo));
+		model.addAttribute("BBS", bbsService.getBBSbybbsNo(bbsNo));
 		
 		model.addAttribute("Reply", new Reply());
 //		model.addAttribute("BBS", new BBS());
@@ -387,12 +369,11 @@ public class BBSController {
 				bbsValidator.validate(reply, bindingResult);
 
 				if (bindingResult.hasErrors()) {
-//					return "redirect:/BBS/listSearch";
-//					return "admin/writeAnswer/{bbsNo}";
 					return "BBS/writeAnswer/"+bbsNo;
 				}
 	
-		BBSRepository.insertReply(reply);
+		
+		bbsService.insertReply(reply);
 
 		return "redirect:/BBS/listSearch";
 
