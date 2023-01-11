@@ -93,4 +93,16 @@ public class LoginService {
 		}
 		return validateValue;
 	}
+	
+	/**
+	 * 
+	 * @param req
+	 */
+	public void logoutService(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		
+		if (session != null && session.getAttribute(SessionVar.LOGIN_MEMBER) != null){
+			session.removeAttribute(SessionVar.LOGIN_MEMBER);
+		}
+	}
 }

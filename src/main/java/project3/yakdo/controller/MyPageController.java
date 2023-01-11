@@ -353,7 +353,8 @@ public class MyPageController {
 		
 		// 회원 탈퇴 실행
 		usersService.leaveUser(loginService.getLoginUser(req).getUserNo());
-		
+		// 로그아웃 실행
+		loginService.logoutService(req);
 		return "/users/myPage/leaveUser";
 	}
 	

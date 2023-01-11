@@ -80,11 +80,7 @@ public class LoginController {
 	@PostMapping("/logout")
 	public String logout(HttpServletRequest req, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
 		//false = session없을 때, 새로 만들지 않고 null값 반환
-		HttpSession session = req.getSession(false);
-		
-		if (session != null && session.getAttribute(SessionVar.LOGIN_MEMBER) != null){
-			session.removeAttribute(SessionVar.LOGIN_MEMBER);
-		}
+		loginService.logoutService(req);
 		return "redirect:"+redirectURL;
 	}
 	
