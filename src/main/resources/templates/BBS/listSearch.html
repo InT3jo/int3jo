@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/css/home_component.css">
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<!-- 안쓰면 나중에 삭제 -->
+
 </head>
 
 <body>
@@ -38,7 +38,7 @@
 
 	<div th:replace="home_component.html :: header"></div>
 	<div class="BBSlist">
-		<p id="BBS">이용문의</p>
+		<div class="BBSheadTitle">이용 문의</div>
 		<div id="writeBtn">
 			<!-- 	<div th:if="${user}!=null"> -->
 			<button id="headerSearchBtn"
@@ -70,49 +70,43 @@
 					<div th:each="BBS : ${list}">
 						<tr>
 							<td th:text=${BBS.bbsNo}></td>
-							<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}"
-								th:text=${BBS.bbsTitle}></a></td>
+							<td><a th:href="@{|/BBS/BBSlist/${BBS.bbsNo}|}" th:text=${BBS.bbsTitle}></a></td>
 							<td th:text=${BBS.bbsDate}></td>
 							<td th:text="${BBS.userNick}"></td>
 						</tr>
-
-						<tr th:each="Reply : ${listRe}"
-							th:if="${BBS.bbsNo}==${Reply.bbsNo} and ${listRe}!=null">
+						<tr th:each="Reply : ${listRe}" th:if="${BBS.bbsNo}==${Reply.bbsNo} and ${listRe}!=null">
 							<td></td>
-							<td><a
-								th:href="@{|/BBS/replyView2/${BBS.bbsNo}/${Reply.reNo}|}"
-								th:text="${' └ 😎'+Reply.reTitle}"></a></td>
+							<td><a th:href="@{|/BBS/replyView2/${BBS.bbsNo}/${Reply.reNo}|}" th:text="${' └ 😎'+Reply.reTitle}"></a></td>
 							<td th:text=${Reply.reDate}></td>
 							<td th:text="${Reply.userNick}"></td>
 						</tr>
 					</div>
 				</tbody>
-
 			</table>
 		</div>
-
-		<div id="pageNumber"
-			th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
+<!-- 페이징 -->
+		<div id="pageNumber" th:with="start=${pageMaker.startPage}, end=${pageMaker.endPage}">
 			<ul>
-				<div>
-					<li><a
-						th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.startPage-1)}|}">이전</a></li>
+				<div th:unless="${pageMaker.cri.getPage()}<=${pageMaker.startPage}" >
+					<li>
+						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.startPage-1)}|}">
+						이전
+						</a>
+					</li>
 				</div>
-
-
-
-				<div th:each="num : ${#numbers.sequence(start,end)}">
-					<li><code th:if="${pageMaker.cri.getPage() == num}"
-							th:text="${num}"></code> <a
-						th:unless="${pageMaker.cri.getPage()==num}"
-						th:href="@{|/BBS/listSearch${pageMaker.makeSearch(num)}|}"> <code
-								th:text="${num}"></code></a></li>
+				<div th:unless="${pageMaker.startPage}==${pageMaker.endPage} or ${pageMaker.endPage}==0" th:each="num : ${#numbers.sequence(start,end)}">
+					<li>
+						<code th:if="${pageMaker.cri.getPage() == num}" th:text="${num}"></code> 
+						<a th:unless="${pageMaker.cri.getPage()==num}" th:href="@{|/BBS/listSearch${pageMaker.makeSearch(num)}|}"> 
+							<code th:text="${num}"></code>
+						</a>
+					</li>
 				</div>
-
-				<div>
-
-					<li><a
-						th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.endPage+1)}|}">다음</a>
+				<div th:unless="${pageMaker.cri.getPage()}>=${pageMaker.endPage}">
+					<li>
+						<a th:href="@{|/BBS/listSearch${pageMaker.makeSearch(pageMaker.endPage+1)}|}">
+						다음
+						</a>
 					</li>
 				</div>
 			</ul>

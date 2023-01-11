@@ -24,7 +24,8 @@ function updateComOk(bbsNo,comNo) {
 }
 </script>
 	<div th:replace="home_component.html :: header"></div>
-<p id="BBS">이용문의</p>
+	<div class="BBSlist">
+<div class="BBSheadTitle">이용 문의</div>
 	
 	<div class="WriteBBSBox">
 	<div class="ReturnList">
@@ -47,6 +48,7 @@ function updateComOk(bbsNo,comNo) {
 		 </div>
 		
 	</form>
+	</div>
 	</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>

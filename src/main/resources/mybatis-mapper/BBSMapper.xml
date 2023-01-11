@@ -187,6 +187,7 @@
 				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
 			and bbs_no > 0
+			 and b.user_no=u.user_no      
 		</where>
 	</select>
 
@@ -244,7 +245,7 @@
 			<if test="searchType == 'writer'">
 				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-			
+			 and b.user_no=u.user_no
 		</where>
 	</select>
 
@@ -302,7 +303,7 @@
 			<if test="searchType == 'writer'">
 				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-			
+			 and b.user_no=u.user_no
 		</where>
 	</select>
 

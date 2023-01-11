@@ -5,8 +5,16 @@
 .BBSlist{
 	width:800px;
 	margin: 100px auto;
-	
 }
+
+.BBSheadTitle{
+	color:var(--Signature-blue);
+	font-size: 17px;
+	font-weight: 700;
+	width:800px;
+	text-align: center;
+}
+
 a {
 	text-decoration-line: none;
 	color: black;
