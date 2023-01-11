@@ -33,7 +33,7 @@
 		<div class="mainNavBox">
 			<span th:if="${user}==null" id="mainNavLogin" onclick="location.href='/login'">로그인</span>
 			<span th:if="${user}!=null" id="mainNavLogin" onclick="logout()">로그아웃</span>
-			<span th:if="${user}==null" id="mainNavJoin" onclick="location.href='/signUp'">회원가입</span>
+			<span th:if="${user}==null" id="mainNavJoin" onclick="location.href='/signUp/emailConfirm'">회원가입</span>
 			<span th:if="${user}!=null" id="mainNavJoin" onclick="location.href='/help/myPage'">마이페이지</span>
 			<span id="mainNavBBS" onclick="location.href='/BBS/listSearch'">이용문의</span><br>
 		</div>

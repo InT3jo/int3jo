@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/var.css">
+<link rel="stylesheet" type="text/css" href="/css/user.css">
+<title>약도 - 회원가입</title>
+</head>
+<body>
+
+	<div class="ContentBox">
+		<div class="signUpTitleBox">
+			<div class="d_CSS">
+				<span class="signUpTitle1" onclick="location.href='/'">약도</span>
+				<span class="signUpTitle2" onclick="location.href='/'">藥道</span>
+			</div>
+		</div>
+		<div class="signUpContent">
+			<form action="" method="post">
+				<div class="signUpInputBox">
+					<label class="signUpLabel" for="userEmail">이메일</label>
+					<input th:if="${userEmail}==null" class= "signUpInput" type="email" name="userEmail" id="userEmail" placerholder="이메일을 입력해주세요" required />
+					<button th:if="${userEmail}==null" class="signUpButton" type="submit">코드전송</button>
+					<input th:if="${userEmail}!=null" class= "signUpInput" type="email" name="userEmail" id="userEmail" th:value="${userEmail}" disabled />
+				</div>
+				<div th:if="${error}!=null" th:text="${error}"></div>
+			</form>
+			<div th:if="${userEmail}!=null">
+				<form action="/signUp" method="get">
+					<div class="signUpInputBox">
+						<label class="signUpLabel" for="emailCodeCheck">코드확인</label>
+						<input class= "signUpInput" type="text" name="emailCodeCheck" id="emailCodeCheck" required />
+						<button class="signUpButton" type="submit">인증하기</button>
+						<input name="userEmail" type="hidden" th:value="${userEmail}"/>
+						<input name="code" type="hidden" th:value="${code}"/>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
