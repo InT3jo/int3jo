@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import project3.yakdo.validation.form.PasswordForm;
 @RequiredArgsConstructor
 public class UsersService {
 	private final UsersRepository usersRepository;
-	
+//	private final UsersValidator usersValidator;
 	/**
 	 * 입력받은 userNick과 기존 loginUser의 userNick이 같은지 확인
 	 * 같으면 닉네임 수정 된 loginUser return
@@ -37,8 +38,10 @@ public class UsersService {
 		 * 업데이트가 실패했을 때
 		 * 사용 중인 닉네임입니다 띄우는 validation 만들어야함
 		 */
+//		usersValidator
+		Integer validateResult = usersRepository.updateUserNickByUserNo(userNick, loginUser.getUserNo());
 		//업데이트 성공 했을 시 loginUser의 닉네임 변경
-		if(usersRepository.updateUserNickByUserNo(userNick, loginUser.getUserNo()) == 1) {
+		if(validateResult == 1) {
 			//loginUser 닉네임 수정
 			loginUser.setUserNick(userNick);
 			return loginUser;
@@ -90,12 +93,14 @@ public class UsersService {
 	 * @param userEmail
 	 * @return
 	 */
-	public Integer searchUserStatus(String userEmail) {
+	public Integer searchUserStatus(Model model, String userEmail) {
 		List<Users> userList = usersRepository.selectUserAllByUserEmail(userEmail);
-		/**
-		 * 유효성 검사 해야함
-		 */
+		log.info("userList---------------------- {}", userList);
 		Integer result = 0;
+		if(userList.isEmpty()) {
+			log.info("?????????????????????????????????");
+			return null;
+		}
 		for(Users user : userList) {
 			if(user.getUserStatus() == 2) {
 				/* 블락된 계정입니다 */
@@ -110,10 +115,13 @@ public class UsersService {
 	}
 
 	/**
+	 * 비밀번호 변경 기능
 	 * 
 	 * @param userEmail 
 	 * @param passwordForm
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	public Integer changePassword(String userEmail, PasswordForm passwordForm) {
 		Users user = usersRepository.selectUserByUserEmail(userEmail);

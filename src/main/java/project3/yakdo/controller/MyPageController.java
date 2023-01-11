@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project3.yakdo.domain.drugs.DrugsNameForm;
 import project3.yakdo.domain.users.SignUpForm;
 import project3.yakdo.domain.users.Users;
 import project3.yakdo.domain.users.UsersInfo;
@@ -75,6 +74,8 @@ public class MyPageController {
 	 * 
 	 * @param userNick
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/modifyNickName")
 	public String checkModifyNick(HttpServletRequest req, Model model, @RequestParam("userNick") String userNick) {
@@ -88,6 +89,8 @@ public class MyPageController {
 	 * @param model
 	 * @param req
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@GetMapping("/confirmEmail")
 	public String confirmEmail() {
@@ -97,21 +100,36 @@ public class MyPageController {
 	
 	/**
 	 * 이메일 가입 여부 확인 후 실행 될 이메일 인증 창
+	 * status가 0일 경우에만 이메일 인증을 받을 수 있다
 	 * @param model
 	 * @param req
 	 * @param userEmail
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/confirmEmail")
 	public String checkConfirmEmail(Model model, @RequestParam("userEmail") String userEmail) {
-		model.addAttribute("userEmail", userEmail);
-		Integer status = usersService.searchUserStatus(userEmail);
-		if(status == 2 && status == 1) {
-			return "redirect:/help/confirmEmail";
+		if(userEmail == null || userEmail.trim().equals("")) {
+			model.addAttribute("errorMsg", "이메일은 필수 입력 값입니다");
+			return "/users/myPage/confirmEmail";
 		}
+		
+		model.addAttribute("userEmail", userEmail);
+		Integer status = usersService.searchUserStatus(model, userEmail);
+		
+		if(status == null || status == 1) {
+			model.addAttribute("errorMsg", "존재하지 않는 회원입니다");
+			return "/users/myPage/confirmEmail";
+		}
+		if(status == 2) {
+			model.addAttribute("errorMsg", "블락된 회원은 본 사이트의 서비스를 이용할 수 없습니다");
+			return "/users/myPage/confirmEmail";
+		}
+		
 		try {
 			String code = emailService.sendSimpleMessage(userEmail);
-			model.addAttribute("code",code);
+			model.addAttribute("code", code);
 		} catch (Exception e) {
 			return "redirect:/help/confirmEmail";
 		}
@@ -124,6 +142,8 @@ public class MyPageController {
 	 * @param req
 	 * @param userEmail
 	 * @return
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@PostMapping("/checkSecurityCode")
 	public String checkSecurityCode(Model model
@@ -131,16 +151,20 @@ public class MyPageController {
 								, @RequestParam("findEmailConfirm") String findEmailConfirm
 								, @RequestParam("code") String code){
 		model.addAttribute("userEmail", userEmail);
-		
+		if(findEmailConfirm.trim().equals("")) {
+			model.addAttribute("errorMsg", "메일 코드를 입력해 주세요");
+			return "/users/myPage/confirmEmail";
+		}
 		if(code.equals(String.valueOf((((Integer.parseInt(findEmailConfirm)*2)+2)*2)+2))) {
+			log.info("code {}, findEmailConfirm {}", code, findEmailConfirm);
 			SignUpForm signUpForm = new SignUpForm();
 			signUpForm.setUserEmail(userEmail);
 			model.addAttribute("signUpForm", signUpForm);
 			model.addAttribute("drugsNameFormList", findDrugService.getDrugsNameFormList());
 			return "/users/myPage/newPassword";
 		}else {
-			model.addAttribute("error","인증번호가 다릅니다.");
-			return "redirect:/help/confirmEmail";		
+			model.addAttribute("error","인증번호를 다시 한번 확인해 주세요");
+			return "/users/myPage/confirmEmail";
 		}
 	}
 	
