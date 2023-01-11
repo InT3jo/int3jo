@@ -59,7 +59,7 @@ public class LoginController {
 					, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
 		//login 관련 유효성 검사
 		loginValidator.validate(loginForm, bindingResult);
-		//에러가 있는 경우 다시 login 화면으로
+		
 		if(bindingResult.hasFieldErrors("loginEmail")) {
 			model.addAttribute("emailError", bindingResult.getFieldError("loginEmail").getCode());
 			return "/users/login/login";
@@ -74,16 +74,11 @@ public class LoginController {
 		Users user = loginService.login(loginForm);
 		loginForm.setUser(user);
 		
-//		if(bindingResult.hasFieldErrors("user")) {
-//			model.addAttribute("userError", bindingResult.getFieldError("user").getCode());
-//			return "/users/login/login";
-//		}
-		
-////		일치하는 정보 없으면 login 화면으로
-//		if(user == null) {
-//			bindingResult.reject("loginForm", "이메일 또는 비밀번호를 다시 확인해 주세요.");
-//			return "/users/login/login";
-//		}
+		//일치하는 정보 없으면 login 화면으로
+		if(user == null) {
+			model.addAttribute("userError", bindingResult.getFieldError("user").getCode());
+			return "/users/login/login";
+		}
 		
 		//로그인 했을 때 들어오는 회원 정보
 		HttpSession session = req.getSession();

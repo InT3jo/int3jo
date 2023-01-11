@@ -8,4 +8,8 @@ public class LoginForm {
 	private String loginEmail;
 	private String loginPw;
 	private Users user;
+	
+	public void setLoginEmail(String loginEmail) {
+		this.loginEmail = loginEmail.trim();
+	}
 }

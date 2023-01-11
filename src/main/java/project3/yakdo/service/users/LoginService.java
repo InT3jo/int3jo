@@ -27,9 +27,9 @@ public class LoginService {
 	 * @return
 	 */
 	public Users login(LoginForm loginForm) {
-		log.info("loginForm{}", loginForm);
+//		log.info("loginForm{}", loginForm);
 		Users user = usersRepository.selectUserByUserEmail(loginForm.getLoginEmail());
-		log.info("user {}", user);
+//		log.info("user {}", user);
 		if(user != null) {
 			if(user.getUserPw().equals(loginForm.getLoginPw())) {
 				log.info("로그인 성공");
