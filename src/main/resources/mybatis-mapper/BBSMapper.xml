@@ -130,7 +130,7 @@
 
 
 
-	<!-- 게시글 페이징+검색 -->
+<!-- 게시글 페이징+검색 -->
 <!-- 	최근 게시물 기준으로 내림차순으로 rNum(row_number)부여 -->
 <!-- 	그 후 전체 목록에서 rNum의 값이 1부터 10까지의 데이터 출력  -->
 	 
@@ -174,7 +174,9 @@
 
 		select count(b.bbs_no)
 		from bbs b, users u
+		
 		<where>
+		BBS_show=0
 			<if test="searchType == 'title'">
 				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
@@ -208,6 +210,7 @@
 		u.user_nick
 		from bbs b, users u
 		<where>
+		 b.user_no = u.user_no and BBS_show=1
 			<if test="searchType == 'title'">
 				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
@@ -217,7 +220,7 @@
 			<if test="searchType == 'writer'">
 				AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
-			and b.user_no = u.user_no and BBS_show=1
+			
 		</where>
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
@@ -231,6 +234,7 @@
 		select count(b.bbs_no)
 		from bbs b, users u
 		<where>
+		 bbs_show=1
 			<if test="searchType == 'title'">
 				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
@@ -240,7 +244,7 @@
 			<if test="searchType == 'writer'">
 				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-			and bbs_show=1
+			
 		</where>
 	</select>
 
@@ -264,6 +268,7 @@
 		u.user_nick
 		from bbs b, users u
 		<where>
+		 b.user_no = u.user_no and BBS_show=2
 			<if test="searchType == 'title'">
 				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
@@ -273,7 +278,7 @@
 			<if test="searchType == 'writer'">
 				AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
-			and b.user_no = u.user_no and BBS_show=2
+			
 		</where>
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
@@ -284,9 +289,10 @@
 	<!-- 관리자 삭제 글 검색 결과 갯수 -->
 	<select id="countSearchShowTwo" resultType="int">
 
-			select count(b.bbs_no)
+		select count(b.bbs_no)
 		from bbs b, users u
 		<where>
+		 bbs_show=2
 			<if test="searchType == 'title'">
 				AND BBS_TITLE like '%' || #{keyword} || '%'
 			</if>
@@ -296,7 +302,7 @@
 			<if test="searchType == 'writer'">
 				AND USER_NICK like '%' || #{keyword} || '%'
 			</if>
-			and bbs_show=2
+			
 		</where>
 	</select>
 
