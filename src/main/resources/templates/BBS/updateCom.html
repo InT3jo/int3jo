@@ -22,6 +22,10 @@ function updateComOk(bbsNo,comNo) {
 		alert("수정이 취소되었습니다.")
 	}
 }
+
+function back(bbsNo){
+	location.href = "/BBS/BBSlist/" + bbsNo ;
+}
 </script>
 	<div th:replace="home_component.html :: header"></div>
 	<div class="BBSlist">
@@ -29,7 +33,7 @@ function updateComOk(bbsNo,comNo) {
 	
 	<div class="WriteBBSBox">
 	<div class="ReturnList">
-	 <button id="headerSearchBtn" type="button" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+	 <button id="headerSearchBtn"  th:name="${bbsComment.bbsNo}" th:onclick="back(this.getAttribute('name'))">뒤로가기</button>
 	</div>
 	<form action="" method="post" th:object="${bbsComment}">
 		<div>
