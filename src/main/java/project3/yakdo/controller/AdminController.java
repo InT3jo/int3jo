@@ -49,13 +49,13 @@ public class AdminController {
 	 */
 	@GetMapping
 	public String admin(Model model, HttpServletRequest req) {
+		if(loginService.getLoginUser(req).getUserGrade()==2) {
+			return "redirect:/error/404";
+		}
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 		return "admin/admin";
 	}
-
-	
-
 	
 	/**
 	 * 본인삭제 게시물 관리 + 페이징 + 검색
@@ -67,22 +67,21 @@ public class AdminController {
 	 */
 	@GetMapping("/adminShowOneList")
 	public String adminShowOneList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
+		if(loginService.getLoginUser(req).getUserGrade()==2) {
+			return "redirect:/error/404";
+		}
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 		// 본인삭제 게시글 리스트 불러오기
 		model.addAttribute("bbsListOne", bbsService.getShowOneList(scri));
-		// 페이징
+		// 검색 결과 총 갯수 
 		int count = bbsService.countSearchShowOne(scri);
+		// 페이징+검색
 		model.addAttribute("pageMaker", bbsService.makePage(scri,count));
 
 		return "admin/adminShowOneList";
 	}
 
-
-
-	
-
-	
 	/**
 	 * 관리자삭제 게시물 관리 + 페이징 + 검색
 	 * @param scri
@@ -93,12 +92,16 @@ public class AdminController {
 	 */
 	@GetMapping("/adminShowTwoList")
 	public String adminShowTwoList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
+		if(loginService.getLoginUser(req).getUserGrade()==2) {
+			return "redirect:/error/404";
+		}
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
 		// 관리자 삭제 게시글 리스트 불러오기
 		model.addAttribute("bbsListTwo", bbsService.getShowTwoList(scri));
-		// 페이징
+		// 검색 결과 총 갯수 
 		int count = bbsService.countSearchShowTwo(scri);
+		// 페이징+검색
 		model.addAttribute("pageMaker", bbsService.makePage(scri,count));
 		
 		return "admin/adminShowTwoList";
@@ -115,13 +118,15 @@ public class AdminController {
 	 */
 	@RequestMapping("/recover/{bbsNo}")
 	public String updateShowZeroBybbsNo(Model model, @PathVariable("bbsNo") Integer bbsNo, HttpServletRequest req) {
+		if(loginService.getLoginUser(req).getUserGrade()==2) {
+			return "redirect:/error/404";
+		}
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
+		//bbsNo에 해당하는 게시글 복구 
 		bbsService.recoverBBS(bbsNo);
 		return "redirect:/admin/adminShowTwoList";
 	}
-
-
 
 	
 	/**
@@ -134,9 +139,12 @@ public class AdminController {
 	 */
 	@GetMapping("/searchUserList")
 	public String searchUserList(@ModelAttribute("scri") SearchCriteria scri, Model model, HttpServletRequest req) {
+		if(loginService.getLoginUser(req).getUserGrade()==2) {
+			return "redirect:/error/404";
+		}
 		// 로그인된 유저정보(로그인되어있지 않다면 null)
 		model.addAttribute("user", loginService.getLoginUser(req));
-		
+		//회원목록 출력 
 		model.addAttribute("searchUserList", usersService.getUsersList(scri));
 		//페이징
 		model.addAttribute("pageMaker", usersService.makePage(scri));
@@ -151,8 +159,12 @@ public class AdminController {
 	 * @return
 	 * 담당자 : 배고운 
 	 */
-	@GetMapping("/updateGrade/{userNo}") // 어떤 userNo에 대해서 처리할거냐
-	public String updateGrade(Model model, @PathVariable("userNo") Integer userNo) {
+	@GetMapping("/updateGrade/{userNo}") 
+	public String updateGrade(Model model, @PathVariable("userNo") Integer userNo, HttpServletRequest req) {
+		if(loginService.getLoginUser(req).getUserGrade()==2) {
+			return "redirect:/error/404";
+		}
+		//회원번호에 해당하는 회원 select 
 		model.addAttribute("Users", usersService.getUsersByUserNo(userNo));
 		return "admin/updateGrade";
 	}
@@ -167,7 +179,11 @@ public class AdminController {
 	 * 담당자 : 배고운 
 	 */
 	@PostMapping("/updateGrade/{userNo}")
-	public String updateGradeProcess(Model model, @PathVariable("userNo") Integer userNo, @ModelAttribute Users users) {
+	public String updateGradeProcess(Model model, @PathVariable("userNo") Integer userNo, @ModelAttribute Users users, HttpServletRequest req) {
+		if(loginService.getLoginUser(req).getUserGrade()==2) {
+			return "redirect:/error/404";
+		}
+		//회원 번호에 해당하는 회원의 등급, 상태 변경 
 		usersService.updateUserGrade(userNo, users);
 		return "redirect:/admin/searchUserList";
 	}

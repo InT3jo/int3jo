@@ -84,82 +84,70 @@
 		DELETE FROM users_info_allergy WHERE user_no = #{userNo}
 	</delete>
 	
-	
-	
-	<!-- 관리자 페이지 회원관리 관련 / 작성자: 배고운 -->
-
-
 
 	<!-- Users테이블에서 user_no로 회원 찾기 / 작성자 : 배고운 -->
-
 	<select id="selectByUserNoInUsersT" resultType="Users">
-		select * from
-		users where user_no = #{userNo}
+		SELECT * FROM
+		users WHERE user_no = #{userNo}
 	</select>
 
-
-
 	<!-- 회원등급수정 / 작성자 : 배고운 -->
-
 	<update id="updateUserGrade" parameterType="Users">
-		update users
-		set
-		user_grade = #{updateUser.userGrade},
-		user_status = #{updateUser.userStatus},
-		block_reason = #{updateUser.blockReason},
+		UPDATE users
+		SET
+		USER_GRADE = #{updateUser.userGrade},
+		USER_STATUS = #{updateUser.userStatus},
+		BLOCK_REASON = #{updateUser.blockReason},
 		<if test="updateUser.userStatus == 0">
-		leave_date = null
+		LEAVE_DATE = null
 		</if>
 		<if test="updateUser.userStatus != 0">
-		leave_date = sysdate
+		LEAVE_DATE = sysdate
 		</if>
-		where user_no = #{userNo}
+		WHERE USER_NO = #{userNo}
 	</update>
-
 
 	<!-- 회원블락처리 / 작성자 : 배고운 -->
 	<update id="updateUserStatus" parameterType="Users">
-		update users
-		set
-		user_status = {updateUser.userStatus}
-		block_reason = {updateUser.blockReason}
-		where user_no = #{userNo}
+		UPDATE users
+		SET
+		USER_STATUS = {updateUser.userStatus}
+		BLOCK_REASON = {updateUser.blockReason}
+		WHERE USER_NO = #{userNo}
 	</update>
 	
 
-	<!-- users 목록 회원번호,이메일,닉네임 검색 결과 10개씩 잘라서 출력 / 작성자: 배고운 -->
-	<!--	회원 목록 검색 페이징 처리 시도중 0104 01:02 -->
-	<select id="searchUserList" resultType="Users" 
-	parameterType="SearchCriteria">
-	 select user_no, user_email,user_nick,join_date,
+	<!-- 회원 목록 페이징 / 작성자: 배고운 -->
+	<select id="searchUserList" resultType="Users" parameterType="SearchCriteria">
+	 SELECT user_no, user_email,user_nick,join_date,
         user_grade,user_status,leave_date,block_reason
-        from
+        FROM
         (
-        select user_no, user_email,user_nick,join_date,
+        SELECT user_no, user_email,user_nick,join_date,
         user_grade,user_status,leave_date,block_reason,
-		(row_number() over(order by user_no asc)) as rNum
-		from users
+		(row_number() over(ORDER BY user_no asc)) AS rNum
+		FROM users
         <where> 
         <if test="searchType == 'userNo'">
-        and user_no = #{keyword}
+        AND user_no = #{keyword}
         </if>
         <if test="searchType == 'email'">
-        and user_email like '%' || #{keyword} || '%'
+        AND user_email like '%' || #{keyword} || '%'
         </if>
         <if test="searchType == 'nick'">
-        and user_nick like '%' || #{keyword} || '%'
+        AND user_nick like '%' || #{keyword} || '%'
         </if>
         </where>
         )
-       where rNum between #{rowStart} and #{rowEnd}
-	   order by user_no asc
+       WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+	   ORDER BY user_no asc
 	</select>
 	
 <!-- 	회원 검색 조건에 맞는 게시물 갯수 구하는 쿼리 / 작성자: 배고운 -->
 <select id="countSearchUsers" resultType="int">
 	
-		select count(user_no)
-		from users
+		SELECT count(user_no)
+		FROM users
 		<where>
 			<if test="searchType == 'userNo'"> 
 			AND user_no = #{keyword}  

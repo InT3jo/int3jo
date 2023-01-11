@@ -9,15 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Reply {
-	/* Reply 테이블 컬럼
-	re_no,
-	bbs_no,
-	user_no,
-	re_title,
-	re_content,
-	re_date,
-	re_show
-	*/
 	
 	//default 
 		private int reNo;
