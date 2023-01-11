@@ -37,8 +37,7 @@ public class BBSMybatisRepository implements BBSRepository {
 	
 	/**
 	 * bbsNo(글번호)에 해당하는 게시글 select 하는 메소드
-	 * @param
-	 * @return
+	 * @param int bbsNo
 	 */
 	//게시글 상세보기
 	@Override

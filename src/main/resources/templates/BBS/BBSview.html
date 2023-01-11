@@ -209,8 +209,10 @@ th, td {
 
 
 				<!-- 댓글 없으면 댓글 테이블 숨기기 -->
+				<div class="BBSCommentheadTitle">댓글</div>
 				<div
 					th:if="${commentListZero.size()}==0 or ${commentListZero}==null">
+					<div class="BBSCommentheadTitle">댓글</div>
 					<span>등록된 댓글이 없습니다.</span>		
 				</div>
 				<table>

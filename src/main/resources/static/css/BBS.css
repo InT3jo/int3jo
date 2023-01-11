@@ -147,3 +147,11 @@ li {
 .WriteRe{
 	margin-top:50px;
 }
+.BBSCommentheadTitle{
+	color:var(--Signature-blue);
+	font-size: 17px;
+	font-weight: 700;
+	width:800px;
+	padding:20px;
+/* 	text-align: center; */
+}
