@@ -8,53 +8,52 @@
 <title>약도 - 이용문의</title>
 </head>
 <body>
-<script type="text/javascript">
-function updateReOk(bbsNo,reNo) {
-	if (confirm('수정하시겠습니까?')) {
-		
-		if (document.getElementById("reContent").value == "") {
-			alert("내용을 입력하세요.");
-			return false;
-		}
-		
-		document.getElementById("updateRe").submit();
-	} else {
-		alert("수정이 취소되었습니다.")
-		return;
-	}
-}
+	<script type="text/javascript">
+		function updateReOk(bbsNo, reNo) {
+			if (confirm('수정하시겠습니까?')) {
 
-function back(bbsNo){
-	location.href = "/BBS/BBSlist/" + bbsNo;
-}
-</script>
+				if (document.getElementById("reContent").value == "") {
+					alert("내용을 입력하세요.");
+					return false;
+				}
+
+				document.getElementById("updateRe").submit();
+			} else {
+				alert("수정이 취소되었습니다.")
+				return;
+			}
+		}
+
+		function back(bbsNo) {
+			location.href = "/BBS/BBSlist/" + bbsNo;
+		}
+	</script>
 	<div th:replace="home_component.html :: header"></div>
 	<div class="BBSlist">
-<div class="BBSheadTitle">이용 문의</div>
-	
-	<div class="WriteBBSBox">
-	<div class="ReturnList">
-	 <button id="headerSearchBtn" type="button" th:name="${Reply.bbsNo}" th:onclick="back(this.getAttribute('name'))" >뒤로가기</button>
-	</div>
-	<form id="updateRe" action="" method="post" th:object="${Reply}">
-		<div>
+		<div class="BBSheadTitle">이용 문의</div>
 
-			<br>
-			<label>작성자<input class="InputNick" type="text" name="userNick" readonly="readonly" th:value="${user.userNick}"></label>
-			
-			<br>
-			<label><textarea class="InputBBSContent" name="reContent" th:field="*{reContent}"></textarea></label>
+		<div class="WriteBBSBox">
+			<div class="ReturnList">
+				<button id="headerSearchBtn" type="button" th:name="${Reply.bbsNo}"
+					th:onclick="back(this.getAttribute('name'))">뒤로가기</button>
+			</div>
+			<form id="updateRe" action="" method="post" th:object="${Reply}">
+				<div>
+					<br> <label>작성자<input class="InputNick" type="text"
+						name="userNick" readonly="readonly" th:value="${user.userNick}"></label>
+
+					<br> <label><textarea class="InputBBSContent"
+							name="reContent" th:field="*{reContent}"></textarea></label>
+				</div>
+				<div id="writeBtn">
+
+					<button id="headerSearchBtn" th:name="${Reply.bbsNo}"
+						th:src="${Reply.reNo}"
+						th:onclick="updateReOk(this.getAttribute('name'),this.getAttribute('src'))"
+						type="button">수정완료</button>
+				</div>
+			</form>
 		</div>
-		<div id="writeBtn">
-
- <button id="headerSearchBtn" th:name="${Reply.bbsNo}"
-									th:src="${Reply.reNo}"
-									th:onclick="updateReOk(this.getAttribute('name'),this.getAttribute('src'))" type="button">수정완료</button>
-		
-		 </div>
-		
-	</form>
-	</div>
 	</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>

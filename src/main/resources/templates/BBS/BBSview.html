@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
 <title>약도 - 이용문의</title>
 <style>
-/* 일단 테이블 태그로 했다가 나중에 class 이름 만들어서 css파일로 옮기기  */
+
 table {
 	width: 100%;
 	border: 1px solid #d3d3d3;
@@ -30,7 +30,7 @@ th, td {
 				alert("삭제가 취소되었습니다.")
 			}
 		}
-
+		
 		function updateCom(bbsNo, comNo) {
 			if (confirm('수정하시겠습니까?')) {
 				location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo;
@@ -38,26 +38,24 @@ th, td {
 				alert("수정이 취소되었습니다.")
 			}
 		}
-
+		
 		function deleteComAdmin(bbsNo, comNo) {
 			if (confirm('삭제하시겠습니까?')) {
-			location.href = "/BBS/deleteComAdmin/" + bbsNo + "/" + comNo;
-			}else{
+				location.href = "/BBS/deleteComAdmin/" + bbsNo + "/" + comNo;
+			} else {
 				alert("삭제가 취소되었습니다.")
 			}
 		}
 
 		function writeComOk() {
 			if (confirm('등록하시겠습니까?')) {
-				
 
 				if (document.getElementById("comContent").value == "") {
 					alert("내용을 입력하세요.");
 				}
-				
-				
+
 				document.getElementById("writeCom").submit();
-				
+
 			} else {
 				alert("등록이 취소되었습니다.");
 			}
@@ -81,8 +79,8 @@ th, td {
 			}
 			return false;
 		}
-		
-		function deleteBBSAdmin(bbsNo){
+
+		function deleteBBSAdmin(bbsNo) {
 			if (confirm('삭제하시겠습니까?')) {
 				location.href = "/BBS/adminDelete/" + bbsNo;
 			} else {
@@ -91,178 +89,147 @@ th, td {
 			return false;
 		}
 	</script>
-	
+
 	<div th:replace="home_component.html :: header"></div>
 	<script type="text/javascript">
-		function moveTop(){
-			window.scrollTo({top:0, behavior:"smooth"})
+		function moveTop() {
+			window.scrollTo({
+				top : 0,
+				behavior : "smooth"
+			})
 		}
 	</script>
 	<div class="moveTopBtn" onclick="moveTop()">▲</div>
-<div class="BBSlist">
-<div class="BBSheadTitle">이용 문의</div>
-	
-	<div class="BBSViewTable">
-		<br />
-		<div class="ReturnList">
-		<button  id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
-		</div>
-		<table>
-			<colgroup>
-				<col width="15%" />
-				<col width="35%" />
-				<col width="15%" />
-				<col width="35%" />
-			</colgroup>
-			<tbody>
-				<tr>
-					<th scope="row">글 번호</th>
-					<td th:text="${BBS.bbsNo}"></td>
-					<th scope="row">작성일</th>
-					<td th:text="${BBS.bbsDate}"></td>
-				</tr>
-				<tr>
-					<th scope="row">작성자</th>
-					<td td colspan="3" th:text="${BBS.userNick}"></td>
-				</tr>
-				<tr>
-					<th scope="row">제목</th>
-					<td colspan="3" th:text="${BBS.bbsTitle}"></td>
-				</tr>
-				<tr>
-					<td td colspan="4">
-						<textarea class="ViewContent" title="내용" th:text="${BBS.bbsContent}" readonly="readonly"></textarea>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-
-
-	<div>
-
-		
-
-		<!-- 		로그인한 사용자 닉네임과 일치 할 때만 수정/삭제버튼 보이기 , 관리자(grade:1) 이거나 운영자(grade:0)에 보이기-->
-
-
-		<div  class="ManagerBtn" th:if="${user.userNick}==${BBS.userNick} ">
-			<button  id="headerSearchBtn"  th:name="${BBS.bbsNo}"
-				th:onclick="updateBBSOk(this.getAttribute('name'))">수정하기</button>
-			<button  id="headerSearchBtn"  th:name="${BBS.bbsNo}"
-				th:onclick="deleteBBSOk(this.getAttribute('name'))">삭제</button>
-		</div>
-
-
-		<!-- 		회원등급이 관리자(user_grade = 1)이상 일때만 관리자 삭제,답변 버튼 보이기  -->
-
-	
-		<div  class="ManagerBtn" th:if="${user.userGrade==1 } or ${user.userGrade}==0">
-			<button th:name="${BBS.bbsNo}" id="headerSearchBtn" 
-				th:onclick="deleteBBSAdmin(this.getAttribute('name'))">
-				관리삭제</button>
-			<button  id="headerSearchBtn" 
-				th:onclick="|location.href='@{/BBS/writeAnswer/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">답변등록</button>
-		</div>
-		
-	</div>
-
-
-
-
-
-	<!-- 	댓글 -->
-
-
-
-<div class="WriteCom">
-	<form id="writeCom"
-		th:action="@{/BBS/BBSlist/{bbsNo}(bbsNo=${BBS.bbsNo})}" method="post"
-		th:object=${BBSComment}>
-		<p>
-
-			<label>작성자 : <input type="text" name="userNick"
-				th:value="${user.userNick}" readonly></label>
-			<!-- 				로그인한 사람의 닉네임 불러오기 -->
-		</p> 
-	
-			
-			<label> <textarea id="comContent" class="WriteComContent" name="comContent" maxlength="150" placeholder="댓글을 입력해주세요(170자까지 입력 가능합니다.)"
-				th:field="*{comContent}"></textarea></label> 
-				<input type="hidden" name="userNo" th:value="${user.userNo}">
-		
-		<div class="WriteComBtn">
-			<button  id="headerSearchBtn" type="button" onclick="writeComOk()">댓글 작성</button>
-		</div>
-	</form>
-	</div>
-
-<!-- 댓글 없으면 댓글 테이블 숨기기 -->
-<div th:if="${commentListZero.size()}==0 or ${commentListZero}==null">
-	<p>등록된 댓글이 없습니다.</p>
-</div>
-
-<!-- 댓글테이블 -->
-<div class="BBSViewTable">
-<div th:if="${commentListZero}!=null and ${commentListZero.size()}!=0">
-
-
-
-				<!-- 댓글 없으면 댓글 테이블 숨기기 -->
-				<div class="BBSCommentheadTitle">댓글</div>
-				<div
-					th:if="${commentListZero.size()}==0 or ${commentListZero}==null">
-					<div class="BBSCommentheadTitle">댓글</div>
-					<span>등록된 댓글이 없습니다.</span>		
-				</div>
-				<table>
+	<div class="BBSlist">
+		<div class="BBSheadTitle">이용 문의</div>
+		<div class="BBSViewTable">
+			<br />
+			<div class="ReturnList">
+				<button id="headerSearchBtn"
+					th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
+			</div>
+			<table>
+				<colgroup>
+					<col width="15%" />
+					<col width="35%" />
+					<col width="15%" />
+					<col width="35%" />
+				</colgroup>
+				<tbody>
 					<tr>
-						<td>
-							<div class="cbox" th:each="BBSComment : ${commentListZero}">
-								<div class="cbox_info">
-									<span th:text="${BBSComment.userNick}"></span> 
-									<span th:text="${BBSComment.comDate}"></span>
-								
-										<span th:if="${user.userNick}==${BBSComment.userNick}"><button id="comManageBtn"
-												th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
+						<th scope="row">글 번호</th>
+						<td th:text="${BBS.bbsNo}"></td>
+						<th scope="row">작성일</th>
+						<td th:text="${BBS.bbsDate}"></td>
+					</tr>
+					<tr>
+						<th scope="row">작성자</th>
+						<td td colspan="3" th:text="${BBS.userNick}"></td>
+					</tr>
+					<tr>
+						<th scope="row">제목</th>
+						<td colspan="3" th:text="${BBS.bbsTitle}"></td>
+					</tr>
+					<tr>
+						<td td colspan="4"><textarea class="ViewContent" title="내용"
+								th:text="${BBS.bbsContent}" readonly="readonly"></textarea></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<!-- 		로그인한 사용자 닉네임과 일치 할 때만 수정/삭제버튼 보이기 , 관리자(grade:1) 이거나 운영자(grade:0)에 보이기-->
+				<div class="ManagerBtn" th:if="${user.userNick}==${BBS.userNick} ">
+					<button id="headerSearchBtn" th:name="${BBS.bbsNo}"
+						th:onclick="updateBBSOk(this.getAttribute('name'))">수정하기</button>
+					<button id="headerSearchBtn" th:name="${BBS.bbsNo}"
+						th:onclick="deleteBBSOk(this.getAttribute('name'))">삭제</button>
+				</div>
+				<!-- 		회원등급이 관리자(user_grade = 1)이상 일때만 관리자 삭제,답변 버튼 보이기  -->
+				<div class="ManagerBtn"
+					th:if="${user.userGrade==1 } or ${user.userGrade}==0">
+					<button th:name="${BBS.bbsNo}" id="headerSearchBtn"
+						th:onclick="deleteBBSAdmin(this.getAttribute('name'))">
+						관리삭제</button>
+					<button id="headerSearchBtn"
+						th:onclick="|location.href='@{/BBS/writeAnswer/{bbsNo}(bbsNo=${BBS.bbsNo})}'|">답변등록</button>
+				</div>
+			</div>
+			<!-- 	댓글 -->
+			<div class="WriteCom">
+				<form id="writeCom"
+					th:action="@{/BBS/BBSlist/{bbsNo}(bbsNo=${BBS.bbsNo})}"
+					method="post" th:object=${BBSComment}>
+					<p>
+						<label>작성자 : <input type="text" name="userNick"
+							th:value="${user.userNick}" readonly></label>
+						<!-- 				로그인한 사람의 닉네임 불러오기 -->
+					</p>
+					<label> <textarea id="comContent" class="WriteComContent"
+							name="comContent" maxlength="150"
+							placeholder="댓글을 입력해주세요(170자까지 입력 가능합니다.)"
+							th:field="*{comContent}"></textarea></label> <input type="hidden"
+						name="userNo" th:value="${user.userNo}">
+					<div class="WriteComBtn">
+						<button id="headerSearchBtn" type="button" onclick="writeComOk()">댓글
+							작성</button>
+					</div>
+				</form>
+			</div>
+			<!-- 댓글 없으면 댓글 테이블 숨기기 -->
+			<div th:if="${commentListZero.size()}==0 or ${commentListZero}==null">
+				<p>등록된 댓글이 없습니다.</p>
+			</div>
+			<!-- 댓글테이블 -->
+			<div class="BBSViewTable">
+				<div
+					th:if="${commentListZero}!=null and ${commentListZero.size()}!=0">
+					<!-- 댓글 없으면 댓글 테이블 숨기기 -->
+					<div class="BBSCommentheadTitle">댓글</div>
+					<div
+						th:if="${commentListZero.size()}==0 or ${commentListZero}==null">
+						<div class="BBSCommentheadTitle">댓글</div>
+						<span>등록된 댓글이 없습니다.</span>
+					</div>
+					<table>
+						<tr>
+							<td>
+								<div class="cbox" th:each="BBSComment : ${commentListZero}">
+									<div class="cbox_info">
+										<span th:text="${BBSComment.userNick}"></span> <span
+											th:text="${BBSComment.comDate}"></span> <span
+											th:if="${user.userNick}==${BBSComment.userNick}"><button
+												id="comManageBtn" th:name="${BBSComment.bbsNo}"
+												th:src="${BBSComment.comNo}"
 												th:onclick="deleteCom(this.getAttribute('name'),this.getAttribute('src'))">삭제</button></span>
-										<span th:if="${user.userNick}==${BBSComment.userNick}"><button id="comManageBtn"
-												th:name="${BBSComment.bbsNo}" th:src="${BBSComment.comNo}"
+										<span th:if="${user.userNick}==${BBSComment.userNick}"><button
+												id="comManageBtn" th:name="${BBSComment.bbsNo}"
+												th:src="${BBSComment.comNo}"
 												th:onclick="updateCom(this.getAttribute('name'),this.getAttribute('src'))">
-												수정</button></span>
-								
-									<span th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
-											
+												수정</button></span> <span
+											th:if="${user.userGrade}==1 or  ${user.userGrade}==0">
+
 											<button id="comManageBtn" th:name="${BBSComment.bbsNo}"
 												th:src="${BBSComment.comNo}"
 												th:onclick="deleteComAdmin(this.getAttribute('name'),this.getAttribute('src'))">
 												관리삭제</button>
 										</span>
-
+									</div>
+									<div class="cbox_text">
+										<span th:text="${BBSComment.comContent}"></span>
+									</div>
+									<div>
+										</br>
+									</div>
 								</div>
-								<div class="cbox_text">
-									<span th:text="${BBSComment.comContent}"></span>
-								</div>
-								<div>
-									</br>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
-
-
-
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-</div>
-
-
-
-	</div>
-
-	</div>
 		</div>
-</div>
+	</div>
+	</div>
+	</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>
