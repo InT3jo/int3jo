@@ -51,6 +51,20 @@ li {
 	margin: 0 auto;
 }
 
+.pageNumberBox{
+	display: block;
+	margin: 0px auto;
+	text-align:center;
+
+}
+
+.pageNumberItem{
+	float:left;
+	margin: 0px 10px;
+	font-size: 16px;
+	color: blue;
+}
+
 /* 글쓰기버튼 감싸고 있는 div */
 #writeBtn {
 	text-align: right;
