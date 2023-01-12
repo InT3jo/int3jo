@@ -13,19 +13,23 @@
 				<span class="mainTitle1" onclick="location.href='/'">약도</span>
 				<span class="mainTitle2" onclick="location.href='/'">藥道<br></span>
 				<hr class="perforatedLine" />
-				<span>가입 시 사용한 이메일을 입력해 주세요<br></span>
-				<span>본인 확인 후 비밀번호를 재설정할 수 있습니다<br><br></span>
-				<span th:if="${errorMsg}!=null" th:text="${errorMsg}" class="errorMessage"></span>
-				<span th:if="${error}!=null" th:text="${error}" class="errorMessage"></span>
+				<div class="mainTitle3">
+					<span>가입 시 사용한 이메일을 입력해 주세요<br></span>
+					<span>본인 확인 후 비밀번호를 재설정할 수 있습니다<br><br></span>
+					<span th:if="${errorMsg}!=null" th:text="${errorMsg}" class="errorMessage"></span>
+					<span th:if="${error}!=null" th:text="${error}" class="errorMessage"></span>
+				</div>
 			</div>
 		</div>
 		<div class="d-CSS findForm">
 			<form action="/help/confirmEmail" method="post">
 				<div class="findEmailBox">
 					<input th:if="${userEmail} == null and ${errorMsg} == null" type="email" id="findEmail" name="userEmail" placeholder="이메일" required autofocus/>
+					<input th:if="${userEmail} == null and ${errorMsg} != null" type="email" id="findEmail" name="userEmail" placeholder="이메일" required autofocus/>
 					<input th:if="${userEmail} != null and ${errorMsg} == null" type="email" id="findEmail" name="userEmail" th:placeholder="${userEmail}" readonly/>
 					<input th:if="${userEmail} != null and ${errorMsg} != null" type="email" id="findEmail" name="userEmail" th:placeholder="${userEmail}" readonly/>
 					<button th:if="${userEmail} == null and ${errorMsg} == null" type="submit" class="findPwButton">코드 전송</button>
+					<button th:if="${userEmail} == null and ${errorMsg} != null" type="submit" class="findPwButton">코드 전송</button>
 				</div>
 			</form>
 			<form action="/help/checkSecurityCode" method="post">

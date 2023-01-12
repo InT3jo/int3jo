@@ -91,7 +91,7 @@ public class MyPageController {
 	}
 
 	/**
-	 * 비밀번호 재설정을 위한 이메일 확인 창
+	 * 비밀번호 찾기에서 위한 이메일 확인 창
 	 * @param model
 	 * @param req
 	 * @return
@@ -99,7 +99,7 @@ public class MyPageController {
 	 * 담당자 : 빙예은
 	 */
 	@GetMapping("/confirmEmail")
-	public String confirmEmail() {
+	public String confirmEmail(HttpServletRequest req, Model model) {
 		return "/users/myPage/confirmEmail";
 	}
 

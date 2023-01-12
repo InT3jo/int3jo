@@ -18,8 +18,7 @@ import project3.yakdo.service.users.LoginService;
 public class HomeController {
 	private final LoginService loginService;
 	/**
-	 * session과 cookie로 유효성 검사 후
-	 * 로그인한 상태가 아니면 return home
+	 * 홈 화면을 띄우는 메소드
 	 * 
 	 * @param model
 	 * @param req
@@ -30,7 +29,6 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model, HttpServletRequest req) {
 		model.addAttribute("user", loginService.getLoginUser(req));
-		
 		return "/home";
 	}
 	

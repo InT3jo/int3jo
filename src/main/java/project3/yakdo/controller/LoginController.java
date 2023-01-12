@@ -28,7 +28,6 @@ public class LoginController {
 	private final LoginService loginService;
 	
 	/**
-	 * login
 	 * 로그인 창 처음 접근했을 때 뜨는 부분
 	 * 
 	 * @param model
