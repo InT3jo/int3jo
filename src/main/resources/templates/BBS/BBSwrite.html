@@ -7,86 +7,71 @@
 <link rel="stylesheet" type="text/css" href="/css/BBS.css">
 <title>약도 - 이용문의</title>
 <style>
-.errormsg {
-	color: red;
-}
-
-
-
 </style>
 </head>
 <body>
 	<div th:replace="home_component.html :: header"></div>
-<script type="text/javascript">
+	<script type="text/javascript">
+		function writeBBSOk() {
 
-	function writeBBSOk() 
-	{
+			if (confirm('등록하시겠습니까?')) {
 
-		if (confirm('등록하시겠습니까?')) {
+				if (document.getElementById("bbsTitle").value == "") {
+					alert("제목을 입력하세요.");
+				}
 
-			if (document.getElementById("bbsTitle").value == "") {
-				alert("제목을 입력하세요.");
+				if (document.getElementById("bbsContent").value == "") {
+					alert("내용을 입력하세요.");
+				}
+
+				document.getElementById("writeBBS").submit();
+
+			} else {
+				alert("등록이 취소되었습니다.");
 			}
-
-			if (document.getElementById("bbsContent").value == "") {
-				alert("내용을 입력하세요.");
-			}
-			
-			document.getElementById("writeBBS").submit();
-			
-		} else {
-			alert("등록이 취소되었습니다.");
+			return false;
 		}
-		return false;
-	}
-	
-</script>
-<script type="text/javascript">
-		function moveTop(){
-			window.scrollTo({top:0, behavior:"smooth"})
+	</script>
+	<script type="text/javascript">
+		function moveTop() {
+			window.scrollTo({
+				top : 0,
+				behavior : "smooth"
+			})
 		}
 	</script>
 	<div class="moveTopBtn" onclick="moveTop()">▲</div>
-<div class="BBSlist">
-<div class="BBSheadTitle">이용 문의</div>
-
-
-	<div class="WriteBBSBox">
-	<div class="ReturnList">
-	<button id="headerSearchBtn" th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
-	</div>
-		<form id="writeBBS" action="" method="post" th:object="${BBS}">
-
-			<div>
-				<label> <input  type="hidden" name="userNo"
-					th:value="${user.userNo}"> <input class="InputNick" type="text"
-					name="userNick" th:value="${user.userNick}" readonly>
-				</label>
+	<div class="BBSlist">
+		<div class="BBSheadTitle">이용 문의</div>
+		<div class="WriteBBSBox">
+			<div class="ReturnList">
+				<button id="headerSearchBtn"
+					th:onclick="|location.href='@{/BBS/listSearch}'|">목록</button>
 			</div>
-			<div>
-				<label><input class="InputBBSTitle" type="text" name="bbsTitle" maxlength="40"
-					th:field="*{bbsTitle}" placeholder="제목을 입력해주세요"></label>
-			</div>
-			<div>
-				<label>
-				
-				
-				
-				<textarea name="bbsContent" class="InputBBSContent" maxlength="1000" placeholder="1000자까지 입력가능합니다."
-						th:field="*{bbsContent}"></textarea>
-						
-						
-						
-						</label>
-			</div>
-			<div id="writeBtn">
-				<button id="headerSearchBtn" type="button" onclick="writeBBSOk()">등록하기</button>
-			</div>
-		</form>
-		
+			<form id="writeBBS" action="" method="post" th:object="${BBS}">
+				<div>
+					<label> <input type="hidden" name="userNo"
+						th:value="${user.userNo}"> <input class="InputNick"
+						type="text" name="userNick" th:value="${user.userNick}" readonly>
+					</label>
+				</div>
+				<div>
+					<label><input class="InputBBSTitle" type="text"
+						name="bbsTitle" maxlength="40" th:field="*{bbsTitle}"
+						placeholder="제목을 입력해주세요"></label>
+				</div>
+				<div>
+					<label> <textarea name="bbsContent" class="InputBBSContent"
+							maxlength="1000" placeholder="1000자까지 입력가능합니다."
+							th:field="*{bbsContent}"></textarea>
+					</label>
+				</div>
+				<div id="writeBtn">
+					<button id="headerSearchBtn" type="button" onclick="writeBBSOk()">등록하기</button>
+				</div>
+			</form>
 		</div>
-
-</div>
+	</div>
 	<div th:replace="home_component.html :: footer"></div>
 </body>
 </html>

@@ -3,12 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="project3.yakdo.repository.mybatis.BBSCommentMapper">
+<!-- INSERT 관련 쿼리문 -->
 
 	<!-- 댓글쓰기 -->
 
 	<insert id="insertBBSCom" parameterType="bbsComment">
-
-	insert into bbs_comment
+		insert into bbs_comment
 		(
 		bbs_no,
 		com_no,
@@ -28,8 +28,10 @@
 		)
 	</insert>
 
-
+<!-- SELECT 관련 쿼리문 -->
+	
 	<!-- 해당 글의 댓글 모두 불러오기 -->
+	
 	<select id="selectComBybbsNo" resultType="BBSComment">
 	  select
 		a.BBS_NO,
@@ -44,16 +46,20 @@
 		and a.user_no = b.user_no
 		and a.com_show =0
 		order by com_date asc
-
 	</select>
 	
 <!-- 	댓글 특정하기 -->
-<select id="selectOneCom" resultType="BBSComment">
-	select * from bbs_comment
-	where bbs_no=#{bbsNo}
-	and com_no=#{comNo}
-</select>
+
+	<select id="selectOneCom" resultType="BBSComment">
+		select * from bbs_comment
+		where bbs_no=#{bbsNo}
+		and com_no=#{comNo}
+	</select>
+	
+<!-- UPDATE 관련 쿼리문 -->
+
 	<!-- 댓글 내용 수정 -->
+	
 	<update id="updateCom" parameterType="BBSComment">
 		update bbs_comment
 		set
@@ -63,6 +69,7 @@
 	</update>
 
 	<!-- 댓글 본인 삭제 -->
+	
 	<update id="updateComShowOneBbn" parameterType="Integer">
 		update bbs_comment
 		set
@@ -72,6 +79,7 @@
 	</update>
 
 	<!-- 댓글 관리자 삭제 -->
+	
 	<update id="updateComShowTwoBybbsNo">
 		update bbs_comment
 		set

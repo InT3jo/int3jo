@@ -67,11 +67,8 @@ public interface UsersMapper {
 	//Users테이블에서 userNo로 회원찾기 / 담당자: 배고운 
 	public Users selectByUserNoInUsersT(Integer userNo);
 	
-	//회원등급수정 / 담당자: 배고운 
+	//회원등급,상태 수정 / 담당자: 배고운 
 	public void updateUserGrade(@Param("userNo") Integer userNo, @Param("updateUser") Users users);
-
-	//회원블락처리 / 담당자 : 배고운
-	public void updateUserStatus(@Param("userNo")Integer userNo, @Param("updateUser")Users users);
 
 	
 	//회원 목록 + 페이징 + 검색 / 담당자: 배고운 

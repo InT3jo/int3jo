@@ -14,7 +14,13 @@ import project3.yakdo.repository.BBSCommentRepository;
 public class BBSCommentMybatisRepository implements BBSCommentRepository{
 	private final BBSCommentMapper bbsCommentMapper;
 	
-	//댓글 insert 
+	
+	/**
+	 * 댓글 작성 
+	 * @param BBSComment
+	 * @return BBSComment
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public BBSComment insertBBSCom(BBSComment bbsComment) {
 		// TODO Auto-generated method stub
@@ -22,7 +28,13 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 		return bbsComment;
 	}
 
-	//해당 글에 해당하는 댓글 목록 불러오기
+	
+	/**
+	 * bbsNo로 해당 글에 해당하는 댓글 목록 불러오기
+	 * @param Integer bbsNo
+	 * @return List<BBSComment>
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public List<BBSComment> selectComBybbsNo(Integer bbsNo) {
 		// TODO Auto-generated method stub
@@ -32,7 +44,12 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 		return commentListZero;
 	}
 
-	//댓글 수정
+	
+	/**
+	 * 댓글 수정 
+	 * @param int bbsNo, int comNo,BBSComment 
+	 *  담당자 : 배고운 
+	 */
 	@Override
 	public boolean updateCom(int bbsNo, int comNo,BBSComment bbsComment) {
 		// TODO Auto-generated method stub
@@ -41,21 +58,27 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 		return result;
 	}
 
-	//댓글 본인삭제 
+
+	/**
+	 * 댓글 본인삭제 
+	 * @param Integer bbsNo,Integer comNo
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public boolean updateComShowOneByBbsNo(Integer bbsNo, Integer comNo) {
 		// TODO Auto-generated method stub
 		boolean result = false;
-//		try {
 			bbsCommentMapper.updateComShowOneBbn(bbsNo, comNo);
-//			result = true;
-//		} catch(Exception e) {
-			
-//		}
+
 		return result;
 	}
 
-	//댓글 관리자 삭제 
+	
+	/**
+	 * 댓글 관리자 삭제 
+	 * @param Integer bbsNo,Integer comNo
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public boolean updateComShowTwoBybbsNo(Integer bbsNo,Integer comNo) {
 		// TODO Auto-generated method stub
@@ -65,7 +88,13 @@ public class BBSCommentMybatisRepository implements BBSCommentRepository{
 		return result;
 	}
 
-	//특정 댓글 불러오기 
+	 
+	/**
+	 * 게시글 댓글 리스트 중 comNo로 특정 댓글 select
+	 * @param int bbsNo, int comNo
+	 * @return BBSComment
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public BBSComment selectOneCom(int bbsNo, int comNo) {
 		// TODO Auto-generated method stub

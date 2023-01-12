@@ -49,7 +49,7 @@
 			<ul style="list-style: none">
 				<div th:unless="${pageMaker.cri.getPage()}<=${pageMaker.startPage}" style="display:inline-block;">
 					<li class="pageNumberItem">
-						<a th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.startPage-1)}|}">
+						<a th:href="@{|/admin/adminShowOneList${pageMaker.makeSearch(pageMaker.startPage)}|}">
 							첫페이지
 						</a>
 					</li>

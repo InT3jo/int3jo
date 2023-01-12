@@ -10,7 +10,7 @@ import project3.yakdo.domain.BBS.Criteria;
 import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
 
-@Mapper // Mybatis 와 인터페이스 함수 연결
+@Mapper
 public interface BBSMapper {
 	// 게시판 관련
 	public Integer insertBBS(BBS bbs); // 게시글 생성 Create
@@ -34,7 +34,7 @@ public interface BBSMapper {
 	public void updateShowZeroBybbsNo(int bbsNo); // 관리자 삭제 게시글 복구
 	
 	
-	//목록 + 페이징 + 검색 1번째 방법에 필요
+	//목록 + 페이징 + 검색 
 		public List<BBS> listSearch(SearchCriteria scri);
 		
 		//검색 결과 갯수
@@ -64,10 +64,10 @@ public interface BBSMapper {
 		public List<Reply> listRe();
 		
 		
-		//답변 상세보기 2 (테스트 중 되면 이걸로 변경할 예정 01-09-18:54)
+		//답변 상세보기 
 		public Reply replyView2(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo);
 		
-		//답변 수정 2
+		//답변 수정 
 		public boolean updateRe2(@Param("bbsNo") int bbsNo, @Param("reNo") int reNo, @Param("replyItem") Reply reply);
 		
 		//답변 삭제 
