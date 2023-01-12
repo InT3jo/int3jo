@@ -12,7 +12,7 @@
 	<div th:replace="home_component.html :: header"></div>
 	<div class="myPageContainor">
 		<div class="myPageTitle">
-			<span>마이페이지<br></span>
+			<strong><span class="nickameColor">마이페이지<br><br></span></strong>
 			<strong><span class="nickameColor" th:text="${user.userNick}"></span></strong>
 			<span>님, 환영합니다</span>
 		</div>
@@ -31,11 +31,10 @@
 		<div class="card">
 		  <div class="card-body">
 		    <h5 class="card-title">게시글 관리</h5>
-		    <h6 class="card-subtitle mb-2 text-muted">게시글 및 댓글 관리</h6>
-		    <p class="card-text">작성한 게시글과 댓글을<br>조회 및 수정, 삭제할 수 있습니다.</p>
+		    <h6 class="card-subtitle mb-2 text-muted">게시글 관리</h6>
+		    <p class="card-text">작성한 게시글을<br>조회 및 수정, 삭제할 수 있습니다.</p>
 		    <hr/>
-		    <span class="card-link cursor">게시글 관리</span>
-		    <span class="card-link cursor">댓글 관리</span>
+		    <span class="card-link cursor" th:name="${user.userNick}" onclick="searchBBS(this.getAttribute('name'))">게시글 관리</span>
 		  </div>
 		</div>
 		
@@ -49,19 +48,22 @@
 		  </div>
 		</div>
 		<div class="withrawBox">
-			<span class="withrawBtn cursor" onclick='Withdraw()'>회원 탈퇴</span>
+			<span class="withrawBtn cursor" onclick='withdraw()'>회원 탈퇴</span>
 		</div>
 	</div>
 	<div th:replace="home_component.html :: footer"></div>
 	
 	<script>
-		function Withdraw() {
+		function withdraw() {
 			var result = confirm('탈퇴 시 모든 정보 복구가 불가능 합니다. \n회원 탈퇴를 계속 진행하시겠습니까?');
 			if(result == true){
 				location.href='/help/withdraw';
 			} else {
 				alert('취소 되었습니다.');
 			}
+		}
+		function searchBBS(userNick){
+			location.href='/BBS/listSearch?page=1&perPageNum=10&searchType=writer&keyword='+userNick;
 		}
 	</script>
 </body>

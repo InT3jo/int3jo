@@ -231,8 +231,6 @@ public class MyPageController {
 		return "/users/myPage/newPassword";
 	}
 
-
-	
 	/**
 	 * 비밀번호 변경 창
 	 * 
