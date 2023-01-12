@@ -44,12 +44,12 @@ public interface UsersRepository {
 	//UsersInfo 테이블의 PK값을 제외하고 내용 변경 / 담당자 : 홍준표
 	public void updateUsersInfo(UsersInfo usersInfo);
 	
-
+/* 회원 관리 */
 	
 	//Users테이블에서 userNo로 회원찾기 / 담당자: 배고운 
 	public Users selectByUserNoInUsersT(Integer userNo);
 	
-	//회원등급,상태 수정 / 담당자: 배고운 
+	//Users테이블의 userGrade, userStatus 회원등급,상태 수정 / 담당자: 배고운 
 	public boolean updateUserGrade(@Param("userNo")Integer userNo, @Param("users")Users users);
 
 	

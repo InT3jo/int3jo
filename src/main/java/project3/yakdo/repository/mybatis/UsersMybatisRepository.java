@@ -183,6 +183,7 @@ public class UsersMybatisRepository implements UsersRepository{
 	/**
 	 * Users테이블에서 userNo로 회원찾기
 	 * @Param Integer userNo
+	 * @return Users
 	 * 담당자: 배고운 
 	 */
 	@Override
@@ -212,6 +213,7 @@ public class UsersMybatisRepository implements UsersRepository{
 	/**
 	 * 회원 목록 검색 
 	 * @Param SearchCriteria 
+	 * @return List<Users>
 	 * 담당자:배고운
 	 */
 	@Override
@@ -220,10 +222,11 @@ public class UsersMybatisRepository implements UsersRepository{
 		return usersMapper.searchUserList(scri);
 	}
 
-	//검색결과갯수 / 담당자:배고운
+	
 	/**
 	 * 회원 검색 결과 총 갯수 
 	 * @Param SearchCriteria 
+	 * @return int (count)
 	 * 담당자:배고운
 	 */
 	@Override

@@ -12,7 +12,7 @@ import project3.yakdo.domain.BBS.Criteria;
 import project3.yakdo.domain.BBS.Reply;
 import project3.yakdo.domain.BBS.SearchCriteria;
 import project3.yakdo.repository.BBSRepository;
-import project3.yakdo.validation.form.WriteBBSForm;
+
 
 @Slf4j
 @Repository
@@ -275,7 +275,12 @@ public class BBSMybatisRepository implements BBSRepository {
 	}
 
 
-	//답변 상세보기 2 
+	
+	/**
+	 * 답변 상세보기
+	 * @return Reply
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public Reply replyView2(int bbsNo, int reNo) {
 		// TODO Auto-generated method stub
@@ -283,7 +288,10 @@ public class BBSMybatisRepository implements BBSRepository {
 		return reply;
 	}
 
-	//답변 수정 2
+	/**
+	 * 답변 수정
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public boolean updateRe2(int bbsNo, int reNo, Reply reply) {
 		// TODO Auto-generated method stub
@@ -292,7 +300,10 @@ public class BBSMybatisRepository implements BBSRepository {
 		return result;
 	}
 
-	//답변 삭제 
+	/**
+	 * 답변 삭제 
+	 * 담당자 : 배고운 
+	 */
 	@Override
 	public boolean updateReShow1(int bbsNo, int reNo) {
 		// TODO Auto-generated method stub

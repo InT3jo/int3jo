@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project3.yakdo.repository.mybatis.BBSMapper">
 
+<!-- INSERT 관련 쿼리문 -->
+
 	<!-- 게시글 작성 -->
 	<insert id="insertBBS" parameterType="BBS">
 		<selectKey keyProperty="bbsNo"
@@ -29,11 +31,34 @@
 		0
 		)
 	</insert>
+	
+	<!-- 답글 테이블 insert -->
+	<insert id="insertReply" parameterType="Reply">
+		insert into reply
+		(
+		re_no,
+		bbs_no,
+		user_no,
+		re_title,
+		re_content,
+		re_date,
+		re_show
+		)
+		values(
+		(NVL(((select MAX(re_no) from reply where bbs_no=#{bbsNo})+1),1)),
+		#{bbsNo},
+		#{userNo},
+		#{reTitle},
+		#{reContent},
+		sysdate,
+		0
+		)
+	</insert>
 
-	<!-- 게시글 읽기 -->
+<!-- SELECT 관련 쿼리문 -->
+
+	<!-- 게시글 상세보기 -->
 	<select id="selectBybbsNo" resultType="BBS">
-		<!-- 게시글 클릭시 선택한 게시글 보여주기 -->
-		<!-- 게시글 보여줄때 user_no에 맞는 닉네임 찾아서 같이 출력되어야함 -->
 		select
 		b.BBS_no,
 		b.BBS_title,
@@ -47,6 +72,7 @@
 	</select>
 
 	<!-- 게시글 전체 목록 보기 -->
+	
 	<select id="selectByShowZero" resultType="BBS">
 		<!-- BBS_show 값이 0(게시) 1(본인삭제) 2(관리자삭제) 이기 때문에 0인것만 목록에 출력 -->
 		select
@@ -63,32 +89,9 @@
 		u.user_no = b.user_no
 		order by BBS_no desc
 	</select>
-
-
-	<!-- 게시글 수정 -->
-	<update id="updateBBS" parameterType="BBS">
-		update BBS
-		set
-		BBS_title=#{updateItem.bbsTitle},
-		BBS_content=#{updateItem.bbsContent}
-		where BBS_no=#{bbsNo}
-	</update>
-
-	<!-- 본인 삭제 / 게시글 전체 목록에서 숨기기 -->
-	<update id="updateShowOneBybbsNo">
-		update BBS
-		set BBS_show=1
-		where BBS_no=#{bbsNo}
-	</update>
-
-	<!-- 관리자 삭제 / 게시글 전체 목록에서 숨기기 -->
-	<update id="updateShowTwoBybbsNo">
-		update BBS
-		set BBS_show=2
-		where BBS_no=#{bbsNo}
-	</update>
-
+	
 	<!-- 회원이 삭제한 게시글 목록 -->
+	
 	<select id="selectByShowOne" resultType="BBS">
 		select
 		b.BBS_no,
@@ -102,10 +105,10 @@
 		where BBS_show=1 and b.user_no = u.user_no
 		order by
 		BBS_no desc
-
 	</select>
-
+	
 	<!-- 관리자가 삭제한 게시글 목록 불러오기 -->
+	
 	<select id="selectByShowTwo" resultType="BBS">
 		select
 		b.BBS_no,
@@ -120,19 +123,10 @@
 		order by
 		BBS_no desc
 	</select>
-
-	<!-- 관리자 삭제 게시글 복구 -->
-	<update id="updateShowZeroBybbsNo">
-		update BBS
-		set BBS_show=0
-		where BBS_no=#{bbsNo}
-	</update>
-
-
-
-<!-- 게시글 페이징+검색 -->
-<!-- 	최근 게시물 기준으로 내림차순으로 rNum(row_number)부여 -->
-<!-- 	그 후 전체 목록에서 rNum의 값이 1부터 10까지의 데이터 출력  -->
+	
+	<!-- 게시글 페이징+검색 -->
+	<!-- 	최근 게시물 기준으로 내림차순으로 rNum(row_number)부여 -->
+	<!-- 	그 후 전체 목록에서 rNum의 값이 1부터 10까지의 데이터 출력  -->
 	 
 	<select id="listSearch" resultType="BBS"
 		parameterType="SearchCriteria">
@@ -167,14 +161,12 @@
 		where rNum between #{rowStart} and #{rowEnd}
 		order by BBS_no desc
 	</select>
-
-
+	
 	<!-- 검색조건에 맞는 게시물 갯수 구하는 쿼리 -->
+	
 	<select id="countSearch" resultType="int">
-
 		select count(b.bbs_no)
 		from bbs b, users u
-		
 		<where>
 		BBS_show=0
 			<if test="searchType == 'title'">
@@ -190,9 +182,8 @@
 			 and b.user_no=u.user_no      
 		</where>
 	</select>
-
-
-	<!-- 본인 삭제 글 리스트 페이징 -->
+	
+		<!-- 본인 삭제 글 리스트 페이징 -->
 	<select id="adminShowOnelist" resultType="BBS"
 		parameterType="SearchCriteria">
 		select BBS_no, user_no,
@@ -221,7 +212,6 @@
 			<if test="searchType == 'writer'">
 				AND u.USER_NICK like '%' || #{keyword} || '%'
 			</if>
-			
 		</where>
 		) b
 		where rNum between #{rowStart} and #{rowEnd}
@@ -231,7 +221,6 @@
 
 	<!-- 본인 삭제 글 검색 결과 갯수 -->
 	<select id="countSearchShowOne" resultType="int">
-
 		select count(b.bbs_no)
 		from bbs b, users u
 		<where>
@@ -306,31 +295,7 @@
 			 and b.user_no=u.user_no
 		</where>
 	</select>
-
-
-	<!-- 답글 테이블 insert -->
-	<insert id="insertReply" parameterType="Reply">
-		insert into reply
-		(
-		re_no,
-		bbs_no,
-		user_no,
-		re_title,
-		re_content,
-		re_date,
-		re_show
-		)
-		values(
-		(NVL(((select MAX(re_no) from reply where bbs_no=#{bbsNo})+1),1)),
-		#{bbsNo},
-		#{userNo},
-		#{reTitle},
-		#{reContent},
-		sysdate,
-		0
-		)
-	</insert>
-
+	
 	<!-- 글번호 bbs_no에 해당하는 답글 불러오기 -->
 	<select id="listReBybbsNo" resultType="Reply">
 		select * from reply
@@ -359,9 +324,8 @@
 	</select>
 
 
-
+	<!-- 답변 상세보기 -->
 	
-<!-- 	replyView2  -->
 	<select id="replyView2" resultType="Reply" >
 		select
 		b.re_no,
@@ -380,7 +344,43 @@
 		order by re_no asc
 	</select>
 
-<!-- 답변 수정  -->
+<!-- UPDATE 관련 쿼리문 -->
+
+	<!-- 게시글 수정 -->
+	
+	<update id="updateBBS" parameterType="BBS">
+		update BBS
+		set
+		BBS_title=#{updateItem.bbsTitle},
+		BBS_content=#{updateItem.bbsContent}
+		where BBS_no=#{bbsNo}
+	</update>
+
+	<!-- 본인 삭제 -->
+	
+	<update id="updateShowOneBybbsNo">
+		update BBS
+		set BBS_show=1
+		where BBS_no=#{bbsNo}
+	</update>
+
+	<!-- 관리자 삭제 -->
+	
+	<update id="updateShowTwoBybbsNo">
+		update BBS
+		set BBS_show=2
+		where BBS_no=#{bbsNo}
+	</update>
+
+	<!-- 관리자 삭제 게시글 복구 -->
+	
+	<update id="updateShowZeroBybbsNo">
+		update BBS
+		set BBS_show=0
+		where BBS_no=#{bbsNo}
+	</update>
+
+	<!-- 답변 수정  -->
 	
 	<update id="updateRe2" parameterType="Reply">
 		update Reply
@@ -390,7 +390,7 @@
 		and re_no=#{reNo}
 	</update>
 	
-<!-- 	답변 삭제 -->
+	<!-- 	답변 삭제 -->
 	<update id="updateReShow1" parameterType="Reply">
 		update Reply
 		set
@@ -398,8 +398,5 @@
 		where BBS_no=#{bbsNo} 
 		and re_no=#{reNo}
 	</update>
-
-
-	
 
 </mapper>
