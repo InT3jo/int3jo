@@ -33,6 +33,15 @@ public class UsersValidator{
 			model.addAttribute("errorMsg", "비밀번호 앞뒤로 공백이 들어갈 수 없습니다");
 			return false;
 		}
+		// 비밀번호 글자수 확인
+		if(newPw.length() < 8) {
+			model.addAttribute("errorMsg", "비밀번호 설정 가능한 최소 글자수는 8글자 입니다");
+			return false;
+		}
+		if(newPw.length() > 128) {
+			model.addAttribute("errorMsg", "비밀번호 설정 가능한 최대 글자수는 128글자 입니다");
+			return false;
+		}
 		// 새 비밀번호, 새 비밀번호 같은지 비교
 		if(!newPw.equals(newPwConfirm)) {
 			model.addAttribute("errorMsg", "비밀번호가 일치하지 않습니다");
@@ -44,7 +53,7 @@ public class UsersValidator{
 			return false;
 		}
 		// 비밀번호 포맷 확인 (영어 대소문자, 숫자 포함 8자 이상)
-		Pattern pwFormat = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$");
+		Pattern pwFormat = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,128}$");
 		Matcher psFmMatcher = pwFormat.matcher(newPw);
 		if(psFmMatcher.find() == false) {
 			model.addAttribute("errorMsg", "안전하지 않은 비밀번호입니다");
