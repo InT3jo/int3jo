@@ -18,7 +18,8 @@ function updateBBSOk(bbsNo) {
 		}
 		
 		if (document.getElementById("bbsContent").value == "") {
-			return false;
+			alert("내용을 입력하세요.");
+			return;
 		}
 		
 		document.getElementById("updatebbs").submit();

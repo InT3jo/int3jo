@@ -15,6 +15,7 @@ function updateComOk(bbsNo,comNo) {
 
 		if (document.getElementById("comContent").value == "") {
 			alert("내용을 입력하세요.");
+			return;
 		}
 		
 		location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo ;
@@ -47,7 +48,7 @@ function back(bbsNo){
 		<div id="writeBtn">
 		 <button id="headerSearchBtn"  th:name="${bbsComment.bbsNo}"
 									th:src="${bbsComment.comNo}"
-									th:onclick="updateComOk(this.getAttribute('name'),this.getAttribute('src'))">수정완료</button>
+									th:onclick="updateComOk(this.getAttribute('name'),this.getAttribute('src'))" type="button">수정완료</button>
 		
 		 </div>
 		
