@@ -84,7 +84,7 @@ public class UsersValidator{
 			return false;
 		}
 		if(userNick.equals(user.getUserNick())) {
-			model.addAttribute("errorMsg", "현재 사용 중인 이메일 입니다");
+			model.addAttribute("errorMsg", "동일한 닉네임으로 변경할 수 없습니다");
 			return false;
 		}
 		return true;
@@ -92,7 +92,7 @@ public class UsersValidator{
 	
 	public boolean isSameNick(Model model, String userNick, String sameUserNick) {
 		if(userNick.equals(sameUserNick)) {
-			model.addAttribute("errorMsg", "다른 회원과 중복되는 닉네임입니다");
+			model.addAttribute("errorMsg", "다른 회원이 사용중인 닉네임입니다");
 			return false;
 		}
 		return true;

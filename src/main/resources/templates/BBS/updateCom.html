@@ -15,9 +15,9 @@
 					alert("내용을 입력하세요.");
 					return;
 				}
-				location.href = "/BBS/updateCom/" + bbsNo + "/" + comNo;
+				document.querySelector('updateCom').submit();
 			} else {
-				alert("수정이 취소되었습니다.")
+				alert("수정이 취소되었습니다.");
 			}
 		}
 
@@ -33,7 +33,7 @@
 				<button id="headerSearchBtn" th:name="${bbsComment.bbsNo}"
 					th:onclick="back(this.getAttribute('name'))">뒤로가기</button>
 			</div>
-			<form action="" method="post" th:object="${bbsComment}">
+			<form id="updateCom" action="" method="post" th:object="${bbsComment}">
 				<div>
 					<br> <label>작성자<input class="InputNick" type="text"
 						name="userNick" readonly="readonly" th:value="${user.userNick}"></label>
