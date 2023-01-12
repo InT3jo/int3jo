@@ -19,7 +19,8 @@
 			<form action="/signUp" method="post" th:object="${signUpForm}" onkeydown="return event.key != 'Enter';">
 				<div class="signUpInputBox">
 					<label class="signUpLabel" for="userEmail">이메일</label>
-					<input class= "signUpInput" type="email" name="userEmail" id="userEmail" th:field="*{userEmail}" disabled />
+					<input class= "signUpInput" type="email" th:value="${signUpForm.userEmail}" disabled />
+					<input type="hidden" name="userEmail" id="userEmail" th:field="*{userEmail}" >
 				</div>
 				<div class="signUpInputBox">
 					<label class="signUpLabel" for="userPw">비밀번호</label>
