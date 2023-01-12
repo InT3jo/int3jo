@@ -172,7 +172,7 @@ public class MyPageController {
 								, @RequestParam("code") String code){
 		model.addAttribute("userEmail", userEmail);
 		if(findEmailConfirm.trim().equals("")) {
-			model.addAttribute("errorMsg", "메일 코드를 입력해 주세요");
+			model.addAttribute("errorMsg", "메일 코드가 잘못되었습니다. 다시 시도해 주세요");
 			return "/users/myPage/confirmEmail";
 		}
 		if(code.equals(String.valueOf((((Integer.parseInt(findEmailConfirm)*2)+2)*2)+2))) {
@@ -182,7 +182,7 @@ public class MyPageController {
 			model.addAttribute("drugsNameFormList", findDrugService.getDrugsNameFormList());
 			return "/users/myPage/newPassword";
 		}else {
-			model.addAttribute("error","인증번호를 다시 한번 확인해 주세요");
+			model.addAttribute("errorMsg", "메일 코드가 잘못되었습니다. 다시 시도해 주세요");
 			return "/users/myPage/confirmEmail";
 		}
 	}

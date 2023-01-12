@@ -24,22 +24,11 @@ public class UsersService {
 	private final UsersRepository usersRepository;
 	private final UsersValidator usersValidator;
 	/**
-	 * 입력받은 userNick과 기존 loginUser의 userNick이 같은지 확인
-	 * 같으면 닉네임 수정 된 loginUser return
-	 * 아니면 기존 loginUser return
+	 * 닉네임 업데이트 서비스
 	 * @param userNick
 	 * @return Users loginUser
 	 */
 	public Users checkModifyNick(String userNick, Users loginUser) {
-		/**
-		 * 입력 받은 닉네임이 비어 있을 때
-		 * 닉네임을 입력해 주세요 를 띄워야하고
-		 * 
-		 * 기존 닉네임과 새로 입력받은 닉네임이 같고
-		 * 업데이트가 실패했을 때
-		 * 사용 중인 닉네임입니다 띄우는 validation 만들어야함
-		 */
-//		usersValidator
 		Integer validateResult = usersRepository.updateUserNickByUserNo(userNick, loginUser.getUserNo());
 		//업데이트 성공 했을 시 loginUser의 닉네임 변경
 		if(validateResult == 1) {
@@ -53,27 +42,18 @@ public class UsersService {
 	}
 
 	/**
-	 * 기존 비밀 번호가 올바르게 입력 되었는지 확인 후
+	 * 비밀번호 확인 후 변경
+	 * @param loginUser
+	 * @return 
 	 * 새 비밀번호로 변경 => 로그인 화면으로 넘어가야하기에 user를 null로 반환
 	 * 비밀번호 변경에 실패했을 시 => 기존 user 반환
-	 * @param passwordForm
-	 * @param loginUser
-	 * @return
 	 */
 	public Users checkModifyPw(PasswordForm passwordForm, Users loginUser) {
-		/**
-		 * 기존 비밀번호 맞는지 확인
-		 * 새 비밀번호, 비밀번호 확인 맞는지 확인
-		 * 셋 다 확인 하고 하나라도 맞지 않을 시
-		 * 다시 한 번 확인해주세요 띄우기
-		 * 조건 안 걸어서 무조건 null로 반환된다
-		 */
 		//업데이트 성공 했을 시 loginUser의 비밀번호 변경 후 로그인 하기 위해 null로 반환
 		if(usersRepository.updateUserPwByUserNo(passwordForm.getUserPwNew(), loginUser.getUserNo()) == 1) {
 			loginUser.setUserPw(passwordForm.getUserPwNew());
 			return null;
 		}
-		
 		//비밀번호 수정 안 됐으면 기존 loginUser return
 		return loginUser;
 	}
@@ -96,10 +76,8 @@ public class UsersService {
 	 */
 	public Integer searchUserStatus(Model model, String userEmail) {
 		List<Users> userList = usersRepository.selectUserAllByUserEmail(userEmail);
-		log.info("userList---------------------- {}", userList);
 		Integer result = 0;
 		if(userList.isEmpty()) {
-			log.info("?????????????????????????????????");
 			return null;
 		}
 		for(Users user : userList) {
@@ -227,7 +205,7 @@ public class UsersService {
 	 * @param userEmail
 	 * @param newPw
 	 * @param newPwConfirm
-	 * @return true : 유효성 검사 통과
+	 * @return true : 유효성 검사 및 필터링 통과
 	 */
 	public boolean passwordValidate(Model model, String userEmail, String newPw, String newPwConfirm) {
 		return usersValidator.passwordValidate(model, userEmail, newPw, newPwConfirm);
@@ -239,7 +217,7 @@ public class UsersService {
 	 * @param model
 	 * @param userNick
 	 * @param user
-	 * @return true : 유효성 검사 통과
+	 * @return true : 유효성 검사 및 필터링 통과
 	 */
 	public boolean modifyNickValidate(Model model, String userNick, Users user) {
 		boolean result = usersValidator.modifyNickValidate(model, userNick, user);

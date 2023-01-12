@@ -95,8 +95,10 @@ public class LoginService {
 	}
 	
 	/**
-	 * 
+	 * 로그아웃이 실행되는 메소드
 	 * @param req
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	public void logoutService(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);

@@ -146,6 +146,7 @@ public class UsersMybatisRepository implements UsersRepository{
 	/**
 	 * userNo 기준으로 users 테이블의 users_status를 1(탈퇴)로 변경
 	 * users_info, users_info_using_drugs, users_info_allergy 테이블에서 데이터 삭제
+	 * 담당자 : 빙예은
 	 */
 	@Override
 	public void updateUserStatusLeaveByUserNo(Integer userNo) {
@@ -159,6 +160,7 @@ public class UsersMybatisRepository implements UsersRepository{
 
 	/**
 	 * UserEmail에 맞는 회원 전체 찾기
+	 * 담당자 : 빙예은
 	 */
 	@Override
 	public List<Users> selectUserAllByUserEmail(String userEmail) {
@@ -238,6 +240,8 @@ public class UsersMybatisRepository implements UsersRepository{
 	 * Users 테이블에서 userNick 가져오기
 	 * @param String userNick
 	 * @return db가 없을 경우 null, 있을 경우 users테이블의 userNick
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@Override
 	public String selectUserNickByUserStatusAndUsesrNick(String userNick) {

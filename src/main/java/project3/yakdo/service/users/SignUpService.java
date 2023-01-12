@@ -83,6 +83,8 @@ public class SignUpService {
 	 * 회원 가입 실행
 	 * @param signUpForm
 	 * @param usersInfoList
+	 * 
+	 * 담당자 : 빙예은
 	 */
 	@Transactional
 	public void signUpUsersAndUsersInfo(SignUpForm signUpForm, List<UsersInfo> usersInfoList) {

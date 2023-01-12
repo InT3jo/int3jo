@@ -24,16 +24,21 @@
 		<div class="d-CSS findForm">
 			<form action="/help/confirmEmail" method="post">
 				<div class="findEmailBox">
-					<input th:if="${userEmail} == null and ${errorMsg} == null" type="email" id="findEmail" name="userEmail" placeholder="이메일" required autofocus/>
-					<input th:if="${userEmail} == null and ${errorMsg} != null" type="email" id="findEmail" name="userEmail" placeholder="이메일" required autofocus/>
-					<input th:if="${userEmail} != null and ${errorMsg} == null" type="email" id="findEmail" name="userEmail" th:placeholder="${userEmail}" readonly/>
-					<input th:if="${userEmail} != null and ${errorMsg} != null" type="email" id="findEmail" name="userEmail" th:placeholder="${userEmail}" readonly/>
-					<button th:if="${userEmail} == null and ${errorMsg} == null" type="submit" class="findPwButton">코드 전송</button>
-					<button th:if="${userEmail} == null and ${errorMsg} != null" type="submit" class="findPwButton">코드 전송</button>
+					<th:block th:if="${userEmail} == null">
+						<input th:if="${errorMsg} == null" type="email" id="findEmail" name="userEmail" placeholder="이메일" required autofocus/>
+						<input th:if="${errorMsg} != null" type="email" id="findEmail" name="userEmail" placeholder="이메일" required autofocus/>
+						<button th:if="${errorMsg} == null" type="submit" class="findPwButton">코드 전송</button>
+						<button th:if="${errorMsg} != null" type="submit" class="findPwButton">코드 전송</button>
+					</th:block>
+					<th:block th:if="${userEmail} != null">
+						<input th:if="${errorMsg} != null" type="email" id="findEmail" name="userEmail" th:placeholder="이메일" required autofocus/>
+						<input th:if="${errorMsg} == null" type="email" id="findEmail" name="userEmail" th:placeholder="${userEmail}" readonly/>
+						<button th:if="${errorMsg} != null" type="submit" class="findPwButton">코드 전송</button>
+					</th:block>
 				</div>
 			</form>
 			<form action="/help/checkSecurityCode" method="post">
-				<div th:if="${userEmail} != null" class="findEmailBox">
+				<div th:if="${userEmail} != null and ${code} != null" class="findEmailBox">
 					<input type="hidden" name="userEmail" th:value="${userEmail}" />
 					<input type="text" id="findEmailConfirm" name="findEmailConfirm" placeholder="이메일 보안코드 확인" autofocus />
 					<button type="submit" class="findPwButton">코드 확인</button>
